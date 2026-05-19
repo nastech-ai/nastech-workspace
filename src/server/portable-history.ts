@@ -3,15 +3,20 @@ export type PortableHistoryMessage = {
   content: string
 }
 
-export function shouldReplayPortableHistory(_options?: {
+export function shouldReplayPortableHistory(options?: {
   localBaseUrl?: string
   bearerToken?: string
 }): boolean {
-  // Portable mode ultimately targets a stateless chat-completions endpoint.
-  // Even when the workspace authenticates to a gateway with a bearer token,
-  // the backend does not rehydrate prior turns server-side, so the workspace
-  // must replay the local transcript on every request.
-  return true
+  const localBaseUrl = options?.localBaseUrl?.trim() || ''
+  // Direct local-provider / custom-base-url requests remain stateless from the
+  // workspace perspective, so replay the transcript there.
+  if (localBaseUrl) return true
+
+  // When portable chat targets the Hermes gateway, Workspace now forwards a
+  // stable X-Hermes-Session-Id / X-Claude-Session-Id for server-side session
+  // continuity. Replaying the full transcript on every turn would duplicate
+  // prompt context and can explode token usage.
+  return false
 }
 
 export function selectPortableConversationHistory(
