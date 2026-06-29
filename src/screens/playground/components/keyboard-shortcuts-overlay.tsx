@@ -61,7 +61,7 @@ export function KeyboardShortcutsOverlay() {
       >
         <div className="mb-4 flex items-center justify-between gap-3">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-amber-200/70">HermesWorld</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-amber-200/70">NasTechWorld</div>
             <h2 className="text-xl font-black text-[#F1C56D]">Keyboard Shortcuts</h2>
           </div>
           <button

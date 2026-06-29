@@ -13,7 +13,7 @@ describe('Swarm2 Kanban backend presentation', () => {
   it('presents detected Kanban as the default shared board, not a backend demo', () => {
     expect(getKanbanBackendPresentation({
       id: 'claude',
-      label: 'Hermes Kanban',
+      label: 'NasTech Kanban',
       detected: true,
       writable: true,
       details: 'Canonical storage detected',
@@ -43,32 +43,32 @@ describe('Swarm2 Kanban backend presentation', () => {
     })
   })
 
-  it('does not deep-link remote users to a loopback Hermes Dashboard URL', () => {
+  it('does not deep-link remote users to a loopback NasTech Dashboard URL', () => {
     expect(getKanbanBackendPresentation({
-      id: 'hermes-proxy',
-      label: 'Hermes Dashboard kanban',
+      id: 'nastech-proxy',
+      label: 'NasTech Dashboard kanban',
       detected: true,
       writable: true,
       details: 'Synced through Workspace proxy',
       path: 'http://127.0.0.1:9119',
     })).toMatchObject({
-      badgeLabel: 'Synced • Hermes',
-      badgeTone: 'hermes-proxy',
+      badgeLabel: 'Synced • NasTech',
+      badgeTone: 'nastech-proxy',
       dashboardUrl: undefined,
     })
   })
 
-  it('deep-links to Hermes Dashboard only when the configured URL is remotely reachable', () => {
+  it('deep-links to NasTech Dashboard only when the configured URL is remotely reachable', () => {
     expect(getKanbanBackendPresentation({
-      id: 'hermes-proxy',
-      label: 'Hermes Dashboard kanban',
+      id: 'nastech-proxy',
+      label: 'NasTech Dashboard kanban',
       detected: true,
       writable: true,
       details: 'Synced through Workspace proxy',
       path: 'http://100.113.68.47:9119',
     })).toMatchObject({
-      badgeLabel: 'Synced • Hermes',
-      badgeTone: 'hermes-proxy',
+      badgeLabel: 'Synced • NasTech',
+      badgeTone: 'nastech-proxy',
       dashboardUrl: 'http://100.113.68.47:9119/kanban',
     })
   })

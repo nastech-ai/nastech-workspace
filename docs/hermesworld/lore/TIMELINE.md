@@ -1,6 +1,6 @@
 # Timeline
 
-HermesWorld time is organized by seasons. Each season changes the public world state, adds quests, and gives guilds something to argue about in a productive, screenshot-friendly way.
+NasTechWorld time is organized by seasons. Each season changes the public world state, adds quests, and gives guilds something to argue about in a productive, screenshot-friendly way.
 
 See also: [World Lore](WORLD-LORE.md), [World Events](../walkthroughs/WORLD-EVENTS.md), [Founders](../guides/FOUNDERS.md).
 

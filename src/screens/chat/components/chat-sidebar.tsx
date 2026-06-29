@@ -952,14 +952,14 @@ function ChatSidebarComponent({
               >
                 <img
                   src="/claude-avatar.webp"
-                  alt="Hermes Agent"
+                  alt="NasTech Agent"
                   className="size-6 rounded-lg"
                 />
                 <span
                   className="text-sm font-semibold tracking-tight"
                   style={{ color: 'var(--theme-text)' }}
                 >
-                  Hermes Workspace
+                  NasTech Workspace
                 </span>
               </Link>
             </motion.div>
@@ -1046,10 +1046,10 @@ function ChatSidebarComponent({
         </div>
       )}
 
-      {/* ── HermesWorld featured link (gold castle, NEW badge) ────── */}
-      {/* Hide when VITE_HERMESWORLD_ENABLED is explicitly '0' */}
+      {/* ── NasTechWorld featured link (gold castle, NEW badge) ────── */}
+      {/* Hide when VITE_NASTECHWORLD_ENABLED is explicitly '0' */}
       {!isVisuallyCollapsed &&
-        (import.meta as any).env?.VITE_HERMESWORLD_ENABLED !== '0' && (
+        (import.meta as any).env?.VITE_NASTECHWORLD_ENABLED !== '0' && (
         <div className="px-2 pb-2">
           <Link
             to="/playground"
@@ -1060,7 +1060,7 @@ function ChatSidebarComponent({
               isPlaygroundActive &&
                 'bg-accent-500/10 text-accent-500 hover:bg-accent-50 dark:hover:bg-accent-900/300/15',
             )}
-            data-tour="hermesworld"
+            data-tour="nastechworld"
           >
             <HugeiconsIcon
               icon={Castle02Icon}
@@ -1069,7 +1069,7 @@ function ChatSidebarComponent({
               className="size-5 shrink-0"
               style={{ color: '#facc15' }}
             />
-            <span>HermesWorld</span>
+            <span>NasTechWorld</span>
             <span
               className="ml-auto inline-flex min-w-6 items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold leading-none"
               style={{

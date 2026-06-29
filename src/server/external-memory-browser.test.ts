@@ -46,16 +46,16 @@ con.close()
 
 beforeEach(() => {
   tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'workspace-external-memory-'))
-  process.env.HERMES_HOME = tempRoot
+  process.env.NASTECH_HOME = tempRoot
 })
 
 afterEach(() => {
-  delete process.env.HERMES_HOME
+  delete process.env.NASTECH_HOME
   fs.rmSync(tempRoot, { recursive: true, force: true })
 })
 
 describe('external-memory-browser', () => {
-  it('discovers registered external memory providers from HERMES_HOME', async () => {
+  it('discovers registered external memory providers from NASTECH_HOME', async () => {
     makeProviderConfig()
     const mod = await import('./external-memory-browser')
 

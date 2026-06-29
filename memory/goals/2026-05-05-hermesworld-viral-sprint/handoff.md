@@ -1,36 +1,36 @@
-# HermesWorld Viral Sprint Handoff
+# NasTechWorld Viral Sprint Handoff
 
 Date: 2026-05-05 14:22 EDT
 Owner: Eric / Aurora
-Repo: `/Users/aurora/hermes-workspace`
+Repo: `/Users/aurora/nastech-workspace`
 Status: local-only, uncommitted, handoff for next Opus session
 
 ## What landed this session
 
-### 1. HermesWorld landing was rebuilt into a standalone public surface
+### 1. NasTechWorld landing was rebuilt into a standalone public surface
 Routes in repo:
-- `/hermes-world`
+- `/nastech-world`
 - `/world`
 
 Key file:
-- `src/screens/playground/hermes-world-landing.tsx`
+- `src/screens/playground/nastech-world-landing.tsx`
 
 Landing now has:
 - world-first public launch structure
 - hero, capability strip, launch-drop section, zones, agents, sigils, final CTA, footer
 - GitHub / roadmap / feature-list links instead of local-only `/playground` public CTAs
-- stronger HermesWorld-specific copy
+- stronger NasTechWorld-specific copy
 - launch-day messaging like:
-  - “Dropping HermesWorld today.”
+  - “Dropping NasTechWorld today.”
   - landing page / roadmap / feature list / graphics sprint
 
-### 2. HermesWorld landing now bypasses workspace chrome
+### 2. NasTechWorld landing now bypasses workspace chrome
 The biggest source of confusion was root/app-shell leakage.
 
 Fixed or partially fixed:
-- `/hermes-world` and `/world` now bypass the **WorkspaceShell** and scroll like normal pages
+- `/nastech-world` and `/world` now bypass the **WorkspaceShell** and scroll like normal pages
 - local-only workspace chrome removed from the landing route
-- app splash skipped on HermesWorld landing routes
+- app splash skipped on NasTechWorld landing routes
 - route is intended to be document-scrollable, not app-pane scrollable
 
 Touched:
@@ -50,7 +50,7 @@ Important note:
 - Some of these were gated only for landing routes.
 - Later, game surfaces like `/playground` also needed special treatment.
 
-### 4. Bottom-right usage/session pill leak on HermesWorld/game surfaces was addressed
+### 4. Bottom-right usage/session pill leak on NasTechWorld/game surfaces was addressed
 This `SESSION | IN | OUT | CTX | COST` widget was another workspace overlay leak.
 
 Action taken:
@@ -75,7 +75,7 @@ The intended fix was:
 - shift HUD/chat/chips to `320px` left offset when sidebar is open
 - keep `min(120px, 9vw)` behavior when collapsed
 
-### 6. HermesWorld landing hero was shifted back toward the old glowing-orb vibe
+### 6. NasTechWorld landing hero was shifted back toward the old glowing-orb vibe
 Eric preferred the older orb-based entry/startup vibe over the framed screenshot-heavy top fold.
 
 Action taken:
@@ -83,16 +83,16 @@ Action taken:
 - kept new landing structure/copy, but moved the visual style back toward orb glow / portal / startup energy
 
 Touched:
-- `src/screens/playground/hermes-world-landing.tsx`
+- `src/screens/playground/nastech-world-landing.tsx`
 - `src/screens/playground/components/playground-hero-canvas.tsx` (used, not necessarily modified)
 
-### 7. HermesWorld copy cleanup
+### 7. NasTechWorld copy cleanup
 Removed more workspace-local carryover text from the landing.
 
 Examples changed:
-- `Hermes Workspace Experiment // Persistent Agent World`
-  → `HermesWorld Preview // Persistent Agent World`
-- `Hermes Workspace Connected`
+- `NasTech Workspace Experiment // Persistent Agent World`
+  → `NasTechWorld Preview // Persistent Agent World`
+- `NasTech Workspace Connected`
   → `Live World Build`
 
 ### 8. Local preview/dev process debugging happened repeatedly
@@ -114,19 +114,19 @@ Added:
 - `src/screens/playground/components/playground-glb-body.tsx`
 - `src/screens/playground/components/playground-player-glb.tsx`
 - rewrote/normalized `src/screens/playground/components/playground-npc-glb.tsx`
-- `public/assets/hermesworld/characters/README.md`
+- `public/assets/nastechworld/characters/README.md`
 
 What this means:
 - canonical asset path now exists for believable humanoid GLBs
 - canonical path:
-  - `/public/assets/hermesworld/characters/<id>.glb`
+  - `/public/assets/nastechworld/characters/<id>.glb`
 - legacy `/avatars-3d/<id>.glb` remains as fallback
 
 ### 10. Execution docs/specs were created
 Created / updated:
-- `docs/hermesworld/landing-page-spec.md`
-- `docs/hermesworld/graphics-usability-plan.md`
-- `docs/hermesworld/agora-believable-checklist.md`
+- `docs/nastechworld/landing-page-spec.md`
+- `docs/nastechworld/graphics-usability-plan.md`
+- `docs/nastechworld/agora-believable-checklist.md`
 
 These docs now encode the session’s design/implementation direction.
 
@@ -134,23 +134,23 @@ These docs now encode the session’s design/implementation direction.
 
 This session did **four big things**:
 
-1. **Turned HermesWorld landing into a real standalone launch page** instead of a workspace-fragment/app-pane.
-2. **Removed or traced most of the workspace chrome leaks** that kept showing up in HermesWorld surfaces.
+1. **Turned NasTechWorld landing into a real standalone launch page** instead of a workspace-fragment/app-pane.
+2. **Removed or traced most of the workspace chrome leaks** that kept showing up in NasTechWorld surfaces.
 3. **Stabilized the local direction** around world-first marketing, GitHub/public links, and the glowing-orb entry vibe.
 4. **Started the real graphics/character pipeline** so the next session can move from planning into visible world upgrades.
 
 ## What still needs to be tackled for the redesign
 
-### A. Final HermesWorld landing cleanup
+### A. Final NasTechWorld landing cleanup
 Still verify/fix:
-- no remaining root overlay leaks on `/hermes-world` or `/playground`
-- no bottom-right usage/session pill anywhere on HermesWorld/game surfaces
-- no mobile-access prompt / other workspace popups on HermesWorld routes
+- no remaining root overlay leaks on `/nastech-world` or `/playground`
+- no bottom-right usage/session pill anywhere on NasTechWorld/game surfaces
+- no mobile-access prompt / other workspace popups on NasTechWorld routes
 - no sidebar overlap edge cases on `/playground`
 
 ### B. Re-verify local previews cleanly
 Need a fresh sanity pass on:
-- `http://127.0.0.1:3002/hermes-world`
+- `http://127.0.0.1:3002/nastech-world`
 - `http://127.0.0.1:3002/playground`
 - optional `3003` behavior if still used as redirect/entry
 
@@ -213,7 +213,7 @@ Refactor `playground-world-3d.tsx` to mount the new character boundaries into Ag
 ## Files most likely to touch next
 
 Landing / route chrome:
-- `src/screens/playground/hermes-world-landing.tsx`
+- `src/screens/playground/nastech-world-landing.tsx`
 - `src/components/workspace-shell.tsx`
 - `src/routes/__root.tsx`
 
@@ -230,12 +230,12 @@ Character pipeline:
 - `src/screens/playground/components/playground-glb-body.tsx`
 - `src/screens/playground/components/playground-player-glb.tsx`
 - `src/screens/playground/components/playground-npc-glb.tsx`
-- `public/assets/hermesworld/characters/*`
+- `public/assets/nastechworld/characters/*`
 
 Planning docs:
-- `docs/hermesworld/landing-page-spec.md`
-- `docs/hermesworld/graphics-usability-plan.md`
-- `docs/hermesworld/agora-believable-checklist.md`
+- `docs/nastechworld/landing-page-spec.md`
+- `docs/nastechworld/graphics-usability-plan.md`
+- `docs/nastechworld/agora-believable-checklist.md`
 
 ## Local-state warning
 This is still **local-only** and likely **uncommitted**.
@@ -243,4 +243,4 @@ There are multiple in-progress modifications in the repo. Do not assume a clean 
 
 ## One-line resume prompt
 
-Resume the HermesWorld redesign from the current local-only state. First verify the landing/game surfaces are free of workspace overlay leaks, then continue the **Agora Believable** pass by wiring the new character pipeline into `playground-world-3d.tsx` and replacing placeholder figures with the first believable humanoid boundaries.
+Resume the NasTechWorld redesign from the current local-only state. First verify the landing/game surfaces are free of workspace overlay leaks, then continue the **Agora Believable** pass by wiring the new character pipeline into `playground-world-3d.tsx` and replacing placeholder figures with the first believable humanoid boundaries.

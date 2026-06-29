@@ -6,7 +6,7 @@ import {
 } from '@/server/name-reservations'
 import { safeErrorMessage } from '@/server/rate-limit'
 
-export const Route = createFileRoute('/api/hermesworld/reservations/confirm')({
+export const Route = createFileRoute('/api/nastechworld/reservations/confirm')({
   server: {
     handlers: {
       POST: async ({ request }) => {

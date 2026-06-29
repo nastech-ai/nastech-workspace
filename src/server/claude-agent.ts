@@ -20,12 +20,12 @@ export type StartClaudeAgentResult =
     }
 
 /**
- * Read ~/.hermes/.env and return key=value pairs as an object.
+ * Read ~/.nastech/.env and return key=value pairs as an object.
  * Silently returns {} if the file doesn't exist or can't be parsed.
  */
 function readClaudeEnv(): Record<string, string> {
   const envPath = join(
-    process.env.HERMES_HOME ?? process.env.CLAUDE_HOME ?? join(homedir(), '.hermes'),
+    process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME ?? join(homedir(), '.nastech'),
     '.env',
   )
   try {
@@ -58,17 +58,17 @@ export function resolveClaudeAgentDir(
 ): string | null {
   const candidates: Array<string> = []
 
-  const explicitAgentPath = env.HERMES_AGENT_PATH?.trim() || env.CLAUDE_AGENT_PATH?.trim()
+  const explicitAgentPath = env.NASTECH_AGENT_PATH?.trim() || env.CLAUDE_AGENT_PATH?.trim()
   if (explicitAgentPath) {
     candidates.push(explicitAgentPath)
   }
 
   const workspaceRoot = dirname(resolve('.'))
   candidates.push(
-    resolve(workspaceRoot, 'hermes-agent'),          // sibling (old README)
-    resolve(workspaceRoot, '..', 'hermes-agent'),    // one level up
-    resolve(homedir(), '.hermes', 'hermes-agent'),   // Nous installer default
-    resolve(homedir(), 'hermes-agent'),              // ~/hermes-agent
+    resolve(workspaceRoot, 'nastech-agent'),          // sibling (old README)
+    resolve(workspaceRoot, '..', 'nastech-agent'),    // one level up
+    resolve(homedir(), '.nastech', 'nastech-agent'),   // Nous installer default
+    resolve(homedir(), 'nastech-agent'),              // ~/nastech-agent
   )
 
   for (const candidate of candidates) {
@@ -81,8 +81,8 @@ export function resolveClaudeAgentDir(
 /** Find the `claude` CLI binary installed by Nous's installer (or on PATH). */
 export function resolveClaudeBinary(): string | null {
   const candidates = [
-    resolve(homedir(), '.local', 'bin', 'hermes'),
-    resolve(homedir(), '.hermes', 'bin', 'hermes'),
+    resolve(homedir(), '.local', 'bin', 'nastech'),
+    resolve(homedir(), '.nastech', 'bin', 'nastech'),
     resolve(homedir(), '.claude', 'bin', 'claude'),
     resolve(homedir(), '.local', 'bin', 'claude'),
   ]
@@ -131,7 +131,7 @@ export async function startClaudeAgent(): Promise<StartClaudeAgentResult> {
       const claudeBin = resolveClaudeBinary()
       const agentDir = resolveClaudeAgentDir()
 
-      // Prefer the `hermes gateway run` binary path (the Nous installer's
+      // Prefer the `nastech gateway run` binary path (the Nous installer's
       // canonical entrypoint). Fall back to launching uvicorn against the
       // source tree if we only have a directory.
       let command: string
@@ -158,7 +158,7 @@ export async function startClaudeAgent(): Promise<StartClaudeAgentResult> {
         return {
           ok: false,
           error:
-            "hermes-agent not found. Run the installer: curl -fsSL https://hermes-workspace.com/install.sh | bash",
+            "nastech-agent not found. Run the installer: curl -fsSL https://nastech-workspace.com/install.sh | bash",
         }
       }
 

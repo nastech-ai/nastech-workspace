@@ -1,10 +1,10 @@
-# HermesWorld Swarm Game Architecture
+# NasTechWorld Swarm Game Architecture
 
 Last updated: 2026-05-06
 
 ## Core idea
 
-HermesWorld should be built like an agent-native game studio:
+NasTechWorld should be built like an agent-native game studio:
 
 - one orchestrator owns product direction and integration
 - workers own bounded systems
@@ -14,8 +14,8 @@ HermesWorld should be built like an agent-native game studio:
 
 ## Runtime direction
 
-- Hermes Workspace embeds hosted HermesWorld via iframe.
-- HermesWorld runtime lives on `hermes-world.ai`.
+- NasTech Workspace embeds hosted NasTechWorld via iframe.
+- NasTechWorld runtime lives on `nastech-world.ai`.
 - Workspace remains OSS shell/distribution.
 - Game/prize-sensitive logic moves behind hosted/private services.
 
@@ -33,7 +33,7 @@ HermesWorld should be built like an agent-native game studio:
 
 ### Lane A — Shell/mobile UX
 
-Goal: make HermesWorld playable on phones.
+Goal: make NasTechWorld playable on phones.
 
 Outputs:
 - fixed viewport, no document scroll

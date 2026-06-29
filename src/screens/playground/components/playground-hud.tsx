@@ -29,7 +29,7 @@ const TARGET_POS: Partial<Record<PlaygroundWorldId, Partial<Record<string, [numb
     'forge-gate': [14, -10],
     'training-blade': [-14.5, -10.2],
     'novice-cloak': [-14.5, -10.2],
-    'hermes-sigil': [-14.5, -10.2],
+    'nastech-sigil': [-14.5, -10.2],
     'build-demo': [11.2, -7.5],
     'glitch-wisp': [-4.8, -4],
     'wisp-core': [-4.8, -4],
@@ -45,7 +45,7 @@ const TARGET_POS: Partial<Record<PlaygroundWorldId, Partial<Record<string, [numb
   forge: { pan: [-4, 0], chronos: [4, 0], 'enter-forge': [0, -7], 'forge-shard': [0, -7] },
   grove: { pan: [-4, 1], apollo: [4, 0], artemis: [0, -5], 'grove-ritual': [-6, -4], 'song-fragment': [-6, -4] },
   oracle: { athena: [-3, -2], chronos: [3, -2], eros: [0, 4], 'oracle-riddle': [5, -3] },
-  arena: { nike: [-3, 4], hermes: [3, 4], chronos: [0, -5], 'arena-duel': [0, 0], 'kimi-sigil': [0, 0] },
+  arena: { nike: [-3, 4], nastech: [3, 4], chronos: [0, -5], 'arena-duel': [0, 0], 'kimi-sigil': [0, 0] },
 }
 
 const HUD = {
@@ -59,7 +59,7 @@ const HUD = {
   obsidian: '#0A0D12',
 }
 
-const HUD_SIGIL_SRC = '/assets/hermesworld/art/hermesworld-sigil.png'
+const HUD_SIGIL_SRC = '/assets/nastechworld/art/nastechworld-sigil.png'
 const MOCKUP_LEFT = 'clamp(18px, 4.7vw, 56px)'
 const MOCKUP_TOP = 'clamp(12px, 1.55vw, 18px)'
 
@@ -92,7 +92,7 @@ export function PlaygroundHud({
     const target = TARGET_POS[currentWorld]?.[objectiveTarget]
     if (!target) { setArrowDeg(null); return }
     const compute = () => {
-      const player = (window as any).__hermesPlaygroundPlayerPos as { x: number; z: number } | undefined
+      const player = (window as any).__nastechPlaygroundPlayerPos as { x: number; z: number } | undefined
       const px = player?.x ?? 0
       const pz = player?.z ?? 0
       const dx = target[0] - px
@@ -109,13 +109,13 @@ export function PlaygroundHud({
   return (
     <>
       <style>{`
-        .hermes-hud-rune-frame::before { content: ''; position: absolute; inset: 5px; border: 1px solid rgba(241,197,109,.24); border-radius: inherit; pointer-events: none; }
-        .hermes-hud-orb::after { content: ''; position: absolute; inset: 9px 12px auto; height: 18px; border-radius: 999px; background: linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,0)); filter: blur(.2px); pointer-events: none; }
-        @media (max-width: 760px) { .hermes-hud-player-cluster { transform: scale(.78); transform-origin: top left; } .hermes-hud-objective { display: none; } }
+        .nastech-hud-rune-frame::before { content: ''; position: absolute; inset: 5px; border: 1px solid rgba(241,197,109,.24); border-radius: inherit; pointer-events: none; }
+        .nastech-hud-orb::after { content: ''; position: absolute; inset: 9px 12px auto; height: 18px; border-radius: 999px; background: linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,0)); filter: blur(.2px); pointer-events: none; }
+        @media (max-width: 760px) { .nastech-hud-player-cluster { transform: scale(.78); transform-origin: top left; } .nastech-hud-objective { display: none; } }
       `}</style>
       {/* Mockup top-left: HP/MP glass orbs + level/coin plaque, placed at 56x18 on 1200px art. */}
       <div
-        className="hermes-hud-player-cluster pointer-events-auto fixed z-[72] flex items-start gap-3 text-white"
+        className="nastech-hud-player-cluster pointer-events-auto fixed z-[72] flex items-start gap-3 text-white"
         style={{ left: chromeLeft, top: MOCKUP_TOP }}
       >
         <div className="relative flex items-center gap-2">
@@ -123,7 +123,7 @@ export function PlaygroundHud({
           <ResourceOrb label="MP" v={state.mp} m={state.mpMax} color="#2E6A63" fillA="#5EB8AB" fillB="#133D47" />
         </div>
         <div
-          className="hermes-hud-rune-frame relative mt-1 min-w-[184px] rounded-[24px] border px-3 py-2 backdrop-blur-xl"
+          className="nastech-hud-rune-frame relative mt-1 min-w-[184px] rounded-[24px] border px-3 py-2 backdrop-blur-xl"
           style={{
             borderColor: `${hudAccent}78`,
             background: panelBg,
@@ -141,7 +141,7 @@ export function PlaygroundHud({
                 }}
               >
                 <img
-                  src={`/avatars/${playerProfile.avatarConfig.portrait || 'hermes'}.png`}
+                  src={`/avatars/${playerProfile.avatarConfig.portrait || 'nastech'}.png`}
                   alt="Your avatar"
                   loading="lazy"
                   decoding="async"
@@ -177,9 +177,9 @@ export function PlaygroundHud({
       </div>
 
       {/* Current Objective — compact parchment/gold banner, high enough to leave the scene open. */}
-      <div className="hermes-hud-objective pointer-events-auto fixed left-1/2 top-[18px] z-[71] flex w-[min(38vw,430px)] -translate-x-1/2 flex-col items-center">
+      <div className="nastech-hud-objective pointer-events-auto fixed left-1/2 top-[18px] z-[71] flex w-[min(38vw,430px)] -translate-x-1/2 flex-col items-center">
         <div
-          className="hermes-hud-rune-frame relative flex w-full items-center gap-2 rounded-[22px] border px-3 py-2 text-white shadow-2xl backdrop-blur-xl"
+          className="nastech-hud-rune-frame relative flex w-full items-center gap-2 rounded-[22px] border px-3 py-2 text-white shadow-2xl backdrop-blur-xl"
           style={{
             borderColor: `${hudAccent}70`,
             background: panelBg,
@@ -213,7 +213,7 @@ export function PlaygroundHud({
         </div>
       </div>
 
-      <div className="hermes-toast-lane pointer-events-none fixed left-1/2 top-[154px] z-[80] flex max-h-[30vh] w-[min(92vw,440px)] -translate-x-1/2 flex-col gap-2 overflow-visible md:top-[96px] md:max-h-[36vh]">
+      <div className="nastech-toast-lane pointer-events-none fixed left-1/2 top-[154px] z-[80] flex max-h-[30vh] w-[min(92vw,440px)] -translate-x-1/2 flex-col gap-2 overflow-visible md:top-[96px] md:max-h-[36vh]">
         {toasts.map((toast) => (
           <Toast key={toast.id} title={toast.title} rarity={rarityForPlaygroundToast(toast.kind)}>
             {toast.body}
@@ -245,7 +245,7 @@ function ResourceOrb({
   const circumference = 2 * Math.PI * radius
   const offset = circumference * (1 - pct)
   return (
-    <div className="hermes-hud-orb relative" style={{ width: size, height: size }}>
+    <div className="nastech-hud-orb relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="absolute inset-0 rotate-[-90deg]">
         <defs>
           <radialGradient id={`orb-${label}`} cx="36%" cy="28%" r="72%">

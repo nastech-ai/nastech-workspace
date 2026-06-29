@@ -32,8 +32,8 @@ function setEnv(key: string, value: string | undefined) {
 }
 
 beforeEach(() => {
-  tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), 'hermes-config-route-'))
-  setEnv('HERMES_HOME', tmpHome)
+  tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nastech-config-route-'))
+  setEnv('NASTECH_HOME', tmpHome)
   setEnv('CLAUDE_HOME', undefined)
   vi.resetModules()
 })
@@ -52,7 +52,7 @@ async function loadHandlers(modulePath: string) {
   return (mod as any).Route.server.handlers
 }
 
-describe('canonical /api/hermes-config route', () => {
+describe('canonical /api/nastech-config route', () => {
   it('GET returns normalized provider state with paths and active provider', async () => {
     fs.writeFileSync(
       path.join(tmpHome, 'config.yaml'),
@@ -65,25 +65,25 @@ describe('canonical /api/hermes-config route', () => {
       'utf-8',
     )
 
-    const handlers = await loadHandlers('./hermes-config')
+    const handlers = await loadHandlers('./nastech-config')
     const res = await handlers.GET({
-      request: new Request('http://localhost/api/hermes-config'),
+      request: new Request('http://localhost/api/nastech-config'),
     })
     const body = await res.json()
 
     expect(body.ok).toBe(true)
     expect(body.activeProvider).toBe('openrouter')
     expect(body.activeModel).toBe('auto')
-    expect(body.paths.hermesHome).toBe(tmpHome)
+    expect(body.paths.nastechHome).toBe(tmpHome)
     const openrouter = body.providers.find((p: any) => p.id === 'openrouter')
     expect(openrouter.configured).toBe(true)
     expect(openrouter.isDefault).toBe(true)
   })
 
   it('PATCH dispatches set-default-model and returns the action message', async () => {
-    const handlers = await loadHandlers('./hermes-config')
+    const handlers = await loadHandlers('./nastech-config')
     const res = await handlers.PATCH({
-      request: new Request('http://localhost/api/hermes-config', {
+      request: new Request('http://localhost/api/nastech-config', {
         method: 'PATCH',
         body: JSON.stringify({
           action: 'set-default-model',
@@ -107,9 +107,9 @@ describe('canonical /api/hermes-config route', () => {
       'utf-8',
     )
 
-    const handlers = await loadHandlers('./hermes-config')
+    const handlers = await loadHandlers('./nastech-config')
     await handlers.PATCH({
-      request: new Request('http://localhost/api/hermes-config', {
+      request: new Request('http://localhost/api/nastech-config', {
         method: 'PATCH',
         body: JSON.stringify({ config: { memory: { memory_enabled: true } } }),
       }),
@@ -121,9 +121,9 @@ describe('canonical /api/hermes-config route', () => {
   })
 
   it('PATCH rejects malformed action bodies with 400', async () => {
-    const handlers = await loadHandlers('./hermes-config')
+    const handlers = await loadHandlers('./nastech-config')
     const res = await handlers.PATCH({
-      request: new Request('http://localhost/api/hermes-config', {
+      request: new Request('http://localhost/api/nastech-config', {
         method: 'PATCH',
         body: JSON.stringify({ action: 'set-default-model' }),
       }),
@@ -136,9 +136,9 @@ describe('canonical /api/hermes-config route', () => {
       ensureGatewayProbed: vi.fn(),
       getCapabilities: () => ({ config: false }),
     }))
-    const handlers = await loadHandlers('./hermes-config')
+    const handlers = await loadHandlers('./nastech-config')
     const res = await handlers.PATCH({
-      request: new Request('http://localhost/api/hermes-config', {
+      request: new Request('http://localhost/api/nastech-config', {
         method: 'PATCH',
         body: JSON.stringify({ action: 'set-api-key', envKey: 'X', value: 'y' }),
       }),

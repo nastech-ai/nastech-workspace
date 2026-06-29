@@ -1,6 +1,6 @@
 # Getting Started
 
-Welcome to HermesWorld. Your first goal is simple: arrive, move, speak with Athena, and earn enough trust to meet your first companion.
+Welcome to NasTechWorld. Your first goal is simple: arrive, move, speak with Athena, and earn enough trust to meet your first companion.
 
 If you only have ten minutes, follow this guide. If you have no minutes, the [FAQ](../FAQ.md) will pretend that counts.
 
@@ -8,7 +8,7 @@ If you only have ten minutes, follow this guide. If you have no minutes, the [FA
 
 ### Minute 0: Enter the world
 
-Open HermesWorld from the landing page or `/playground`. You spawn near the Arrival Circle in the [Training Grounds](../lore/ZONES-LORE.md#training-grounds).
+Open NasTechWorld from the landing page or `/playground`. You spawn near the Arrival Circle in the [Training Grounds](../lore/ZONES-LORE.md#training-grounds).
 
 Look for:
 

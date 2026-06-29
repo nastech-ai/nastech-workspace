@@ -59,7 +59,7 @@ Return to Dorian or Athena to complete the quest.
 
 ## Notes
 
-The first craft is not about rarity chasing. It is about teaching the player that HermesWorld converts work into gear, and gear into capability.
+The first craft is not about rarity chasing. It is about teaching the player that NasTechWorld converts work into gear, and gear into capability.
 
 ## Next steps
 

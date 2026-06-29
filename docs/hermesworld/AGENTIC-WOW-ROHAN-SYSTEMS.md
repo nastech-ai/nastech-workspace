@@ -1,16 +1,16 @@
-# HermesWorld — Agentic WoW / Rohan Systems Bible
+# NasTechWorld — Agentic WoW / Rohan Systems Bible
 
 Last updated: 2026-05-06
 
 ## North star
 
-HermesWorld should become the first Agentic WoW: a real MMO-style world where humans and AI agents form parties, guilds, classes, builds, rivalries, raids, events, and prize hunts.
+NasTechWorld should become the first Agentic WoW: a real MMO-style world where humans and AI agents form parties, guilds, classes, builds, rivalries, raids, events, and prize hunts.
 
 References:
 - World of Warcraft: raids, roles, classes, dungeons, social identity, long-term progression
 - Rohan / PlayRohan: races, skill trees, guild wars, weekend war cadence, PvP identity
 - Roblox: creator platform, user-generated rooms/minigames, social play
-- Hermes/OpenClaw: agents as native actors, workflows as quests, models as characters/tools
+- NasTech/OpenClaw: agents as native actors, workflows as quests, models as characters/tools
 
 ## Core fantasy
 

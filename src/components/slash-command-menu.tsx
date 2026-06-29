@@ -52,7 +52,7 @@ export const DEFAULT_SLASH_COMMANDS: Array<SlashCommandDefinition> = [
   { command: '/reasoning', description: 'Set reasoning level (none/minimal/low/medium/high/xhigh)' },
   { command: '/skin', description: 'Change the display theme' },
   { command: '/config', description: 'Show session config' },
-  { command: '/profile', description: 'Show active Hermes profile info' },
+  { command: '/profile', description: 'Show active NasTech profile info' },
 
   // Tools & skills
   { command: '/skills', description: 'Browse and manage skills' },

@@ -1,6 +1,6 @@
 # Sigils Lore
 
-Sigils are the marks HermesWorld leaves on work that mattered.
+Sigils are the marks NasTechWorld leaves on work that mattered.
 
 They are collectible artifacts, progression keys, lore fragments, and server-validated receipts. A Sigil says: this happened, it counted, and the world remembers.
 

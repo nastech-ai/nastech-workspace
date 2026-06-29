@@ -1,17 +1,17 @@
-# NixOS module: services.hermes-workspace
+# NixOS module: services.nastech-workspace
 #
-# Runs the hermes-workspace web server as a systemd service.
-# The companion hermes-agent gateway must be running separately
-# (see https://github.com/NousResearch/hermes-agent).
+# Runs the nastech-workspace web server as a systemd service.
+# The companion nastech-agent gateway must be running separately
+# (see https://github.com/nastech-ai/nastech-agent).
 #
 # Minimal NixOS configuration example:
 #
-#   services.hermes-workspace = {
+#   services.nastech-workspace = {
 #     enable = true;
-#     hermesApiUrl = "http://127.0.0.1:8642";
+#     nastechApiUrl = "http://127.0.0.1:8642";
 #     # For remote access, set a password and open the port:
 #     host = "0.0.0.0";
-#     passwordFile = config.sops.secrets."hermes-workspace-password".path;
+#     passwordFile = config.sops.secrets."nastech-workspace-password".path;
 #   };
 #   networking.firewall.allowedTCPPorts = [ 3000 ];
 {
@@ -22,7 +22,7 @@
 }:
 
 let
-  cfg = config.services.hermes-workspace;
+  cfg = config.services.nastech-workspace;
   inherit (lib)
     mkEnableOption
     mkIf
@@ -32,10 +32,10 @@ let
     ;
 in
 {
-  options.services.hermes-workspace = {
-    enable = mkEnableOption "Hermes Workspace — web UI for Hermes Agent";
+  options.services.nastech-workspace = {
+    enable = mkEnableOption "NasTech Workspace — web UI for NasTech Agent";
 
-    package = mkPackageOption pkgs "hermes-workspace" { };
+    package = mkPackageOption pkgs "nastech-workspace" { };
 
     port = mkOption {
       type = types.port;
@@ -53,19 +53,19 @@ in
       '';
     };
 
-    hermesApiUrl = mkOption {
+    nastechApiUrl = mkOption {
       type = types.str;
       default = "http://127.0.0.1:8642";
       description = ''
-        URL of the Hermes Agent gateway HTTP API.
+        URL of the NasTech Agent gateway HTTP API.
         Requires API_SERVER_ENABLED=true in the gateway's environment.
       '';
     };
 
-    hermesDashboardUrl = mkOption {
+    nastechDashboardUrl = mkOption {
       type = types.str;
       default = "http://127.0.0.1:9119";
-      description = "URL of the Hermes Agent dashboard.";
+      description = "URL of the NasTech Agent dashboard.";
     };
 
     passwordFile = mkOption {
@@ -106,10 +106,10 @@ in
       '';
     };
 
-    hermesWorldEnabled = mkOption {
+    nastechWorldEnabled = mkOption {
       type = types.bool;
       default = true;
-      description = "Show the HermesWorld multiplayer link in the sidebar.";
+      description = "Show the NasTechWorld multiplayer link in the sidebar.";
     };
 
     extraEnvironment = mkOption {
@@ -134,19 +134,19 @@ in
 
     user = mkOption {
       type = types.str;
-      default = "hermes-workspace";
+      default = "nastech-workspace";
       description = "System user to run the service as.";
     };
 
     group = mkOption {
       type = types.str;
-      default = "hermes-workspace";
+      default = "nastech-workspace";
       description = "System group to run the service as.";
     };
 
     dataDir = mkOption {
       type = types.path;
-      default = "/var/lib/hermes-workspace";
+      default = "/var/lib/nastech-workspace";
       description = ''
         State directory for the workspace (sessions, runtime data).
         The service user must have write access.
@@ -160,14 +160,14 @@ in
       group = cfg.group;
       home = cfg.dataDir;
       createHome = true;
-      description = "Hermes Workspace service user";
+      description = "NasTech Workspace service user";
     };
 
     users.groups.${cfg.group} = lib.mkDefault { };
 
-    systemd.services.hermes-workspace = {
-      description = "Hermes Workspace Web Server";
-      documentation = [ "https://github.com/outsourc-e/hermes-workspace" ];
+    systemd.services.nastech-workspace = {
+      description = "NasTech Workspace Web Server";
+      documentation = [ "https://github.com/nastech-ai/nastech-workspace" ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
@@ -176,11 +176,11 @@ in
           NODE_ENV = "production";
           PORT = toString cfg.port;
           HOST = cfg.host;
-          HERMES_API_URL = cfg.hermesApiUrl;
-          HERMES_DASHBOARD_URL = cfg.hermesDashboardUrl;
-          VITE_HERMESWORLD_ENABLED = if cfg.hermesWorldEnabled then "1" else "0";
+          NASTECH_API_URL = cfg.nastechApiUrl;
+          NASTECH_DASHBOARD_URL = cfg.nastechDashboardUrl;
+          VITE_NASTECHWORLD_ENABLED = if cfg.nastechWorldEnabled then "1" else "0";
           TRUST_PROXY = if cfg.trustProxy then "1" else "0";
-          HERMES_ALLOW_INSECURE_REMOTE = if cfg.allowInsecureRemote then "1" else "0";
+          NASTECH_ALLOW_INSECURE_REMOTE = if cfg.allowInsecureRemote then "1" else "0";
           # Point HOME to the data dir so session files land there
           HOME = cfg.dataDir;
         }
@@ -198,7 +198,7 @@ in
         ExecStart = "${lib.getExe cfg.package}";
 
         # Load the password file as an env file when specified.
-        # The file must contain: HERMES_PASSWORD=<value>
+        # The file must contain: NASTECH_PASSWORD=<value>
         EnvironmentFile = lib.optional (cfg.passwordFile != null) cfg.passwordFile
           ++ lib.optional (cfg.environmentFile != null) cfg.environmentFile;
 
@@ -209,9 +209,9 @@ in
         StartLimitBurst = "5";
 
         # Runtime directories
-        RuntimeDirectory = "hermes-workspace";
+        RuntimeDirectory = "nastech-workspace";
         StateDirectory = lib.removePrefix "/var/lib/" cfg.dataDir;
-        LogsDirectory = "hermes-workspace";
+        LogsDirectory = "nastech-workspace";
 
         # Security hardening (balanced against PTY + terminal needs)
         NoNewPrivileges = true;

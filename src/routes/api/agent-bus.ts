@@ -9,14 +9,14 @@ const execFileAsync = promisify(execFile)
 
 const AGENT_BUS_DIR =
   process.env.AGENT_BUS_OUTPUT_DIR ||
-  '/opt/central-inteligencia/runtime/hermes-agent-bus'
+  '/opt/central-inteligencia/runtime/nastech-agent-bus'
 const STATUS_PATH = join(AGENT_BUS_DIR, 'agent-bus-status.json')
 const EVENTS_PATH = join(AGENT_BUS_DIR, 'agent-events-current.jsonl')
 const REPORT_PATH = join(AGENT_BUS_DIR, 'ESTADO_DA_TROPA.md')
 const MISSIONS_DIR = join(AGENT_BUS_DIR, 'missions')
 const AGENT_BUS_SCRIPT =
   process.env.AGENT_BUS_SCRIPT ||
-  '/opt/central-inteligencia/services/hermes-agent-bus/agent_bus.py'
+  '/opt/central-inteligencia/services/nastech-agent-bus/agent_bus.py'
 
 const HANDOFF_CONTRACTS: Record<string, { businessScope: string; reason: string }> = {
   'dona-helena->larissinha': {
@@ -27,19 +27,19 @@ const HANDOFF_CONTRACTS: Record<string, { businessScope: string; reason: string 
     businessScope: 'DES',
     reason: 'cliente_precisa_sac',
   },
-  'dra-clara-des->hermes': {
+  'dra-clara-des->nastech': {
     businessScope: 'DES',
     reason: 'lead_ou_venda_precisa_supervisao',
   },
-  'clara-sdr->hermes': {
+  'clara-sdr->nastech': {
     businessScope: '100K',
     reason: 'lead_quente_ou_handoff_comercial',
   },
-  'fofoqueiro->hermes': {
+  'fofoqueiro->nastech': {
     businessScope: '100K',
     reason: 'sinal_de_grupo_ou_risco_operacional',
   },
-  'hermes->thumbnail-worker': {
+  'nastech->thumbnail-worker': {
     businessScope: 'Advogando',
     reason: 'missao_de_criativo',
   },
@@ -176,7 +176,7 @@ async function handleAction(request: Request) {
       render: false,
       allow_paid_provider: false,
       safe_mode: true,
-      source: 'hermes-workspace',
+      source: 'nastech-workspace',
       created_at: new Date().toISOString(),
     }
     return Response.json({ ok: true, action, mission: { ...payload, mission_record_path: writeMission(payload) } })
@@ -199,7 +199,7 @@ async function handleAction(request: Request) {
       reason: contract.reason,
       external_actions: [],
       safe_mode: true,
-      source: 'hermes-workspace',
+      source: 'nastech-workspace',
       created_at: new Date().toISOString(),
     }
     return Response.json({ ok: true, action, mission: { ...payload, mission_record_path: writeMission(payload) } })

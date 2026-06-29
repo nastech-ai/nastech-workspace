@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Hermes Playground WebSocket presence hub.
+ * NasTech Playground WebSocket presence hub.
  *
  * Tiny stateless relay: every client publishes a presence/chat envelope,
  * the server fans it out to every other client. The server keeps an
@@ -66,7 +66,7 @@ setInterval(pruneStale, 1000)
 
 wss.on('connection', (socket, req) => {
   socket.id = `c_${Math.random().toString(36).slice(2, 10)}`
-  socket.send(JSON.stringify({ kind: 'hello', server: 'hermes.playground.v0', ts: Date.now() }))
+  socket.send(JSON.stringify({ kind: 'hello', server: 'nastech.playground.v0', ts: Date.now() }))
   // Snapshot existing presence for the newcomer
   for (const p of presence.values()) {
     try { socket.send(JSON.stringify(p)) } catch {}
@@ -98,5 +98,5 @@ wss.on('connection', (socket, req) => {
 })
 
 server.listen(PORT, () => {
-  console.log(`[hermes-playground-ws] listening on :${PORT} path=/playground`)
+  console.log(`[nastech-playground-ws] listening on :${PORT} path=/playground`)
 })

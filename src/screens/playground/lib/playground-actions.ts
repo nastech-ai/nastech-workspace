@@ -1,7 +1,7 @@
 import type { PlaygroundItemId, PlaygroundWorldId } from './playground-rpg'
 
 /**
- * HermesWorld action contract.
+ * NasTechWorld action contract.
  *
  * Agents should operate the world through deterministic verbs, not by
  * screen-clicking React controls. This file is the shared protocol surface

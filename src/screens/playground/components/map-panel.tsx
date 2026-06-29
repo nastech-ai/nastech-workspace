@@ -35,7 +35,7 @@ export function MapPanel({ currentZoneId = 'agora', playerPosition = { x: 53, y:
           <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[#d9b35f]/70">Cartographer View</p>
           <h2 className="font-serif text-2xl font-black text-[#ffe7a3]">World Map</h2>
         </div>
-        <span className="rounded-full border border-[#d9b35f]/30 bg-[#d9b35f]/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-[#d9b35f]">Hermes Realm</span>
+        <span className="rounded-full border border-[#d9b35f]/30 bg-[#d9b35f]/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-[#d9b35f]">NasTech Realm</span>
       </div>
 
       <div className="relative h-[min(610px,74vh)] overflow-hidden bg-[radial-gradient(circle_at_50%_44%,rgba(217,179,95,.14),transparent_34%),linear-gradient(120deg,rgba(34,211,238,.08),transparent_38%),linear-gradient(230deg,rgba(168,85,247,.10),transparent_36%)]">

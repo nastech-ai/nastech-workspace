@@ -2,10 +2,10 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 const updateListenerMap = new Map()
 
-contextBridge.exposeInMainWorld('hermesDesktop', {
+contextBridge.exposeInMainWorld('nastechDesktop', {
   bootstrap: {
     status: () => ipcRenderer.invoke('desktop:status'),
-    installHermes: () => ipcRenderer.invoke('desktop:install-hermes'),
+    installNasTech: () => ipcRenderer.invoke('desktop:install-nastech'),
     startBackend: () => ipcRenderer.invoke('desktop:start-backend'),
     openLogs: () => ipcRenderer.invoke('desktop:open-logs'),
   },

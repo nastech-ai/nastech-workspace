@@ -62,7 +62,7 @@ type TerminalSessionResponse = {
   sessionId?: string
 }
 
-// See terminal-panel.tsx — ~/.hermes is not guaranteed to exist in the workspace image.
+// See terminal-panel.tsx — ~/.nastech is not guaranteed to exist in the workspace image.
 const DEFAULT_TERMINAL_CWD = '~'
 const TERMINAL_BG = '#0d0d0d'
 

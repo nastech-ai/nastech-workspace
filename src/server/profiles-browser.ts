@@ -48,16 +48,16 @@ const TEXT_REWRITE_EXTENSIONS = new Set([
   '.tsx',
 ])
 
-function getHermesRoot(): string {
+function getNasTechRoot(): string {
   return (
-    process.env.HERMES_HOME ??
+    process.env.NASTECH_HOME ??
     process.env.CLAUDE_HOME ??
-    path.join(os.homedir(), '.hermes')
+    path.join(os.homedir(), '.nastech')
   )
 }
 
 function getClaudeRoot(): string {
-  return getHermesRoot()
+  return getNasTechRoot()
 }
 
 export function getProfilesRoot(): string {
@@ -69,7 +69,7 @@ function getActiveProfilePath(): string {
 }
 
 function stickyActiveProfileEnabled(): boolean {
-  return process.env.HERMES_WORKSPACE_STICKY_PROFILE !== '0'
+  return process.env.NASTECH_WORKSPACE_STICKY_PROFILE !== '0'
 }
 
 /**
@@ -194,13 +194,13 @@ function extractSystemPrompt(
 // ---------------------------------------------------------------------------
 
 function getDashboardUrl(): string | undefined {
-  const url = process.env.HERMES_DASHBOARD_URL?.trim()
+  const url = process.env.NASTECH_DASHBOARD_URL?.trim()
   return url || undefined
 }
 
 function getDashboardToken(): string | undefined {
   return (
-    process.env.HERMES_API_TOKEN?.trim() ||
+    process.env.NASTECH_API_TOKEN?.trim() ||
     process.env.CLAUDE_API_TOKEN?.trim() ||
     process.env.CLAUDE_DASHBOARD_TOKEN?.trim() ||
     undefined
@@ -275,7 +275,7 @@ async function fetchDashboardProfiles(): Promise<{
 
 /**
  * List profiles with dashboard API fallback for split-host deployments.
- * When HERMES_DASHBOARD_URL is set and reachable, fetches from the dashboard
+ * When NASTECH_DASHBOARD_URL is set and reachable, fetches from the dashboard
  * API. Falls back to filesystem reads for colocated deployments.
  */
 export async function listProfilesWithFallback(): Promise<{
@@ -542,7 +542,7 @@ export function setActiveProfile(name: string): void {
     fs.writeFileSync(getActiveProfilePath(), `${normalized}\n`, 'utf-8')
   }
   console.warn(
-    `[profiles] Active profile set to "${normalized}". Restart the Hermes Agent gateway for this profile switch to take effect.`,
+    `[profiles] Active profile set to "${normalized}". Restart the NasTech Agent gateway for this profile switch to take effect.`,
   )
 }
 
@@ -560,7 +560,7 @@ export function createProfile(
   // Clone config from source profile if specified
   if (options?.cloneFrom) {
     const sourceName = validateProfileIdentifier(options.cloneFrom)
-    // The 'default' profile lives at ~/.hermes, not ~/.hermes/profiles/default
+    // The 'default' profile lives at ~/.nastech, not ~/.nastech/profiles/default
     const sourceRoot =
       sourceName === 'default'
         ? getClaudeRoot()

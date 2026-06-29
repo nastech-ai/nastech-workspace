@@ -1,11 +1,11 @@
 /**
  * Resolve a roster `model:` display string (e.g. "Opus 4.7", "GPT-5.5",
  * "PC1 Coder") into the concrete `provider` + `default` model id pair
- * that Hermes Agent's `config.yaml` expects.
+ * that NasTech Agent's `config.yaml` expects.
  *
  * The roster YAML carries a human-friendly label so the Swarm UI can
  * render it without a lookup. The runtime needs the precise ids though,
- * because `hermes` invokes its provider plugins by id.
+ * because `nastech` invokes its provider plugins by id.
  *
  * This resolver is intentionally string-matching + tolerant: unknown
  * labels return `null` and the caller is expected to leave the existing
@@ -18,7 +18,7 @@ export type ResolvedSwarmModel = {
 }
 
 /**
- * Map a roster `model:` label to a Hermes Agent provider+model. The label
+ * Map a roster `model:` label to a NasTech Agent provider+model. The label
  * comparison is case-insensitive and ignores extra whitespace. Returns
  * `null` when the label is empty, blank, or unrecognised.
  */

@@ -1,6 +1,6 @@
-# Agent Pairing Guide — Workspace ↔ Hermes Agent
+# Agent Pairing Guide — Workspace ↔ NasTech Agent
 
-> **Audience:** AI agents helping users set up Hermes Workspace.
+> **Audience:** AI agents helping users set up NasTech Workspace.
 > Run these steps in order. Each step has a verification command. Do not skip
 > ahead, and do not start a second gateway until the current one fails the
 > checks below.
@@ -9,45 +9,45 @@
 
 ```
 ┌─────────────────┐       HTTP :8642        ┌──────────────────┐
-│  Claude Gateway  │◄──────────────────────►│ Hermes Workspace │
+│  Claude Gateway  │◄──────────────────────►│ NasTech Workspace │
 │  (Python, FastAPI)│  /health, /v1/chat,   │  (Node, Vite)     │
-│  hermes gateway   │  /api/sessions, etc.  │  pnpm dev         │
+│  nastech gateway   │  /api/sessions, etc.  │  pnpm dev         │
 │  run              │                       │  port 3000        │
 └─────────────────┘                        └──────────────────┘
 ```
 
-Workspace talks to Hermes Agent over HTTP. No WebSocket. No magic.
+Workspace talks to NasTech Agent over HTTP. No WebSocket. No magic.
 
 A fully paired local setup has two services:
 
-- `hermes gateway run` on **:8642** for chat, models, and streaming
-- `hermes dashboard` on **:9119** for sessions, skills, config, and jobs
+- `nastech gateway run` on **:8642** for chat, models, and streaming
+- `nastech dashboard` on **:9119** for sessions, skills, config, and jobs
 
 If `curl http://127.0.0.1:8642/health` and `curl http://127.0.0.1:9119/` both
 return successfully, they can pair.
 
 ---
 
-## Step 1 — Is hermes-agent installed?
+## Step 1 — Is nastech-agent installed?
 
 ```bash
-hermes --version
+nastech --version
 ```
 
-**Pass:** prints `Hermes Agent vX.Y.Z`.
+**Pass:** prints `NasTech Agent vX.Y.Z`.
 **Fail:** `command not found`.
 
-### Fix (if hermes-agent not installed)
+### Fix (if nastech-agent not installed)
 
 ```bash
 # Official Nous installer — works on macOS, Linux, WSL
-curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/nastech-ai/nastech-agent/main/scripts/install.sh | bash
 ```
 
 After install, restart your shell or run:
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
-hermes --version
+nastech --version
 ```
 
 ---
@@ -55,15 +55,15 @@ hermes --version
 ## Step 2 — Is the API server enabled?
 
 The gateway exposes an HTTP API on port 8642, but only if `API_SERVER_ENABLED=true`
-is set in the Hermes env file.
+is set in the NasTech env file.
 
 ```bash
 # Find the env file
-HERMES_ENV="$(hermes config env-path 2>/dev/null || echo "$HOME/.hermes/.env")"
-echo "Hermes env file: $HERMES_ENV"
+NASTECH_ENV="$(nastech config env-path 2>/dev/null || echo "$HOME/.nastech/.env")"
+echo "NasTech env file: $NASTECH_ENV"
 
 # Check for the key
-grep -i "API_SERVER" "$HERMES_ENV" 2>/dev/null || echo "NO API_SERVER KEYS FOUND"
+grep -i "API_SERVER" "$NASTECH_ENV" 2>/dev/null || echo "NO API_SERVER KEYS FOUND"
 ```
 
 **Pass:** output includes `API_SERVER_ENABLED=true` (with underscores).
@@ -86,16 +86,16 @@ API_SERVER_HOST=127.0.0.1
 ### Fix
 
 ```bash
-HERMES_ENV="$(hermes config env-path 2>/dev/null || echo "$HOME/.hermes/.env")"
-mkdir -p "$(dirname "$HERMES_ENV")"
+NASTECH_ENV="$(nastech config env-path 2>/dev/null || echo "$HOME/.nastech/.env")"
+mkdir -p "$(dirname "$NASTECH_ENV")"
 
 # Remove any typo'd versions first
-sed -i.bak '/^APISERVERENABLED/d; /^APISERVERHOST/d; /^APISERVERKEY/d; /^APISERVERPORT/d' "$HERMES_ENV" 2>/dev/null || true
+sed -i.bak '/^APISERVERENABLED/d; /^APISERVERHOST/d; /^APISERVERKEY/d; /^APISERVERPORT/d' "$NASTECH_ENV" 2>/dev/null || true
 
 # Write correct keys (idempotent — updates existing or appends)
-grep -q '^API_SERVER_ENABLED=' "$HERMES_ENV" 2>/dev/null && \
-  sed -i.bak 's/^API_SERVER_ENABLED=.*/API_SERVER_ENABLED=true/' "$HERMES_ENV" || \
-  echo 'API_SERVER_ENABLED=true' >> "$HERMES_ENV"
+grep -q '^API_SERVER_ENABLED=' "$NASTECH_ENV" 2>/dev/null && \
+  sed -i.bak 's/^API_SERVER_ENABLED=.*/API_SERVER_ENABLED=true/' "$NASTECH_ENV" || \
+  echo 'API_SERVER_ENABLED=true' >> "$NASTECH_ENV"
 ```
 
 **Do NOT set `API_SERVER_HOST=0.0.0.0`** unless the user explicitly wants
@@ -108,24 +108,24 @@ correct for local Workspace.
 ## Step 3 — Is the gateway process running?
 
 ```bash
-pgrep -af "hermes.*gateway" || echo "NOT RUNNING"
+pgrep -af "nastech.*gateway" || echo "NOT RUNNING"
 ```
 
-**Pass:** shows a `hermes gateway run` (or similar) process.
+**Pass:** shows a `nastech gateway run` (or similar) process.
 **Fail:** nothing.
 
 ### Fix
 
 ```bash
 # Start in foreground (recommended for debugging — you see all output)
-hermes gateway run
+nastech gateway run
 
 # OR if using systemd
-hermes gateway install   # creates the service
+nastech gateway install   # creates the service
 systemctl --user start claude-gateway
 ```
 
-**First run:** Hermes may prompt for initial setup (provider, model). Complete
+**First run:** NasTech may prompt for initial setup (provider, model). Complete
 the interactive setup before continuing.
 
 ---
@@ -143,7 +143,7 @@ lsof -iTCP:8642 -sTCP:LISTEN || echo "PORT NOT BOUND"
 curl -sf http://127.0.0.1:8642/health && echo "OK" || echo "NOT REACHABLE"
 ```
 
-**Pass:** port is bound AND `curl /health` returns `{"status": "ok", "platform": "hermes-agent"}`.
+**Pass:** port is bound AND `curl /health` returns `{"status": "ok", "platform": "nastech-agent"}`.
 
 **Fail — gateway running but port not bound:** API server didn't start.
 Go back to Step 2 and verify the env vars have underscores.
@@ -167,7 +167,7 @@ curl -sf http://127.0.0.1:9119/ && echo "DASHBOARD OK" || echo "DASHBOARD NOT RE
 ### Fix
 
 ```bash
-hermes dashboard
+nastech dashboard
 ```
 
 ---
@@ -175,31 +175,31 @@ hermes dashboard
 ## Step 5 — Is Workspace pointed at the gateway?
 
 ```bash
-# In the hermes-workspace directory
-cat .env | grep HERMES_API_URL
+# In the nastech-workspace directory
+cat .env | grep NASTECH_API_URL
 ```
 
-**Pass:** `HERMES_API_URL=http://127.0.0.1:8642`
+**Pass:** `NASTECH_API_URL=http://127.0.0.1:8642`
 
 Also set the dashboard URL:
 
 ```bash
-grep HERMES_DASHBOARD_URL .env
+grep NASTECH_DASHBOARD_URL .env
 ```
 
-**Pass:** `HERMES_DASHBOARD_URL=http://127.0.0.1:9119`
+**Pass:** `NASTECH_DASHBOARD_URL=http://127.0.0.1:9119`
 
 **Fail or missing:**
 ```bash
-# In the hermes-workspace directory
-echo 'HERMES_API_URL=http://127.0.0.1:8642' >> .env
-echo 'HERMES_DASHBOARD_URL=http://127.0.0.1:9119' >> .env
+# In the nastech-workspace directory
+echo 'NASTECH_API_URL=http://127.0.0.1:8642' >> .env
+echo 'NASTECH_DASHBOARD_URL=http://127.0.0.1:9119' >> .env
 ```
 
 If `.env` doesn't exist:
 ```bash
 cp .env.example .env
-# Then set HERMES_API_URL as above
+# Then set NASTECH_API_URL as above
 ```
 
 ---
@@ -207,7 +207,7 @@ cp .env.example .env
 ## Step 6 — Start Workspace and verify pairing
 
 ```bash
-cd ~/hermes-workspace   # or wherever it's installed
+cd ~/nastech-workspace   # or wherever it's installed
 pnpm dev
 ```
 
@@ -252,30 +252,30 @@ Open `http://localhost:3000` (or whatever port Vite reports).
 For users who just want it to work — run this entire block:
 
 ```bash
-# 1. Find Hermes env
-HERMES_ENV="$(hermes config env-path 2>/dev/null || echo "$HOME/.hermes/.env")"
-mkdir -p "$(dirname "$HERMES_ENV")"
+# 1. Find NasTech env
+NASTECH_ENV="$(nastech config env-path 2>/dev/null || echo "$HOME/.nastech/.env")"
+mkdir -p "$(dirname "$NASTECH_ENV")"
 
 # 2. Enable API server (idempotent)
-grep -q '^API_SERVER_ENABLED=' "$HERMES_ENV" 2>/dev/null && \
-  sed -i.bak 's/^API_SERVER_ENABLED=.*/API_SERVER_ENABLED=true/' "$HERMES_ENV" || \
-  echo 'API_SERVER_ENABLED=true' >> "$HERMES_ENV"
+grep -q '^API_SERVER_ENABLED=' "$NASTECH_ENV" 2>/dev/null && \
+  sed -i.bak 's/^API_SERVER_ENABLED=.*/API_SERVER_ENABLED=true/' "$NASTECH_ENV" || \
+  echo 'API_SERVER_ENABLED=true' >> "$NASTECH_ENV"
 
 # 3. Clean up common typos
 sed -i.bak '/^APISERVERENABLED/d; /^APISERVERHOST/d' "$CLAUDE_ENV" 2>/dev/null || true
 
 # 4. Restart gateway
-hermes gateway stop 2>/dev/null; sleep 2; hermes gateway run &
+nastech gateway stop 2>/dev/null; sleep 2; nastech gateway run &
 sleep 8
 
 # 5. Verify
 curl -sf http://127.0.0.1:8642/health && echo "✅ Gateway API is up" || echo "❌ Gateway API not reachable"
 
 # 6. Set workspace env
-cd ~/hermes-workspace 2>/dev/null || cd "$(find ~ -maxdepth 2 -name hermes-workspace -type d | head -1)"
-grep -q '^HERMES_API_URL=' .env 2>/dev/null && \
-  sed -i.bak 's|^HERMES_API_URL=.*|HERMES_API_URL=http://127.0.0.1:8642|' .env || \
-  echo 'HERMES_API_URL=http://127.0.0.1:8642' >> .env
+cd ~/nastech-workspace 2>/dev/null || cd "$(find ~ -maxdepth 2 -name nastech-workspace -type d | head -1)"
+grep -q '^NASTECH_API_URL=' .env 2>/dev/null && \
+  sed -i.bak 's|^NASTECH_API_URL=.*|NASTECH_API_URL=http://127.0.0.1:8642|' .env || \
+  echo 'NASTECH_API_URL=http://127.0.0.1:8642' >> .env
 
 echo "✅ Done. Run: pnpm dev"
 ```
@@ -289,7 +289,7 @@ echo "✅ Done. Run: pnpm dev"
 - Python cold-start is slower on WSL due to filesystem I/O overhead.
   The gateway may take 10–15 seconds to bind port 8642.
 - If Workspace's health check times out before the gateway is ready,
-  start the gateway separately first (`hermes gateway run`), wait for
+  start the gateway separately first (`nastech gateway run`), wait for
   the port to bind, then start Workspace in a second terminal.
 - Use `127.0.0.1`, not `localhost` — WSL2 sometimes resolves `localhost`
   to the Windows host instead of the WSL VM.
@@ -302,7 +302,7 @@ echo "✅ Done. Run: pnpm dev"
 
 ### Linux (native)
 
-- systemd users: `hermes gateway install` creates a user service.
+- systemd users: `nastech gateway install` creates a user service.
   Check status with `systemctl --user status claude-gateway`.
 - If using a different `$HOME` for the systemd service (e.g. running as
   a different user), the `.env` file location changes. Use
@@ -317,11 +317,11 @@ Collect this diagnostic bundle and share it:
 ```bash
 echo "=== claude version ===" && claude --version 2>&1
 echo "=== claude env path ===" && claude config env-path 2>&1
-echo "=== claude env (redacted) ===" && grep -E "^(API_SERVER|CLAUDE_)" "$(claude config env-path 2>/dev/null || echo ~/.hermes/.env)" 2>&1
+echo "=== claude env (redacted) ===" && grep -E "^(API_SERVER|CLAUDE_)" "$(claude config env-path 2>/dev/null || echo ~/.nastech/.env)" 2>&1
 echo "=== gateway process ===" && pgrep -af "claude.*gateway" 2>&1 || echo "not running"
 echo "=== port 8642 ===" && (ss -tlnp 2>/dev/null || lsof -iTCP:8642 -sTCP:LISTEN 2>/dev/null) | grep 8642 || echo "not bound"
 echo "=== health check ===" && curl -sf http://127.0.0.1:8642/health 2>&1 || echo "not reachable"
-echo "=== workspace .env ===" && grep CLAUDE ~/hermes-workspace/.env 2>&1 || echo "no .env"
+echo "=== workspace .env ===" && grep CLAUDE ~/nastech-workspace/.env 2>&1 || echo "no .env"
 echo "=== OS ===" && uname -a
 echo "=== Node ===" && node --version
 echo "=== Python ===" && python3 --version 2>&1

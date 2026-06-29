@@ -183,9 +183,9 @@ export function detectHonchoIntegration(
   )
   const claudeHome = expandHome(
     options.claudeHome ??
-      env.HERMES_HOME ??
+      env.NASTECH_HOME ??
       env.CLAUDE_HOME ??
-      path.join(homeDir, '.hermes'),
+      path.join(homeDir, '.nastech'),
     homeDir,
   )
 
@@ -352,9 +352,9 @@ export function detectByteroverIntegration(
   )
   const claudeHome = expandHome(
     options.claudeHome ??
-      env.HERMES_HOME ??
+      env.NASTECH_HOME ??
       env.CLAUDE_HOME ??
-      path.join(homeDir, '.hermes'),
+      path.join(homeDir, '.nastech'),
     homeDir,
   )
 

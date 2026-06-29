@@ -277,19 +277,19 @@ function startWorkerProcessNative(workerId: string): { ok: boolean; error?: stri
     return { ok: false, error: `Profile not found: ${profilePath}` }
   }
 
-  // Build wrapper command: use hermes-agent CLI with the worker profile
-  const hermesCmd = process.env.HERMES_CLI_PATH || 'hermes'
+  // Build wrapper command: use nastech-agent CLI with the worker profile
+  const nastechCmd = process.env.NASTECH_CLI_PATH || 'nastech'
   const args = ['--tui', '--profile', workerId]
   
   const logPath = workerLogPath(workerId)
   const logDir = join(profilePath, 'logs')
   if (!existsSync(logDir)) mkdirSync(logDir, { recursive: true })
 
-  const proc = spawn(hermesCmd, args, {
+  const proc = spawn(nastechCmd, args, {
     cwd: profilePath,
     env: {
       ...process.env,
-      HERMES_PROFILE: workerId,
+      NASTECH_PROFILE: workerId,
     },
     detached: isWindows(), // Windows needs detached for independent process tree
     stdio: ['pipe', 'pipe', 'pipe'],
@@ -411,7 +411,7 @@ export async function renewWorker(workerId: string): Promise<{ ok: boolean; rest
   if (!started.ok) return { ok: false, restarted: false, resumeSent: false, error: started.error, handoffPath: hp }
   // Wait for shell prompt to appear before sending the resume message.
   await new Promise((resolve) => setTimeout(resolve, 1500))
-  const resumePrompt = `RESUME_AFTER_HANDOFF. Read your latest handoff at ${hp} and the local copy under ~/.hermes/profiles/${workerId}/memory/handoffs/, plus your runtime.json, then continue from "Next exact action". Reply with a fresh checkpoint when you have re-grounded.`
+  const resumePrompt = `RESUME_AFTER_HANDOFF. Read your latest handoff at ${hp} and the local copy under ~/.nastech/profiles/${workerId}/memory/handoffs/, plus your runtime.json, then continue from "Next exact action". Reply with a fresh checkpoint when you have re-grounded.`
   const sent = await sendToWorker(workerId, resumePrompt)
   const ctx = readRuntimeMissionContext(workerId)
   try {

@@ -5,11 +5,11 @@ import YAML from 'yaml'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import {
-  applyHermesConfigPatch,
+  applyNasTechConfigPatch,
   parseEnvFile,
-  resolveHermesConfigPaths,
+  resolveNasTechConfigPaths,
   stringifyEnv,
-} from './hermes-config-store'
+} from './nastech-config-store'
 
 let tmpHome = ''
 const originalEnv: Record<string, string | undefined> = {}
@@ -21,8 +21,8 @@ function setEnv(key: string, value: string | undefined) {
 }
 
 beforeEach(() => {
-  tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), 'hermes-config-store-'))
-  setEnv('HERMES_HOME', tmpHome)
+  tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nastech-config-store-'))
+  setEnv('NASTECH_HOME', tmpHome)
   setEnv('CLAUDE_HOME', undefined)
 })
 
@@ -35,10 +35,10 @@ afterEach(() => {
   fs.rmSync(tmpHome, { recursive: true, force: true })
 })
 
-describe('applyHermesConfigPatch', () => {
+describe('applyNasTechConfigPatch', () => {
   it('set-default-model writes flat provider/model when no nested model exists', () => {
-    const paths = resolveHermesConfigPaths()
-    applyHermesConfigPatch(paths, {
+    const paths = resolveNasTechConfigPaths()
+    applyNasTechConfigPatch(paths, {
       action: 'set-default-model',
       providerId: 'openrouter',
       modelId: 'auto',
@@ -58,8 +58,8 @@ describe('applyHermesConfigPatch', () => {
       'utf-8',
     )
 
-    const paths = resolveHermesConfigPaths()
-    applyHermesConfigPatch(paths, {
+    const paths = resolveNasTechConfigPaths()
+    applyNasTechConfigPatch(paths, {
       action: 'set-default-model',
       providerId: 'openrouter',
       modelId: 'auto',
@@ -77,8 +77,8 @@ describe('applyHermesConfigPatch', () => {
   })
 
   it('set-api-key writes the env value to .env', () => {
-    const paths = resolveHermesConfigPaths()
-    applyHermesConfigPatch(paths, {
+    const paths = resolveNasTechConfigPaths()
+    applyNasTechConfigPatch(paths, {
       action: 'set-api-key',
       envKey: 'OPENROUTER_API_KEY',
       value: 'sk-or-99999',
@@ -96,8 +96,8 @@ describe('applyHermesConfigPatch', () => {
       'utf-8',
     )
 
-    const paths = resolveHermesConfigPaths()
-    applyHermesConfigPatch(paths, {
+    const paths = resolveNasTechConfigPaths()
+    applyNasTechConfigPatch(paths, {
       action: 'remove-api-key',
       envKey: 'OPENROUTER_API_KEY',
     })
@@ -109,12 +109,12 @@ describe('applyHermesConfigPatch', () => {
   })
 
   it('set-custom-provider upserts an entry by name; remove drops it', () => {
-    const paths = resolveHermesConfigPaths()
-    applyHermesConfigPatch(paths, {
+    const paths = resolveNasTechConfigPaths()
+    applyNasTechConfigPatch(paths, {
       action: 'set-custom-provider',
       provider: { name: 'gw', baseUrl: 'https://a.test/v1' },
     })
-    applyHermesConfigPatch(paths, {
+    applyNasTechConfigPatch(paths, {
       action: 'set-custom-provider',
       provider: { name: 'gw', baseUrl: 'https://b.test/v1' },
     })
@@ -126,7 +126,7 @@ describe('applyHermesConfigPatch', () => {
       { name: 'gw', base_url: 'https://b.test/v1' },
     ])
 
-    applyHermesConfigPatch(paths, { action: 'remove-custom-provider', name: 'gw' })
+    applyNasTechConfigPatch(paths, { action: 'remove-custom-provider', name: 'gw' })
     parsed = YAML.parse(
       fs.readFileSync(path.join(tmpHome, 'config.yaml'), 'utf-8'),
     )

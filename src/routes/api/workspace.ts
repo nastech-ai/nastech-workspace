@@ -1,10 +1,10 @@
 /**
- * Hermes workspace API.
+ * NasTech workspace API.
  *
- * Important distinction: HERMES_HOME / ~/.hermes is Hermes state/config, not the
+ * Important distinction: NASTECH_HOME / ~/.nastech is NasTech state/config, not the
  * user's project workspace. Workspace resolution intentionally mirrors the
- * Hermes Web UI semantics: active profile config first, then user workspace
- * defaults such as ~/workspace. Never fall back to ~/.hermes as a workspace.
+ * NasTech Web UI semantics: active profile config first, then user workspace
+ * defaults such as ~/workspace. Never fall back to ~/.nastech as a workspace.
  */
 import os from 'node:os'
 import path from 'node:path'
@@ -104,14 +104,14 @@ function isBlockedSystemPath(candidatePath: string): boolean {
   )
 }
 
-function isHermesStatePath(candidatePath: string): boolean {
+function isNasTechStatePath(candidatePath: string): boolean {
   const normalized = normalizeCandidate(candidatePath)
   const stateRoots = Array.from(
     new Set(
       [
-        process.env.HERMES_HOME,
+        process.env.NASTECH_HOME,
         process.env.CLAUDE_HOME,
-        path.join(os.homedir(), '.hermes'),
+        path.join(os.homedir(), '.nastech'),
         activeProfileHome(),
       ]
         .map((value) => readString(value))
@@ -126,9 +126,9 @@ function isHermesStatePath(candidatePath: string): boolean {
 }
 
 function assertWorkspaceAllowed(candidatePath: string): void {
-  if (isHermesStatePath(candidatePath)) {
+  if (isNasTechStatePath(candidatePath)) {
     throw new Error(
-      'Hermes profile/state directories cannot be used as workspaces',
+      'NasTech profile/state directories cannot be used as workspaces',
     )
   }
   if (isBlockedSystemPath(candidatePath)) {
@@ -179,7 +179,7 @@ async function firstValidDirectory(
         // Continue to next candidate.
       }
     }
-    if (isHermesStatePath(resolved) || isBlockedSystemPath(resolved)) continue
+    if (isNasTechStatePath(resolved) || isBlockedSystemPath(resolved)) continue
     if (await isValidDirectory(resolved)) {
       return { path: resolved, source: candidate.source }
     }
@@ -193,9 +193,9 @@ function activeProfileHome(): string {
     return readProfile(active).path
   } catch {
     return (
-      process.env.HERMES_HOME ??
+      process.env.NASTECH_HOME ??
       process.env.CLAUDE_HOME ??
-      path.join(os.homedir(), '.hermes')
+      path.join(os.homedir(), '.nastech')
     )
   }
 }
@@ -258,9 +258,9 @@ async function configuredDefaultWorkspace(): Promise<{
       : ''
 
   return firstValidDirectory([
-    { path: process.env.HERMES_WORKSPACE_DIR ?? '', source: 'env' },
+    { path: process.env.NASTECH_WORKSPACE_DIR ?? '', source: 'env' },
     { path: process.env.CLAUDE_WORKSPACE_DIR ?? '', source: 'env' },
-    { path: process.env.HERMES_WEBUI_DEFAULT_WORKSPACE ?? '', source: 'env' },
+    { path: process.env.NASTECH_WEBUI_DEFAULT_WORKSPACE ?? '', source: 'env' },
     { path: readString(cfg.workspace), source: 'config.workspace' },
     {
       path: readString(cfg.default_workspace),
@@ -286,7 +286,7 @@ function dedupeWorkspaces(
     const rawPath = readString(workspace.path)
     if (!rawPath) continue
     const normalized = normalizeCandidate(rawPath)
-    if (isHermesStatePath(normalized) || isBlockedSystemPath(normalized))
+    if (isNasTechStatePath(normalized) || isBlockedSystemPath(normalized))
       continue
     if (seen.has(normalized)) continue
     seen.add(normalized)
@@ -319,7 +319,7 @@ export async function loadWorkspaceCatalog(): Promise<WorkspaceDetectionResponse
 
   // Priority 2: Environment variable
   const envWorkspace =
-    process.env.HERMES_WORKSPACE_DIR?.trim() ||
+    process.env.NASTECH_WORKSPACE_DIR?.trim() ||
     process.env.CLAUDE_WORKSPACE_DIR?.trim()
   if (envWorkspace) {
     const isValid = await isValidDirectory(envWorkspace)

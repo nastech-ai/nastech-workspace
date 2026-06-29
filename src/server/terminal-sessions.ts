@@ -36,9 +36,9 @@ export type TerminalSession = {
 
 // How long an unattached PTY session stays alive before it's reaped, in ms.
 // Long enough to absorb tab suspension and short network blips, short enough
-// that abandoned tabs don't pile up forever. Override with HERMES_TERMINAL_DETACH_TTL_MS.
+// that abandoned tabs don't pile up forever. Override with NASTECH_TERMINAL_DETACH_TTL_MS.
 const DETACH_TTL_MS = (() => {
-  const raw = process.env.HERMES_TERMINAL_DETACH_TTL_MS
+  const raw = process.env.NASTECH_TERMINAL_DETACH_TTL_MS
   const parsed = raw ? Number(raw) : NaN
   if (Number.isFinite(parsed) && parsed > 0) return Math.floor(parsed)
   return 5 * 60_000 // 5 minutes

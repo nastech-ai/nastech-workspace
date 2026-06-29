@@ -1,7 +1,7 @@
 module.exports = {
-  appId: 'com.hermesworkspace.app',
-  productName: 'hermes-workspace',
-  copyright: 'Copyright © 2026 hermes-workspace',
+  appId: 'com.nastechworkspace.app',
+  productName: 'nastech-workspace',
+  copyright: 'Copyright © 2026 nastech-workspace',
   icon: 'assets/icon.png',
   directories: {
     output: 'release',
@@ -30,7 +30,7 @@ module.exports = {
     gatekeeperAssess: false,
   },
   dmg: {
-    title: 'Hermes Workspace',
+    title: 'NasTech Workspace',
     iconSize: 80,
     contents: [
       { x: 130, y: 220 },
@@ -39,7 +39,7 @@ module.exports = {
   },
   win: {
     target: ['portable', 'nsis'],
-    executableName: 'hermes-workspace',
+    executableName: 'nastech-workspace',
   },
   nsis: {
     oneClick: true,
@@ -49,11 +49,11 @@ module.exports = {
   },
   publish: {
     provider: 'github',
-    owner: 'outsourc-e',
-    repo: 'hermes-workspace',
+    owner: 'nastech-ai',
+    repo: 'nastech-workspace',
     releaseType: 'release',
   },
   asar: false,
   compression: 'maximum',
-  artifactName: 'hermes-workspace-setup-${version}.${ext}',
+  artifactName: 'nastech-workspace-setup-${version}.${ext}',
 }

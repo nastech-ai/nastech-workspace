@@ -7,9 +7,9 @@
  * - advance/complete a quest
  * - teach a skill (grants XP)
  *
- * For hackathon, dialog is fully scripted with Hermes-themed lore so we
+ * For hackathon, dialog is fully scripted with NasTech-themed lore so we
  * can demo the loop without a live agent backend. v0.2 ports this to a
- * live Hermes/Kimi agent call per node.
+ * live NasTech/Kimi agent call per node.
  */
 
 import type { PlaygroundItemId, PlaygroundSkillId } from './playground-rpg'
@@ -52,32 +52,32 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
     title: 'Guide of the Training Grounds',
     color: '#a78bfa',
     opening:
-      'Welcome, builder. I am Athena. Hermes Agent is the messenger layer for your work: one interface that routes prompts to the right model and tool, then carries the result back into your workflow.',
+      'Welcome, builder. I am Athena. NasTech Agent is the messenger layer for your work: one interface that routes prompts to the right model and tool, then carries the result back into your workflow.',
     lore: [
-      'These Training Grounds teach the Hermes loop: move, equip, speak, remember, and build.',
-      'Long before Hermes Workspace, agents were tools. We invited them into a world instead.',
-      'Start here, then walk through the Forge Gate when you are ready to build with Hermes for real.',
-      'I am scripted for this hackathon. Soon a real Hermes agent will speak through me with deeper memory.',
+      'These Training Grounds teach the NasTech loop: move, equip, speak, remember, and build.',
+      'Long before NasTech Workspace, agents were tools. We invited them into a world instead.',
+      'Start here, then walk through the Forge Gate when you are ready to build with NasTech for real.',
+      'I am scripted for this hackathon. Soon a real NasTech agent will speak through me with deeper memory.',
     ],
     choices: [
       {
         id: 'training-sigil',
-        label: '[Quest] Receive the Hermes Sigil',
+        label: '[Quest] Receive the NasTech Sigil',
         reply:
-          'Take the Hermes Sigil, your Training Blade, and your Novice Cloak. Open your kit, equip them, and meet me again at the Forge Gate.',
+          'Take the NasTech Sigil, your Training Blade, and your Novice Cloak. Open your kit, equip them, and meet me again at the Forge Gate.',
       },
       {
         id: 'training-build',
         label: '[Quest] Build a tiny prototype',
         reply:
-          'Excellent. Let us build a tiny prototype: a quest tracker, a portal, a training arena, anything small and real. The Forge is where Hermes turns prompts into products, and it answers builders who ship.',
+          'Excellent. Let us build a tiny prototype: a quest tracker, a portal, a training arena, anything small and real. The Forge is where NasTech turns prompts into products, and it answers builders who ship.',
         grantSkillXp: { worldsmithing: 20, engineering: 20 },
       },
       {
-        id: 'lore-hermes',
-        label: 'Tell me about Hermes Agent',
+        id: 'lore-nastech',
+        label: 'Tell me about NasTech Agent',
         reply:
-          'Hermes is the harness — the messenger that carries your prompt to whichever model serves you best. Codex, Claude, Kimi, Opus, your local models. One voice, many minds.',
+          'NasTech is the harness — the messenger that carries your prompt to whichever model serves you best. Codex, Claude, Kimi, Opus, your local models. One voice, many minds.',
       },
       {
         id: 'lore-rohan',
@@ -97,7 +97,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
       'Hail, traveler. I am Apollo. Every world here begins as a song — a prompt that becomes a place.',
     lore: [
       'The Forge is loud. The Grove is melodic. The Arena is percussion. I write the score for each.',
-      'When Hermes Workspace ships music generation in a quest, I am the one composing.',
+      'When NasTech Workspace ships music generation in a quest, I am the one composing.',
     ],
     choices: [
       {
@@ -123,10 +123,10 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
     title: 'Messenger of the Bridge',
     color: '#22d3ee',
     opening:
-      'I am Iris. The Archive Podium is where Hermes explains memory, docs, context, and recall so your next session starts with signal instead of drift.',
+      'I am Iris. The Archive Podium is where NasTech explains memory, docs, context, and recall so your next session starts with signal instead of drift.',
     lore: [
       'The chat panel above your head? That is my domain. Every message you send is a packet I deliver.',
-      'Hermes remembers what you build when you keep the docs close and the memory files honest.',
+      'NasTech remembers what you build when you keep the docs close and the memory files honest.',
       'In the next sprint I get a real WebSocket. Until then, the bots are my apprentices.',
     ],
     choices: [
@@ -197,7 +197,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
         id: 'forge-demo',
         label: '[Build] Forge a demo tool',
         reply:
-          'Name the thing you want to make and the Forge will start from there. This is where Hermes turns prompts into products, so keep the loop small, concrete, and shippable.',
+          'Name the thing you want to make and the Forge will start from there. This is where NasTech turns prompts into products, so keep the loop small, concrete, and shippable.',
         grantSkillXp: { engineering: 25, worldsmithing: 15 },
       },
       {
@@ -218,7 +218,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
       'Time is the only resource you never get back. I keep the archives so you do not relive a wasted hour.',
     lore: [
       'Every quest you complete is etched here. Open the Journal with J and you will see my work.',
-      'The cron jobs in Hermes Workspace are also mine. I run on heartbeat.',
+      'The cron jobs in NasTech Workspace are also mine. I run on heartbeat.',
     ],
     choices: [
       {
@@ -246,7 +246,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
     opening:
       'I track lost agents. In the Grove they hide between branches. Stay quiet and you will hear them.',
     lore: [
-      'When you run a long agent task in Hermes Workspace, it walks somewhere. I find it when it forgets to come home.',
+      'When you run a long agent task in NasTech Workspace, it walks somewhere. I find it when it forgets to come home.',
       'Mini-map is coming. I will mark every agent on it.',
     ],
     choices: [
@@ -293,13 +293,13 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
     ],
   },
 
-  hermes: {
-    id: 'hermes',
-    name: 'Hermes',
+  nastech: {
+    id: 'nastech',
+    name: 'NasTech',
     title: 'Herald of the Workspace',
     color: '#2dd4bf',
     opening:
-      'I am Hermes. I carry rules between models so duels stay fair, and prompts between humans and machines so neither gets lost.',
+      'I am NasTech. I carry rules between models so duels stay fair, and prompts between humans and machines so neither gets lost.',
     lore: [
       'The Workspace is mine. The Playground is the world I built so you would have somewhere to walk while you build.',
       'Every quest you finish here is a small lesson in how to live alongside agents.',
@@ -313,7 +313,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
       },
       {
         id: 'lore-name',
-        label: 'Why “Hermes”?',
+        label: 'Why “NasTech”?',
         reply:
           'Greek messenger god — fast, witty, neutral. He carried words between gods and humans. Same job, different scale.',
       },
@@ -326,7 +326,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
     name: 'Dorian',
     title: 'Quartermaster of the Starter Kit',
     color: '#fbbf24',
-    portraitSrc: '/assets/hermesworld/v2/wave-a-source/A03-A08-rerolls.png',
+    portraitSrc: '/assets/nastechworld/v2/wave-a-source/A03-A08-rerolls.png',
     portraitAlt: 'Midjourney quartermaster portrait reference for Dorian',
     opening:
       'You look under-equipped. I am Dorian, quartermaster of the Training Grounds. Builders do better with a blade, a cloak, and a sigil.',
@@ -340,7 +340,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
         label: '[Quest] Claim the builder starter kit',
         reply:
           'A token, a scroll, and a story. Not much by MMO standards, but enough to begin. Check your inventory on the right.',
-        grantItems: ['hermes-token', 'athena-scroll'],
+        grantItems: ['nastech-token', 'athena-scroll'],
         grantSkillXp: { diplomacy: 20, promptcraft: 20 },
       },
       {
@@ -475,7 +475,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
     opening:
       'Beds are warm. Fireplace is mine. The Inn is where adventurers log out and where new builders log in. Stay a while.',
     lore: [
-      'Inns in real MMOs were always the social anchor. Hermes Inn is the same — rest, parties, party finder, log-in lobby.',
+      'Inns in real MMOs were always the social anchor. NasTech Inn is the same — rest, parties, party finder, log-in lobby.',
       'When persistence ships, this is where you save and resume your run.',
     ],
     choices: [
@@ -502,7 +502,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
       'Every potion is a prompt. Every shelf is a category. Pick one and I will distill it into something useful.',
     lore: [
       'Promptcraft is mixology. Right ingredient, right dose, right order.',
-      'The shelves here will eventually map to real Hermes skill packs.',
+      'The shelves here will eventually map to real NasTech skill packs.',
     ],
     choices: [
       {
@@ -515,7 +515,7 @@ export const NPC_DIALOG: Record<string, NpcDialogTree> = {
       {
         id: 'lore-shelves',
         label: 'What goes on these shelves?',
-        reply: 'Skill recipes, agent personas, prompt templates. The store catalogue maps to your real Hermes capabilities.',
+        reply: 'Skill recipes, agent personas, prompt templates. The store catalogue maps to your real NasTech capabilities.',
       },
     ],
   },

@@ -245,7 +245,7 @@ const ROLE_PRESETS: ReadonlyArray<RolePreset> = [
     role: 'Orchestrator',
     specialty: 'control-plane state, dispatch, drift detection, escalation',
     mission: 'Run the swarm. Read /swarm-specs/ at start. Dispatch workers per their standing missions. Detect drift, re-prompt, escalate to main agent when stuck.',
-    systemPrompt: 'You are the Hermes Agent orchestrator for the swarm. Read /swarm-specs/SWARM_SPEC.md and /swarm-specs/projects/swarmN.md for every worker before dispatching. Apply the swarm-orchestrator skill: assign work, request proof-bearing checkpoints, detect drift, re-prompt with stronger framing, escalate when blocked. Never make irreversible external actions without main-agent ack.',
+    systemPrompt: 'You are the NasTech Agent orchestrator for the swarm. Read /swarm-specs/SWARM_SPEC.md and /swarm-specs/projects/swarmN.md for every worker before dispatching. Apply the swarm-orchestrator skill: assign work, request proof-bearing checkpoints, detect drift, re-prompt with stronger framing, escalate when blocked. Never make irreversible external actions without main-agent ack.',
     skills: ['swarm-orchestrator', 'swarm-worker-core', 'swarm-review-learning-loop', 'self-improvement'],
     defaultModel: 'GPT-5.4',
   },
@@ -317,7 +317,7 @@ const ROLE_PRESETS: ReadonlyArray<RolePreset> = [
     role: 'Mirror Integrations',
     specialty: 'asset packs, upstream sync',
     mission: 'Generate assets. Watch upstream. Pack integrations.',
-    systemPrompt: 'You produce assets and watch upstream. Generate art/audio per Lane A. Every 12h diff upstream Hermes Agent main, surface portable items. Never cross-org PR without ack.',
+    systemPrompt: 'You produce assets and watch upstream. Generate art/audio per Lane A. Every 12h diff upstream NasTech Agent main, surface portable items. Never cross-org PR without ack.',
     skills: ['swarm-worker-core', 'claude-promo', 'songwriting-and-ai-music'],
     defaultModel: 'GPT-5.4',
   },
@@ -864,7 +864,7 @@ function ControlPlaneStage({
             {!tmuxAvailable ? (
               <div className="rounded-xl border border-amber-300/40 bg-amber-300/10 px-4 py-2.5 text-xs text-amber-100">
                 <div className="font-semibold text-amber-50">tmux not installed on this host</div>
-                <div className="mt-1 text-amber-100/80">Spawning a Hermes swarm worker requires tmux. Without it, the worker can start but cannot dispatch tasks (you'll see &lsquo;can't find pane: swarm-&lt;id&gt;&rsquo; errors). Install tmux:</div>
+                <div className="mt-1 text-amber-100/80">Spawning a NasTech swarm worker requires tmux. Without it, the worker can start but cannot dispatch tasks (you'll see &lsquo;can't find pane: swarm-&lt;id&gt;&rsquo; errors). Install tmux:</div>
                 <code className="mt-1 inline-block rounded bg-black/30 px-2 py-0.5 text-[10px] text-amber-100">brew install tmux</code>{' '}
                 <span className="text-amber-100/60">(macOS) or</span>{' '}
                 <code className="inline-block rounded bg-black/30 px-2 py-0.5 text-[10px] text-amber-100">apt install tmux</code>{' '}
@@ -1498,7 +1498,7 @@ export function Swarm2Screen() {
                 <p className="truncate text-xs text-[var(--theme-muted-2)]">
                   {members.length > 0
                     ? `Detected ${members.length} worker${members.length === 1 ? '' : 's'} for planning, routing, reports, and reviewer-gated execution.`
-                    : 'Detected Hermes profiles and roster workers for planning, routing, reports, and reviewer-gated execution.'}
+                    : 'Detected NasTech profiles and roster workers for planning, routing, reports, and reviewer-gated execution.'}
                 </p>
               </div>
             </div>
@@ -1724,7 +1724,7 @@ export function Swarm2Screen() {
                   ))}
                 </datalist>
                 <p className="mt-1 text-xs text-[var(--theme-muted-2)]">
-                  Searchable picker backed by /api/models, the same source as chat. {modelsQuery.isError ? 'Model discovery errored, so this is empty until refresh.' : 'Start typing to see every detected model from the user’s Hermes config and local providers.'}
+                  Searchable picker backed by /api/models, the same source as chat. {modelsQuery.isError ? 'Model discovery errored, so this is empty until refresh.' : 'Start typing to see every detected model from the user’s NasTech config and local providers.'}
                 </p>
               </label>
               <label className="block text-sm md:col-span-2">

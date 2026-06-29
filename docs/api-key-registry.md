@@ -55,7 +55,7 @@ This registry groups supported environment keys so deployments can audit what is
 - `SLACK_APP_TOKEN`
 - `BLUEBUBBLES_PASSWORD`
 - `EMAIL_PASSWORD`
-- `HERMES_API_TOKEN`
+- `NASTECH_API_TOKEN`
 
 ## Integrations and tools
 
@@ -65,7 +65,7 @@ This registry groups supported environment keys so deployments can audit what is
 - `VAPI_PRIVATE_KEY`
 - `MCP_VAPI_API_KEY`
 - `API_SERVER_KEY`
-- `HERMES_PASSWORD`
+- `NASTECH_PASSWORD`
 
 ## Platforms and auth
 
@@ -82,5 +82,5 @@ When handing off a phase:
 2. Compare it against this registry.
 3. Rotate keys in the provider dashboard.
 4. Update the deployment secret store.
-5. Restart Hermes Agent / Workspace services.
+5. Restart NasTech Agent / Workspace services.
 6. Re-run provider/model checks in Workspace settings.

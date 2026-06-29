@@ -6,7 +6,7 @@ import {
 } from './portable-history'
 
 describe('portable history replay', () => {
-  it('skips replay when the Hermes gateway can continue the server-side session', () => {
+  it('skips replay when the NasTech gateway can continue the server-side session', () => {
     expect(
       shouldReplayPortableHistory({
         bearerToken: 'token',

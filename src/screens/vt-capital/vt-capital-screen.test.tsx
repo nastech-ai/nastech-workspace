@@ -88,7 +88,7 @@ const payload = {
   notes: [
     {
       title: 'Market Watch',
-      path: '/root/hermes-vault/03-Trading-Notes/2026-05-06-market-watch.md',
+      path: '/root/nastech-vault/03-Trading-Notes/2026-05-06-market-watch.md',
       mtimeMs: Date.UTC(2026, 4, 6, 16, 55, 0),
       size: 4096,
     },

@@ -8,8 +8,8 @@ function candidateUrls(avatarId?: string): string[] {
   const id = (avatarId || 'player-adventurer').trim()
   const safe = id.replace(/[^a-z0-9_-]+/gi, '') || 'player-adventurer'
   return [
-    `/assets/hermesworld/characters/${safe}.glb`,
-    '/assets/hermesworld/characters/player-adventurer.glb',
+    `/assets/nastechworld/characters/${safe}.glb`,
+    '/assets/nastechworld/characters/player-adventurer.glb',
     `/avatars-3d/${safe}.glb`,
   ]
 }

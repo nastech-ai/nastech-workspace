@@ -6,7 +6,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
  *
  * Stored locally in the browser keyed by sessionKey, so a user can pick a
  * different model for one chat without affecting the global default in
- * `~/.hermes/config.yaml` or any other channel (Telegram, Discord, etc.).
+ * `~/.nastech/config.yaml` or any other channel (Telegram, Discord, etc.).
  *
  * On every send, the workspace passes this value as the `model` field in
  * the chat-completion request body. The gateway uses it for that request
@@ -51,7 +51,7 @@ export const useSessionModelStore = create<State & Actions>()(
       },
     }),
     {
-      name: 'hermes-session-model',
+      name: 'nastech-session-model',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ models: state.models }),
     },

@@ -3,7 +3,7 @@ import type { DashboardOverview } from '@/server/dashboard-aggregator'
 import { formatSkillName } from '@/screens/dashboard/lib/formatters'
 
 /**
- * Skills usage card. Replaces the lonely "60" tile that the Hermes
+ * Skills usage card. Replaces the lonely "60" tile that the NasTech
  * Agent product review (correctly) flagged as wasted space. Renders
  * a horizontal bar chart of the top-5 most-used skills in the
  * analytics window, sourced from `analytics.skills.top_skills` (the

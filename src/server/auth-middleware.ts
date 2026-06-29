@@ -17,14 +17,14 @@ import { dirname, join } from 'node:path'
  * deployments.  For multi-worker setups the file becomes a race-condition
  * window — in that case replace with Redis or a database.
  *
- * File location: ~/.hermes/workspace-sessions.json
+ * File location: ~/.nastech/workspace-sessions.json
  */
 interface SessionStore {
   tokens: Record<string, number> // token -> expiry unix-ms
 }
 
 const STORE_FILE = join(
-  process.env.HERMES_HOME ?? process.env.CLAUDE_HOME ?? join(homedir(), '.hermes'),
+  process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME ?? join(homedir(), '.nastech'),
   'workspace-sessions.json',
 )
 const TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000 // 30 days
@@ -140,12 +140,12 @@ export function revokeSessionToken(token: string): void {
 /**
  * Resolve the configured workspace password.
  *
- * Honors HERMES_PASSWORD first (current name, post-rename) and falls back to
+ * Honors NASTECH_PASSWORD first (current name, post-rename) and falls back to
  * CLAUDE_PASSWORD for back-compat with deployments configured pre-rename.
  */
 function getConfiguredPassword(): string {
-  const fromHermes = process.env.HERMES_PASSWORD
-  if (fromHermes && fromHermes.length > 0) return fromHermes
+  const fromNasTech = process.env.NASTECH_PASSWORD
+  if (fromNasTech && fromNasTech.length > 0) return fromNasTech
   const fromClaude = process.env.CLAUDE_PASSWORD
   if (fromClaude && fromClaude.length > 0) return fromClaude
   return ''

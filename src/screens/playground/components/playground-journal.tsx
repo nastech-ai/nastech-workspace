@@ -128,7 +128,7 @@ export function PlaygroundJournal({
                     <div className="mt-3 grid gap-2 rounded-xl border border-cyan-300/15 bg-cyan-300/5 p-3 text-[12px] md:grid-cols-2">
                       {quest.lesson && (
                         <div>
-                          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-200/80">Hermes lesson</div>
+                          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-200/80">NasTech lesson</div>
                           <div className="mt-1 text-white/72">{quest.lesson}</div>
                         </div>
                       )}

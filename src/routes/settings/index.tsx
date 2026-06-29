@@ -350,7 +350,7 @@ function SettingsRoute() {
           {/* -- Connection ------------------ */}
           {activeSection === 'connection' && <ConnectionSection />}
 
-          {/* ── Hermes Agent ──────────────────────────────────── */}
+          {/* ── NasTech Agent ──────────────────────────────────── */}
           {activeSection === 'claude' && (
             <ClaudeConfigSection activeView="claude" />
           )}
@@ -946,7 +946,7 @@ function ChatDisplaySection() {
           />
         </SettingsRow>
       </SettingsSection>
-      {/* Mobile Navigation removed — not relevant for Hermes Workspace */}
+      {/* Mobile Navigation removed — not relevant for NasTech Workspace */}
     </>
   )
 }
@@ -1035,7 +1035,7 @@ function _LoaderStyleSection() {
   )
 }
 
-// ── Hermes Agent Configuration ──────────────────────────────────────
+// ── NasTech Agent Configuration ──────────────────────────────────────
 
 type ClaudeProvider = {
   id: string
@@ -1055,7 +1055,7 @@ type ClaudeConfigData = {
 }
 
 const CLAUDE_API =
-  process.env.HERMES_API_URL ||
+  process.env.NASTECH_API_URL ||
   process.env.CLAUDE_API_URL ||
   'http://127.0.0.1:8642'
 
@@ -1379,7 +1379,7 @@ function ClaudeConfigSection({
   if (loading) {
     return (
       <SettingsSection
-        title="Hermes Agent"
+        title="NasTech Agent"
         description="Loading configuration..."
         icon={Settings02Icon}
       >
@@ -1394,12 +1394,12 @@ function ClaudeConfigSection({
   if (!data) {
     return (
       <SettingsSection
-        title="Hermes Agent"
-        description="Could not load Hermes configuration."
+        title="NasTech Agent"
+        description="Could not load NasTech configuration."
         icon={Settings02Icon}
       >
         <p className="text-sm" style={{ color: 'var(--theme-muted)' }}>
-          Make sure Hermes Agent is running on localhost:8642
+          Make sure NasTech Agent is running on localhost:8642
         </p>
       </SettingsSection>
     )
@@ -1560,7 +1560,7 @@ function ClaudeConfigSection({
     <>
       <SettingsSection
         title="Model & Provider"
-        description="Configure the default AI model for Hermes Agent."
+        description="Configure the default AI model for NasTech Agent."
         icon={SourceCodeSquareIcon}
       >
         <SettingsRow
@@ -1745,7 +1745,7 @@ function ClaudeConfigSection({
 
       <SettingsSection
         title="API Keys"
-        description="Manage provider API keys stored in ~/.hermes/.env"
+        description="Manage provider API keys stored in ~/.nastech/.env"
         icon={CloudIcon}
       >
         {data.providers
@@ -1822,7 +1822,7 @@ function ClaudeConfigSection({
 
       <SettingsSection
         title="Memory"
-        description="Configure Hermes Agent memory and user profiles."
+        description="Configure NasTech Agent memory and user profiles."
         icon={UserIcon}
       >
         <SettingsRow
@@ -1893,7 +1893,7 @@ function ClaudeConfigSection({
             <p className="mt-1 text-xs text-primary-600">
               <span className="font-medium">Title</span> is for your list only (e.g.{' '}
               <span className="font-mono">Qwen3.6.Eclipse</span> = model + host).{' '}
-              <span className="font-medium">Provider id</span> is the config name Hermes uses — leave
+              <span className="font-medium">Provider id</span> is the config name NasTech uses — leave
               blank to derive a safe id from the title. Optional row API key is stored on this
               provider entry, not in .env.
             </p>
@@ -2192,7 +2192,7 @@ function ClaudeConfigSection({
           label="Manifest: CUSTOM_API_KEY"
           description={
             customApiKeyConfigured
-              ? '✅ Saved in ~/.hermes/.env for the manifest OpenAI provider.'
+              ? '✅ Saved in ~/.nastech/.env for the manifest OpenAI provider.'
               : customEndpointConfigured
                 ? '○ Not set — optional when your endpoint is local or needs no env key.'
                 : '○ Optional. Leave blank if you do not use providers.manifest + CUSTOM_API_KEY.'
@@ -2352,7 +2352,7 @@ function ClaudeConfigSection({
 
       <SettingsSection
         title="About"
-        description="Hermes Agent runtime information."
+        description="NasTech Agent runtime information."
         icon={Notification03Icon}
       >
         <SettingsRow
@@ -2915,14 +2915,14 @@ function ConnectionSection() {
 
   const sourceLabel: Record<ConnectionSettings['source'], string> = {
     override: 'Runtime override (saved in workspace-overrides.json)',
-    env: 'From HERMES_API_URL / HERMES_DASHBOARD_URL env vars',
+    env: 'From NASTECH_API_URL / NASTECH_DASHBOARD_URL env vars',
     default: 'Defaults — no override set',
   }
 
   return (
     <SettingsSection
       title="Connection"
-      description="Point the workspace at your Hermes Agent services. Useful for Tailscale, LAN, or remote-server setups (#101)."
+      description="Point the workspace at your NasTech Agent services. Useful for Tailscale, LAN, or remote-server setups (#101)."
       icon={Link01Icon}
     >
       <div className="text-xs text-primary-600">

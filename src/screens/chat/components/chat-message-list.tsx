@@ -256,7 +256,7 @@ function ThinkingBubble({
     return () => window.clearTimeout(swapTimer)
   }, [statusLabel])
 
-  // Keep the bottom thinking bubble visible while inline Hermes activity handles tool details.
+  // Keep the bottom thinking bubble visible while inline NasTech activity handles tool details.
 
   return (
     <div className="flex items-end gap-2">

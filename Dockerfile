@@ -1,13 +1,13 @@
 # syntax=docker/dockerfile:1.6
-# Hermes Workspace — production Docker image
-# Publishes to ghcr.io/outsourc-e/hermes-workspace
+# NasTech Workspace — production Docker image
+# Publishes to ghcr.io/nastech-ai/nastech-workspace
 #
 # Build locally:
-#   docker build -t hermes-workspace .
+#   docker build -t nastech-workspace .
 # Run:
-#   docker run -p 3000:3000 -e HERMES_API_URL=http://host.docker.internal:8642 hermes-workspace
+#   docker run -p 3000:3000 -e NASTECH_API_URL=http://host.docker.internal:8642 nastech-workspace
 # Or pull pre-built:
-#   docker pull ghcr.io/outsourc-e/hermes-workspace:latest
+#   docker pull ghcr.io/nastech-ai/nastech-workspace:latest
 #
 FROM tianon/gosu:1.17-bookworm AS gosu_source
 # ─── build stage ─────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ COPY --chown=workspace:workspace docker/entrypoint.sh /usr/local/bin/docker-entr
 ENV NODE_ENV=production \
     PORT=3000 \
     HOST=0.0.0.0 \
-    HERMES_API_URL=http://hermes-agent:8642
+    NASTECH_API_URL=http://nastech-agent:8642
 
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \

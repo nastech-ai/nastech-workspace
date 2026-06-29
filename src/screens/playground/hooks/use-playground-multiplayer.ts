@@ -41,7 +41,7 @@ type LeaveWire = { kind: 'leave'; id: string }
 type CountWire = { kind: 'count'; online: number; byWorld?: Record<string, number>; peakToday?: number; ts: number }
 type Wire = PresenceWire | ChatWire | LeaveWire | CountWire
 
-const CHANNEL_NAME = 'hermes.playground.v0'
+const CHANNEL_NAME = 'nastech.playground.v0'
 const PRESENCE_INTERVAL_MS = 200 // 5 Hz, was 100
 const KEEPALIVE_MS = 1000 // force a packet at least this often even if static
 const STALE_AFTER_MS = 30000 // very lenient locally — we hold remotes 30s before pruning to forgive aggressive bg-tab throttling. Server prune is 12s but server reconnects gracefully now.
@@ -57,7 +57,7 @@ function getSelfId() {
     // self-ids and never collide on the WS hub. We also fold the tab-load
     // timestamp into the id so even duplicated tabs (which share sessionStorage)
     // get unique ids per fresh load.
-    const k = 'hermes.playground.selfId'
+    const k = 'nastech.playground.selfId'
     let v: string | null = null
     try { v = window.sessionStorage.getItem(k) } catch {}
     if (!v) {
@@ -69,7 +69,7 @@ function getSelfId() {
     _selfId = v
     if (typeof console !== 'undefined') {
       // eslint-disable-next-line no-console
-      console.log('[Hermes MP] selfId:', v, '(if two tabs see the same id, MP will collide)')
+      console.log('[NasTech MP] selfId:', v, '(if two tabs see the same id, MP will collide)')
     }
     return v
   }
@@ -126,10 +126,10 @@ export function usePlaygroundMultiplayer({
       lastAvatarSigRef.current = '' // force resend on next tick
     }
     if (typeof window !== 'undefined') {
-      window.addEventListener('hermes-playground-avatar-changed', update)
+      window.addEventListener('nastech-playground-avatar-changed', update)
       window.addEventListener('storage', update)
       return () => {
-        window.removeEventListener('hermes-playground-avatar-changed', update)
+        window.removeEventListener('nastech-playground-avatar-changed', update)
         window.removeEventListener('storage', update)
       }
     }
@@ -165,18 +165,18 @@ export function usePlaygroundMultiplayer({
   }, [])
 
   // Open WebSocket transport. URL precedence:
-  //   1. window.__HERMES_PLAYGROUND_WS_URL (runtime override; survives stale bundles)
+  //   1. window.__NASTECH_PLAYGROUND_WS_URL (runtime override; survives stale bundles)
   //   2. VITE_PLAYGROUND_WS_URL (build-time env)
   //   3. Hardcoded public hub fallback (so shipping the public Cloudflare hub
   //      always Just Works even if the .env didn't propagate to the dev bundle)
   useEffect(() => {
     if (typeof window === 'undefined') return
     const url =
-      (window as any).__HERMES_PLAYGROUND_WS_URL ||
+      (window as any).__NASTECH_PLAYGROUND_WS_URL ||
       ((import.meta as any).env?.VITE_PLAYGROUND_WS_URL as string | undefined) ||
-      'wss://hermes-playground-ws.myaurora-agi.workers.dev/playground'
+      'wss://nastech-playground-ws.myaurora-agi.workers.dev/playground'
     // eslint-disable-next-line no-console
-    console.log('[Hermes MP] connecting to WS:', url)
+    console.log('[NasTech MP] connecting to WS:', url)
     if (!url) return
     let ws: WebSocket | null = null
     let stop = false
@@ -233,7 +233,7 @@ export function usePlaygroundMultiplayer({
           mergePresence(msg as RemotePlayer)
         } else if (msg.kind === 'leave' && msg.id !== selfId) {
           // eslint-disable-next-line no-console
-          console.log('[Hermes MP] received leave for', msg.id, '— removing remote')
+          console.log('[NasTech MP] received leave for', msg.id, '— removing remote')
           setRemotePlayers((prev) => { const { [msg.id]: _, ...rest } = prev; return rest })
         } else if (msg.kind === 'chat' && msg.id !== selfId) {
           onChatRef.current?.(msg as ChatWire)
@@ -244,7 +244,7 @@ export function usePlaygroundMultiplayer({
         wsRef.current = null
         setTransport((t) => (t === 'both' ? 'broadcast' : t === 'ws' ? 'offline' : t))
         // eslint-disable-next-line no-console
-        console.log('[Hermes MP] WS close', { code: ev.code, reason: ev.reason, wasClean: ev.wasClean })
+        console.log('[NasTech MP] WS close', { code: ev.code, reason: ev.reason, wasClean: ev.wasClean })
         if (!stop) {
           retry = Math.min(8, retry + 1)
           if (retryTimer != null) window.clearTimeout(retryTimer)
@@ -253,7 +253,7 @@ export function usePlaygroundMultiplayer({
       })
       ws.addEventListener('error', (e) => {
         // eslint-disable-next-line no-console
-        console.warn('[Hermes MP] WS error', e)
+        console.warn('[NasTech MP] WS error', e)
         try { ws?.close() } catch {}
       })
     }
@@ -375,9 +375,9 @@ export function usePlaygroundMultiplayer({
   useEffect(() => {
     if (typeof window === 'undefined') return
     const baseUrl =
-      (window as any).__HERMES_PLAYGROUND_HTTP_URL ||
+      (window as any).__NASTECH_PLAYGROUND_HTTP_URL ||
       ((import.meta as any).env?.VITE_PLAYGROUND_STATS_URL as string | undefined)?.replace(/\/stats$/, '') ||
-      'https://hermes-playground-ws.myaurora-agi.workers.dev'
+      'https://nastech-playground-ws.myaurora-agi.workers.dev'
     let stop = false
     let lastChatTs = 0
     const tick = async () => {
@@ -433,7 +433,7 @@ export function usePlaygroundMultiplayer({
       } catch (err) {
         if (!stop) {
           // eslint-disable-next-line no-console
-          console.warn('[Hermes MP] presence POST failed:', err)
+          console.warn('[NasTech MP] presence POST failed:', err)
         }
       }
       if (!stop) window.setTimeout(tick, 1000)
@@ -461,9 +461,9 @@ export function usePlaygroundMultiplayer({
     const trimmed = text.trim()
     if (!trimmed) return
     const baseUrl =
-      (window as any).__HERMES_PLAYGROUND_HTTP_URL ||
+      (window as any).__NASTECH_PLAYGROUND_HTTP_URL ||
       ((import.meta as any).env?.VITE_PLAYGROUND_STATS_URL as string | undefined)?.replace(/\/stats$/, '') ||
-      'https://hermes-playground-ws.myaurora-agi.workers.dev'
+      'https://nastech-playground-ws.myaurora-agi.workers.dev'
     fetch(`${baseUrl}/chat`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },

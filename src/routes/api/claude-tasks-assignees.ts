@@ -1,6 +1,6 @@
 /**
  * Proxy endpoint — returns available task assignees.
- * Reads agent profiles from the Hermes Agent gateway and combines with the
+ * Reads agent profiles from the NasTech Agent gateway and combines with the
  * configured human reviewer name (tasks.human_reviewer in config.yaml).
  * Falls back to profile directory listing if the gateway doesn't have
  * a /api/tasks/assignees endpoint.
@@ -27,7 +27,7 @@ type TaskAssignee = {
   isHuman: boolean
 }
 
-const CLAUDE_HOME = process.env.HERMES_HOME ?? process.env.CLAUDE_HOME ?? path.join(os.homedir(), '.hermes')
+const CLAUDE_HOME = process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME ?? path.join(os.homedir(), '.nastech')
 const CONFIG_PATH = path.join(CLAUDE_HOME, 'config.yaml')
 const PROFILES_PATH = path.join(CLAUDE_HOME, 'profiles')
 
@@ -130,7 +130,7 @@ export const Route = createFileRoute('/api/claude-tasks-assignees')({
         const humanReviewer = (tasksConfig.human_reviewer as string) || null
 
         // Prefer the dashboard plugin endpoint: it is the source used by the
-        // Hermes kanban CLI and includes ~/.hermes/profiles plus assignees
+        // NasTech kanban CLI and includes ~/.nastech/profiles plus assignees
         // already present on the board.
         const remotePayload =
           await fetchJson(`${CLAUDE_DASHBOARD_URL}/api/plugins/kanban/assignees`) ??

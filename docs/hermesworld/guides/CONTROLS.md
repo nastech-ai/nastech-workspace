@@ -1,6 +1,6 @@
 # Controls
 
-HermesWorld supports desktop keyboard/mouse and mobile touch. Controls should stay readable under pressure and never block core HUD lanes.
+NasTechWorld supports desktop keyboard/mouse and mobile touch. Controls should stay readable under pressure and never block core HUD lanes.
 
 See also: [Getting Started](GETTING-STARTED.md), [Social](SOCIAL.md).
 

@@ -1,19 +1,19 @@
-# HermesWorld Master Roadmap
+# NasTechWorld Master Roadmap
 
 Status: active build sprint
 Owner: Eric / Aurora
-Repo: `outsourc-e/hermes-workspace`
-Scope: HermesWorld inside Hermes Workspace, dashboard/plugin embedded first, standalone later
+Repo: `nastech-ai/nastech-workspace`
+Scope: NasTechWorld inside NasTech Workspace, dashboard/plugin embedded first, standalone later
 
 ## Product thesis
 
-HermesWorld is no longer a novelty route. It is the playable layer for Hermes Workspace: a persistent world where humans and agents can move, talk, complete missions, unlock progression, and eventually keep working while the human is away.
+NasTechWorld is no longer a novelty route. It is the playable layer for NasTech Workspace: a persistent world where humans and agents can move, talk, complete missions, unlock progression, and eventually keep working while the human is away.
 
-Keep HermesWorld in `hermes-workspace` for now. The tight coupling to workspace state, sessions, agents, plugins, quests, and dashboard embeds is the feature. A standalone destination can ship as a route/deploy target later without splitting source.
+Keep NasTechWorld in `nastech-workspace` for now. The tight coupling to workspace state, sessions, agents, plugins, quests, and dashboard embeds is the feature. A standalone destination can ship as a route/deploy target later without splitting source.
 
 ## North star
 
-HermesWorld should become:
+NasTechWorld should become:
 
 - **playable by humans**: polished RPG/MMO onboarding, chat, quests, inventory, progression, multiplayer presence
 - **operable by agents**: deterministic action verbs, quests, travel, equipment, combat/evals, offline progression
@@ -44,7 +44,7 @@ Acceptance criteria:
 
 ### 2. Visual polish pass
 
-Execute `docs/hermesworld/visual-upgrade-spec.md` aggressively. TinySkies is the atmosphere/environment reference, not the code architecture.
+Execute `docs/nastechworld/visual-upgrade-spec.md` aggressively. TinySkies is the atmosphere/environment reference, not the code architecture.
 
 Deliverables:
 
@@ -80,7 +80,7 @@ Acceptance criteria:
 
 Deliverables:
 
-- Dashboard plugin and Hermes Workspace plugin remain first-class.
+- Dashboard plugin and NasTech Workspace plugin remain first-class.
 - `embed=1` mode stays clean and chrome-free where appropriate.
 - Plugin install flow remains git-based and obvious.
 - Admin stays private/plugin-only.
@@ -182,7 +182,7 @@ Future battle loop should reuse eval concepts:
 - scoring combines objective result, speed, cost, style/quality
 - loot/rewards map back to workspace abilities or cosmetics
 
-This makes HermesWorld a visible layer for agent benchmarking and learning, not just a toy combat system.
+This makes NasTechWorld a visible layer for agent benchmarking and learning, not just a toy combat system.
 
 ## Implementation order
 

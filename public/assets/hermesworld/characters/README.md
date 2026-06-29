@@ -1,4 +1,4 @@
-# HermesWorld Character Assets
+# NasTechWorld Character Assets
 
 Drop character GLBs here.
 
@@ -6,7 +6,7 @@ Drop character GLBs here.
 
 Characters should live at:
 
-- `/public/assets/hermesworld/characters/<id>.glb`
+- `/public/assets/nastechworld/characters/<id>.glb`
 
 Examples:
 - `player-adventurer.glb`

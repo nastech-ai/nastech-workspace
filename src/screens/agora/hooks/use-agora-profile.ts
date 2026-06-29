@@ -28,7 +28,7 @@ function generateInitialProfile(): AgoraProfile {
     id,
     handle,
     displayName: `Builder ${animal}`,
-    avatarId: 'hermes',
+    avatarId: 'nastech',
     bio: '',
     status: 'online',
   }

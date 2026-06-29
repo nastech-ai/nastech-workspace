@@ -1,10 +1,10 @@
-# HermesWorld Art Bible — Realism Loop
+# NasTechWorld Art Bible — Realism Loop
 
 Last updated: 2026-05-06
 
 ## Visual ambition
 
-HermesWorld should feel like a premium browser-native fantasy/sci-fi agent RPG, not a demo scene.
+NasTechWorld should feel like a premium browser-native fantasy/sci-fi agent RPG, not a demo scene.
 
 Target vibe:
 - cinematic dark fantasy meets agent command center
@@ -14,9 +14,9 @@ Target vibe:
 - every asset should support mechanics
 
 Primary Agora target:
-- Use `docs/hermesworld/reference-images/agora-center-inso-reference.jpeg` as the primary visual target for Agora realism work.
+- Use `docs/nastechworld/reference-images/agora-center-inso-reference.jpeg` as the primary visual target for Agora realism work.
 - The goal is a composed game screen: circular civic plaza, central obelisk/monument, warm torchlight, blue/cyan roof/portal accents, dense market edges, clear walkable center, readable NPC clusters, and compact HUD islands.
-- Asset prompts and manifest live in `docs/hermesworld/AGORA-INSO-ASSET-PROMPTS.md`.
+- Asset prompts and manifest live in `docs/nastechworld/AGORA-INSO-ASSET-PROMPTS.md`.
 
 Reference workflow from Eric's Downloads:
 - Imagegen creates high-quality source material.
@@ -88,19 +88,19 @@ Layout must be judged in browser screenshots.
 
 ### Zone hero art
 
-Create cinematic dark fantasy/sci-fi environment concept art for HermesWorld, a browser-native AI agent RPG. Mood: mysterious, premium, ancient technology, magical realism. High contrast, realistic textures, atmospheric depth, readable landmark silhouette, no text, no logo, no characters, no oversaturated neon. Style: AAA game key art, dark obsidian palette, cyan/amber accent light, subtle arcane glow. 16:9.
+Create cinematic dark fantasy/sci-fi environment concept art for NasTechWorld, a browser-native AI agent RPG. Mood: mysterious, premium, ancient technology, magical realism. High contrast, realistic textures, atmospheric depth, readable landmark silhouette, no text, no logo, no characters, no oversaturated neon. Style: AAA game key art, dark obsidian palette, cyan/amber accent light, subtle arcane glow. 16:9.
 
 ### NPC portrait
 
-Create a realistic stylized fantasy/sci-fi RPG NPC portrait for HermesWorld. Bust portrait, centered, dramatic rim lighting, dark obsidian background, readable face, high-detail clothing/materials, premium game character art, no text, no logo, consistent square framing. 1:1.
+Create a realistic stylized fantasy/sci-fi RPG NPC portrait for NasTechWorld. Bust portrait, centered, dramatic rim lighting, dark obsidian background, readable face, high-detail clothing/materials, premium game character art, no text, no logo, consistent square framing. 1:1.
 
 ### Item icon
 
-Create a premium RPG item icon for HermesWorld. Single object centered on dark transparent-looking obsidian background, strong silhouette, readable at 64px, realistic material, cyan/amber rim light, no text, no logo, no busy background. 1:1.
+Create a premium RPG item icon for NasTechWorld. Single object centered on dark transparent-looking obsidian background, strong silhouette, readable at 64px, realistic material, cyan/amber rim light, no text, no logo, no busy background. 1:1.
 
 ### Sigil icon
 
-Create a mystical sigil icon for HermesWorld. Ancient agent-world symbol, clean readable silhouette, luminous cyan/amber engraving, dark metal/stone backing, high contrast, collectible game badge quality, no text, no logo. 1:1.
+Create a mystical sigil icon for NasTechWorld. Ancient agent-world symbol, clean readable silhouette, luminous cyan/amber engraving, dark metal/stone backing, high contrast, collectible game badge quality, no text, no logo. 1:1.
 
 ## Vision review checklist
 
@@ -114,7 +114,7 @@ Every screenshot must be judged on:
 7. Visual consistency: same palette, light logic, framing, borders.
 8. Performance: assets optimized, not just pretty.
 
-## HermesWorld v0.3 realism goals
+## NasTechWorld v0.3 realism goals
 
 Minimum visible leap:
 - replace flat/placeholder zone art with generated cinematic zone banners
@@ -128,7 +128,7 @@ Minimum visible leap:
 
 1. Generate asset set.
 2. Compress/optimize into web assets.
-3. Place in actual HermesWorld UI.
+3. Place in actual NasTechWorld UI.
 4. Capture screenshot.
 5. Vision review against checklist.
 6. Patch UI/art/layout.

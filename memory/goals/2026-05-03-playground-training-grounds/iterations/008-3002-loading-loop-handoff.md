@@ -1,7 +1,7 @@
 # Iteration 008 — 3002 loading-loop handoff for Opus
 
 Date: 2026-05-04 01:13 EDT
-Repo: `/Users/aurora/hermes-workspace`
+Repo: `/Users/aurora/nastech-workspace`
 Current branch: `main`
 Current main head at handoff: `cb2ecec5f`
 
@@ -9,7 +9,7 @@ Current main head at handoff: `cb2ecec5f`
 
 ## Situation
 
-HermesWorld has been merged into local `main` and pushed to `origin/main`.
+NasTechWorld has been merged into local `main` and pushed to `origin/main`.
 
 ### Merge / ship status
 - Feature branch: `feat/agent-view-port-from-controlsuite`
@@ -19,7 +19,7 @@ HermesWorld has been merged into local `main` and pushed to `origin/main`.
   - remote push range: `8f31e113b..cb2ecec5f`
 
 ### Product state
-- HermesWorld is live in the repo and shipped to GitHub main.
+- NasTechWorld is live in the repo and shipped to GitHub main.
 - 3005 preview/worktree behaved correctly.
 - 3002 (local main workspace dev server) has had a persistent **loading loop** for Eric, even after merges and refresh attempts.
 
@@ -27,18 +27,18 @@ HermesWorld has been merged into local `main` and pushed to `origin/main`.
 
 ## What was already done
 
-### HermesWorld changes already merged
+### NasTechWorld changes already merged
 Recent relevant commits on the feature branch before merge included:
-- `8312ba810` — rebrand Playground nav item to HermesWorld with gold NEW badge
-- `215bdf8a4` — featured HermesWorld nav slot + sidebar handling
-- `0d4f6fec7` — keep left sidebar visible on HermesWorld
-- `58d8c8f11` — finish HermesWorld branding pass
+- `8312ba810` — rebrand Playground nav item to NasTechWorld with gold NEW badge
+- `215bdf8a4` — featured NasTechWorld nav slot + sidebar handling
+- `0d4f6fec7` — keep left sidebar visible on NasTechWorld
+- `58d8c8f11` — finish NasTechWorld branding pass
 - `cb2ecec5f` — merge local main into feature branch
 
 ### Merge conflict policy used
 During merge-from-main into feature branch, conflicts were resolved by:
 - taking **main** as source of truth for dashboard/agent-view/chat layout
-- preserving **HermesWorld branding + multiplayer env config** where relevant
+- preserving **NasTechWorld branding + multiplayer env config** where relevant
 
 Conflict files that were resolved during that merge:
 - `.env.example`
@@ -55,14 +55,14 @@ Found a real mismatch initially:
 - `3002` was running against **portable backend** `8645`
 - `3005` was running against **enhanced backend** `8642`
 
-This was likely wrong for comparing HermesWorld behavior.
+This was likely wrong for comparing NasTechWorld behavior.
 
 ### 2. Changed local main `.env`
 Edited:
-- `/Users/aurora/hermes-workspace/.env`
+- `/Users/aurora/nastech-workspace/.env`
 
 Changed:
-- `HERMES_API_URL=http://127.0.0.1:8645` → `http://127.0.0.1:8642`
+- `NASTECH_API_URL=http://127.0.0.1:8645` → `http://127.0.0.1:8642`
 - `CLAUDE_API_URL=http://127.0.0.1:8645` → `http://127.0.0.1:8642`
 
 ### 3. Restarted 3002 repeatedly
@@ -172,7 +172,7 @@ Could be localStorage/sessionStorage / persisted Zustand state / service worker 
    - onboarding completion flags
    - any persisted auth/loading flags
 
-5. **Check if HermesWorld transition loader itself is what's looping**.
+5. **Check if NasTechWorld transition loader itself is what's looping**.
    - Search for `transitioning`, `TransitionLoadingScreen`, and route enter logic in `playground-screen.tsx`.
 
 6. **If necessary, temporarily add ultra-obvious debug text** to the suspected overlay component so Eric can tell which one is on screen.
@@ -197,7 +197,7 @@ Could be localStorage/sessionStorage / persisted Zustand state / service worker 
 - `gateway-status: valid JSON`
 
 ### Dev log location
-- `/tmp/hermes3002.log`
+- `/tmp/nastech3002.log`
 
 Recurring log noise:
 - `send-stream-live-tools.ts does not export a Route`

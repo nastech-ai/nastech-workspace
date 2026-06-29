@@ -1,7 +1,7 @@
 /**
  * Player avatar customization config.
  *
- * Stored in localStorage under `hermes-playground-avatar-config`.
+ * Stored in localStorage under `nastech-playground-avatar-config`.
  * Drives PlayerAndCamera rendering + multiplayer presence color.
  */
 
@@ -15,11 +15,11 @@ export type AvatarConfig = {
   cape: string
   helmet: 'winged' | 'circlet' | 'cap' | 'crown' | 'none'
   weapon: 'sword' | 'staff' | 'bow' | 'none'
-  portrait: string // avatar PNG basename, e.g. 'hermes' | 'athena'
+  portrait: string // avatar PNG basename, e.g. 'nastech' | 'athena'
 }
 
 export const AVATAR_PRESETS: Record<string, AvatarConfig> = {
-  hermes: {
+  nastech: {
     skin: '#fcd34d',
     hair: '#3f2511',
     hairStyle: 'short',
@@ -29,7 +29,7 @@ export const AVATAR_PRESETS: Record<string, AvatarConfig> = {
     cape: '#0891b2',
     helmet: 'winged',
     weapon: 'sword',
-    portrait: 'hermes',
+    portrait: 'nastech',
   },
   athena: {
     skin: '#fde7c3',
@@ -134,19 +134,19 @@ export const HAIR_COLORS = ['#0b1220', '#3f2511', '#7c4a1f', '#a16207', '#fcd34d
 export const EYE_COLORS = ['#0b1220', '#1e3a8a', '#0e7490', '#15803d', '#7c2d12', '#a78bfa']
 export const OUTFIT_COLORS = ['#2dd4bf', '#22d3ee', '#a78bfa', '#fb7185', '#facc15', '#34d399', '#f472b6', '#38bdf8', '#fbbf24', '#fde68a', '#1f2937', '#7c2d12']
 export const ACCENT_COLORS = ['#facc15', '#fbbf24', '#fde68a', '#22d3ee', '#a78bfa', '#fff', '#fb7185']
-export const PORTRAITS = ['hermes', 'athena', 'apollo', 'iris', 'nike', 'pan', 'chronos', 'eros', 'artemis']
+export const PORTRAITS = ['nastech', 'athena', 'apollo', 'iris', 'nike', 'pan', 'chronos', 'eros', 'artemis']
 
-const KEY = 'hermes-playground-avatar-config'
+const KEY = 'nastech-playground-avatar-config'
 
 export function loadAvatarConfig(): AvatarConfig {
-  if (typeof window === 'undefined') return AVATAR_PRESETS.hermes
+  if (typeof window === 'undefined') return AVATAR_PRESETS.nastech
   try {
     const raw = window.localStorage.getItem(KEY)
-    if (!raw) return AVATAR_PRESETS.hermes
+    if (!raw) return AVATAR_PRESETS.nastech
     const parsed = JSON.parse(raw)
-    return { ...AVATAR_PRESETS.hermes, ...parsed }
+    return { ...AVATAR_PRESETS.nastech, ...parsed }
   } catch {
-    return AVATAR_PRESETS.hermes
+    return AVATAR_PRESETS.nastech
   }
 }
 
@@ -154,6 +154,6 @@ export function saveAvatarConfig(cfg: AvatarConfig) {
   if (typeof window === 'undefined') return
   try {
     window.localStorage.setItem(KEY, JSON.stringify(cfg))
-    window.dispatchEvent(new CustomEvent('hermes-playground-avatar-changed'))
+    window.dispatchEvent(new CustomEvent('nastech-playground-avatar-changed'))
   } catch {}
 }

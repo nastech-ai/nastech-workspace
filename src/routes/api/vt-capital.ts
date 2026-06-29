@@ -14,8 +14,8 @@ const VT_DEMO_STATE_PATH = path.join(
   VT_REPO_DIR,
   'data/demo_guardian_loop/state.json',
 )
-const TRADING_NOTES_DIR = '/root/hermes-vault/03-Trading-Notes'
-const SESSION_NOTES_DIR = '/root/hermes-vault/01-Sessioni'
+const TRADING_NOTES_DIR = '/root/nastech-vault/03-Trading-Notes'
+const SESSION_NOTES_DIR = '/root/nastech-vault/01-Sessioni'
 const HOURLY_BIAS_PATH = path.join(
   TRADING_NOTES_DIR,
   'crypto-hourly-bias.jsonl',
@@ -25,7 +25,7 @@ const PRECHECK_PATH = path.join(
   'crypto-council-precheck.jsonl',
 )
 const VT_WORKERS = [
-  'hermesmain',
+  'nastechmain',
   'tradinganalyst',
   'macronewsscout',
   'riskmanager',
@@ -232,7 +232,7 @@ export const Route = createFileRoute('/api/vt-capital')({
             executionEnabled: false,
           },
           paths: {
-            vault: '/root/hermes-vault',
+            vault: '/root/nastech-vault',
             tradingNotes: TRADING_NOTES_DIR,
             hourlyBias: HOURLY_BIAS_PATH,
             councilPrecheck: PRECHECK_PATH,

@@ -1,11 +1,11 @@
-# HermesWorld — In-Game Target Spec
+# NasTechWorld — In-Game Target Spec
 
 Last updated: 2026-05-06 02:22 EDT
 
-Reference: `docs/hermesworld/reference-images/INGAME-TARGET-AGORA.png`
+Reference: `docs/nastechworld/reference-images/INGAME-TARGET-AGORA.png`
 
 This is the **playable view** the marketing graphic implies.
-When a user is *in* HermesWorld, this is what their screen should look like.
+When a user is *in* NasTechWorld, this is what their screen should look like.
 
 ---
 
@@ -35,7 +35,7 @@ A circular plaza in Agora Commons:
   - circular map
   - YOU marker
   - Portal marker
-- **Mid-left edge**: small ambient sticker "Hermes Guide" (helper card / NPC poke)
+- **Mid-left edge**: small ambient sticker "NasTech Guide" (helper card / NPC poke)
 - **Right edge**: vertical icon rail (settings, fullscreen, share, party, etc.)
 - **Bottom-left**: chat panel
   - "CHAT - 4 ONLINE - 3 NPC LOCAL-ONLY"
@@ -108,7 +108,7 @@ Both must be honored. They should feel like the same product.
   - Nora - Piper
   - Silas - Guard
   - Dorian - Quartermaster
-  - Hermes Guide (helper)
+  - NasTech Guide (helper)
 - agent companions per the marketing graphic
 
 ### UI

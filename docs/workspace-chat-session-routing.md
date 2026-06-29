@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Hermes Workspace supports a portable chat path through OpenAI-compatible `/v1/chat/completions`. In this mode, the browser route alone is not enough to preserve conversational context: Workspace must forward a stable server-side session identifier to the Hermes Agent gateway.
+NasTech Workspace supports a portable chat path through OpenAI-compatible `/v1/chat/completions`. In this mode, the browser route alone is not enough to preserve conversational context: Workspace must forward a stable server-side session identifier to the NasTech Agent gateway.
 
 This document records the routing contract and the failure mode that caused related turns and attachments to be stored as separate `api-*` sessions.
 
@@ -12,10 +12,10 @@ There are two distinct header layers:
 
 | Layer | Headers | Purpose |
 | --- | --- | --- |
-| Workspace UI route resolution | `X-Hermes-Session-Key`, `X-Hermes-Friendly-Id` | Tells the browser which Workspace chat route/friendly ID is resolved for the visible conversation. |
-| Hermes Agent gateway continuation | `X-Hermes-Session-Id`, `X-Claude-Session-Id` | Tells the gateway which server-side Hermes session should receive the next chat completion request. |
+| Workspace UI route resolution | `X-NasTech-Session-Key`, `X-NasTech-Friendly-Id` | Tells the browser which Workspace chat route/friendly ID is resolved for the visible conversation. |
+| NasTech Agent gateway continuation | `X-NasTech-Session-Id`, `X-Claude-Session-Id` | Tells the gateway which server-side NasTech session should receive the next chat completion request. |
 
-Do not conflate these. A response can correctly resolve a Workspace route while the next gateway request still loses server-side context if `X-Hermes-Session-Id` is missing.
+Do not conflate these. A response can correctly resolve a Workspace route while the next gateway request still loses server-side context if `X-NasTech-Session-Id` is missing.
 
 ## Portable OpenAI-Compatible Flow
 
@@ -24,9 +24,9 @@ Do not conflate these. A response can correctly resolve a Workspace route while 
 3. It builds OpenAI-compatible messages, including multimodal image parts when attachments are present.
 4. It calls `openaiChat(..., { sessionId: portableSessionKey })`.
 5. `src/server/openai-compat-api.ts` forwards that session ID to the gateway via:
-   - `X-Hermes-Session-Id`
+   - `X-NasTech-Session-Id`
    - `X-Claude-Session-Id` as a legacy/back-compat alias.
-6. Hermes Agent uses the provided session ID for continuity instead of deriving a fresh deterministic `api-*` session from the request payload.
+6. NasTech Agent uses the provided session ID for continuity instead of deriving a fresh deterministic `api-*` session from the request payload.
 
 ## Failure Mode
 
@@ -34,7 +34,7 @@ The bug was coupling session-continuity headers to bearer-token presence:
 
 ```ts
 if (options.sessionId && bearer) {
-  headers['X-Hermes-Session-Id'] = options.sessionId
+  headers['X-NasTech-Session-Id'] = options.sessionId
   headers['X-Claude-Session-Id'] = options.sessionId
 }
 ```
@@ -52,7 +52,7 @@ if (bearer) {
 }
 
 if (options.sessionId) {
-  headers['X-Hermes-Session-Id'] = options.sessionId
+  headers['X-NasTech-Session-Id'] = options.sessionId
   headers['X-Claude-Session-Id'] = options.sessionId
 }
 ```
@@ -83,8 +83,8 @@ if (options.sessionId) {
 3. Restart Workspace where deployed:
 
    ```bash
-   systemctl --user restart hermes-workspace.service
-   systemctl --user is-active hermes-workspace.service
+   systemctl --user restart nastech-workspace.service
+   systemctl --user is-active nastech-workspace.service
    ```
 
 4. Send two `/api/send-stream` turns with the same `sessionKey` and a unique token in the first prompt.
@@ -94,5 +94,5 @@ if (options.sessionId) {
 ## Operational Notes
 
 - Keep credentials redacted when inspecting `.env`, service files, or built bundles.
-- In zero-fork deployments, Workspace commonly talks to Hermes Agent gateway on `127.0.0.1:8642` and Dashboard on `127.0.0.1:9119`.
+- In zero-fork deployments, Workspace commonly talks to NasTech Agent gateway on `127.0.0.1:8642` and Dashboard on `127.0.0.1:9119`.
 - A successful `/health` probe means the gateway is reachable; it does not prove session continuity is wired correctly. Verify the actual chat path.

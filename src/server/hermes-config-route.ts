@@ -10,14 +10,14 @@ import {
   ensureGatewayProbed,
   getCapabilities,
 } from './gateway-capabilities'
-import { normalizeHermesConfigState } from './hermes-config-migration'
+import { normalizeNasTechConfigState } from './nastech-config-migration'
 import {
-  applyHermesConfigPatch,
+  applyNasTechConfigPatch,
   parseEnvFile,
-  readHermesConfigFiles,
-  resolveHermesConfigPaths,
+  readNasTechConfigFiles,
+  resolveNasTechConfigPaths,
   stringifyEnv,
-} from './hermes-config-store'
+} from './nastech-config-store'
 import {
   ensureDiscovery,
   getDiscoveredModels,
@@ -90,7 +90,7 @@ function unavailablePayload(extra: Record<string, unknown> = {}): Response {
   })
 }
 
-export async function handleHermesConfigGet({
+export async function handleNasTechConfigGet({
   request,
 }: {
   request: Request
@@ -98,14 +98,14 @@ export async function handleHermesConfigGet({
   const auth = await authorize(request)
   if (auth !== true) return auth
 
-  const paths = resolveHermesConfigPaths()
+  const paths = resolveNasTechConfigPaths()
   if (!getCapabilities().config) {
-    return unavailablePayload({ paths, claudeHome: paths.hermesHome })
+    return unavailablePayload({ paths, claudeHome: paths.nastechHome })
   }
 
   await ensureDiscovery()
-  const files = readHermesConfigFiles(paths)
-  const state = normalizeHermesConfigState({
+  const files = readNasTechConfigFiles(paths)
+  const state = normalizeNasTechConfigState({
     paths,
     config: files.config,
     env: files.env,
@@ -123,7 +123,7 @@ export async function handleHermesConfigGet({
   return Response.json({
     ...state,
     providers,
-    claudeHome: paths.hermesHome,
+    claudeHome: paths.nastechHome,
   })
 }
 
@@ -191,7 +191,7 @@ function applyLegacyEnvBody(
   fs.writeFileSync(envPath, stringifyEnv(current), 'utf-8')
 }
 
-export async function handleHermesConfigPatch({
+export async function handleNasTechConfigPatch({
   request,
 }: {
   request: Request
@@ -217,7 +217,7 @@ export async function handleHermesConfigPatch({
     return Response.json({ ok: false, error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const paths = resolveHermesConfigPaths()
+  const paths = resolveNasTechConfigPaths()
   const hasAction =
     body !== null &&
     typeof body === 'object' &&
@@ -231,7 +231,7 @@ export async function handleHermesConfigPatch({
         { status: 400 },
       )
     }
-    const result = applyHermesConfigPatch(paths, parsed.data)
+    const result = applyNasTechConfigPatch(paths, parsed.data)
     return Response.json({ ...result, message: ACTION_MESSAGES[parsed.data.action] })
   }
 

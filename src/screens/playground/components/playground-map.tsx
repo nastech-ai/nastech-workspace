@@ -47,7 +47,7 @@ export function PlaygroundMap({ open, onClose, currentWorld, unlocked, onTravel 
         <div className="flex items-center justify-between border-b-2 border-cyan-400/30 bg-cyan-400/10 px-4 py-3">
           <div>
             <div className="text-base font-bold text-cyan-300" style={{ textShadow: '0 0 10px rgba(56,189,248,.6)' }}>
-              World Map · Hermes Realm
+              World Map · NasTech Realm
             </div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-cyan-200/55">Press M to close</div>
           </div>

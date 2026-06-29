@@ -507,7 +507,7 @@ function ChatHeaderComponent({
                 }
               />
               <TooltipContent side="bottom">
-                Thinking: Adaptive — Hermes reasons before responding
+                Thinking: Adaptive — NasTech reasons before responding
               </TooltipContent>
             </TooltipRoot>
           </TooltipProvider>

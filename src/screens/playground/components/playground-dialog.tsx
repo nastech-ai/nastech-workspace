@@ -184,7 +184,7 @@ export function PlaygroundDialog({
           className="rounded-full"
           style={{ border: `2px solid ${npc.color}`, boxShadow: `0 0 14px ${npc.color}88` }}
           onError={(e) => {
-            ;(e.currentTarget as HTMLImageElement).src = '/avatars/hermes.png'
+            ;(e.currentTarget as HTMLImageElement).src = '/avatars/nastech.png'
           }}
         />
         <div className="flex-1">

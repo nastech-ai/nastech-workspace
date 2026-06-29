@@ -2,9 +2,9 @@
  * Patch a swarm worker's profile `config.yaml` so its `model.provider`
  * and `model.default` match the roster.
  *
- * Hermes Agent reads `~/.hermes/profiles/<workerId>/config.yaml` on every
- * `hermes` invocation. The wrapper at `~/.local/bin/<workerId>` invokes
- * `hermes chat --continue` with no `--model` flag, so the per-profile
+ * NasTech Agent reads `~/.nastech/profiles/<workerId>/config.yaml` on every
+ * `nastech` invocation. The wrapper at `~/.local/bin/<workerId>` invokes
+ * `nastech chat --continue` with no `--model` flag, so the per-profile
  * config wins. Without a sync step, the roster's `model:` field is purely
  * cosmetic — the bug reported in #236.
  *
@@ -62,10 +62,10 @@ function linkSharedFile(source: string, target: string): boolean {
 }
 
 /**
- * Ensure a worker HERMES_HOME has enough runtime config to boot Hermes.
+ * Ensure a worker NASTECH_HOME has enough runtime config to boot NasTech.
  *
- * Swarm dispatch runs workers with HERMES_HOME=~/.hermes/profiles/<workerId>.
- * A brand-new profile only has memory/runtime files, so `hermes chat -q` exits
+ * Swarm dispatch runs workers with NASTECH_HOME=~/.nastech/profiles/<workerId>.
+ * A brand-new profile only has memory/runtime files, so `nastech chat -q` exits
  * with first-run setup before the worker can do any work. Bootstrap by copying
  * the operator's non-secret config.yaml and linking the private .env locally.
  * The config is copied (not symlinked) because per-worker model sync edits it.
@@ -76,14 +76,14 @@ export function ensureSwarmProfileConfig(profilePath: string): ProfileBootstrapR
     mkdirSync(profilePath, { recursive: true })
 
     const configPath = join(profilePath, 'config.yaml')
-    const sourceConfig = join(homedir(), '.hermes', 'config.yaml')
+    const sourceConfig = join(homedir(), '.nastech', 'config.yaml')
     if (!existsSync(configPath) && existsSync(sourceConfig)) {
       copyFileSync(sourceConfig, configPath)
       result.configCreated = true
     }
 
     const envPath = join(profilePath, '.env')
-    const sourceEnv = join(homedir(), '.hermes', '.env')
+    const sourceEnv = join(homedir(), '.nastech', '.env')
     if (existsSync(sourceEnv)) {
       let shouldLink = !existsSync(envPath)
       if (!shouldLink) {
@@ -102,7 +102,7 @@ export function ensureSwarmProfileConfig(profilePath: string): ProfileBootstrapR
     }
 
     const authPath = join(profilePath, 'auth.json')
-    const sourceAuth = join(homedir(), '.hermes', 'auth.json')
+    const sourceAuth = join(homedir(), '.nastech', 'auth.json')
     if (existsSync(sourceAuth)) {
       let shouldLink = !existsSync(authPath)
       if (!shouldLink) {
@@ -121,7 +121,7 @@ export function ensureSwarmProfileConfig(profilePath: string): ProfileBootstrapR
     }
 
     const mcpTokensDir = join(profilePath, 'mcp-tokens')
-    const sourceMcpTokensDir = join(homedir(), '.hermes', 'mcp-tokens')
+    const sourceMcpTokensDir = join(homedir(), '.nastech', 'mcp-tokens')
     if (existsSync(sourceMcpTokensDir)) {
       mkdirSync(mcpTokensDir, { recursive: true })
       for (const name of readdirSync(sourceMcpTokensDir)) {

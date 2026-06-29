@@ -1,6 +1,6 @@
 /**
  * Playground 3D World — real R3F scene with iso camera, walking player,
- * NPCs, and clickable portal. Hackathon base for Hermes Playground.
+ * NPCs, and clickable portal. Hackathon base for NasTech Playground.
  */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Html, Sparkles } from '@react-three/drei'
@@ -15,7 +15,7 @@ import { usePlaygroundMultiplayer, type RemotePlayer as MpRemotePlayer, type Inc
 import { loadAvatarConfig, type AvatarConfig } from '../lib/avatar-config'
 import { PlaygroundNpcGlb } from './playground-npc-glb'
 import { SpeechBubble } from './speech-bubble'
-import { useHermesWorldSettings } from './hermesworld-settings'
+import { useNasTechWorldSettings } from './nastechworld-settings'
 
 /**
  * Module-level GLB presence probe. Returns:
@@ -29,7 +29,7 @@ import { useHermesWorldSettings } from './hermesworld-settings'
 const _glbPresence = new Map<string, 'unknown' | 'present' | 'missing'>()
 function npcGlbUrl(id: string) {
   const safe = id.replace(/[^a-z0-9_-]+/gi, '') || 'villager-common'
-  return `/assets/hermesworld/characters/${safe}.glb`
+  return `/assets/nastechworld/characters/${safe}.glb`
 }
 function useGlbAvailable(id: string, enabled: boolean): boolean {
   const [_, force] = useState(0)
@@ -64,10 +64,10 @@ function useAvatarConfig() {
   const [cfg, setCfg] = useState<AvatarConfig>(() => loadAvatarConfig())
   useEffect(() => {
     const update = () => setCfg(loadAvatarConfig())
-    window.addEventListener('hermes-playground-avatar-changed', update)
+    window.addEventListener('nastech-playground-avatar-changed', update)
     window.addEventListener('storage', update)
     return () => {
-      window.removeEventListener('hermes-playground-avatar-changed', update)
+      window.removeEventListener('nastech-playground-avatar-changed', update)
       window.removeEventListener('storage', update)
     }
   }, [])
@@ -165,16 +165,16 @@ const WORLDS_3D: Record<PlaygroundWorldId, WorldDef> = {
 }
 
 const ZONE_FALLBACK_BACKGROUNDS: Partial<Record<PlaygroundWorldId, string>> = {
-  training: '/assets/hermesworld/zones/zone-1.jpg',
-  forge: '/assets/hermesworld/zones/zone-2.jpg',
-  grove: '/assets/hermesworld/zones/zone-3.jpg',
-  oracle: '/assets/hermesworld/zones/zone-4.jpg',
-  arena: '/assets/hermesworld/zones/zone-5.jpg',
+  training: '/assets/nastechworld/zones/zone-1.jpg',
+  forge: '/assets/nastechworld/zones/zone-2.jpg',
+  grove: '/assets/nastechworld/zones/zone-3.jpg',
+  oracle: '/assets/nastechworld/zones/zone-4.jpg',
+  arena: '/assets/nastechworld/zones/zone-5.jpg',
 }
 
 /* ── Ground ── */
 /** Procedural stone-tile plaza overlay (canvas texture). Used as a circular */
-/** floor under the central HermesStatue in Training Grounds + Agora. */
+/** floor under the central NasTechStatue in Training Grounds + Agora. */
 function stoneTileTexture(): THREE.CanvasTexture | null {
   if (typeof document === 'undefined') return null
   const size = 512
@@ -368,13 +368,13 @@ function ClassicalPillars({ world }: { world: WorldDef }) {
           polygonOffsetUnits={-1}
         />
       </mesh>
-      {/* Central Hermes statue — plaza centerpiece */}
-      <HermesStatue position={[0, 0, 0]} scale={1.15} accent={world.accent} base="#e6dcc4" />
+      {/* Central NasTech statue — plaza centerpiece */}
+      <NasTechStatue position={[0, 0, 0]} scale={1.15} accent={world.accent} base="#e6dcc4" />
       {/* Banners along the colonnade entrances */}
-      <HermesBanner position={[-17, 0, -9.5]} rotation={[0, Math.PI / 2, 0]} color={world.accent} />
-      <HermesBanner position={[17, 0, -9.5]} rotation={[0, -Math.PI / 2, 0]} color={world.accent} />
-      <HermesBanner position={[-17, 0, 9.5]} rotation={[0, Math.PI / 2, 0]} color={world.accent} />
-      <HermesBanner position={[17, 0, 9.5]} rotation={[0, -Math.PI / 2, 0]} color={world.accent} />
+      <NasTechBanner position={[-17, 0, -9.5]} rotation={[0, Math.PI / 2, 0]} color={world.accent} />
+      <NasTechBanner position={[17, 0, -9.5]} rotation={[0, -Math.PI / 2, 0]} color={world.accent} />
+      <NasTechBanner position={[-17, 0, 9.5]} rotation={[0, Math.PI / 2, 0]} color={world.accent} />
+      <NasTechBanner position={[17, 0, 9.5]} rotation={[0, -Math.PI / 2, 0]} color={world.accent} />
       {/* Braziers around the central statue */}
       {[[-3.2, -3.2], [3.2, -3.2], [-3.2, 3.2], [3.2, 3.2]].map(([x, z], i) => (
         <Brazier key={i} position={[x, 0, z]} color="#fbbf24" />
@@ -384,7 +384,7 @@ function ClassicalPillars({ world }: { world: WorldDef }) {
 }
 
 function TechPillars({ world }: { world: WorldDef }) {
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const photosensitiveMode = settings.accessibility.photosensitiveMode
   const cubes = useMemo(() => {
     const positions: Array<[number, number, number]> = []
@@ -417,9 +417,9 @@ function TechPillars({ world }: { world: WorldDef }) {
       {[[-5, -5], [5, -5], [-5, 5], [5, 5]].map(([x, z], i) => (
         <Brazier key={i} position={[x, 0, z]} color={world.accent} />
       ))}
-      {/* Tech-banners with Hermes sigil */}
-      <HermesBanner position={[-9, 0, 0]} rotation={[0, Math.PI / 2, 0]} color={world.accent} cloth="#0a0e1a" />
-      <HermesBanner position={[9, 0, 0]} rotation={[0, -Math.PI / 2, 0]} color={world.accent} cloth="#0a0e1a" />
+      {/* Tech-banners with NasTech sigil */}
+      <NasTechBanner position={[-9, 0, 0]} rotation={[0, Math.PI / 2, 0]} color={world.accent} cloth="#0a0e1a" />
+      <NasTechBanner position={[9, 0, 0]} rotation={[0, -Math.PI / 2, 0]} color={world.accent} cloth="#0a0e1a" />
       {/* Floating data motes — disabled in Photosensitive Mode */}
       {!photosensitiveMode && <Sparkles count={20} scale={[18, 5, 18]} size={1.8} speed={0.12} color={world.accent} opacity={0.22} />}
     </>
@@ -473,7 +473,7 @@ function ForestDecor({ world }: { world: WorldDef }) {
 
 /* ── Temple decor (Oracle) ── */
 function TempleDecor({ world }: { world: WorldDef }) {
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const photosensitiveMode = settings.accessibility.photosensitiveMode
   const crystals = useMemo(() => {
     const out: Array<[number, number, number, number]> = []
@@ -652,10 +652,10 @@ function ArenaDecor({ world }: { world: WorldDef }) {
         return <Brazier key={`bz${i}`} position={[Math.cos(ang) * 5.2, 0, Math.sin(ang) * 5.2]} color="#fb7185" />
       })}
       {/* Banners flanking the entrances */}
-      <HermesBanner position={[-9, 0, -9]} rotation={[0, 0.5, 0]} color={world.accent} cloth="#3b0a1c" />
-      <HermesBanner position={[9, 0, -9]} rotation={[0, -0.5, 0]} color={world.accent} cloth="#3b0a1c" />
-      <HermesBanner position={[-9, 0, 9]} rotation={[0, 2.5, 0]} color={world.accent} cloth="#3b0a1c" />
-      <HermesBanner position={[9, 0, 9]} rotation={[0, -2.5, 0]} color={world.accent} cloth="#3b0a1c" />
+      <NasTechBanner position={[-9, 0, -9]} rotation={[0, 0.5, 0]} color={world.accent} cloth="#3b0a1c" />
+      <NasTechBanner position={[9, 0, -9]} rotation={[0, -0.5, 0]} color={world.accent} cloth="#3b0a1c" />
+      <NasTechBanner position={[-9, 0, 9]} rotation={[0, 2.5, 0]} color={world.accent} cloth="#3b0a1c" />
+      <NasTechBanner position={[9, 0, 9]} rotation={[0, -2.5, 0]} color={world.accent} cloth="#3b0a1c" />
     </>
   )
 }
@@ -667,7 +667,7 @@ function TrainingDecor({ world }: { world: WorldDef }) {
     { text: 'Quartermaster Tent', pos: [-14, 2.4, -10] as [number, number, number] },
     { text: 'Archive Podium', pos: [6, 2.4, 0] as [number, number, number] },
     { text: 'Forge Gate', pos: [14, 2.6, -10] as [number, number, number] },
-    { text: 'Hermes Sigil', pos: [0, 4.5, 0] as [number, number, number] },
+    { text: 'NasTech Sigil', pos: [0, 4.5, 0] as [number, number, number] },
   ]
 
   return (
@@ -678,8 +678,8 @@ function TrainingDecor({ world }: { world: WorldDef }) {
       <PathRibbon from={[0, 0]} to={[6, 0]} color="#a78bfa" width={1.08} />
       <PathRibbon from={[0, 0]} to={[14, -10]} color="#22d3ee" width={1.35} />
       <PathRibbon from={[-5, -4]} to={[-14, -10]} color="#fbbf24" width={1.08} />
-      {/* Hermes statue at the heart of the grounds */}
-      <HermesStatue position={[0, 0, 0]} accent={world.accent} />
+      {/* NasTech statue at the heart of the grounds */}
+      <NasTechStatue position={[0, 0, 0]} accent={world.accent} />
       {/* Practice dummies + weapon racks around the trainer’s ring */}
       <PracticeDummy position={[-7.4, 0, -3.2]} />
       <PracticeDummy position={[-2.8, 0, -6.6]} />
@@ -687,11 +687,11 @@ function TrainingDecor({ world }: { world: WorldDef }) {
       <WeaponRack position={[-9.2, 0, -3.0]} accent={world.accent} />
       <WeaponRack position={[-9.2, 0, -5.6]} accent="#fde68a" />
       {/* Banners flanking the Forge Gate */}
-      <HermesBanner position={[11.6, 0, -10]} rotation={[0, 0.4, 0]} color={world.accent} />
-      <HermesBanner position={[16.4, 0, -10]} rotation={[0, -0.4, 0]} color="#fbbf24" />
+      <NasTechBanner position={[11.6, 0, -10]} rotation={[0, 0.4, 0]} color={world.accent} />
+      <NasTechBanner position={[16.4, 0, -10]} rotation={[0, -0.4, 0]} color="#fbbf24" />
       {/* Banners by Arrival Circle */}
-      <HermesBanner position={[-13.2, 0, 8]} rotation={[0, 0.6, 0]} color={world.accent} />
-      <HermesBanner position={[-8.8, 0, 8]} rotation={[0, -0.6, 0]} color={world.accent} />
+      <NasTechBanner position={[-13.2, 0, 8]} rotation={[0, 0.6, 0]} color={world.accent} />
+      <NasTechBanner position={[-8.8, 0, 8]} rotation={[0, -0.6, 0]} color={world.accent} />
       {/* Braziers around the central statue and trainer ring */}
       <Brazier position={[3.2, 0, 3.2]} color="#fbbf24" />
       <Brazier position={[-3.2, 0, 3.2]} color="#fbbf24" />
@@ -798,8 +798,8 @@ function PathRibbon({
   )
 }
 
-/* ── Hermes statue — winged-sandals hero centerpiece for plazas ── */
-function HermesStatue({
+/* ── NasTech statue — winged-sandals hero centerpiece for plazas ── */
+function NasTechStatue({
   position = [0, 0, 0],
   scale = 1,
   accent = '#f5d97a',
@@ -977,8 +977,8 @@ function WeaponRack({ position, accent = '#cbd5e1' }: { position: [number, numbe
   )
 }
 
-/* ── Hermes banner (cloth on a pole) ── */
-function HermesBanner({
+/* ── NasTech banner (cloth on a pole) ── */
+function NasTechBanner({
   position,
   rotation = [0, 0, 0],
   color = '#fbbf24',
@@ -1075,15 +1075,15 @@ function NpcAccessories({ role = '', color }: { role?: string; color: string }) 
   const isRecruiter = role === 'recruiter' || role === 'athena'
   const isTavern = role === 'tavernkeeper' || role === 'apollo'
   const isShop = role === 'shopkeeper' || role === 'iris'
-  const isHermes = role === 'hermes'
-  const isKnight = isTrainer || isRecruiter || isHermes
+  const isNasTech = role === 'nastech'
+  const isKnight = isTrainer || isRecruiter || isNasTech
   return (
     <group>
       {/* shoulder silhouette */}
-      {(isTrainer || isRecruiter || isBanker || isHermes) && (
+      {(isTrainer || isRecruiter || isBanker || isNasTech) && (
         <>
-          <mesh castShadow position={[-0.36, 0.98, 0]} rotation={[0, 0, 0.4]}><boxGeometry args={[0.24, 0.12, 0.2]} /><meshStandardMaterial color={isTrainer || isHermes ? '#94a3b8' : color} metalness={isTrainer || isHermes ? 0.6 : 0.15} roughness={0.42} emissive={color} emissiveIntensity={0.12} /></mesh>
-          <mesh castShadow position={[0.36, 0.98, 0]} rotation={[0, 0, -0.4]}><boxGeometry args={[0.24, 0.12, 0.2]} /><meshStandardMaterial color={isTrainer || isHermes ? '#94a3b8' : color} metalness={isTrainer || isHermes ? 0.6 : 0.15} roughness={0.42} emissive={color} emissiveIntensity={0.12} /></mesh>
+          <mesh castShadow position={[-0.36, 0.98, 0]} rotation={[0, 0, 0.4]}><boxGeometry args={[0.24, 0.12, 0.2]} /><meshStandardMaterial color={isTrainer || isNasTech ? '#94a3b8' : color} metalness={isTrainer || isNasTech ? 0.6 : 0.15} roughness={0.42} emissive={color} emissiveIntensity={0.12} /></mesh>
+          <mesh castShadow position={[0.36, 0.98, 0]} rotation={[0, 0, -0.4]}><boxGeometry args={[0.24, 0.12, 0.2]} /><meshStandardMaterial color={isTrainer || isNasTech ? '#94a3b8' : color} metalness={isTrainer || isNasTech ? 0.6 : 0.15} roughness={0.42} emissive={color} emissiveIntensity={0.12} /></mesh>
         </>
       )}
       {/* breastplate disc (knights only) */}
@@ -1094,10 +1094,10 @@ function NpcAccessories({ role = '', color }: { role?: string; color: string }) 
         </mesh>
       )}
       {/* cape/back panel, visible in orbit and screenshots */}
-      {(isRecruiter || isBanker || isTavern || isHermes) && (
+      {(isRecruiter || isBanker || isTavern || isNasTech) && (
         <mesh castShadow position={[0, 0.78, -0.2]} rotation={[0.18, 0, 0]}>
           <planeGeometry args={[0.72, 0.9]} />
-          <meshStandardMaterial color={color} side={THREE.DoubleSide} roughness={0.6} emissive={color} emissiveIntensity={isHermes ? 0.18 : 0.08} />
+          <meshStandardMaterial color={color} side={THREE.DoubleSide} roughness={0.6} emissive={color} emissiveIntensity={isNasTech ? 0.18 : 0.08} />
         </mesh>
       )}
       {/* hats/crowns so roles read at distance */}
@@ -1118,8 +1118,8 @@ function NpcAccessories({ role = '', color }: { role?: string; color: string }) 
           </mesh>
         </>
       )}
-      {/* Hermes-specific winged petasos */}
-      {isHermes && (
+      {/* NasTech-specific winged petasos */}
+      {isNasTech && (
         <>
           <mesh castShadow position={[0, 1.5, 0]}>
             <coneGeometry args={[0.24, 0.16, 14]} />
@@ -1149,8 +1149,8 @@ function NpcAccessories({ role = '', color }: { role?: string; color: string }) 
       {/* weapons/tools (existing) */}
       {isTrainer && <mesh castShadow position={[0.52, 0.82, 0.08]} rotation={[0.1, 0, -0.75]}><boxGeometry args={[0.05, 0.9, 0.05]} /><meshStandardMaterial color="#cbd5e1" metalness={0.6} roughness={0.35} /></mesh>}
       {isShop && <mesh castShadow position={[-0.48, 0.72, 0.08]} rotation={[0, 0, 0.25]}><boxGeometry args={[0.16, 0.38, 0.08]} /><meshStandardMaterial color="#a16207" roughness={0.8} /></mesh>}
-      {/* Hermes caduceus staff */}
-      {isHermes && (
+      {/* NasTech caduceus staff */}
+      {isNasTech && (
         <>
           <mesh castShadow position={[-0.5, 0.85, 0.08]} rotation={[0, 0, 0.04]}>
             <cylinderGeometry args={[0.03, 0.03, 1.6, 8]} />
@@ -1171,7 +1171,7 @@ function NpcAccessories({ role = '', color }: { role?: string; color: string }) 
 const NPC_AMBIENT_LINES: Record<string, string[]> = {
   athena: [
     'Welcome, builder. The road begins here.',
-    'Hermes carries your prompts — wisely.',
+    'NasTech carries your prompts — wisely.',
     'Memory turns moments into a story.',
   ],
   iris: [
@@ -1190,7 +1190,7 @@ const NPC_AMBIENT_LINES: Record<string, string[]> = {
     'Starter kit, cheap and proud.',
     'A blade and a cloak. That’s a beginning.',
   ],
-  hermes: [
+  nastech: [
     'Speed is the soul of an agent.',
     'I deliver — between thought and tool.',
   ],
@@ -1389,7 +1389,7 @@ function NPC({
       </Html>
       {highlight && (
         <Html position={[0, 2.95, 0]} center distanceFactor={8}>
-          <div style={{ color: '#fef08a', fontSize: 24, textShadow: '0 0 18px rgba(250,204,21,0.8)', animation: 'hermes-target-arrow var(--hw-flash-rate, 1.5s) ease-in-out infinite' }}>↓</div>
+          <div style={{ color: '#fef08a', fontSize: 24, textShadow: '0 0 18px rgba(250,204,21,0.8)', animation: 'nastech-target-arrow var(--hw-flash-rate, 1.5s) ease-in-out infinite' }}>↓</div>
         </Html>
       )}
       {isNear && (
@@ -1399,7 +1399,7 @@ function NPC({
       )}
       {ambient && !isNear && (
         <Html position={[0, 2.7, 0]} center distanceFactor={8}>
-          <SpeechBubble className="hermes-world-bubble" variant="npc" accent={color} compact>
+          <SpeechBubble className="nastech-world-bubble" variant="npc" accent={color} compact>
             {ambient}
           </SpeechBubble>
         </Html>
@@ -1427,7 +1427,7 @@ function Portal({
   playerRef: React.MutableRefObject<THREE.Vector3>
 }) {
   const ringRef = useRef<THREE.Mesh>(null)
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const photosensitiveMode = settings.accessibility.photosensitiveMode
   const unlockedAtRef = useRef<number | null>(locked ? null : Date.now())
   const prevLockedRef = useRef(locked)
@@ -1464,7 +1464,7 @@ function Portal({
       {!locked && !photosensitiveMode && <Sparkles count={8} scale={[2.5, 2.5, 2.5]} size={1.7} speed={0.12} color={color} opacity={0.22} />}
       {highlight && (
         <Html position={[0, 3.4, 0]} center distanceFactor={8}>
-          <div style={{ color: '#fef08a', fontSize: 26, textShadow: '0 0 18px rgba(250,204,21,0.8)', animation: 'hermes-target-arrow var(--hw-flash-rate, 1.5s) ease-in-out infinite' }}>↓</div>
+          <div style={{ color: '#fef08a', fontSize: 26, textShadow: '0 0 18px rgba(250,204,21,0.8)', animation: 'nastech-target-arrow var(--hw-flash-rate, 1.5s) ease-in-out infinite' }}>↓</div>
         </Html>
       )}
       {!photosensitiveMode && !locked && unlockedAtRef.current && Date.now() - unlockedAtRef.current < 2200 && (
@@ -1521,7 +1521,7 @@ function QuestZone({
       </Html>
       {highlight && (
         <Html position={[0, 2.65, 0]} center distanceFactor={8}>
-          <div style={{ color: '#fef08a', fontSize: 24, textShadow: '0 0 18px rgba(250,204,21,0.8)', animation: 'hermes-target-arrow var(--hw-flash-rate, 1.5s) ease-in-out infinite' }}>↓</div>
+          <div style={{ color: '#fef08a', fontSize: 24, textShadow: '0 0 18px rgba(250,204,21,0.8)', animation: 'nastech-target-arrow var(--hw-flash-rate, 1.5s) ease-in-out infinite' }}>↓</div>
         </Html>
       )}
     </group>
@@ -1584,7 +1584,7 @@ function PlayerAndCamera({
 }) {
   const storedCfg = useAvatarConfig()
   const cfg = avatarConfig ?? storedCfg
-  const portraitId = avatarId || cfg.portrait || 'hermes'
+  const portraitId = avatarId || cfg.portrait || 'nastech'
   const groupRef = useRef<THREE.Group>(null)
   const keys = useKeyboard()
   const { camera } = useThree()
@@ -1608,7 +1608,7 @@ function PlayerAndCamera({
       if (jumpStartedAt.current || now - lastJumpAt.current < 600) return
       lastJumpAt.current = now
       jumpStartedAt.current = now
-      try { window.dispatchEvent(new CustomEvent('hermesworld-player-jumped')) } catch {}
+      try { window.dispatchEvent(new CustomEvent('nastechworld-player-jumped')) } catch {}
     }
     const onDash = () => {
       dashUntil.current = Date.now() + 900
@@ -1617,13 +1617,13 @@ function PlayerAndCamera({
     const onCrouch = (event: Event) => {
       mobileCrouch.current = !!(event as CustomEvent<{ active?: boolean }>).detail?.active
     }
-    window.addEventListener('hermes-playground-dash', onDash)
-    window.addEventListener('hermesworld-mobile-jump', onJump)
-    window.addEventListener('hermesworld-mobile-crouch', onCrouch)
+    window.addEventListener('nastech-playground-dash', onDash)
+    window.addEventListener('nastechworld-mobile-jump', onJump)
+    window.addEventListener('nastechworld-mobile-crouch', onCrouch)
     return () => {
-      window.removeEventListener('hermes-playground-dash', onDash)
-      window.removeEventListener('hermesworld-mobile-jump', onJump)
-      window.removeEventListener('hermesworld-mobile-crouch', onCrouch)
+      window.removeEventListener('nastech-playground-dash', onDash)
+      window.removeEventListener('nastechworld-mobile-jump', onJump)
+      window.removeEventListener('nastechworld-mobile-crouch', onCrouch)
     }
   }, [])
 
@@ -1743,7 +1743,7 @@ function PlayerAndCamera({
         camDistance.current = p.distance
         // Tiny ephemeral toast
         try {
-          window.dispatchEvent(new CustomEvent('hermes-playground-camera-preset', { detail: p.name }))
+          window.dispatchEvent(new CustomEvent('nastech-playground-camera-preset', { detail: p.name }))
         } catch {}
       }
     }
@@ -1773,7 +1773,7 @@ function PlayerAndCamera({
     if (k.has(' ') && !jumpStartedAt.current && now - lastJumpAt.current >= 600) {
       lastJumpAt.current = now
       jumpStartedAt.current = now
-      try { window.dispatchEvent(new CustomEvent('hermesworld-player-jumped')) } catch {}
+      try { window.dispatchEvent(new CustomEvent('nastechworld-player-jumped')) } catch {}
     }
     if (jumpStartedAt.current) {
       const elapsed = now - jumpStartedAt.current
@@ -2154,7 +2154,7 @@ function PlayerAndCamera({
   )
 }
 
-/** Hermes Summoning skill — a glowing familiar orbits the player for 60s after summon. */
+/** NasTech Summoning skill — a glowing familiar orbits the player for 60s after summon. */
 function SummonedFamiliar({ playerRef }: { playerRef: React.MutableRefObject<THREE.Vector3> }) {
   const ref = useRef<THREE.Mesh>(null)
   const lightRef = useRef<THREE.PointLight>(null)
@@ -2166,8 +2166,8 @@ function SummonedFamiliar({ playerRef }: { playerRef: React.MutableRefObject<THR
       const col = detail?.color ?? '#a78bfa'
       setActive({ untilTs: Date.now() + dur, color: col })
     }
-    window.addEventListener('hermes-playground-summon-familiar', onSummon)
-    return () => window.removeEventListener('hermes-playground-summon-familiar', onSummon)
+    window.addEventListener('nastech-playground-summon-familiar', onSummon)
+    return () => window.removeEventListener('nastech-playground-summon-familiar', onSummon)
   }, [])
   useFrame(({ clock }) => {
     if (!active) return
@@ -2209,8 +2209,8 @@ function SelfChatBubble() {
       if (!detail) return
       setBubble({ text: detail, ts: Date.now() })
     }
-    window.addEventListener('hermes-playground-self-chat-bubble', onChat)
-    return () => window.removeEventListener('hermes-playground-self-chat-bubble', onChat)
+    window.addEventListener('nastech-playground-self-chat-bubble', onChat)
+    return () => window.removeEventListener('nastech-playground-self-chat-bubble', onChat)
   }, [])
   useEffect(() => {
     if (!bubble) return
@@ -2220,7 +2220,7 @@ function SelfChatBubble() {
   if (!bubble) return null
   return (
     <Html position={[0, 2.85, 0]} center distanceFactor={8}>
-      <SpeechBubble className="hermes-world-bubble" variant="player" compact>
+      <SpeechBubble className="nastech-world-bubble" variant="player" compact>
         {bubble.text}
       </SpeechBubble>
     </Html>
@@ -2235,7 +2235,7 @@ const NPC_COLORS: Record<string, string> = {
   nike: '#fb7185', // rose, Champion
   pan: '#34d399', // emerald, Hacker
   chronos: '#facc15', // yellow, Architect
-  hermes: '#2dd4bf', // teal
+  nastech: '#2dd4bf', // teal
   artemis: '#9ca3af',
   eros: '#f472b6',
   shopkeeper: '#38bdf8',
@@ -2376,7 +2376,7 @@ function BotPlayer({
       {/* chat bubble */}
       {bubbleText && (
         <Html position={[0, 2.6, 0]} center distanceFactor={8}>
-          <SpeechBubble className="hermes-world-bubble" variant="party" accent={bot.color} compact>
+          <SpeechBubble className="nastech-world-bubble" variant="party" accent={bot.color} compact>
             {bubbleText}
           </SpeechBubble>
         </Html>
@@ -2459,7 +2459,7 @@ function InteriorScene({
   onNpcNearChange: (npcId: string | null) => void
 }) {
   const info = INTERIORS[id]
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const photosensitiveMode = settings.accessibility.photosensitiveMode
   const [pingPos, setPingPos] = useState<[number, number, number] | null>(null)
   return (
@@ -2499,7 +2499,7 @@ function InteriorScene({
       {id === 'apothecary' && <NPC npcId="chronos" position={[-4.4, 0, 1.5]} avatar="chronos" name="Chronos · Lab Notes" color="#facc15" drift={false} playerRef={playerRef} onNearChange={onNpcNearChange} />}
       {id === 'guild' && <>
         <NPC npcId="nike" position={[-4.4, 0, 1.5]} avatar="nike" name="Nike · Raid Captain" color="#fb7185" drift={false} playerRef={playerRef} onNearChange={onNpcNearChange} />
-        <NPC npcId="hermes" position={[4.4, 0, 1.5]} avatar="hermes" name="Hermes · Guildmaster" color="#2dd4bf" drift={false} playerRef={playerRef} onNearChange={onNpcNearChange} />
+        <NPC npcId="nastech" position={[4.4, 0, 1.5]} avatar="nastech" name="NasTech · Guildmaster" color="#2dd4bf" drift={false} playerRef={playerRef} onNearChange={onNpcNearChange} />
       </>}
 
       <ExitTrigger playerRef={playerRef} onExit={onExit} accent={info.accent} />
@@ -2701,8 +2701,8 @@ function RemotePlayer({ remote }: { remote: MpRemotePlayer }) {
       setPinged(true)
       window.setTimeout(() => setPinged(false), 2000)
     }
-    window.addEventListener('hermes-playground-ping-remote', onPing)
-    return () => window.removeEventListener('hermes-playground-ping-remote', onPing)
+    window.addEventListener('nastech-playground-ping-remote', onPing)
+    return () => window.removeEventListener('nastech-playground-ping-remote', onPing)
   }, [remote.id])
   useFrame(() => {
     if (!ref.current) return
@@ -2754,7 +2754,7 @@ function RemotePlayer({ remote }: { remote: MpRemotePlayer }) {
       </Html>
       {remote.lastChat && remote.lastChatAt && Date.now() - remote.lastChatAt < 5500 && (
         <Html position={[0, 2.6, 0]} center distanceFactor={8}>
-          <SpeechBubble className="hermes-world-bubble" variant="party" accent={remote.color} compact>
+          <SpeechBubble className="nastech-world-bubble" variant="party" accent={remote.color} compact>
             {remote.lastChat}
           </SpeechBubble>
         </Html>
@@ -2815,7 +2815,7 @@ function Scene({
 }) {
   const bots = useMemo(() => botsFor(worldId), [worldId])
   const world = WORLDS_3D[worldId]
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const photosensitiveMode = settings.accessibility.photosensitiveMode
   const visibleRemotePlayers = useMemo(() => Object.values(remotePlayers).filter((r) => r.world === worldId && (r.interior ?? null) === null), [remotePlayers, worldId])
   const moveTarget = useRef<THREE.Vector3 | null>(null)
@@ -2849,7 +2849,7 @@ function Scene({
     onNpcNearChange(id)
     if (id && pendingNpc.current === id) {
       pendingNpc.current = null
-      try { (window as any).__hermesPlaygroundOpenDialog?.(id) } catch {}
+      try { (window as any).__nastechPlaygroundOpenDialog?.(id) } catch {}
     }
   }
 
@@ -2929,7 +2929,7 @@ function Scene({
           <NPC npcId="iris" position={[6.2, 0, 0.4]} avatar="iris" name="Iris · Archivist" color={NPC_COLORS.iris} drift={false} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} highlight={isHighlighted('archive-podium')} />
           <NPC npcId="pan" position={[11.2, 0, -7.5]} avatar="pan" name="Pan · Forge Guide" color={NPC_COLORS.pan} drift={false} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} highlight={isHighlighted('build-demo')} />
           <NPC npcId="nike" position={[-4.8, 0, -4.8]} avatar="nike" name="Leonidas · Trainer" color={NPC_COLORS.nike} drift={false} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} />
-          <NPC npcId="shopkeeper" position={[-14.5, 0, -10.2]} avatar="iris" name="Dorian · Quartermaster" color={NPC_COLORS.shopkeeper} drift={false} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} highlight={isHighlighted('training-blade') || isHighlighted('novice-cloak') || isHighlighted('hermes-sigil')} />
+          <NPC npcId="shopkeeper" position={[-14.5, 0, -10.2]} avatar="iris" name="Dorian · Quartermaster" color={NPC_COLORS.shopkeeper} drift={false} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} highlight={isHighlighted('training-blade') || isHighlighted('novice-cloak') || isHighlighted('nastech-sigil')} />
         </>
       )}
       {worldId === 'agora' && (
@@ -2974,7 +2974,7 @@ function Scene({
       {worldId === 'arena' && (
         <>
           <NPC npcId="nike" position={[-3, 0, 4]} avatar="nike" name="Nike · Champion" color={NPC_COLORS.nike} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} />
-          <NPC npcId="hermes" position={[3, 0, 4]} avatar="hermes" name="Hermes · Referee" color={NPC_COLORS.hermes} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} />
+          <NPC npcId="nastech" position={[3, 0, 4]} avatar="nastech" name="NasTech · Referee" color={NPC_COLORS.nastech} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} />
           <NPC npcId="chronos" position={[0, 0, -5]} avatar="chronos" name="Chronos · Bookmaker" color={NPC_COLORS.chronos} playerRef={playerPos} onNearChange={handleNearChange} onClickNpc={onClickNpc} />
         </>
       )}
@@ -3038,7 +3038,7 @@ function Scene({
         />
       </Suspense>
 
-      {/* Summoned Hermes familiar (orbits the player while active) */}
+      {/* Summoned NasTech familiar (orbits the player while active) */}
       <SummonedFamiliar playerRef={playerPos} />
 
       {/* Real remote players */}
@@ -3081,7 +3081,7 @@ function DevFpsSampler() {
     if (typeof performance !== 'undefined' && 'memory' in performance) stats.heap = ((performance as any).memory?.usedJSHeapSize || 0) / 1048576
     if (now - stats.last < 10) return
     const avgFrame = stats.sum / Math.max(1, stats.frames)
-    console.table([{ scope: 'HermesWorld playground', avgFps: Number((1000 / Math.max(1, avgFrame)).toFixed(1)), avgFrameMs: Number(avgFrame.toFixed(2)), p95FrameMsApprox: Number(stats.max.toFixed(2)), jsHeapMb: stats.heap ? Number(stats.heap.toFixed(1)) : 'n/a', samples: stats.frames }])
+    console.table([{ scope: 'NasTechWorld playground', avgFps: Number((1000 / Math.max(1, avgFrame)).toFixed(1)), avgFrameMs: Number(avgFrame.toFixed(2)), p95FrameMsApprox: Number(stats.max.toFixed(2)), jsHeapMb: stats.heap ? Number(stats.heap.toFixed(1)) : 'n/a', samples: stats.frames }])
     sample.current = { last: now, frames: 0, sum: 0, max: 0, heap: stats.heap }
   })
   return null
@@ -3185,7 +3185,7 @@ export function PlaygroundWorld3D({
 }) {
   const playerPos = useRef(new THREE.Vector3(0, 0, 6))
   const playerYaw = useRef(0)
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const photosensitiveMode = settings.accessibility.photosensitiveMode
   const fallbackBackground = ZONE_FALLBACK_BACKGROUNDS[worldId]
   const positionForMp = useRef<{ x: number; y: number; z: number } | null>({ x: 0, y: 0, z: 6 })
@@ -3198,7 +3198,7 @@ export function PlaygroundWorld3D({
     const id = window.setInterval(() => {
       const p = { x: playerPos.current.x, y: playerPos.current.y, z: playerPos.current.z }
       positionForMp.current = p
-      ;(window as any).__hermesPlaygroundPlayerPos = p
+      ;(window as any).__nastechPlaygroundPlayerPos = p
     }, isMobile ? Math.ceil(1000 / 30) : Math.ceil(1000 / 60))
     return () => window.clearInterval(id)
   }, [])
@@ -3212,8 +3212,8 @@ export function PlaygroundWorld3D({
   })
   // Expose sendChat + multiplayer info globally so HUD/chat panel can read it.
   useEffect(() => {
-    ;(window as any).__hermesPlaygroundSendChat = (text: string) => sendChat(text)
-    ;(window as any).__hermesPlaygroundMpInfo = () => ({
+    ;(window as any).__nastechPlaygroundSendChat = (text: string) => sendChat(text)
+    ;(window as any).__nastechPlaygroundMpInfo = () => ({
       online,
       transport,
       myName,
@@ -3224,14 +3224,14 @@ export function PlaygroundWorld3D({
     })
     // Push live count for the HUD chip without polling /stats.
     if (serverCount) {
-      ;(window as any).__hermesPlaygroundLiveCount = serverCount
-      window.dispatchEvent(new CustomEvent('hermes-playground-count', { detail: serverCount }))
+      ;(window as any).__nastechPlaygroundLiveCount = serverCount
+      window.dispatchEvent(new CustomEvent('nastech-playground-count', { detail: serverCount }))
     }
-    ;(window as any).__hermesPlaygroundLiveTransport = transport
-    window.dispatchEvent(new CustomEvent('hermes-playground-transport', { detail: transport }))
+    ;(window as any).__nastechPlaygroundLiveTransport = transport
+    window.dispatchEvent(new CustomEvent('nastech-playground-transport', { detail: transport }))
     return () => {
-      try { delete (window as any).__hermesPlaygroundSendChat } catch {}
-      try { delete (window as any).__hermesPlaygroundMpInfo } catch {}
+      try { delete (window as any).__nastechPlaygroundSendChat } catch {}
+      try { delete (window as any).__nastechPlaygroundMpInfo } catch {}
     }
   }, [sendChat, online, transport, myName, myColor, selfId, remotePlayers, serverCount])
 
@@ -3283,11 +3283,11 @@ export function PlaygroundWorld3D({
         />
       ) : null}
       <style>{`
-        @keyframes hermes-target-arrow {
+        @keyframes nastech-target-arrow {
           0%, 100% { transform: translateY(0); opacity: 0.78; }
           50% { transform: translateY(4px); opacity: 0.9; }
         }
-        .hermesworld-photosensitive .hermes-target-flash { animation: none !important; opacity: 0.82 !important; }
+        .nastechworld-photosensitive .nastech-target-flash { animation: none !important; opacity: 0.82 !important; }
       `}</style>
       <Canvas
         shadows

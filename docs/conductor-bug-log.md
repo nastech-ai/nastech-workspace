@@ -2,7 +2,7 @@
 
 ## 1. Portable Conductor jobs never executed
 
-- Symptom: portable-mode missions were being created as scheduled Hermes jobs, but the jobs stayed in `scheduled` state and never ran.
+- Symptom: portable-mode missions were being created as scheduled NasTech jobs, but the jobs stayed in `scheduled` state and never ran.
 - Fix: portable Conductor now uses the existing `/api/send-stream` session-streaming path instead of the dead jobs path.
 - Validation: portable API smoke test returned `started`, `chunk`, and `done` SSE events, and the build passed.
 

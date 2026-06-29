@@ -1,5 +1,5 @@
 /**
- * Jobs API proxy — forwards to Hermes Agent FastAPI /api/jobs
+ * Jobs API proxy — forwards to NasTech Agent FastAPI /api/jobs
  */
 import { createFileRoute } from '@tanstack/react-router'
 import { isAuthenticated } from '../../server/auth-middleware'
@@ -13,7 +13,7 @@ import {
 import {
   createProfileCronJob,
   listProfileCronJobs,
-} from '../../server/hermes-cron-profiles'
+} from '../../server/nastech-cron-profiles'
 import { createCapabilityUnavailablePayload } from '@/lib/feature-gates'
 
 function authHeaders(): Record<string, string> {
@@ -23,7 +23,7 @@ function authHeaders(): Record<string, string> {
 /**
  * Normalise the jobs response so callers always receive `{ jobs: [...] }`.
  *
- * Some Hermes gateway versions return a bare array instead of the expected
+ * Some NasTech gateway versions return a bare array instead of the expected
  * `{ jobs: [] }` envelope. This helper wraps bare arrays so the workspace UI
  * never has to special-case both shapes.
  */

@@ -1,6 +1,6 @@
 # Zones Lore
 
-HermesWorld begins with six awakened zones. Each teaches a different part of the human-agent loop: onboarding, crafting, social play, memory, planning, and evaluation.
+NasTechWorld begins with six awakened zones. Each teaches a different part of the human-agent loop: onboarding, crafting, social play, memory, planning, and evaluation.
 
 See also: [Getting Started](../guides/GETTING-STARTED.md), [Quests](../guides/QUESTS.md), [World Events](../walkthroughs/WORLD-EVENTS.md).
 
@@ -13,7 +13,7 @@ The stones are deliberately worn smooth. Every mark exists because someone faile
 Key NPCs:
 
 - **Athena, Sage of First Steps** — starter guide, keeper of the onboarding oath, giver of [Quest 001](../walkthroughs/QUEST-001-ATHENAS-INTRO.md).
-- **Hermes Guide** — quick-tip familiar that appears when a player stalls.
+- **NasTech Guide** — quick-tip familiar that appears when a player stalls.
 - **Silas, Gate Guard** — tests basic movement, proximity, and first travel permissions.
 
 Gameplay role:
@@ -26,7 +26,7 @@ Gameplay role:
 
 ## Forge
 
-The Forge is the industrial heart of HermesWorld: bronze pipes, black stone anvils, ember-lit benches, and humming toolframes where prompts become equipment.
+The Forge is the industrial heart of NasTechWorld: bronze pipes, black stone anvils, ember-lit benches, and humming toolframes where prompts become equipment.
 
 The Forge teaches that craft is not flavor. It is leverage made tangible.
 
@@ -47,7 +47,7 @@ Gameplay role:
 
 The Agora is the social relay: a circular plaza of cobblestones, rune rings, lanterns, stalls, benches, and a central monument capped in gold.
 
-If HermesWorld has a heartbeat, it is here.
+If NasTechWorld has a heartbeat, it is here.
 
 Key NPCs:
 

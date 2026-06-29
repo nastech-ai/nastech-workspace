@@ -1,5 +1,5 @@
 /**
- * Jobs API client — talks to Hermes Agent FastAPI /api/jobs endpoints.
+ * Jobs API client — talks to NasTech Agent FastAPI /api/jobs endpoints.
  */
 
 const CLAUDE_API = '/api/claude-jobs'
@@ -33,7 +33,7 @@ export type ClaudeJob = {
   jobId?: string
 }
 
-export type HermesJob = ClaudeJob
+export type NasTechJob = ClaudeJob
 
 export type JobOutput = {
   filename: string

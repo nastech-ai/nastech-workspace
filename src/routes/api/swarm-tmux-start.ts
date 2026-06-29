@@ -12,7 +12,7 @@ import { syncSwarmProfileModel } from '../../server/swarm-profile-config'
 // Inlined to avoid SSR module-resolution races against freshly-written
 // helpers; mirrors `src/server/claude-paths.ts` getProfilesDir().
 function getProfilesDir(): string {
-  const envHome = process.env.HERMES_HOME || process.env.CLAUDE_HOME
+  const envHome = process.env.NASTECH_HOME || process.env.CLAUDE_HOME
   if (envHome) {
     const parts = envHome.split('/').filter(Boolean)
     if (parts.length >= 2 && parts.at(-2) === 'profiles') {
@@ -20,7 +20,7 @@ function getProfilesDir(): string {
     }
     return join(envHome, 'profiles')
   }
-  return join(homedir(), '.hermes', 'profiles')
+  return join(homedir(), '.nastech', 'profiles')
 }
 
 /**
@@ -28,7 +28,7 @@ function getProfilesDir(): string {
  * Body: { workerId: "swarm1" }
  *
  * Idempotently ensures a long-lived tmux session exists for a worker.
- * The session runs the worker's `hermes` TUI inside its profile + cwd, so
+ * The session runs the worker's `nastech` TUI inside its profile + cwd, so
  * dispatch traffic + the swarm2 Runtime pane both see the same live agent.
  *
  * Returns: { workerId, sessionName, alreadyRunning, started }
@@ -80,22 +80,22 @@ function validateWorkerId(value: string): boolean {
   return /^[a-z0-9][a-z0-9_-]{0,63}$/i.test(value)
 }
 
-const HERMES_BIN_CANDIDATES = [
-  process.env.HERMES_CLI_BIN,
-  join(homedir(), '.hermes', 'hermes-agent', 'venv', 'bin', 'hermes'),
-  join(homedir(), '.local', 'bin', 'hermes'),
-  'hermes',
+const NASTECH_BIN_CANDIDATES = [
+  process.env.NASTECH_CLI_BIN,
+  join(homedir(), '.nastech', 'nastech-agent', 'venv', 'bin', 'nastech'),
+  join(homedir(), '.local', 'bin', 'nastech'),
+  'nastech',
 ].filter((value): value is string => Boolean(value))
 
-function resolveHermesBin(): string {
-  for (const candidate of HERMES_BIN_CANDIDATES) {
+function resolveNasTechBin(): string {
+  for (const candidate of NASTECH_BIN_CANDIDATES) {
     if (candidate.includes('/')) {
       if (existsSync(candidate)) return candidate
       continue
     }
     return candidate
   }
-  return 'hermes'
+  return 'nastech'
 }
 
 function startSession(
@@ -114,7 +114,7 @@ function startSession(
         sessionName,
         '-c',
         cwd,
-        `HERMES_HOME='${profilePath.replace(/'/g, `'\\''`)}' HERMES_CLI_BIN='${resolveHermesBin().replace(/'/g, `'\\''`)}' exec '${resolveHermesBin().replace(/'/g, `'\\''`)}' chat --tui`,
+        `NASTECH_HOME='${profilePath.replace(/'/g, `'\\''`)}' NASTECH_CLI_BIN='${resolveNasTechBin().replace(/'/g, `'\\''`)}' exec '${resolveNasTechBin().replace(/'/g, `'\\''`)}' chat --tui`,
       ],
       { timeout: 8_000 },
       (error, _stdout, stderr) => {
@@ -199,7 +199,7 @@ export const Route = createFileRoute('/api/swarm-tmux-start')({
         }
 
         // Sync the worker's profile config.yaml model section to the
-        // roster's `model:` label before we (re)attach tmux. Hermes Agent
+        // roster's `model:` label before we (re)attach tmux. NasTech Agent
         // reads config.yaml on every invocation, and the wrapper does not
         // pass `--model`, so this is the only way the roster value is
         // honored. Best-effort: unrecognised labels (typos, custom

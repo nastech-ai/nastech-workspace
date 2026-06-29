@@ -5,7 +5,7 @@ import { CLAUDE_API } from './gateway-capabilities'
 
 /**
  * Optional bearer token for authenticated OpenAI-compatible endpoints
- * (e.g. Codex OAuth, Hermes Agent gateway with API_SERVER_KEY set).
+ * (e.g. Codex OAuth, NasTech Agent gateway with API_SERVER_KEY set).
  *
  * Read at call time, not module-load time: under vite-node SSR the
  * top-level `process.env` snapshot can be empty when this module is
@@ -14,17 +14,17 @@ import { CLAUDE_API } from './gateway-capabilities'
  * function avoids that.
  *
  * Resolution order:
- * 1. `HERMES_API_TOKEN` env var
+ * 1. `NASTECH_API_TOKEN` env var
  * 2. `CLAUDE_API_TOKEN` env var (back-compat)
  * 3. Codex OAuth access token from `~/.codex/auth.json`
  */
 export function getBearerToken(): string {
-  const fromEnv = process.env.HERMES_API_TOKEN || process.env.CLAUDE_API_TOKEN
+  const fromEnv = process.env.NASTECH_API_TOKEN || process.env.CLAUDE_API_TOKEN
   if (fromEnv) return fromEnv
 
   // Fall back to Codex OAuth token when no env var is set.
   // This bridges the gap for users who authenticated via `codex login`
-  // but don't have HERMES_API_TOKEN configured.
+  // but don't have NASTECH_API_TOKEN configured.
   try {
     const codexAuthPath = join(homedir(), '.codex', 'auth.json')
     if (existsSync(codexAuthPath)) {
@@ -134,9 +134,9 @@ export type StreamChunkType =
       name: string
       label: string
       toolCallId?: string
-      // Lifecycle phase from the upstream gateway. Vanilla Hermes Agent
+      // Lifecycle phase from the upstream gateway. Vanilla NasTech Agent
       // emits 'running' at tool start and 'completed' at tool finish via
-      // the `hermes.tool.progress` SSE event (#16588). Older builds that
+      // the `nastech.tool.progress` SSE event (#16588). Older builds that
       // sent `claude.tool.progress` did not carry status — we treat
       // missing/unknown values as a one-shot 'running' so existing flows
       // keep working.
@@ -232,7 +232,7 @@ export async function* parseOpenAIStream(
 
         if (
           eventName === 'claude.tool.progress' ||
-          eventName === 'hermes.tool.progress'
+          eventName === 'nastech.tool.progress'
         ) {
           const toolChunk = parseClaudeToolProgressChunk(payload)
           if (toolChunk) yield toolChunk
@@ -285,12 +285,12 @@ export async function openaiChat(
   }
   // Session continuity is part of request routing, not authentication.
   // If the gateway requires auth, _check_auth has already validated the
-  // bearer above; when it does not, dropping these headers forces Hermes
+  // bearer above; when it does not, dropping these headers forces NasTech
   // Agent to derive a fresh api-* session from each message payload.
   if (options.sessionId) {
-    headers['X-Hermes-Session-Id'] = options.sessionId
+    headers['X-NasTech-Session-Id'] = options.sessionId
     // Back-compat for older/Claude-compatible adapters that still look for
-    // the pre-Hermes header name.  Hermes Agent ignores this alias.
+    // the pre-NasTech header name.  NasTech Agent ignores this alias.
     headers['X-Claude-Session-Id'] = options.sessionId
   }
 

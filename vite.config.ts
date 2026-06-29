@@ -15,31 +15,31 @@ import { defineConfig, loadEnv } from 'vite'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 
 // ---------------------------------------------------------------------------
-// Hermes Agent auto-start helpers
+// NasTech Agent auto-start helpers
 // ---------------------------------------------------------------------------
 
-/** Resolve the hermes-agent directory using a priority-ordered fallback chain:
- *  1. HERMES_AGENT_PATH env var (explicit override)
+/** Resolve the nastech-agent directory using a priority-ordered fallback chain:
+ *  1. NASTECH_AGENT_PATH env var (explicit override)
  *  2. CLAUDE_AGENT_PATH env var (legacy override)
- *  3. ../hermes-agent  — sibling clone (standard README setup)
- *  4. ../../hermes-agent — one level up (monorepo / nested workspace)
+ *  3. ../nastech-agent  — sibling clone (standard README setup)
+ *  4. ../../nastech-agent — one level up (monorepo / nested workspace)
  *  Returns null if none found.
  */
 function resolveClaudeAgentDir(env: Record<string, string>): string | null {
   const candidates: string[] = []
 
-  const explicitAgentPath = env.HERMES_AGENT_PATH?.trim() || env.CLAUDE_AGENT_PATH?.trim()
+  const explicitAgentPath = env.NASTECH_AGENT_PATH?.trim() || env.CLAUDE_AGENT_PATH?.trim()
   if (explicitAgentPath) {
     candidates.push(explicitAgentPath)
   }
 
-  // Resolve relative to the workspace root (parent of hermes-workspace/)
+  // Resolve relative to the workspace root (parent of nastech-workspace/)
   const workspaceRoot = dirname(resolve('.'))
   candidates.push(
-    resolve(workspaceRoot, 'hermes-agent'), // sibling (old README)
-    resolve(workspaceRoot, '..', 'hermes-agent'), // one level up
-    resolve(os.homedir(), '.claude', 'hermes-agent'), // Nous installer default
-    resolve(os.homedir(), 'hermes-agent'), // ~/hermes-agent
+    resolve(workspaceRoot, 'nastech-agent'), // sibling (old README)
+    resolve(workspaceRoot, '..', 'nastech-agent'), // one level up
+    resolve(os.homedir(), '.claude', 'nastech-agent'), // Nous installer default
+    resolve(os.homedir(), 'nastech-agent'), // ~/nastech-agent
   )
 
   for (const candidate of candidates) {
@@ -48,11 +48,11 @@ function resolveClaudeAgentDir(env: Record<string, string>): string | null {
   return null
 }
 
-/** Find the Hermes CLI binary used to start the local gateway. */
+/** Find the NasTech CLI binary used to start the local gateway. */
 function resolveClaudeBinary(): string | null {
   const candidates = [
-    process.env.HERMES_CLI_BIN || '',
-    resolve(os.homedir(), '.hermes', 'hermes-agent', 'venv', 'bin', 'hermes'),
+    process.env.NASTECH_CLI_BIN || '',
+    resolve(os.homedir(), '.nastech', 'nastech-agent', 'venv', 'bin', 'nastech'),
     resolve(os.homedir(), '.claude', 'bin', 'claude'),
     resolve(os.homedir(), '.local', 'bin', 'claude'),
   ]
@@ -62,7 +62,7 @@ function resolveClaudeBinary(): string | null {
   return null
 }
 
-/** Resolve the Python executable to use for Hermes backend startup.
+/** Resolve the Python executable to use for NasTech backend startup.
  *  Prefers .venv/bin/python inside agentDir, falls back to system python3.
  */
 function resolveClaudePython(agentDir: string): string {
@@ -74,7 +74,7 @@ function resolveClaudePython(agentDir: string): string {
   return 'python3'
 }
 
-/** Check if hermes-agent health endpoint is responding */
+/** Check if nastech-agent health endpoint is responding */
 async function isClaudeAgentHealthy(port = 8642): Promise<boolean> {
   try {
     const r = await fetch(`http://127.0.0.1:${port}/health`, {
@@ -90,7 +90,7 @@ const config = defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd(), '')
   // Bridge loadEnv into process.env for server-side SSR runtime code that
   // reads env vars directly from process.env (e.g. getBearerToken() in
-  // openai-compat-api.ts reads process.env.HERMES_API_TOKEN). Without this,
+  // openai-compat-api.ts reads process.env.NASTECH_API_TOKEN). Without this,
   // Vite's loadEnv only populates the local `env` object — not process.env.
   for (const key of Object.keys(env)) {
     if (!(key in process.env)) {
@@ -102,7 +102,7 @@ const config = defineConfig(({ mode, command }) => {
   // src/routes/api/connection-status.ts; the dev server no longer
   // intercepts that path with a slim shortcut. See #285.
 
-  // Hermes Agent auto-start state
+  // NasTech Agent auto-start state
   let claudeAgentChild: ChildProcess | null = null
   let claudeAgentStarted = false
 
@@ -117,13 +117,13 @@ const config = defineConfig(({ mode, command }) => {
       explicitUrl !== 'http://localhost:8642'
     ) {
       console.log(
-        `[hermes-agent] Skipping auto-start — using external API: ${explicitUrl}`,
+        `[nastech-agent] Skipping auto-start — using external API: ${explicitUrl}`,
       )
       claudeAgentStarted = true
       return
     }
     if (await isClaudeAgentHealthy()) {
-      console.log('[hermes-agent] Already running — reusing existing process')
+      console.log('[nastech-agent] Already running — reusing existing process')
       claudeAgentStarted = true
       return
     }
@@ -131,7 +131,7 @@ const config = defineConfig(({ mode, command }) => {
     const claudeBin = resolveClaudeBinary()
     const agentDir = resolveClaudeAgentDir(env)
 
-    // Prefer the `hermes gateway run` binary path (Nous installer's canonical
+    // Prefer the `nastech gateway run` binary path (Nous installer's canonical
     // entrypoint). Fall back to launching uvicorn against the source tree if
     // only a directory is present (dev / cloned-in-place setups).
     let launchCmd: string
@@ -142,7 +142,7 @@ const config = defineConfig(({ mode, command }) => {
       launchCmd = claudeBin
       commandArgs = ['gateway', 'run']
       launchCwd = agentDir ?? undefined
-      console.log(`[hermes-agent] Starting ${claudeBin} gateway run`)
+      console.log(`[nastech-agent] Starting ${claudeBin} gateway run`)
     } else if (agentDir) {
       launchCmd = resolveClaudePython(agentDir)
       const useGatewayRun = existsSync(resolve(agentDir, 'gateway', 'run.py'))
@@ -159,14 +159,14 @@ const config = defineConfig(({ mode, command }) => {
           ]
       launchCwd = agentDir
       console.log(
-        `[hermes-agent] Starting from ${agentDir} using ${launchCmd} (${useGatewayRun ? 'gateway.run' : 'uvicorn'})`,
+        `[nastech-agent] Starting from ${agentDir} using ${launchCmd} (${useGatewayRun ? 'gateway.run' : 'uvicorn'})`,
       )
     } else {
       console.warn(
-        '[hermes-agent] Could not find hermes-agent installation.\n' +
+        '[nastech-agent] Could not find nastech-agent installation.\n' +
           '  Run the installer:\n' +
-          '    curl -fsSL https://hermes-workspace.com/install.sh | bash\n' +
-          '  Or set HERMES_AGENT_PATH (or legacy CLAUDE_AGENT_PATH) in .env to point at your hermes-agent clone.',
+          '    curl -fsSL https://nastech-workspace.com/install.sh | bash\n' +
+          '  Or set NASTECH_AGENT_PATH (or legacy CLAUDE_AGENT_PATH) in .env to point at your nastech-agent clone.',
       )
       return
     }
@@ -194,18 +194,18 @@ const config = defineConfig(({ mode, command }) => {
 
     child.stdout?.on('data', (d: Buffer) => {
       const line = d.toString().trim()
-      if (line) console.log(`[hermes-agent] ${line}`)
+      if (line) console.log(`[nastech-agent] ${line}`)
     })
     child.stderr?.on('data', (d: Buffer) => {
       const line = d.toString().trim()
-      if (line) console.log(`[hermes-agent] ${line}`)
+      if (line) console.log(`[nastech-agent] ${line}`)
     })
 
     child.on('exit', (code) => {
       claudeAgentChild = null
       claudeAgentStarted = false
       if (code !== 0 && code !== null) {
-        console.warn(`[hermes-agent] Exited with code ${code}`)
+        console.warn(`[nastech-agent] Exited with code ${code}`)
       }
     })
 
@@ -213,12 +213,12 @@ const config = defineConfig(({ mode, command }) => {
     for (let i = 0; i < 15; i++) {
       await new Promise((r) => setTimeout(r, 1000))
       if (await isClaudeAgentHealthy()) {
-        console.log('[hermes-agent] ✓ Ready on http://127.0.0.1:8642')
+        console.log('[nastech-agent] ✓ Ready on http://127.0.0.1:8642')
         return
       }
     }
     console.warn(
-      '[hermes-agent] Started but health check timed out — may still be loading',
+      '[nastech-agent] Started but health check timed out — may still be loading',
     )
   }
 
@@ -480,9 +480,9 @@ const config = defineConfig(({ mode, command }) => {
       ],
     },
     server: {
-      // Cross-origin isolation so the embedded HermesWorld WebGL client keeps
+      // Cross-origin isolation so the embedded NasTechWorld WebGL client keeps
       // SharedArrayBuffer multithreading (matches the standalone web client at
-      // play.hermes-world.ai). Without these, the iframe silently drops to a
+      // play.nastech-world.ai). Without these, the iframe silently drops to a
       // single thread → render+physics+netcode contend on one thread → inflated
       // ping / worse frame pacing even though network RTT is identical.
       // COEP 'credentialless' enables isolation WITHOUT requiring CORP headers
@@ -538,7 +538,7 @@ const config = defineConfig(({ mode, command }) => {
         ],
       },
       proxy: {
-        // WebSocket proxy: clients connect to /ws-claude on the Hermes Workspace
+        // WebSocket proxy: clients connect to /ws-claude on the NasTech Workspace
         // server (any IP/port), which internally forwards to the local server.
         // This means phone/LAN/Docker users never need to reach port 18789 directly.
         '/ws-claude': {
@@ -547,7 +547,7 @@ const config = defineConfig(({ mode, command }) => {
           ws: true,
           rewrite: (path) => path.replace(/^\/ws-claude/, ''),
         },
-        // REST API proxy: API proxy for Hermes backend
+        // REST API proxy: API proxy for NasTech backend
         '/api/claude-proxy': {
           target: proxyTarget,
           changeOrigin: true,
@@ -589,8 +589,8 @@ const config = defineConfig(({ mode, command }) => {
         },
         configureServer(server) {
           // Cross-origin isolation headers on EVERY response so the embedded
-          // HermesWorld WebGL client keeps SharedArrayBuffer multithreading
-          // (matches play.hermes-world.ai). Injected via middleware because the
+          // NasTechWorld WebGL client keeps SharedArrayBuffer multithreading
+          // (matches play.nastech-world.ai). Injected via middleware because the
           // TanStack Start SSR handler owns the HTML response and overrides
           // vite's server.headers. COEP 'credentialless' avoids requiring CORP
           // on every cross-origin asset; same-origin agent API is unaffected.
@@ -668,19 +668,19 @@ const config = defineConfig(({ mode, command }) => {
             }
           })
 
-          // Auto-start hermes-agent when dev server launches.
-          // Skip when launchd manages the gateway (HERMES_WORKSPACE_AUTO_START_AGENT=false)
+          // Auto-start nastech-agent when dev server launches.
+          // Skip when launchd manages the gateway (NASTECH_WORKSPACE_AUTO_START_AGENT=false)
           // to avoid SIGTERM cycle on close that nukes the launchd-managed process.
           const autoStartAgent =
-            process.env.HERMES_WORKSPACE_AUTO_START_AGENT !== 'false'
+            process.env.NASTECH_WORKSPACE_AUTO_START_AGENT !== 'false'
           if (command === 'serve' && autoStartAgent) {
             void startClaudeAgent()
           }
 
-          // Shutdown hermes-agent when dev server stops — only if we spawned it.
+          // Shutdown nastech-agent when dev server stops — only if we spawned it.
           server.httpServer?.on('close', () => {
             if (claudeAgentChild && autoStartAgent) {
-              console.log('[hermes-agent] Stopping...')
+              console.log('[nastech-agent] Stopping...')
               claudeAgentChild.kill('SIGTERM')
               claudeAgentChild = null
               claudeAgentStarted = false

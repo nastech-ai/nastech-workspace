@@ -15,7 +15,7 @@ describe('SpeechBubble', () => {
       )
       const bubble = screen
         .getByText(`Hello ${variant}`)
-        .closest('.hermes-speech-bubble')
+        .closest('.nastech-speech-bubble')
       expect(bubble?.getAttribute('data-variant')).toBe(variant)
       expect(bubble?.getAttribute('data-tail')).toBe('bottom')
       unmount()
@@ -41,7 +41,7 @@ describe('Toast', () => {
       expect(
         screen
           .getByText(`${rarity} loot`)
-          .closest('.hermes-toast')
+          .closest('.nastech-toast')
           ?.getAttribute('data-rarity'),
       ).toBe(rarity)
       unmount()

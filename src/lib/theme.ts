@@ -44,13 +44,13 @@ export const THEMES: Array<{
   },
   {
     id: 'claude-official',
-    label: 'Hermes',
+    label: 'NasTech',
     description: 'Navy and indigo flagship theme',
     icon: '⚕',
   },
   {
     id: 'claude-official-light',
-    label: 'Hermes Light',
+    label: 'NasTech Light',
     description: 'Editorial paper white with muted cobalt accents',
     icon: '⚕',
   },

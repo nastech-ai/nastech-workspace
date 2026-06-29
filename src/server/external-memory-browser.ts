@@ -68,9 +68,9 @@ type RawProviderConfig = {
   config_path?: unknown
 }
 
-function getHermesHome(): string {
-  const envHome = (process.env.HERMES_HOME || process.env.CLAUDE_HOME)?.trim()
-  return path.resolve(envHome || path.join(os.homedir(), '.hermes'))
+function getNasTechHome(): string {
+  const envHome = (process.env.NASTECH_HOME || process.env.CLAUDE_HOME)?.trim()
+  return path.resolve(envHome || path.join(os.homedir(), '.nastech'))
 }
 
 function safeProviderId(value: unknown): string | null {
@@ -82,7 +82,7 @@ function safeProviderId(value: unknown): string | null {
   return provider
 }
 
-function resolveUnderHermesHome(hermesHome: string, input: unknown): string {
+function resolveUnderNasTechHome(nastechHome: string, input: unknown): string {
   const raw = String(input || '').trim()
   if (!raw) return ''
   const expanded = raw.startsWith('~/')
@@ -90,12 +90,12 @@ function resolveUnderHermesHome(hermesHome: string, input: unknown): string {
     : raw
   return path.isAbsolute(expanded)
     ? path.resolve(expanded)
-    : path.resolve(hermesHome, expanded)
+    : path.resolve(nastechHome, expanded)
 }
 
 function readProviderRegistry(): Array<RawProviderConfig> {
   const registryPath = path.join(
-    getHermesHome(),
+    getNasTechHome(),
     'external_memory_providers.json',
   )
   if (!fs.existsSync(registryPath)) return []
@@ -120,16 +120,16 @@ export function listExternalMemoryProviders(): {
   active: string
   providers: Array<ExternalMemoryProvider>
 } {
-  const hermesHome = getHermesHome()
+  const nastechHome = getNasTechHome()
   const seen = new Set<string>()
   const providers: Array<ExternalMemoryProvider> = []
 
   for (const item of readProviderRegistry()) {
     const id = safeProviderId(item.id ?? item.name)
     if (!id || seen.has(id)) continue
-    const dbPath = resolveUnderHermesHome(hermesHome, item.db_path)
+    const dbPath = resolveUnderNasTechHome(nastechHome, item.db_path)
     if (!dbPath) continue
-    const configPath = resolveUnderHermesHome(hermesHome, item.config_path)
+    const configPath = resolveUnderNasTechHome(nastechHome, item.config_path)
     seen.add(id)
     providers.push({
       id,

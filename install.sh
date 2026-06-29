@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
-# Hermes Workspace — one-liner installer
+# NasTech Workspace — one-liner installer
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/outsourc-e/hermes-workspace/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/nastech-ai/nastech-workspace/main/install.sh | bash
 #
 # What it does:
 #   1. Verifies Node 22+, git, pnpm
-#   2. Installs hermes-agent via Nous's official upstream installer
-#   3. Clones hermes-workspace
-#   4. Sets up .env, enables the Hermes API server, installs deps,
+#   2. Installs nastech-agent via Nous's official upstream installer
+#   3. Clones nastech-workspace
+#   4. Sets up .env, enables the NasTech API server, installs deps,
 #      and links bundled skills
 #
 # Re-runnable. Will skip anything already installed.
 
 set -euo pipefail
 
-REPO_URL="${REPO_URL:-https://github.com/outsourc-e/hermes-workspace.git}"
-INSTALL_DIR="${INSTALL_DIR:-$HOME/hermes-workspace}"
+REPO_URL="${REPO_URL:-https://github.com/nastech-ai/nastech-workspace.git}"
+INSTALL_DIR="${INSTALL_DIR:-$HOME/nastech-workspace}"
 GATEWAY_PORT="${GATEWAY_PORT:-8642}"
-NOUS_INSTALLER_URL="${NOUS_INSTALLER_URL:-https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh}"
+NOUS_INSTALLER_URL="${NOUS_INSTALLER_URL:-https://raw.githubusercontent.com/nastech-ai/nastech-agent/main/scripts/install.sh}"
 
 # ─── helpers ──────────────────────────────────────────────────────────────
 
@@ -34,8 +34,8 @@ banner() {
   cat <<'EOF'
 
    ╭────────────────────────────────────────────╮
-   │  HERMES WORKSPACE — zero-fork installer   │
-   │  outsourc-e/hermes-workspace               │
+   │  NASTECH WORKSPACE — zero-fork installer   │
+   │  nastech-ai/nastech-workspace               │
    ╰────────────────────────────────────────────╯
 
 EOF
@@ -128,18 +128,18 @@ if ! command -v pnpm &>/dev/null; then
 fi
 green "  pnpm $(pnpm_cmd --version) ✓"
 
-# ─── install hermes-agent (delegate to Nous upstream installer) ──────────
-# hermes-agent is NOT on PyPI. It installs from source via Nous's own
+# ─── install nastech-agent (delegate to Nous upstream installer) ──────────
+# nastech-agent is NOT on PyPI. It installs from source via Nous's own
 # script, which handles PEP 668, uv, Python toolchain, Termux, etc. We
-# only need to ensure `hermes` ends up on PATH before continuing.
+# only need to ensure `nastech` ends up on PATH before continuing.
 
-cyan "→ Installing hermes-agent (via Nous upstream installer)…"
-# Pick up hermes if it was installed in a prior run but not on PATH yet
-ensure_path "$HOME/.hermes/bin"
+cyan "→ Installing nastech-agent (via Nous upstream installer)…"
+# Pick up nastech if it was installed in a prior run but not on PATH yet
+ensure_path "$HOME/.nastech/bin"
 ensure_path "$HOME/.local/bin"
 
-if command -v hermes &>/dev/null; then
-  green "  hermes-agent already installed ✓ ($(command -v hermes))"
+if command -v nastech &>/dev/null; then
+  green "  nastech-agent already installed ✓ ($(command -v nastech))"
 else
   yellow "  Delegating to: $NOUS_INSTALLER_URL"
   if ! curl -fsSL "$NOUS_INSTALLER_URL" | bash; then
@@ -148,21 +148,21 @@ else
     red "    curl -fsSL $NOUS_INSTALLER_URL | bash"
     exit 1
   fi
-  # Nous typically installs `hermes` to ~/.hermes/bin or ~/.local/bin
-  ensure_path "$HOME/.hermes/bin"
+  # Nous typically installs `nastech` to ~/.nastech/bin or ~/.local/bin
+  ensure_path "$HOME/.nastech/bin"
   ensure_path "$HOME/.local/bin"
-  if ! command -v hermes &>/dev/null; then
-    red "  hermes-agent installed, but 'hermes' is not on PATH in this shell."
+  if ! command -v nastech &>/dev/null; then
+    red "  nastech-agent installed, but 'nastech' is not on PATH in this shell."
     yellow "  Open a new shell (or: source ~/.bashrc / ~/.zshrc) and re-run:"
-    yellow "    curl -fsSL https://hermes-workspace.com/install.sh | bash"
+    yellow "    curl -fsSL https://nastech-workspace.com/install.sh | bash"
     exit 1
   fi
-  green "  hermes-agent installed ✓ ($(command -v hermes))"
+  green "  nastech-agent installed ✓ ($(command -v nastech))"
 fi
 
 # ─── clone workspace ──────────────────────────────────────────────────────
 
-cyan "→ Cloning hermes-workspace…"
+cyan "→ Cloning nastech-workspace…"
 if [[ -d "$INSTALL_DIR/.git" ]]; then
   yellow "  $INSTALL_DIR exists; pulling latest"
   git -C "$INSTALL_DIR" pull --ff-only
@@ -182,32 +182,32 @@ cyan "→ Configuring .env…"
 if [[ ! -f .env ]]; then
   cp .env.example .env
 fi
-ensure_env_key "$INSTALL_DIR/.env" "HERMES_API_URL" "http://127.0.0.1:${GATEWAY_PORT}"
+ensure_env_key "$INSTALL_DIR/.env" "NASTECH_API_URL" "http://127.0.0.1:${GATEWAY_PORT}"
 green "  .env ready ✓"
 
-cyan "→ Enabling Hermes API server…"
-HERMES_ENV_PATH="$(hermes config env-path 2>/dev/null || true)"
-if [[ -z "$HERMES_ENV_PATH" ]]; then
-  HERMES_ENV_PATH="$HOME/.hermes/.env"
+cyan "→ Enabling NasTech API server…"
+NASTECH_ENV_PATH="$(nastech config env-path 2>/dev/null || true)"
+if [[ -z "$NASTECH_ENV_PATH" ]]; then
+  NASTECH_ENV_PATH="$HOME/.nastech/.env"
 fi
-ensure_env_key "$HERMES_ENV_PATH" "API_SERVER_ENABLED" "true"
-green "  Hermes env updated: $HERMES_ENV_PATH ✓"
+ensure_env_key "$NASTECH_ENV_PATH" "API_SERVER_ENABLED" "true"
+green "  NasTech env updated: $NASTECH_ENV_PATH ✓"
 
-# Guard against a common foot-gun: users editing ~/.hermes/.env by hand and
+# Guard against a common foot-gun: users editing ~/.nastech/.env by hand and
 # writing env var names without underscores (APISERVERENABLED vs
 # API_SERVER_ENABLED). The gateway reads exact names — typos are silently
 # ignored, which produces a "gateway starts but API server never binds"
 # failure that's hard to diagnose from the UI.
-if [[ -f "$HERMES_ENV_PATH" ]]; then
-  SUSPICIOUS=$(grep -E "^(API[A-Z]+|HERMES[A-Z]+)=" "$HERMES_ENV_PATH" 2>/dev/null \
-    | grep -vE "^(API_|HERMES_)" || true)
+if [[ -f "$NASTECH_ENV_PATH" ]]; then
+  SUSPICIOUS=$(grep -E "^(API[A-Z]+|NASTECH[A-Z]+)=" "$NASTECH_ENV_PATH" 2>/dev/null \
+    | grep -vE "^(API_|NASTECH_)" || true)
   if [[ -n "$SUSPICIOUS" ]]; then
     yellow ""
-    yellow "⚠  Found env var names missing underscores in $HERMES_ENV_PATH:"
+    yellow "⚠  Found env var names missing underscores in $NASTECH_ENV_PATH:"
     echo "$SUSPICIOUS" | sed 's/^/      /'
     yellow "   The gateway reads names with underscores (API_SERVER_ENABLED,"
     yellow "   not APISERVERENABLED). These lines will be silently ignored."
-    yellow "   Fix them and run: hermes gateway run --replace"
+    yellow "   Fix them and run: nastech gateway run --replace"
     yellow ""
   fi
 fi
@@ -216,15 +216,15 @@ cyan "→ Installing npm deps (pnpm install)…"
 pnpm_cmd install --silent
 green "  deps installed ✓"
 
-# ─── seed Hermes skills (Conductor needs workspace-dispatch) ─────────────
+# ─── seed NasTech skills (Conductor needs workspace-dispatch) ─────────────
 
-cyan "→ Linking bundled skills into ~/.hermes/skills…"
-HERMES_SKILLS_DIR="$HOME/.hermes/skills"
-mkdir -p "$HERMES_SKILLS_DIR"
+cyan "→ Linking bundled skills into ~/.nastech/skills…"
+NASTECH_SKILLS_DIR="$HOME/.nastech/skills"
+mkdir -p "$NASTECH_SKILLS_DIR"
 if [[ -d "$INSTALL_DIR/skills" ]]; then
   for skill_path in "$INSTALL_DIR/skills"/*/; do
     skill_name=$(basename "$skill_path")
-    target="$HERMES_SKILLS_DIR/$skill_name"
+    target="$NASTECH_SKILLS_DIR/$skill_name"
     if [[ -e "$target" || -L "$target" ]]; then
       continue
     fi
@@ -239,35 +239,35 @@ fi
 # wrapper), not dist/server/server.js directly.
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  cyan "→ Installing macOS LaunchAgent (com.hermes.workspace)…"
+  cyan "→ Installing macOS LaunchAgent (com.nastech.workspace)…"
 
-  PLIST_TEMPLATE="$INSTALL_DIR/macos/com.hermes.workspace.plist.template"
-  PLIST_DEST="$HOME/Library/LaunchAgents/com.hermes.workspace.plist"
+  PLIST_TEMPLATE="$INSTALL_DIR/macos/com.nastech.workspace.plist.template"
+  PLIST_DEST="$HOME/Library/LaunchAgents/com.nastech.workspace.plist"
   mkdir -p "$HOME/Library/LaunchAgents"
 
   NODE_BIN="$(command -v node)"
-  HERMES_PORT="${PORT:-3000}"
-  HERMES_API_GATEWAY="http://127.0.0.1:${GATEWAY_PORT}"
+  NASTECH_PORT="${PORT:-3000}"
+  NASTECH_API_GATEWAY="http://127.0.0.1:${GATEWAY_PORT}"
   TOKEN=""
 
-  if [[ -f "$HOME/.hermes/.env" ]]; then
-    TOKEN="$(grep -E '^(HERMES_API_TOKEN|CLAUDE_API_TOKEN)=' "$HOME/.hermes/.env" | head -1 | cut -d= -f2- | tr -d '"' || true)"
+  if [[ -f "$HOME/.nastech/.env" ]]; then
+    TOKEN="$(grep -E '^(NASTECH_API_TOKEN|CLAUDE_API_TOKEN)=' "$HOME/.nastech/.env" | head -1 | cut -d= -f2- | tr -d '"' || true)"
   fi
   if [[ -z "$TOKEN" && -f "$INSTALL_DIR/.env" ]]; then
-    TOKEN="$(grep -E '^(HERMES_API_TOKEN|CLAUDE_API_TOKEN)=' "$INSTALL_DIR/.env" | head -1 | cut -d= -f2- | tr -d '"' || true)"
+    TOKEN="$(grep -E '^(NASTECH_API_TOKEN|CLAUDE_API_TOKEN)=' "$INSTALL_DIR/.env" | head -1 | cut -d= -f2- | tr -d '"' || true)"
   fi
 
   sed \
     -e "s|{{NODE_BIN}}|${NODE_BIN}|g" \
     -e "s|{{INSTALL_DIR}}|${INSTALL_DIR}|g" \
-    -e "s|{{PORT}}|${HERMES_PORT}|g" \
-    -e "s|{{HERMES_API_URL}}|${HERMES_API_GATEWAY}|g" \
-    -e "s|{{HERMES_API_TOKEN}}|${TOKEN}|g" \
+    -e "s|{{PORT}}|${NASTECH_PORT}|g" \
+    -e "s|{{NASTECH_API_URL}}|${NASTECH_API_GATEWAY}|g" \
+    -e "s|{{NASTECH_API_TOKEN}}|${TOKEN}|g" \
     "$PLIST_TEMPLATE" > "$PLIST_DEST"
 
   launchctl unload "$PLIST_DEST" 2>/dev/null || true
   if launchctl load -w "$PLIST_DEST" 2>/dev/null; then
-    green "  LaunchAgent loaded ✓ (com.hermes.workspace)"
+    green "  LaunchAgent loaded ✓ (com.nastech.workspace)"
   else
     yellow "  Could not load LaunchAgent now — it will still be available for next login."
   fi
@@ -284,9 +284,9 @@ cat <<EOF
 
 Next steps (two terminals):
 
-  1) Start the Hermes Agent gateway:
-       hermes gateway run
-     (first run may prompt for hermes setup)
+  1) Start the NasTech Agent gateway:
+       nastech gateway run
+     (first run may prompt for nastech setup)
 
   2) Start the workspace UI:
        cd $INSTALL_DIR && pnpm dev

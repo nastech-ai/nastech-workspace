@@ -34,13 +34,13 @@ export const CHARACTER_ANIMATION_PRIORITY: CharacterAnimationClip[] = [
   'use',
 ]
 
-export const HERMESWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
+export const NASTECHWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
   {
     id: 'player-adventurer',
     label: 'Player Adventurer',
     zone: 'agora',
     role: 'player',
-    modelPath: '/assets/hermesworld/characters/player-adventurer.glb',
+    modelPath: '/assets/nastechworld/characters/player-adventurer.glb',
     defaultScale: 1,
     paletteHint: 'Blue-gold hero silhouette with cleaner semi-real proportions.',
     notes: 'First believable player base. Use as camera / control reference for the Agora pass.',
@@ -50,7 +50,7 @@ export const HERMESWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
     label: 'Oracle Scholar',
     zone: 'oracle',
     role: 'npc',
-    modelPath: '/assets/hermesworld/characters/oracle-scholar.glb',
+    modelPath: '/assets/nastechworld/characters/oracle-scholar.glb',
     defaultScale: 1,
     paletteHint: 'Violet-blue robes, mystic trim, readable scholar silhouette.',
     notes: 'High-value NPC for questing, prophecy, and talk/gesture animation validation.',
@@ -60,7 +60,7 @@ export const HERMESWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
     label: 'Forge Blacksmith',
     zone: 'forge',
     role: 'npc',
-    modelPath: '/assets/hermesworld/characters/forge-blacksmith.glb',
+    modelPath: '/assets/nastechworld/characters/forge-blacksmith.glb',
     defaultScale: 1,
     paletteHint: 'Warm leather, metal, ember-orange accents.',
     notes: 'Use for prop interaction, forge-zone silhouette, and stronger grounded body type.',
@@ -70,7 +70,7 @@ export const HERMESWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
     label: 'Guard Knight',
     zone: 'agora',
     role: 'npc',
-    modelPath: '/assets/hermesworld/characters/guard-knight.glb',
+    modelPath: '/assets/nastechworld/characters/guard-knight.glb',
     defaultScale: 1,
     paletteHint: 'Structured armor silhouette with readable guard posture.',
     notes: 'Important for believable town square presence and stronger social framing.',
@@ -80,7 +80,7 @@ export const HERMESWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
     label: 'Merchant Villager',
     zone: 'agora',
     role: 'npc',
-    modelPath: '/assets/hermesworld/characters/merchant-villager.glb',
+    modelPath: '/assets/nastechworld/characters/merchant-villager.glb',
     defaultScale: 1,
     paletteHint: 'Civilian clothing, softer colors, market readability.',
     notes: 'Supports prop clusters and makes Agora feel inhabited rather than staged.',
@@ -90,14 +90,14 @@ export const HERMESWORLD_CHARACTER_ARCHETYPES: CharacterArchetype[] = [
     label: 'Common Villager',
     zone: 'training-grounds',
     role: 'npc',
-    modelPath: '/assets/hermesworld/characters/villager-common.glb',
+    modelPath: '/assets/nastechworld/characters/villager-common.glb',
     defaultScale: 1,
     paletteHint: 'Simple but believable peasant/traveler look.',
     notes: 'Cheap repeatable baseline for believable crowd fill before deeper variety.',
   },
 ]
 
-export const HERMESWORLD_CHARACTER_PIPELINE_NOTES = {
+export const NASTECHWORLD_CHARACTER_PIPELINE_NOTES = {
   sourcePriority: ['Ready Player Me', 'Mixamo', 'custom GLB cleanup'],
   immediateSprint: 'Agora believable',
   firstZoneGoal: 'Replace placeholder/toy-like figures with semi-real fantasy humans in Agora first.',

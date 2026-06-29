@@ -1,6 +1,6 @@
 # Autoresearch Mode
 
-Autoresearch is a bounded optimization harness for Hermes Agents. It is not the default research workflow.
+Autoresearch is a bounded optimization harness for NasTech Agents. It is not the default research workflow.
 
 Use it only when the system can mechanically decide whether an iteration improved.
 
@@ -103,14 +103,14 @@ Keep failures visible. Reverting a failed experiment is part of the evidence tra
 
 ## Good targets for this stack
 
-### 1. Hermes skill optimization
+### 1. NasTech skill optimization
 
 Improve one skill against fixed prompts and binary rubric checks.
 
 ```yaml
 goal: Improve reviewer-core bug catching without increasing false positives.
 scope:
-  - /home/aleks/.hermes/skills/**/reviewer-core/SKILL.md
+  - /home/aleks/.nastech/skills/**/reviewer-core/SKILL.md
 mutable_target: reviewer-core/SKILL.md
 locked_eval:
   - evals/reviewer-core/cases/*.md
@@ -118,7 +118,7 @@ locked_eval:
 metric: rubric score out of 100
 direction: higher
 verify: python evals/reviewer-core/run_eval.py --json
-guard: hermes chat -Q -t reviewer:gate -q 'load reviewer-core and summarize readiness' | grep -q reviewer
+guard: nastech chat -Q -t reviewer:gate -q 'load reviewer-core and summarize readiness' | grep -q reviewer
 iterations: 3
 ```
 
@@ -129,15 +129,15 @@ Tune one profile against fixed briefs.
 ```yaml
 goal: Make researcher choose GBrain-first lookup reliably before web search.
 scope:
-  - /home/aleks/.hermes/profiles/researcher/SOUL.md
-  - /home/aleks/.hermes/profiles/researcher/skills/researcher-quick/SKILL.md
+  - /home/aleks/.nastech/profiles/researcher/SOUL.md
+  - /home/aleks/.nastech/profiles/researcher/skills/researcher-quick/SKILL.md
 mutable_target: researcher profile guidance
 locked_eval:
   - evals/researcher-routing/cases.jsonl
 metric: pass rate across routing cases
 direction: higher
 verify: python evals/researcher-routing/run_eval.py
-guard: hermes chat -Q -t researcher:quick -q 'respond with mode readiness only'
+guard: nastech chat -Q -t researcher:quick -q 'respond with mode readiness only'
 iterations: 3
 ```
 

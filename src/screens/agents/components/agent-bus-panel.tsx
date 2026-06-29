@@ -176,7 +176,7 @@ export function AgentBusPanel() {
             Estado da Tropa
           </h2>
           <p className="mt-1 text-sm text-[var(--theme-muted-2)]">
-            Leitura do Scumbag, missões e pendências operacionais do Hermes.
+            Leitura do Scumbag, missões e pendências operacionais do NasTech.
           </p>
         </div>
         <div className="rounded-2xl border border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 py-3 text-sm text-[var(--theme-muted)]">

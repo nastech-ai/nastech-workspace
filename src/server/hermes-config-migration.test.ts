@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest'
-import { normalizeHermesConfigState } from './hermes-config-migration'
+import { normalizeNasTechConfigState } from './nastech-config-migration'
 
 const paths = {
-  hermesHome: '/tmp/hermes',
-  configPath: '/tmp/hermes/config.yaml',
-  envPath: '/tmp/hermes/.env',
-  authProfilesPath: '/tmp/hermes/auth-profiles.json',
+  nastechHome: '/tmp/nastech',
+  configPath: '/tmp/nastech/config.yaml',
+  envPath: '/tmp/nastech/.env',
+  authProfilesPath: '/tmp/nastech/auth-profiles.json',
 }
 
-describe('normalizeHermesConfigState', () => {
+describe('normalizeNasTechConfigState', () => {
   it('normalizes flat default provider and model config', () => {
-    const state = normalizeHermesConfigState({
+    const state = normalizeNasTechConfigState({
       paths,
       config: { provider: 'openrouter', model: 'auto' },
       env: { OPENROUTER_API_KEY: 'sk-openrouter-123456' },
@@ -34,7 +34,7 @@ describe('normalizeHermesConfigState', () => {
   })
 
   it('normalizes nested default provider and model config', () => {
-    const state = normalizeHermesConfigState({
+    const state = normalizeNasTechConfigState({
       paths,
       config: { model: { provider: 'openai-codex', default: 'gpt-5.4' } },
       env: {},
@@ -53,7 +53,7 @@ describe('normalizeHermesConfigState', () => {
   })
 
   it('falls back to nested model when only a partial flat field is set', () => {
-    const state = normalizeHermesConfigState({
+    const state = normalizeNasTechConfigState({
       paths,
       config: {
         provider: 'openrouter',

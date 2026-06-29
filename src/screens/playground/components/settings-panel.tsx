@@ -1,5 +1,5 @@
 import type { ChangeEvent, ReactNode } from 'react'
-import { useHermesWorldSettings, type HermesWorldSettings } from './hermesworld-settings'
+import { useNasTechWorldSettings, type NasTechWorldSettings } from './nastechworld-settings'
 
 type Props = {
   open: boolean
@@ -9,15 +9,15 @@ type Props = {
 }
 
 type Path =
-  | ['graphics', keyof HermesWorldSettings['graphics']]
-  | ['performance', keyof HermesWorldSettings['performance']]
-  | ['controls', keyof HermesWorldSettings['controls']]
-  | ['audio', keyof HermesWorldSettings['audio']]
-  | ['display', keyof HermesWorldSettings['display']]
-  | ['accessibility', keyof HermesWorldSettings['accessibility']]
+  | ['graphics', keyof NasTechWorldSettings['graphics']]
+  | ['performance', keyof NasTechWorldSettings['performance']]
+  | ['controls', keyof NasTechWorldSettings['controls']]
+  | ['audio', keyof NasTechWorldSettings['audio']]
+  | ['display', keyof NasTechWorldSettings['display']]
+  | ['accessibility', keyof NasTechWorldSettings['accessibility']]
 
 export function SettingsPanel({ open, onClose, signedInName, onSignOut }: Props) {
-  const [settings, updateSettings] = useHermesWorldSettings()
+  const [settings, updateSettings] = useNasTechWorldSettings()
   if (!open) return null
 
   const set = <T,>(path: Path, value: T) => {
@@ -47,7 +47,7 @@ export function SettingsPanel({ open, onClose, signedInName, onSignOut }: Props)
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="HermesWorld settings"
+        aria-label="NasTechWorld settings"
         className="max-h-[92vh] w-[min(96vw,980px)] overflow-hidden rounded-3xl border-2 text-white shadow-2xl"
         style={{
           borderColor: 'rgba(241,197,109,.55)',
@@ -57,7 +57,7 @@ export function SettingsPanel({ open, onClose, signedInName, onSignOut }: Props)
       >
         <div className="flex items-center justify-between border-b border-amber-200/15 px-5 py-4">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-amber-200/65">HermesWorld</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-amber-200/65">NasTechWorld</div>
             <div className="text-2xl font-black text-[#F1C56D]">Settings</div>
           </div>
           <button type="button" onClick={onClose} className="rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/70 hover:bg-white/10">

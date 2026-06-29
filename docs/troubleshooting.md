@@ -1,4 +1,4 @@
-# Troubleshooting — Hermes Workspace
+# Troubleshooting — NasTech Workspace
 
 Common setup issues and how to fix them.
 
@@ -6,19 +6,19 @@ Common setup issues and how to fix them.
 
 ## 1. Gateway starts but API server never binds (port 8642 not listening)
 
-**Symptom:** `hermes gateway run` appears to start, but `curl http://127.0.0.1:8642/health` fails. `ss -tlnp | grep 8642` shows nothing.
+**Symptom:** `nastech gateway run` appears to start, but `curl http://127.0.0.1:8642/health` fails. `ss -tlnp | grep 8642` shows nothing.
 
 **Cause:** `API_SERVER_ENABLED` is not set — or is set with the wrong env var name.
 
 **Fix:**
 
 ```bash
-# Find your Hermes env file
-hermes config env-path
-# Usually: ~/.hermes/.env
+# Find your NasTech env file
+nastech config env-path
+# Usually: ~/.nastech/.env
 
 # Check for the key
-grep -i API_SERVER ~/.hermes/.env
+grep -i API_SERVER ~/.nastech/.env
 ```
 
 The env var must be **exactly** `API_SERVER_ENABLED=true` — with underscores. Common mistakes:
@@ -29,7 +29,7 @@ The env var must be **exactly** `API_SERVER_ENABLED=true` — with underscores. 
 | `APISERVERHOST=0.0.0.0` | `API_SERVER_HOST=127.0.0.1` |
 | `ApiServerEnabled=true` | `API_SERVER_ENABLED=true` |
 
-After fixing, restart the gateway: `hermes gateway run --replace`
+After fixing, restart the gateway: `nastech gateway run --replace`
 
 **Also:** setting `API_SERVER_HOST=0.0.0.0` without `API_SERVER_KEY` causes a silent refusal. Use `127.0.0.1` for local access, or set a key for network access.
 
@@ -43,10 +43,10 @@ After fixing, restart the gateway: `hermes gateway run --replace`
 
 **Checklist (in order):**
 
-1. Is the gateway running? `hermes gateway status` or `pgrep -af "hermes.*gateway"`
+1. Is the gateway running? `nastech gateway status` or `pgrep -af "nastech.*gateway"`
 2. Is port 8642 bound? `curl -sf http://127.0.0.1:8642/health`
-3. Is Workspace `.env` correct? `grep HERMES_API_URL ~/hermes-workspace/.env`
-   - Should be: `HERMES_API_URL=http://127.0.0.1:8642`
+3. Is Workspace `.env` correct? `grep NASTECH_API_URL ~/nastech-workspace/.env`
+   - Should be: `NASTECH_API_URL=http://127.0.0.1:8642`
 4. Restart Workspace: `pnpm dev`
 
 If the gateway is running and healthy but Workspace still disconnects, check for port conflicts (another process on 8642) or firewall rules.
@@ -76,7 +76,7 @@ ss -tlnp | grep 8642   # Linux
 kill <PID>
 
 # Restart
-hermes gateway run --replace
+nastech gateway run --replace
 ```
 
 ---
@@ -85,19 +85,19 @@ hermes gateway run --replace
 
 **Symptom:** Chat works, but Sessions/Skills/Jobs stay offline or `/api/sessions` says the backend does not support the sessions API.
 
-**Cause:** `hermes dashboard` is not running on port 9119.
+**Cause:** `nastech dashboard` is not running on port 9119.
 
 **Fix:**
 
 ```bash
-hermes dashboard
+nastech dashboard
 curl -sf http://127.0.0.1:9119/ && echo "dashboard ok"
 ```
 
 Workspace needs both:
 
-- `hermes gateway run` on `:8642`
-- `hermes dashboard` on `:9119`
+- `nastech gateway run` on `:8642`
+- `nastech dashboard` on `:9119`
 
 ---
 
@@ -127,11 +127,11 @@ Then retry the chat. Do not restart the gateway unless auth still fails after re
 
 ```bash
 # Terminal 1 — start gateway first, wait for it
-hermes gateway run
+nastech gateway run
 # Wait until you see "Uvicorn running on http://127.0.0.1:8642"
 
 # Terminal 2 — then start workspace
-cd ~/hermes-workspace && pnpm dev
+cd ~/nastech-workspace && pnpm dev
 ```
 
 ---
@@ -157,7 +157,7 @@ This means the Vite SSR server tried `GET /api/gateway-status` which internally 
 
 **Most likely:** the gateway API server isn't running. See issue #1 above.
 
-**Less likely:** `.env` has the wrong `HERMES_API_URL` (e.g. wrong port, `https` instead of `http`, `localhost` instead of `127.0.0.1` on WSL).
+**Less likely:** `.env` has the wrong `NASTECH_API_URL` (e.g. wrong port, `https` instead of `http`, `localhost` instead of `127.0.0.1` on WSL).
 
 ---
 
@@ -166,13 +166,13 @@ This means the Vite SSR server tried `GET /api/gateway-status` which internally 
 If nothing above helps, run this and share the output:
 
 ```bash
-echo "=== hermes version ===" && hermes --version 2>&1
-echo "=== hermes env path ===" && hermes config env-path 2>&1
-echo "=== hermes env (redacted) ===" && grep -E "^(API_SERVER|HERMES_|CLAUDE_)" "$(hermes config env-path 2>/dev/null || echo ~/.hermes/.env)" 2>&1
-echo "=== gateway process ===" && pgrep -af "hermes.*gateway" 2>&1 || echo "not running"
+echo "=== nastech version ===" && nastech --version 2>&1
+echo "=== nastech env path ===" && nastech config env-path 2>&1
+echo "=== nastech env (redacted) ===" && grep -E "^(API_SERVER|NASTECH_|CLAUDE_)" "$(nastech config env-path 2>/dev/null || echo ~/.nastech/.env)" 2>&1
+echo "=== gateway process ===" && pgrep -af "nastech.*gateway" 2>&1 || echo "not running"
 echo "=== port 8642 ===" && (ss -tlnp 2>/dev/null || lsof -iTCP:8642 -sTCP:LISTEN 2>/dev/null) | grep 8642 || echo "not bound"
 echo "=== health check ===" && curl -sf http://127.0.0.1:8642/health 2>&1 || echo "not reachable"
-echo "=== workspace .env ===" && grep CLAUDE ~/hermes-workspace/.env 2>&1 || echo "no .env"
+echo "=== workspace .env ===" && grep CLAUDE ~/nastech-workspace/.env 2>&1 || echo "no .env"
 echo "=== OS ===" && uname -a
 echo "=== Node ===" && node --version
 echo "=== Python ===" && python3 --version 2>&1

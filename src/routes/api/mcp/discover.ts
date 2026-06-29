@@ -45,7 +45,7 @@ export const Route = createFileRoute('/api/mcp/discover')({
             status: 'unknown',
             discoveredTools: [],
             error:
-              'Live test/discover requires hermes-agent /api/mcp runtime endpoint, not yet available on this dashboard.',
+              'Live test/discover requires nastech-agent /api/mcp runtime endpoint, not yet available on this dashboard.',
           })
         }
         if (!capabilities.mcp) {

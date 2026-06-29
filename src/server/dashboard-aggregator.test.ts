@@ -46,7 +46,7 @@ describe('buildDashboardOverview', () => {
         release_date: '2026.4.30',
         config_version: 17,
         latest_config_version: 23,
-        hermes_home: '/Users/aurora/.hermes',
+        nastech_home: '/Users/aurora/.nastech',
         platforms: {
           api_server: {
             state: 'connected',
@@ -67,7 +67,7 @@ describe('buildDashboardOverview', () => {
     expect(overview.status?.releaseDate).toBe('2026.4.30')
     expect(overview.status?.configVersion).toBe(17)
     expect(overview.status?.latestConfigVersion).toBe(23)
-    expect(overview.status?.hermesHome).toBe('/Users/aurora/.hermes')
+    expect(overview.status?.nastechHome).toBe('/Users/aurora/.nastech')
     expect(overview.platforms).toEqual([
       {
         name: 'api_server',
@@ -218,7 +218,7 @@ describe('buildDashboardOverview', () => {
 
   it('limits and shapes recent achievement unlocks', async () => {
     const fetcher = makeFetcher({
-      '/api/plugins/hermes-achievements/recent-unlocks': [
+      '/api/plugins/nastech-achievements/recent-unlocks': [
         {
           id: 'let_him_cook',
           name: 'Let Him Cook',
@@ -254,7 +254,7 @@ describe('buildDashboardOverview', () => {
           unlocked_at: 1777741000,
         },
       ],
-      '/api/plugins/hermes-achievements/achievements': {
+      '/api/plugins/nastech-achievements/achievements': {
         achievements: [
           { id: 'a', state: 'unlocked' },
           { id: 'b', state: 'unlocked' },
@@ -293,7 +293,7 @@ describe('buildDashboardOverview', () => {
     })
   })
 
-  it('parses native Hermes analytics shape (totals + by_model + daily)', async () => {
+  it('parses native NasTech analytics shape (totals + by_model + daily)', async () => {
     const fetcher = makeFetcher({
       '/api/analytics/usage': {
         period_days: 30,

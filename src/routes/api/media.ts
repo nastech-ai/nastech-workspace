@@ -1,9 +1,9 @@
 /**
  * Authenticated local media endpoint.
  *
- * Hermes Agent can emit MEDIA:<absolute-path> tokens for generated images and
+ * NasTech Agent can emit MEDIA:<absolute-path> tokens for generated images and
  * other local artifacts. Browsers cannot load those paths directly, so this
- * route serves a constrained set of Workspace/Hermes artifact directories.
+ * route serves a constrained set of Workspace/NasTech artifact directories.
  */
 import { readFileSync, statSync } from 'node:fs'
 import os from 'node:os'
@@ -29,13 +29,13 @@ const MIME_BY_EXT: Record<string, string> = {
   '.ogg': 'audio/ogg',
 }
 
-function hermesHome(): string {
-  return process.env.HERMES_HOME ?? process.env.CLAUDE_HOME ?? resolvePath(os.homedir(), '.hermes')
+function nastechHome(): string {
+  return process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME ?? resolvePath(os.homedir(), '.nastech')
 }
 
 function allowedPrefixes(): Array<string> {
   const home = os.homedir()
-  const stateHome = resolvePath(hermesHome())
+  const stateHome = resolvePath(nastechHome())
   return [
     '/tmp',
     resolvePath(home, 'tmp'),

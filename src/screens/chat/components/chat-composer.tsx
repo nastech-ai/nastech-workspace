@@ -183,7 +183,7 @@ type ModelSwitchNotice = {
 
 // Models are fetched through the workspace API proxy (/api/models, /api/claude-proxy)
 // to support Docker and reverse-proxy deployments where the browser cannot reach
-// the Hermes Agent gateway directly.
+// the NasTech Agent gateway directly.
 
 function readModelText(value: unknown): string {
   return typeof value === 'string' ? value.trim() : ''
@@ -293,7 +293,7 @@ async function fetchModels(): Promise<{
       const provider =
         readModelText(record.provider) ||
         readModelText(record.owned_by) ||
-        (id.includes('/') ? id.split('/')[0] : 'hermes-agent')
+        (id.includes('/') ? id.split('/')[0] : 'nastech-agent')
 
       return {
         ...record,
@@ -336,7 +336,7 @@ async function fetchModelsForProvider(
     `/api/claude-proxy/api/available-models?provider=${encodeURIComponent(normalizedProvider)}`,
   )
   if (!response.ok) {
-    throw new Error(`Hermes models request failed (${response.status})`)
+    throw new Error(`NasTech models request failed (${response.status})`)
   }
 
   const payload = (await response.json()) as ClaudeAvailableModelsResponse
@@ -377,7 +377,7 @@ async function switchModel(
   // Switching to a cloud model — clear any local override
   setLocalModelOverride('')
 
-  // Write the model change to ~/.hermes/config.yaml via the webapi
+  // Write the model change to ~/.nastech/config.yaml via the webapi
   const patch: Record<string, string> = { model: modelId }
   if (modelProvider) patch.provider = modelProvider
 
@@ -394,7 +394,7 @@ async function switchModel(
   return {
     ok: true,
     resolved: {
-      modelProvider: modelProvider || 'hermes-agent',
+      modelProvider: modelProvider || 'nastech-agent',
       model: modelId,
     },
   }
@@ -1105,7 +1105,7 @@ function ChatComposerComponent({
 
   // Per-session model override, persisted to localStorage keyed by sessionKey.
   // Drives both the composer label and the model passed to startStreaming.
-  // Replaces an earlier flow that PATCHed ~/.hermes/config.yaml — that path
+  // Replaces an earlier flow that PATCHed ~/.nastech/config.yaml — that path
   // 404s and would clobber the global default for every channel anyway.
   const persistedSessionModel = useSessionModelStore((s) =>
     s.getModel(sessionKey),
@@ -1113,8 +1113,8 @@ function ChatComposerComponent({
   const setPersistedSessionModel = useSessionModelStore((s) => s.setModel)
 
   // Model switching is now per-session via the persistent store above.
-  // Previously this issued a PATCH /api/hermes-proxy/api/config to write to
-  // ~/.hermes/config.yaml — that endpoint 404s and would clobber the global
+  // Previously this issued a PATCH /api/nastech-proxy/api/config to write to
+  // ~/.nastech/config.yaml — that endpoint 404s and would clobber the global
   // default for every channel anyway. The mutation block + retry callback +
   // dead onError handler were removed alongside it.
 
@@ -1191,9 +1191,9 @@ function ChatComposerComponent({
 
   const currentModel = currentModelQuery.data ?? ''
 
-  // Auto-switch to hermes-agent model on mount (Hermes Workspace uses Hermes Agent)
-  // Removed: auto-switch to hermes-agent. The workspace respects the
-  // model/provider configured in ~/.hermes/config.yaml. Users switch
+  // Auto-switch to nastech-agent model on mount (NasTech Workspace uses NasTech Agent)
+  // Removed: auto-switch to nastech-agent. The workspace respects the
+  // model/provider configured in ~/.nastech/config.yaml. Users switch
   // via the model selector or Settings page.
 
   // When model switches to Claude 4.6 and thinking is 'off', auto-upgrade to medium effort
@@ -1226,7 +1226,7 @@ function ChatComposerComponent({
   // Derive the label directly from the store so navigation between sessions
   // updates without a render-window flash from a stale React-state mirror.
   const modelButtonLabel =
-    persistedSessionModel || currentModel || configuredModel || '⚕ Hermes Agent'
+    persistedSessionModel || currentModel || configuredModel || '⚕ NasTech Agent'
 
   // Measure composer height and set CSS variable for scroll padding
   useLayoutEffect(() => {
@@ -2548,7 +2548,7 @@ function ChatComposerComponent({
                                   No models available
                                 </p>
                                 <p className="text-xs">
-                                  Check your Hermes provider configuration.
+                                  Check your NasTech provider configuration.
                                 </p>
                               </div>
                             )
@@ -2777,7 +2777,7 @@ function ChatComposerComponent({
                     </Button>
                   </PromptInputAction>
                 )}
-                {/* Token counter — bottom bar, mirrors Hermes style, triggers at ~25 tokens */}
+                {/* Token counter — bottom bar, mirrors NasTech style, triggers at ~25 tokens */}
                 {value.length >= 100 && (
                   <span className="ml-1 text-[10px] text-primary-400 tabular-nums select-none">
                     ~{Math.ceil(value.length / 4)} tokens

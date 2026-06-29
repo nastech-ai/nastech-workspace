@@ -101,7 +101,7 @@ describe('detectByteroverIntegration', () => {
       env: {},
       homeDir,
       openClawHome: path.join(homeDir, '.openclaw'),
-      claudeHome: path.join(homeDir, '.hermes'),
+      claudeHome: path.join(homeDir, '.nastech'),
       now: 1,
     })
 
@@ -120,7 +120,7 @@ describe('detectByteroverIntegration', () => {
       env: {},
       homeDir,
       openClawHome: path.join(homeDir, '.openclaw'),
-      claudeHome: path.join(homeDir, '.hermes'),
+      claudeHome: path.join(homeDir, '.nastech'),
       now: 1,
     })
 
@@ -132,14 +132,14 @@ describe('detectByteroverIntegration', () => {
 
   it('detects Byterover config without exposing secret values', () => {
     const homeDir = tempHome()
-    const hermesHome = path.join(homeDir, '.hermes')
-    fs.mkdirSync(hermesHome, { recursive: true })
+    const nastechHome = path.join(homeDir, '.nastech')
+    fs.mkdirSync(nastechHome, { recursive: true })
     fs.writeFileSync(
-      path.join(hermesHome, '.env'),
+      path.join(nastechHome, '.env'),
       'BYTEROVER_API_KEY=secret-value\n',
     )
     fs.writeFileSync(
-      path.join(hermesHome, 'config.yaml'),
+      path.join(nastechHome, 'config.yaml'),
       'memory:\n  provider: byterover\n',
     )
 
@@ -147,7 +147,7 @@ describe('detectByteroverIntegration', () => {
       env: {},
       homeDir,
       openClawHome: path.join(homeDir, '.openclaw'),
-      claudeHome: hermesHome,
+      claudeHome: nastechHome,
       now: 1,
     })
 

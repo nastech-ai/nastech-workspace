@@ -1,6 +1,6 @@
-# Hermes Playground 🌐
+# NasTech Playground 🌐
 
-> The agent MMO. A browser 3D world where you walk around, talk to Hermes Agent NPCs, run quests, level up, and meet other builders. Built for the Nous Research × Kimi hackathon 2026.
+> The agent MMO. A browser 3D world where you walk around, talk to NasTech Agent NPCs, run quests, level up, and meet other builders. Built for the Nous Research × Kimi hackathon 2026.
 
 ```
         ╔═══════════════════════════════════════════════╗
@@ -14,13 +14,13 @@
 
 Docs are boring. Agents are abstract. Communities need shared space.
 
-So **Hermes turns onboarding into a multiplayer RPG world**. You don't read about Hermes Agent — you *play* it. Five worlds, six enterable buildings, a town full of NPCs that explain memory/tools/routing through quests, and presence multiplayer so other builders are walking around the same Agora as you.
+So **NasTech turns onboarding into a multiplayer RPG world**. You don't read about NasTech Agent — you *play* it. Five worlds, six enterable buildings, a town full of NPCs that explain memory/tools/routing through quests, and presence multiplayer so other builders are walking around the same Agora as you.
 
 ## Try it
 
 ```bash
-git clone https://github.com/outsourc-e/hermes-workspace
-cd hermes-workspace
+git clone https://github.com/nastech-ai/nastech-workspace
+cd nastech-workspace
 pnpm install
 pnpm dev
 # open http://localhost:3001/playground in two browser tabs
@@ -31,7 +31,7 @@ For real cross-device multiplayer (no setup, hosted hub):
 ```bash
 # Just run pnpm dev. The .env already wires VITE_PLAYGROUND_WS_URL to a
 # Cloudflare Worker + Durable Object hub at:
-#   wss://hermes-playground-ws.myaurora-agi.workers.dev/playground
+#   wss://nastech-playground-ws.myaurora-agi.workers.dev/playground
 # Open /playground in two devices on different networks — they'll meet there.
 pnpm dev
 ```
@@ -42,7 +42,7 @@ Want your own hub?
 cd playground-ws-worker
 pnpm install
 pnpm wrangler login
-pnpm deploy   # → wss://hermes-playground-ws.<your-subdomain>.workers.dev
+pnpm deploy   # → wss://nastech-playground-ws.<your-subdomain>.workers.dev
 # Then set VITE_PLAYGROUND_WS_URL + VITE_PLAYGROUND_STATS_URL in .env.production.
 ```
 
@@ -58,7 +58,7 @@ VITE_PLAYGROUND_WS_URL=ws://localhost:8787 pnpm dev
 ## Demo flow (60 seconds)
 
 1. Land on title, enter a builder name, tweak the avatar, then enter the Training Grounds.
-2. Walk to Athena, accept the Hermes Sigil, then open the kit and equip the Training Blade + Novice Cloak.
+2. Walk to Athena, accept the NasTech Sigil, then open the kit and equip the Training Blade + Novice Cloak.
 3. Send one local chat message, then visit the Archive Podium to explain docs, memory, and iteration recall.
 4. Follow the quest tracker to the Forge Gate, ask Athena or Pan to build something, and trigger the tutorial-complete celebration.
 5. Step through the unlocked Forge Gate, show the short "Generating world..." payoff, then arrive in the Forge with ambient audio live.
@@ -67,19 +67,19 @@ VITE_PLAYGROUND_WS_URL=ws://localhost:8787 pnpm dev
 
 ## Hackathon Submission
 
-Hermes Playground turns agent onboarding into a social RPG loop. Instead of reading a wall of docs, builders walk a shared world, meet Hermes-themed NPCs, learn movement, gear, chat, memory, and build rituals, then step through the Forge Gate into a live multiplayer builder realm. It frames Hermes Workspace as a place you inhabit, not just a tool you open.
+NasTech Playground turns agent onboarding into a social RPG loop. Instead of reading a wall of docs, builders walk a shared world, meet NasTech-themed NPCs, learn movement, gear, chat, memory, and build rituals, then step through the Forge Gate into a live multiplayer builder realm. It frames NasTech Workspace as a place you inhabit, not just a tool you open.
 
 ### 30-60 second demo script
 
-1. "This is Hermes Playground, our multiplayer onboarding RPG for the Nous Research × Kimi hackathon."
+1. "This is NasTech Playground, our multiplayer onboarding RPG for the Nous Research × Kimi hackathon."
 2. "A new builder starts in the Training Grounds, learns the five-step loop, and gets guided by Athena, Iris, and Pan."
-3. "The quest tracker, journal, gear, chat, and docs/memory beats all map to real Hermes builder habits."
+3. "The quest tracker, journal, gear, chat, and docs/memory beats all map to real NasTech builder habits."
 4. "When the last tutorial step lands, the Forge Gate unlocks and we generate a world-intro line through the NPC route."
 5. "Now we’re in the Forge, where prompts become tools, combat becomes benchmark play, and other builders can meet you live in-zone."
 
 ### Tweet draft
 
-Hermes Playground turns AI-agent onboarding into a multiplayer RPG: move, gear up, chat, learn docs + memory, then unlock the Forge and build live with friends nearby. Built for the @NousResearch × @Kimi_Moonshot hackathon. #HermesWorkspace #AIAgents
+NasTech Playground turns AI-agent onboarding into a multiplayer RPG: move, gear up, chat, learn docs + memory, then unlock the Forge and build live with friends nearby. Built for the @nastech-ai × @Kimi_Moonshot hackathon. #NasTechWorkspace #AIAgents
 
 ### What to capture
 
@@ -95,7 +95,7 @@ Hermes Playground turns AI-agent onboarding into a multiplayer RPG: move, gear u
 |---|---|
 | **Worlds** | Agora, Forge, Grove, Oracle Temple, Benchmark Arena |
 | **Enterable buildings** | Tavern, Bank, Smithy, Inn, Apothecary, Guild Hall |
-| **NPCs** | Athena, Apollo, Iris, Nike, Pan, Chronos, Hermes, Artemis, Eros + 5 Agora keepers (Dorian, Leonidas, Midas, Cassia, Selene, Hestia) |
+| **NPCs** | Athena, Apollo, Iris, Nike, Pan, Chronos, NasTech, Artemis, Eros + 5 Agora keepers (Dorian, Leonidas, Midas, Cassia, Selene, Hestia) |
 | **Skills** | Promptcraft, Worldsmithing, Summoning, Engineering, Oracle, Diplomacy |
 | **Items** | 10+ collectible quest artifacts |
 | **Quests** | Multi-chapter campaign through every world |
@@ -181,10 +181,10 @@ Deploy options for the WS relay are listed in `memory/goals/2026-05-03-playgroun
 
 ## Credits
 
-- Built on [Hermes Workspace](https://github.com/outsourc-e/hermes-workspace) and [Hermes Agent](https://github.com/NousResearch/hermes-agent).
-- Inspired by RuneScape, PlayROHAN, Lost Ark, and Skyrim. No assets copied — everything is original primitives + Hermes Greek-mythology theming.
+- Built on [NasTech Workspace](https://github.com/nastech-ai/nastech-workspace) and [NasTech Agent](https://github.com/nastech-ai/nastech-agent).
+- Inspired by RuneScape, PlayROHAN, Lost Ark, and Skyrim. No assets copied — everything is original primitives + NasTech Greek-mythology theming.
 - Hackathon: Nous Research × Kimi 2026.
 
 ## License
 
-MIT. Same as Hermes Workspace.
+MIT. Same as NasTech Workspace.

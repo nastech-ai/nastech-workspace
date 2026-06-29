@@ -6,8 +6,8 @@ import { fetchCronJobs } from '@/lib/cron-api'
 import { fetchSessions, type GatewaySession } from '@/lib/gateway-api'
 import { formatModelName, formatRelativeTime } from '@/screens/dashboard/lib/formatters'
 
-// Claude-Workspace adapter: Operations is backed by Hermes profiles
-// (each profile = one persistent agent). Profiles live at ~/.hermes/profiles/<name>/
+// Claude-Workspace adapter: Operations is backed by NasTech profiles
+// (each profile = one persistent agent). Profiles live at ~/.nastech/profiles/<name>/
 // with their own config.yaml, sessions, skills.
 type ClaudeProfileSummary = {
   name: string
@@ -75,7 +75,7 @@ export type OperationsAgent = GatewayConfigAgent & {
   /**
    * True when the agent's profile has no model configured (blank model in
    * config.yaml). Dispatching into an unconfigured agent hangs because
-   * hermes-agent has nothing to call. Show 'Needs setup' state instead.
+   * nastech-agent has nothing to call. Show 'Needs setup' state instead.
    * See #270.
    */
   needsSetup: boolean
@@ -241,7 +241,7 @@ async function fetchClaudeProfiles(): Promise<ClaudeProfileSummary[]> {
   return Array.isArray(payload.profiles) ? payload.profiles : []
 }
 
-// Adapt Hermes profiles into the ConfigPayload shape that the existing
+// Adapt NasTech profiles into the ConfigPayload shape that the existing
 // Operations UI expects. Each profile becomes one agent.
 async function fetchOperationsConfig(): Promise<ConfigPayload> {
   const profiles = await fetchClaudeProfiles()

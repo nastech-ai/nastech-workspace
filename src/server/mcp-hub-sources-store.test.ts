@@ -24,7 +24,7 @@ import {
 } from './mcp-hub-sources-store'
 
 let homeDir: string
-let originalHermesHome: string | undefined
+let originalNasTechHome: string | undefined
 
 function writeSourcesFile(payload: unknown): void {
   const path = join(homeDir, 'mcp-hub-sources.json')
@@ -46,15 +46,15 @@ const VALID_USER_SOURCE = {
 }
 
 beforeEach(() => {
-  homeDir = mkdtempSync(join(tmpdir(), 'hermes-hub-sources-'))
-  originalHermesHome = process.env.HERMES_HOME
-  process.env.HERMES_HOME = homeDir
+  homeDir = mkdtempSync(join(tmpdir(), 'nastech-hub-sources-'))
+  originalNasTechHome = process.env.NASTECH_HOME
+  process.env.NASTECH_HOME = homeDir
   __resetHubSourcesCacheForTests()
 })
 
 afterEach(() => {
-  if (originalHermesHome === undefined) delete process.env.HERMES_HOME
-  else process.env.HERMES_HOME = originalHermesHome
+  if (originalNasTechHome === undefined) delete process.env.NASTECH_HOME
+  else process.env.NASTECH_HOME = originalNasTechHome
   rmSync(homeDir, { recursive: true, force: true })
   __resetHubSourcesCacheForTests()
 })

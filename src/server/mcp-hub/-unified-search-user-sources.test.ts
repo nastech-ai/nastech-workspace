@@ -50,7 +50,7 @@ function makeEntry(name: string, source: 'local' | 'mcp-get' = 'mcp-get'): HubMc
 const BUILTIN_SOURCES_RESULT = {
   sources: [
     { id: 'mcp-get', name: 'Smithery', url: 'https://registry.smithery.ai/servers', trust: 'community', format: 'smithery', enabled: true, builtin: true },
-    { id: 'local-file', name: 'Local', url: 'file://~/.hermes/mcp-presets.json', trust: 'official', format: 'generic-json', enabled: true, builtin: true },
+    { id: 'local-file', name: 'Local', url: 'file://~/.nastech/mcp-presets.json', trust: 'official', format: 'generic-json', enabled: true, builtin: true },
   ],
   source: 'seed' as const,
 }

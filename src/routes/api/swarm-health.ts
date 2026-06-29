@@ -234,8 +234,8 @@ export const Route = createFileRoute('/api/swarm-health')({
           return json({ error: 'Unauthorized' }, { status: 401 })
         }
 
-        const workspaceModel = formatModelDisplay(process.env.HERMES_DEFAULT_MODEL ?? process.env.CLAUDE_DEFAULT_MODEL ?? 'unknown', (process.env.HERMES_API_URL ?? process.env.CLAUDE_API_URL)?.includes('anthropic') ? 'anthropic' : 'unknown')
-        const apiUrl = process.env.HERMES_API_URL ?? process.env.CLAUDE_API_URL ?? null
+        const workspaceModel = formatModelDisplay(process.env.NASTECH_DEFAULT_MODEL ?? process.env.CLAUDE_DEFAULT_MODEL ?? 'unknown', (process.env.NASTECH_API_URL ?? process.env.CLAUDE_API_URL)?.includes('anthropic') ? 'anthropic' : 'unknown')
+        const apiUrl = process.env.NASTECH_API_URL ?? process.env.CLAUDE_API_URL ?? null
         const profilesBase = getProfilesDir()
         const swarmIds = listSwarmIds()
         const wrapperBase = getLocalBinDir()

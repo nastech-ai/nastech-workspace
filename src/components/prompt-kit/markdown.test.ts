@@ -5,8 +5,8 @@ import { rewriteLocalMediaSources } from './markdown'
 describe('rewriteLocalMediaSources', () => {
   it('rewrites markdown image MEDIA tokens that point to local files', () => {
     expect(
-      rewriteLocalMediaSources('![cat](MEDIA:/Users/test/.hermes/tmp/cat.png)'),
-    ).toBe('![cat](/api/media?path=%2FUsers%2Ftest%2F.hermes%2Ftmp%2Fcat.png)')
+      rewriteLocalMediaSources('![cat](MEDIA:/Users/test/.nastech/tmp/cat.png)'),
+    ).toBe('![cat](/api/media?path=%2FUsers%2Ftest%2F.nastech%2Ftmp%2Fcat.png)')
   })
 
   it('rewrites html image MEDIA tokens that point to local files without corrupting quotes', () => {

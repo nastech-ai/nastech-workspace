@@ -68,8 +68,8 @@ async function loadKanbanBackend(options?: {
 }
 
 describe('kanban-backend', () => {
-  it('auto-detect prefers Hermes backend when Hermes CLI and canonical storage are present', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm2')
+  it('auto-detect prefers NasTech backend when NasTech CLI and canonical storage are present', async () => {
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm2')
     const sqliteCalls: Array<{ command: string; args?: string[] }> = []
     const mod = await loadKanbanBackend({
@@ -82,7 +82,7 @@ describe('kanban-backend', () => {
           return JSON.stringify([
             {
               id: 't_12345678',
-              title: 'Hermes task',
+              title: 'NasTech task',
               body: 'Backed by sqlite',
               status: 'running',
               assignee: 'swarm2',
@@ -106,7 +106,7 @@ describe('kanban-backend', () => {
     expect(cards).toHaveLength(1)
     expect(cards[0]).toMatchObject({
       id: 't_12345678',
-      title: 'Hermes task',
+      title: 'NasTech task',
       status: 'running',
       assignedWorker: 'swarm2',
       createdBy: 'claude-kanban',
@@ -114,8 +114,8 @@ describe('kanban-backend', () => {
     expect(sqliteCalls[0]?.args?.[0]).toBe('/Users/aurora/.claude/kanban.db')
   })
 
-  it('auto-detect uses Hermes storage directly when the CLI is unavailable', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm2')
+  it('auto-detect uses NasTech storage directly when the CLI is unavailable', async () => {
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm2')
     const mod = await loadKanbanBackend({
       existsSync: (target) => target === '/Users/aurora/.claude/kanban.db',
@@ -125,7 +125,7 @@ describe('kanban-backend', () => {
           return JSON.stringify([
             {
               id: 't_direct',
-              title: 'Direct Hermes task',
+              title: 'Direct NasTech task',
               body: '',
               status: 'ready',
               assignee: null,
@@ -149,7 +149,7 @@ describe('kanban-backend', () => {
   })
 
   it('resolves canonical Kanban paths from legacy profile-home env fallback too', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm5/home')
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm5/home')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm5/home')
     const mod = await loadKanbanBackend({
       existsSync: (target) => target === '/Users/aurora/.claude/kanban.db',
@@ -167,8 +167,8 @@ describe('kanban-backend', () => {
     })
   })
 
-  it('auto-detect falls back to local when canonical Hermes storage is missing', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm2')
+  it('auto-detect falls back to local when canonical NasTech storage is missing', async () => {
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm2')
     const mod = await loadKanbanBackend({
       existsSync: () => false,
@@ -188,8 +188,8 @@ describe('kanban-backend', () => {
     expect((await mod.listKanbanCards())[0]?.id).toBe('local-1')
   })
 
-  it('creates and updates Hermes tasks through canonical kanban.db path', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm2')
+  it('creates and updates NasTech tasks through canonical kanban.db path', async () => {
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm2')
     const sqliteCalls: string[] = []
     let readCount = 0
@@ -206,7 +206,7 @@ describe('kanban-backend', () => {
             return JSON.stringify([
               {
                 id: 't_deadbeef',
-                title: readCount === 1 ? 'Created Hermes task' : 'Updated Hermes task',
+                title: readCount === 1 ? 'Created NasTech task' : 'Updated NasTech task',
                 body: 'Task body',
                 status: readCount === 1 ? 'queued' : 'done',
                 assignee: 'swarm6',
@@ -221,18 +221,18 @@ describe('kanban-backend', () => {
       },
     })
 
-    const created = await mod.createKanbanCard({ title: 'Created Hermes task', spec: 'Task body', assignedWorker: 'swarm6', status: 'backlog' })
-    const updated = await mod.updateKanbanCard('t_deadbeef', { title: 'Updated Hermes task', status: 'done', assignedWorker: 'swarm6' })
+    const created = await mod.createKanbanCard({ title: 'Created NasTech task', spec: 'Task body', assignedWorker: 'swarm6', status: 'backlog' })
+    const updated = await mod.updateKanbanCard('t_deadbeef', { title: 'Updated NasTech task', status: 'done', assignedWorker: 'swarm6' })
 
-    expect(created).toMatchObject({ id: 't_deadbeef', title: 'Created Hermes task', status: 'backlog', assignedWorker: 'swarm6', createdBy: 'claude-kanban' })
-    expect(updated).toMatchObject({ id: 't_deadbeef', title: 'Updated Hermes task', status: 'done', assignedWorker: 'swarm6' })
+    expect(created).toMatchObject({ id: 't_deadbeef', title: 'Created NasTech task', status: 'backlog', assignedWorker: 'swarm6', createdBy: 'claude-kanban' })
+    expect(updated).toMatchObject({ id: 't_deadbeef', title: 'Updated NasTech task', status: 'done', assignedWorker: 'swarm6' })
     expect(sqliteCalls.every((call) => call.startsWith('/Users/aurora/.claude/kanban.db '))).toBe(true)
     expect(sqliteCalls.some((call) => call.includes('insert into tasks'))).toBe(true)
     expect(sqliteCalls.some((call) => call.includes('update tasks set'))).toBe(true)
   })
 
   it('projects native Kanban tasks without collapsing statuses or dependency/run metadata', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm2')
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_KANBAN_BACKEND', 'claude')
     const mod = await loadKanbanBackend({
@@ -272,7 +272,7 @@ describe('kanban-backend', () => {
   })
 
   it('creates native Kanban tasks with parent links and idempotency without using Workspace board files', async () => {
-    vi.stubEnv('HERMES_HOME', '/Users/aurora/.claude/profiles/swarm2')
+    vi.stubEnv('NASTECH_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_HOME', '/Users/aurora/.claude/profiles/swarm2')
     vi.stubEnv('CLAUDE_KANBAN_BACKEND', 'claude')
     const sqliteCalls: string[] = []

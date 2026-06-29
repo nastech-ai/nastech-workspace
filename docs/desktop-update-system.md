@@ -1,13 +1,13 @@
-# Hermes Workspace Desktop Update System
+# NasTech Workspace Desktop Update System
 
 This branch introduces the update contract that the DMG/EXE packaging should use.
 
 ## Products
 
-Hermes ships two separately updateable products:
+NasTech ships two separately updateable products:
 
-1. **Hermes Workspace**: the UI/server shell.
-2. **Hermes Agent**: the local agent/gateway runtime.
+1. **NasTech Workspace**: the UI/server shell.
+2. **NasTech Agent**: the local agent/gateway runtime.
 
 They must not be modeled as two remotes in the same git checkout. The Workspace updater updates Workspace. The Agent updater updates the installed/bundled Agent.
 
@@ -34,16 +34,16 @@ Current implementation detects:
 For git installs:
 
 - Workspace updates use `origin/<branch>` and require a clean, fast-forwardable checkout.
-- Agent updates call the Agent's own `hermes update` command and require a clean Agent checkout.
+- Agent updates call the Agent's own `nastech update` command and require a clean Agent checkout.
 - Dirty or non-fast-forward states are blocked and surfaced as review-required, not as a copy-command primary path.
 
 ## Desktop behavior to wire next
 
-The packaged app should set `HERMES_WORKSPACE_DESKTOP=1` and provide a desktop updater bridge that:
+The packaged app should set `NASTECH_WORKSPACE_DESKTOP=1` and provide a desktop updater bridge that:
 
 1. Checks a signed update manifest or GitHub Release.
 2. Downloads the Workspace app update through Electron auto-updater or equivalent.
-3. Updates the bundled Hermes Agent payload separately.
+3. Updates the bundled NasTech Agent payload separately.
 4. Restarts Workspace + Agent after update.
 5. Stores release notes for the first screen after update.
 

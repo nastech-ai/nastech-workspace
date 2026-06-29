@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import type { AgoraAvatarId, AgoraProfile, AgoraStatus, AgoraUser } from '../lib/agora-types'
 
 const ALL_AVATARS: { id: AgoraAvatarId; label: string; tier: 'greek' | 'emoji' }[] = [
-  { id: 'hermes', label: 'Hermes', tier: 'greek' },
+  { id: 'nastech', label: 'NasTech', tier: 'greek' },
   { id: 'athena', label: 'Athena', tier: 'greek' },
   { id: 'apollo', label: 'Apollo', tier: 'greek' },
   { id: 'artemis', label: 'Artemis', tier: 'greek' },
@@ -17,7 +17,7 @@ const ALL_AVATARS: { id: AgoraAvatarId; label: string; tier: 'greek' | 'emoji' }
   { id: 'pan', label: 'Pan', tier: 'greek' },
   { id: 'chronos', label: 'Chronos', tier: 'greek' },
   { id: 'owl', label: 'Owl', tier: 'emoji' },
-  { id: 'hermes-cat', label: 'Cat', tier: 'emoji' },
+  { id: 'nastech-cat', label: 'Cat', tier: 'emoji' },
   { id: 'robot', label: 'Robot', tier: 'emoji' },
   { id: 'fox', label: 'Fox', tier: 'emoji' },
   { id: 'ghost', label: 'Ghost', tier: 'emoji' },
@@ -104,7 +104,7 @@ export function AgoraProfileDrawer({
                 className="rounded-full"
                 style={{ border: '2px solid var(--theme-border)' }}
                 onError={(e) => {
-                  ;(e.currentTarget as HTMLImageElement).src = '/avatars/hermes.png'
+                  ;(e.currentTarget as HTMLImageElement).src = '/avatars/nastech.png'
                 }}
               />
               <div className="flex-1 min-w-0">
@@ -214,7 +214,7 @@ export function AgoraProfileDrawer({
                         height={40}
                         className="rounded-full block"
                         onError={(e) => {
-                          ;(e.currentTarget as HTMLImageElement).src = '/avatars/hermes.png'
+                          ;(e.currentTarget as HTMLImageElement).src = '/avatars/nastech.png'
                         }}
                       />
                     </button>

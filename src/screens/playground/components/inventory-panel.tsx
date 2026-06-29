@@ -26,7 +26,7 @@ const RARITY_STYLES: Record<InventoryRarity, { label: string; border: string; gl
 const DEFAULT_ITEMS: InventoryItem[] = [
   { id: 'training-blade', name: 'Training Blade', icon: '🗡️', rarity: 'rare', slot: 'Weapon', description: 'Rare quest reward. Drag into weapon slot to equip.' },
   { id: 'novice-cloak', name: 'Novice Cloak', icon: '🧥', rarity: 'uncommon', slot: 'Armor', description: 'Light cloak stitched with starter-zone wards.' },
-  { id: 'hermes-sigil', name: 'Hermes Sigil', icon: '✦', rarity: 'epic', slot: 'Relic', description: 'A charged sigil that unlocks fast-travel whispers.' },
+  { id: 'nastech-sigil', name: 'NasTech Sigil', icon: '✦', rarity: 'epic', slot: 'Relic', description: 'A charged sigil that unlocks fast-travel whispers.' },
   { id: 'aether-vial', name: 'Aether Vial', icon: '🧪', rarity: 'legendary', quantity: 3, description: 'Condensed aether for founder crafting recipes.' },
   { id: 'bronze-coins', name: 'Bronze Coins', icon: '🪙', rarity: 'common', quantity: 128, description: 'Spend with agora merchants.' },
   { id: 'map-fragment', name: 'Map Fragment', icon: '🗺️', rarity: 'uncommon', description: 'Reveals one hidden grove path.' },
@@ -64,7 +64,7 @@ export function InventoryPanel({ items = DEFAULT_ITEMS, onEquip }: InventoryPane
               draggable={Boolean(item)}
               onDragStart={(event) => {
                 if (!item) return
-                event.dataTransfer.setData('application/x-hermes-inventory-item', item.id)
+                event.dataTransfer.setData('application/x-nastech-inventory-item', item.id)
                 event.dataTransfer.effectAllowed = 'move'
               }}
               onDoubleClick={() => item && onEquip?.(item)}

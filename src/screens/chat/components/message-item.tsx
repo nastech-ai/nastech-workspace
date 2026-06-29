@@ -8,8 +8,8 @@ import {
 } from '../utils'
 import { MessageActionsBar } from './message-actions-bar'
 import {
-  buildHermesActivitySummary,
-  shouldAutoExpandHermesActivityCard,
+  buildNasTechActivitySummary,
+  shouldAutoExpandNasTechActivityCard,
 } from './streaming-activity-ui'
 import { TuiActivityCard } from './tui-activity-card'
 import type { ChatAttachment, ChatMessage, SelectionCardContent, ToolCallContent } from '../types'
@@ -1979,7 +1979,7 @@ function ToolCallGroup({
   expandAll?: boolean
   isStreaming?: boolean
 }) {
-  const shouldAutoOpen = shouldAutoExpandHermesActivityCard({
+  const shouldAutoOpen = shouldAutoExpandNasTechActivityCard({
     isStreaming: Boolean(isStreaming),
     toolCount: toolSections.length,
   })
@@ -1988,7 +1988,7 @@ function ToolCallGroup({
     if (expandAll || shouldAutoOpen) setOpen(true)
   }, [expandAll, shouldAutoOpen])
 
-  const summary = buildHermesActivitySummary(toolSections)
+  const summary = buildNasTechActivitySummary(toolSections)
 
   if (toolSections.length > 1 || isStreaming) {
     return (

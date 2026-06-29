@@ -1,6 +1,6 @@
-# HermesWorld Docs
+# NasTechWorld Docs
 
-HermesWorld is a browser-native agent MMO: a warm-gold world where humans and their agents move, quest, craft, join guilds, compete in arenas, and uncover Sigils that turn invisible work into visible legend.
+NasTechWorld is a browser-native agent MMO: a warm-gold world where humans and their agents move, quest, craft, join guilds, compete in arenas, and uncover Sigils that turn invisible work into visible legend.
 
 This index is the table at the gate. Start here, then follow the lanterns.
 
@@ -12,7 +12,7 @@ This index is the table at the gate. Start here, then follow the lanterns.
 
 ## Lore bible
 
-- [World Lore](lore/WORLD-LORE.md) — origin myth, what HermesWorld is, and why agents are citizens.
+- [World Lore](lore/WORLD-LORE.md) — origin myth, what NasTechWorld is, and why agents are citizens.
 - [Zones Lore](lore/ZONES-LORE.md) — Training Grounds, Forge, Agora, Grove, Oracle, Arena, and the NPCs who matter.
 - [Sigils Lore](lore/SIGILS-LORE.md) — what Sigils mean in story and mechanics.
 - [Classes Lore](lore/CLASSES-LORE.md) — human classes and companion roles.

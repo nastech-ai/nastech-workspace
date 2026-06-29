@@ -3,16 +3,16 @@ import { createRemoteStatus, remoteUrlMatchesExpectedRepo } from './claude-updat
 
 describe('claude update repo gating', () => {
   it('matches Claude workspace repo aliases', () => {
-    expect(remoteUrlMatchesExpectedRepo('https://github.com/example/hermes-workspace.git', ['hermes-workspace'])).toBe(true)
-    expect(remoteUrlMatchesExpectedRepo('git@github.com:outsourc-e/hermes-workspace.git', ['outsourc-e/hermes-workspace'])).toBe(true)
+    expect(remoteUrlMatchesExpectedRepo('https://github.com/example/nastech-workspace.git', ['nastech-workspace'])).toBe(true)
+    expect(remoteUrlMatchesExpectedRepo('git@github.com:nastech-ai/nastech-workspace.git', ['nastech-ai/nastech-workspace'])).toBe(true)
   })
 
   it('blocks update availability for wrong remote repos even when heads differ', () => {
     const status = createRemoteStatus({
       name: 'origin',
-      label: 'Hermes Workspace',
-      expectedRepo: 'hermes-workspace',
-      aliases: ['hermes-workspace'],
+      label: 'NasTech Workspace',
+      expectedRepo: 'nastech-workspace',
+      aliases: ['nastech-workspace'],
       url: 'https://github.com/example/not-workspace.git',
       currentHead: 'local',
       remoteHead: 'remote',
@@ -20,16 +20,16 @@ describe('claude update repo gating', () => {
 
     expect(status.repoMatches).toBe(false)
     expect(status.updateAvailable).toBe(false)
-    expect(status.error).toContain('expected hermes-workspace')
+    expect(status.error).toContain('expected nastech-workspace')
   })
 
   it('allows update availability only for the expected repo with a newer remote head', () => {
     const status = createRemoteStatus({
       name: 'upstream',
-      label: 'Hermes Agent',
-      expectedRepo: 'hermes-agent',
-      aliases: ['hermes-agent'],
-      url: 'https://github.com/NousResearch/hermes-agent.git',
+      label: 'NasTech Agent',
+      expectedRepo: 'nastech-agent',
+      aliases: ['nastech-agent'],
+      url: 'https://github.com/nastech-ai/nastech-agent.git',
       currentHead: 'local',
       remoteHead: 'remote',
     })

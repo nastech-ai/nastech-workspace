@@ -4,10 +4,10 @@ import { WaveChatPanelsShowcase } from './components/wave-chat-panels-showcase'
 // v1 web client (WebGL build, char-select + world entry verified). Sets
 // COEP require-corp + COOP same-origin for WebGL threading, but has NO
 // X-Frame-Options / restrictive frame-ancestors, so it can be embedded.
-const HERMES_WEB_ORIGIN = 'https://play.hermes-world.ai'
-const HERMES_SITE_ORIGIN = 'https://hermes-world.ai'
+const NASTECH_WEB_ORIGIN = 'https://play.nastech-world.ai'
+const NASTECH_SITE_ORIGIN = 'https://nastech-world.ai'
 
-export function HermesWorldEmbed() {
+export function NasTechWorldEmbed() {
   const showPanelShowcase =
     typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('panels') === 'wave-chat'
@@ -16,8 +16,8 @@ export function HermesWorldEmbed() {
   const [failed, setFailed] = useState(false)
 
   const webUrl = useMemo(() => {
-    const url = new URL('/play/web/', HERMES_WEB_ORIGIN)
-    url.searchParams.set('source', 'hermes-workspace')
+    const url = new URL('/play/web/', NASTECH_WEB_ORIGIN)
+    url.searchParams.set('source', 'nastech-workspace')
     return url.toString()
   }, [])
 
@@ -27,10 +27,10 @@ export function HermesWorldEmbed() {
 
   return (
     <main className="relative flex h-full min-h-0 flex-col overflow-hidden bg-[#050015] text-white">
-      {/* Embedded HermesWorld v1 web client */}
+      {/* Embedded NasTechWorld v1 web client */}
       {!failed && (
         <iframe
-          title="HermesWorld"
+          title="NasTechWorld"
           src={webUrl}
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
@@ -45,12 +45,12 @@ export function HermesWorldEmbed() {
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[radial-gradient(circle_at_50%_35%,rgba(168,85,247,.24),transparent_48%),#050015]">
           <div className="flex flex-col items-center gap-3">
             <img
-              src="/hermesworld-logo.svg"
-              alt="HermesWorld"
+              src="/nastechworld-logo.svg"
+              alt="NasTechWorld"
               className="h-14 w-14 animate-pulse rounded-2xl shadow-[0_0_34px_rgba(34,211,238,.25)]"
             />
             <div className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200/70">
-              Loading HermesWorld…
+              Loading NasTechWorld…
             </div>
           </div>
         </div>
@@ -62,10 +62,10 @@ export function HermesWorldEmbed() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(168,85,247,.24),transparent_48%),#050015]" />
           <div className="relative max-w-xl rounded-3xl border border-white/12 bg-black/45 px-6 py-6 text-center shadow-2xl backdrop-blur-xl">
             <div className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200/70">
-              Hermes Workspace
+              NasTech Workspace
             </div>
             <h1 className="mt-2 text-3xl font-black tracking-tight">
-              Open HermesWorld in a full tab
+              Open NasTechWorld in a full tab
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-white/65">
               The embedded client couldn’t load here. Open the full web build in
@@ -81,7 +81,7 @@ export function HermesWorldEmbed() {
                 Open full
               </a>
               <a
-                href={`${HERMES_SITE_ORIGIN}/`}
+                href={`${NASTECH_SITE_ORIGIN}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full border border-white/15 bg-white/8 px-5 py-2 text-sm font-bold uppercase tracking-[0.14em] text-white/75 transition hover:border-cyan-200/40 hover:text-white"

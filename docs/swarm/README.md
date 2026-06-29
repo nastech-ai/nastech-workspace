@@ -1,10 +1,10 @@
 # Swarm Mode
 
-Swarm Mode is the Hermes Workspace control plane for Hermes Agents: persistent workers, a standing orchestrator, a review gate, and enough runtime visibility that the system is understandable instead of mystical.
+Swarm Mode is the NasTech Workspace control plane for NasTech Agents: persistent workers, a standing orchestrator, a review gate, and enough runtime visibility that the system is understandable instead of mystical.
 
 The release promise is simple:
 
-- Unlimited Hermes Agents can exist.
+- Unlimited NasTech Agents can exist.
 - One orchestrator translates intent into dispatch.
 - Zero humans have to manually route every task.
 - Every worker has a role, a profile, a mission, and a checkpoint contract.
@@ -22,7 +22,7 @@ This is not a chat wrapper with tabs. It is the operating surface for a local ag
 
 ## The 30-second model
 
-Eric talks to Aurora. Aurora turns intent into a brief. The orchestrator routes that brief to the right Hermes Agent. Workers execute inside persistent tmux sessions, checkpoint with proof, and the orchestrator decides whether to continue, repair, escalate, or put a card in the Inbox.
+Eric talks to Aurora. Aurora turns intent into a brief. The orchestrator routes that brief to the right NasTech Agent. Workers execute inside persistent tmux sessions, checkpoint with proof, and the orchestrator decides whether to continue, repair, escalate, or put a card in the Inbox.
 
 ```text
 Eric -> Aurora -> orchestrator -> role workers -> checkpoints -> reports/inbox -> review/escalation
@@ -50,14 +50,14 @@ Reports and Inbox are where the swarm becomes reviewable. Checkpoints with `NEED
 
 ### TUI View built in
 
-Runtime view attaches to tmux-backed workers when available. If tmux is not available, the workspace falls back to a shell or log tail. The goal is direct observability: if a Hermes Agent is doing something, you can see the lane.
+Runtime view attaches to tmux-backed workers when available. If tmux is not available, the workspace falls back to a shell or log tail. The goal is direct observability: if a NasTech Agent is doing something, you can see the lane.
 
 ## Core terms
 
 | Term | Meaning |
 | --- | --- |
-| Hermes Agent | A named, persistent worker with a role, profile, skills, and runtime state. |
-| Orchestrator | The Hermes Agent responsible for dispatch, drift detection, routing, and escalation. |
+| NasTech Agent | A named, persistent worker with a role, profile, skills, and runtime state. |
+| Orchestrator | The NasTech Agent responsible for dispatch, drift detection, routing, and escalation. |
 | SwarmBrief | The canonical task shape sent from orchestrator to worker. |
 | Standing mission | A permanent responsibility a worker resumes when idle. |
 | Ad-hoc dispatch | A one-off task sent through the same checkpoint contract. |

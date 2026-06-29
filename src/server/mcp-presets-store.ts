@@ -1,7 +1,7 @@
 /**
  * MCP preset catalog store — Phase 2 file-backed catalog.
  *
- * Resolves `~/.hermes/mcp-presets.json` (override via `HERMES_HOME`) and
+ * Resolves `~/.nastech/mcp-presets.json` (override via `NASTECH_HOME`) and
  * exposes `readPresets()` returning a normalized payload + provenance.
  *
  * Bootstrapping: when the user file is missing, the seed bundled at
@@ -549,7 +549,7 @@ export async function readPresets(): Promise<ReadPresetsResult> {
 
 /**
  * Test-only helper: reset the in-memory cache so a freshly-mocked
- * `HERMES_HOME` is honored on the next call.
+ * `NASTECH_HOME` is honored on the next call.
  */
 export function __resetPresetsCacheForTests(): void {
   _cache = null

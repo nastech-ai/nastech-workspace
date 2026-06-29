@@ -24,7 +24,7 @@ import { Route as OperationsRouteImport } from './routes/operations'
 import { Route as MemoryRouteImport } from './routes/memory'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as JobsRouteImport } from './routes/jobs'
-import { Route as HermesWorldRouteImport } from './routes/hermes-world'
+import { Route as NasTechWorldRouteImport } from './routes/nastech-world'
 import { Route as FilesRouteImport } from './routes/files'
 import { Route as EchoStudioRouteImport } from './routes/echo-studio'
 import { Route as EarlyAccessRouteImport } from './routes/early-access'
@@ -88,8 +88,8 @@ import { Route as ApiMcpRouteImport } from './routes/api/mcp'
 import { Route as ApiLocalProvidersRouteImport } from './routes/api/local-providers'
 import { Route as ApiIntegrationsRouteImport } from './routes/api/integrations'
 import { Route as ApiHistoryRouteImport } from './routes/api/history'
-import { Route as ApiHermesTasksRouteImport } from './routes/api/hermes-tasks'
-import { Route as ApiHermesConfigRouteImport } from './routes/api/hermes-config'
+import { Route as ApiNasTechTasksRouteImport } from './routes/api/nastech-tasks'
+import { Route as ApiNasTechConfigRouteImport } from './routes/api/nastech-config'
 import { Route as ApiGatewayStatusRouteImport } from './routes/api/gateway-status'
 import { Route as ApiGatewayReprobeRouteImport } from './routes/api/gateway-reprobe'
 import { Route as ApiFilesRouteImport } from './routes/api/files'
@@ -153,8 +153,8 @@ import { Route as ApiKnowledgeReadRouteImport } from './routes/api/knowledge/rea
 import { Route as ApiKnowledgeListRouteImport } from './routes/api/knowledge/list'
 import { Route as ApiKnowledgeGraphRouteImport } from './routes/api/knowledge/graph'
 import { Route as ApiKnowledgeConfigRouteImport } from './routes/api/knowledge/config'
-import { Route as ApiHermesworldReservationsRouteImport } from './routes/api/hermesworld/reservations'
-import { Route as ApiHermesTasksTaskIdRouteImport } from './routes/api/hermes-tasks.$taskId'
+import { Route as ApiNasTechworldReservationsRouteImport } from './routes/api/nastechworld/reservations'
+import { Route as ApiNasTechTasksTaskIdRouteImport } from './routes/api/nastech-tasks.$taskId'
 import { Route as ApiExternalMemorySearchRouteImport } from './routes/api/external-memory/search'
 import { Route as ApiExternalMemoryProvidersRouteImport } from './routes/api/external-memory/providers'
 import { Route as ApiExternalMemoryCandidatesRouteImport } from './routes/api/external-memory/candidates'
@@ -167,7 +167,7 @@ import { Route as ApiSessionsSessionKeyStatusRouteImport } from './routes/api/se
 import { Route as ApiSessionsSessionKeyActiveRunRouteImport } from './routes/api/sessions/$sessionKey.active-run'
 import { Route as ApiMcpHubSourcesIdRouteImport } from './routes/api/mcp/hub-sources.$id'
 import { Route as ApiMcpNameLogsRouteImport } from './routes/api/mcp/$name.logs'
-import { Route as ApiHermesworldReservationsConfirmRouteImport } from './routes/api/hermesworld/reservations/confirm'
+import { Route as ApiNasTechworldReservationsConfirmRouteImport } from './routes/api/nastechworld/reservations/confirm'
 import { Route as ApiRunsSessionKeyRunIdAbandonRouteImport } from './routes/api/runs/$sessionKey.$runId.abandon'
 
 const WorldRoute = WorldRouteImport.update({
@@ -245,9 +245,9 @@ const JobsRoute = JobsRouteImport.update({
   path: '/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HermesWorldRoute = HermesWorldRouteImport.update({
-  id: '/hermes-world',
-  path: '/hermes-world',
+const NasTechWorldRoute = NasTechWorldRouteImport.update({
+  id: '/nastech-world',
+  path: '/nastech-world',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FilesRoute = FilesRouteImport.update({
@@ -566,14 +566,14 @@ const ApiHistoryRoute = ApiHistoryRouteImport.update({
   path: '/api/history',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiHermesTasksRoute = ApiHermesTasksRouteImport.update({
-  id: '/api/hermes-tasks',
-  path: '/api/hermes-tasks',
+const ApiNasTechTasksRoute = ApiNasTechTasksRouteImport.update({
+  id: '/api/nastech-tasks',
+  path: '/api/nastech-tasks',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiHermesConfigRoute = ApiHermesConfigRouteImport.update({
-  id: '/api/hermes-config',
-  path: '/api/hermes-config',
+const ApiNasTechConfigRoute = ApiNasTechConfigRouteImport.update({
+  id: '/api/nastech-config',
+  path: '/api/nastech-config',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGatewayStatusRoute = ApiGatewayStatusRouteImport.update({
@@ -891,16 +891,16 @@ const ApiKnowledgeConfigRoute = ApiKnowledgeConfigRouteImport.update({
   path: '/api/knowledge/config',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiHermesworldReservationsRoute =
-  ApiHermesworldReservationsRouteImport.update({
-    id: '/api/hermesworld/reservations',
-    path: '/api/hermesworld/reservations',
+const ApiNasTechworldReservationsRoute =
+  ApiNasTechworldReservationsRouteImport.update({
+    id: '/api/nastechworld/reservations',
+    path: '/api/nastechworld/reservations',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiHermesTasksTaskIdRoute = ApiHermesTasksTaskIdRouteImport.update({
+const ApiNasTechTasksTaskIdRoute = ApiNasTechTasksTaskIdRouteImport.update({
   id: '/$taskId',
   path: '/$taskId',
-  getParentRoute: () => ApiHermesTasksRoute,
+  getParentRoute: () => ApiNasTechTasksRoute,
 } as any)
 const ApiExternalMemorySearchRoute = ApiExternalMemorySearchRouteImport.update({
   id: '/api/external-memory/search',
@@ -966,11 +966,11 @@ const ApiMcpNameLogsRoute = ApiMcpNameLogsRouteImport.update({
   path: '/logs',
   getParentRoute: () => ApiMcpNameRoute,
 } as any)
-const ApiHermesworldReservationsConfirmRoute =
-  ApiHermesworldReservationsConfirmRouteImport.update({
+const ApiNasTechworldReservationsConfirmRoute =
+  ApiNasTechworldReservationsConfirmRouteImport.update({
     id: '/confirm',
     path: '/confirm',
-    getParentRoute: () => ApiHermesworldReservationsRoute,
+    getParentRoute: () => ApiNasTechworldReservationsRoute,
   } as any)
 const ApiRunsSessionKeyRunIdAbandonRoute =
   ApiRunsSessionKeyRunIdAbandonRouteImport.update({
@@ -988,7 +988,7 @@ export interface FileRoutesByFullPath {
   '/early-access': typeof EarlyAccessRoute
   '/echo-studio': typeof EchoStudioRoute
   '/files': typeof FilesRoute
-  '/hermes-world': typeof HermesWorldRoute
+  '/nastech-world': typeof NasTechWorldRoute
   '/jobs': typeof JobsRoute
   '/mcp': typeof McpRoute
   '/memory': typeof MemoryRoute
@@ -1026,8 +1026,8 @@ export interface FileRoutesByFullPath {
   '/api/files': typeof ApiFilesRoute
   '/api/gateway-reprobe': typeof ApiGatewayReprobeRoute
   '/api/gateway-status': typeof ApiGatewayStatusRoute
-  '/api/hermes-config': typeof ApiHermesConfigRoute
-  '/api/hermes-tasks': typeof ApiHermesTasksRouteWithChildren
+  '/api/nastech-config': typeof ApiNasTechConfigRoute
+  '/api/nastech-tasks': typeof ApiNasTechTasksRouteWithChildren
   '/api/history': typeof ApiHistoryRoute
   '/api/integrations': typeof ApiIntegrationsRoute
   '/api/local-providers': typeof ApiLocalProvidersRoute
@@ -1091,8 +1091,8 @@ export interface FileRoutesByFullPath {
   '/api/external-memory/candidates': typeof ApiExternalMemoryCandidatesRoute
   '/api/external-memory/providers': typeof ApiExternalMemoryProvidersRoute
   '/api/external-memory/search': typeof ApiExternalMemorySearchRoute
-  '/api/hermes-tasks/$taskId': typeof ApiHermesTasksTaskIdRoute
-  '/api/hermesworld/reservations': typeof ApiHermesworldReservationsRouteWithChildren
+  '/api/nastech-tasks/$taskId': typeof ApiNasTechTasksTaskIdRoute
+  '/api/nastechworld/reservations': typeof ApiNasTechworldReservationsRouteWithChildren
   '/api/knowledge/config': typeof ApiKnowledgeConfigRoute
   '/api/knowledge/graph': typeof ApiKnowledgeGraphRoute
   '/api/knowledge/list': typeof ApiKnowledgeListRoute
@@ -1134,7 +1134,7 @@ export interface FileRoutesByFullPath {
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
-  '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
+  '/api/nastechworld/reservations/confirm': typeof ApiNasTechworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
   '/api/sessions/$sessionKey/active-run': typeof ApiSessionsSessionKeyActiveRunRoute
@@ -1150,7 +1150,7 @@ export interface FileRoutesByTo {
   '/early-access': typeof EarlyAccessRoute
   '/echo-studio': typeof EchoStudioRoute
   '/files': typeof FilesRoute
-  '/hermes-world': typeof HermesWorldRoute
+  '/nastech-world': typeof NasTechWorldRoute
   '/jobs': typeof JobsRoute
   '/mcp': typeof McpRoute
   '/memory': typeof MemoryRoute
@@ -1187,8 +1187,8 @@ export interface FileRoutesByTo {
   '/api/files': typeof ApiFilesRoute
   '/api/gateway-reprobe': typeof ApiGatewayReprobeRoute
   '/api/gateway-status': typeof ApiGatewayStatusRoute
-  '/api/hermes-config': typeof ApiHermesConfigRoute
-  '/api/hermes-tasks': typeof ApiHermesTasksRouteWithChildren
+  '/api/nastech-config': typeof ApiNasTechConfigRoute
+  '/api/nastech-tasks': typeof ApiNasTechTasksRouteWithChildren
   '/api/history': typeof ApiHistoryRoute
   '/api/integrations': typeof ApiIntegrationsRoute
   '/api/local-providers': typeof ApiLocalProvidersRoute
@@ -1252,8 +1252,8 @@ export interface FileRoutesByTo {
   '/api/external-memory/candidates': typeof ApiExternalMemoryCandidatesRoute
   '/api/external-memory/providers': typeof ApiExternalMemoryProvidersRoute
   '/api/external-memory/search': typeof ApiExternalMemorySearchRoute
-  '/api/hermes-tasks/$taskId': typeof ApiHermesTasksTaskIdRoute
-  '/api/hermesworld/reservations': typeof ApiHermesworldReservationsRouteWithChildren
+  '/api/nastech-tasks/$taskId': typeof ApiNasTechTasksTaskIdRoute
+  '/api/nastechworld/reservations': typeof ApiNasTechworldReservationsRouteWithChildren
   '/api/knowledge/config': typeof ApiKnowledgeConfigRoute
   '/api/knowledge/graph': typeof ApiKnowledgeGraphRoute
   '/api/knowledge/list': typeof ApiKnowledgeListRoute
@@ -1295,7 +1295,7 @@ export interface FileRoutesByTo {
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
-  '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
+  '/api/nastechworld/reservations/confirm': typeof ApiNasTechworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
   '/api/sessions/$sessionKey/active-run': typeof ApiSessionsSessionKeyActiveRunRoute
@@ -1312,7 +1312,7 @@ export interface FileRoutesById {
   '/early-access': typeof EarlyAccessRoute
   '/echo-studio': typeof EchoStudioRoute
   '/files': typeof FilesRoute
-  '/hermes-world': typeof HermesWorldRoute
+  '/nastech-world': typeof NasTechWorldRoute
   '/jobs': typeof JobsRoute
   '/mcp': typeof McpRoute
   '/memory': typeof MemoryRoute
@@ -1350,8 +1350,8 @@ export interface FileRoutesById {
   '/api/files': typeof ApiFilesRoute
   '/api/gateway-reprobe': typeof ApiGatewayReprobeRoute
   '/api/gateway-status': typeof ApiGatewayStatusRoute
-  '/api/hermes-config': typeof ApiHermesConfigRoute
-  '/api/hermes-tasks': typeof ApiHermesTasksRouteWithChildren
+  '/api/nastech-config': typeof ApiNasTechConfigRoute
+  '/api/nastech-tasks': typeof ApiNasTechTasksRouteWithChildren
   '/api/history': typeof ApiHistoryRoute
   '/api/integrations': typeof ApiIntegrationsRoute
   '/api/local-providers': typeof ApiLocalProvidersRoute
@@ -1415,8 +1415,8 @@ export interface FileRoutesById {
   '/api/external-memory/candidates': typeof ApiExternalMemoryCandidatesRoute
   '/api/external-memory/providers': typeof ApiExternalMemoryProvidersRoute
   '/api/external-memory/search': typeof ApiExternalMemorySearchRoute
-  '/api/hermes-tasks/$taskId': typeof ApiHermesTasksTaskIdRoute
-  '/api/hermesworld/reservations': typeof ApiHermesworldReservationsRouteWithChildren
+  '/api/nastech-tasks/$taskId': typeof ApiNasTechTasksTaskIdRoute
+  '/api/nastechworld/reservations': typeof ApiNasTechworldReservationsRouteWithChildren
   '/api/knowledge/config': typeof ApiKnowledgeConfigRoute
   '/api/knowledge/graph': typeof ApiKnowledgeGraphRoute
   '/api/knowledge/list': typeof ApiKnowledgeListRoute
@@ -1458,7 +1458,7 @@ export interface FileRoutesById {
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
-  '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
+  '/api/nastechworld/reservations/confirm': typeof ApiNasTechworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
   '/api/sessions/$sessionKey/active-run': typeof ApiSessionsSessionKeyActiveRunRoute
@@ -1476,7 +1476,7 @@ export interface FileRouteTypes {
     | '/early-access'
     | '/echo-studio'
     | '/files'
-    | '/hermes-world'
+    | '/nastech-world'
     | '/jobs'
     | '/mcp'
     | '/memory'
@@ -1514,8 +1514,8 @@ export interface FileRouteTypes {
     | '/api/files'
     | '/api/gateway-reprobe'
     | '/api/gateway-status'
-    | '/api/hermes-config'
-    | '/api/hermes-tasks'
+    | '/api/nastech-config'
+    | '/api/nastech-tasks'
     | '/api/history'
     | '/api/integrations'
     | '/api/local-providers'
@@ -1579,8 +1579,8 @@ export interface FileRouteTypes {
     | '/api/external-memory/candidates'
     | '/api/external-memory/providers'
     | '/api/external-memory/search'
-    | '/api/hermes-tasks/$taskId'
-    | '/api/hermesworld/reservations'
+    | '/api/nastech-tasks/$taskId'
+    | '/api/nastechworld/reservations'
     | '/api/knowledge/config'
     | '/api/knowledge/graph'
     | '/api/knowledge/list'
@@ -1622,7 +1622,7 @@ export interface FileRouteTypes {
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
-    | '/api/hermesworld/reservations/confirm'
+    | '/api/nastechworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
     | '/api/sessions/$sessionKey/active-run'
@@ -1638,7 +1638,7 @@ export interface FileRouteTypes {
     | '/early-access'
     | '/echo-studio'
     | '/files'
-    | '/hermes-world'
+    | '/nastech-world'
     | '/jobs'
     | '/mcp'
     | '/memory'
@@ -1675,8 +1675,8 @@ export interface FileRouteTypes {
     | '/api/files'
     | '/api/gateway-reprobe'
     | '/api/gateway-status'
-    | '/api/hermes-config'
-    | '/api/hermes-tasks'
+    | '/api/nastech-config'
+    | '/api/nastech-tasks'
     | '/api/history'
     | '/api/integrations'
     | '/api/local-providers'
@@ -1740,8 +1740,8 @@ export interface FileRouteTypes {
     | '/api/external-memory/candidates'
     | '/api/external-memory/providers'
     | '/api/external-memory/search'
-    | '/api/hermes-tasks/$taskId'
-    | '/api/hermesworld/reservations'
+    | '/api/nastech-tasks/$taskId'
+    | '/api/nastechworld/reservations'
     | '/api/knowledge/config'
     | '/api/knowledge/graph'
     | '/api/knowledge/list'
@@ -1783,7 +1783,7 @@ export interface FileRouteTypes {
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
-    | '/api/hermesworld/reservations/confirm'
+    | '/api/nastechworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
     | '/api/sessions/$sessionKey/active-run'
@@ -1799,7 +1799,7 @@ export interface FileRouteTypes {
     | '/early-access'
     | '/echo-studio'
     | '/files'
-    | '/hermes-world'
+    | '/nastech-world'
     | '/jobs'
     | '/mcp'
     | '/memory'
@@ -1837,8 +1837,8 @@ export interface FileRouteTypes {
     | '/api/files'
     | '/api/gateway-reprobe'
     | '/api/gateway-status'
-    | '/api/hermes-config'
-    | '/api/hermes-tasks'
+    | '/api/nastech-config'
+    | '/api/nastech-tasks'
     | '/api/history'
     | '/api/integrations'
     | '/api/local-providers'
@@ -1902,8 +1902,8 @@ export interface FileRouteTypes {
     | '/api/external-memory/candidates'
     | '/api/external-memory/providers'
     | '/api/external-memory/search'
-    | '/api/hermes-tasks/$taskId'
-    | '/api/hermesworld/reservations'
+    | '/api/nastech-tasks/$taskId'
+    | '/api/nastechworld/reservations'
     | '/api/knowledge/config'
     | '/api/knowledge/graph'
     | '/api/knowledge/list'
@@ -1945,7 +1945,7 @@ export interface FileRouteTypes {
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
-    | '/api/hermesworld/reservations/confirm'
+    | '/api/nastechworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
     | '/api/sessions/$sessionKey/active-run'
@@ -1962,7 +1962,7 @@ export interface RootRouteChildren {
   EarlyAccessRoute: typeof EarlyAccessRoute
   EchoStudioRoute: typeof EchoStudioRoute
   FilesRoute: typeof FilesRoute
-  HermesWorldRoute: typeof HermesWorldRoute
+  NasTechWorldRoute: typeof NasTechWorldRoute
   JobsRoute: typeof JobsRoute
   McpRoute: typeof McpRoute
   MemoryRoute: typeof MemoryRoute
@@ -2000,8 +2000,8 @@ export interface RootRouteChildren {
   ApiFilesRoute: typeof ApiFilesRoute
   ApiGatewayReprobeRoute: typeof ApiGatewayReprobeRoute
   ApiGatewayStatusRoute: typeof ApiGatewayStatusRoute
-  ApiHermesConfigRoute: typeof ApiHermesConfigRoute
-  ApiHermesTasksRoute: typeof ApiHermesTasksRouteWithChildren
+  ApiNasTechConfigRoute: typeof ApiNasTechConfigRoute
+  ApiNasTechTasksRoute: typeof ApiNasTechTasksRouteWithChildren
   ApiHistoryRoute: typeof ApiHistoryRoute
   ApiIntegrationsRoute: typeof ApiIntegrationsRoute
   ApiLocalProvidersRoute: typeof ApiLocalProvidersRoute
@@ -2059,7 +2059,7 @@ export interface RootRouteChildren {
   ApiExternalMemoryCandidatesRoute: typeof ApiExternalMemoryCandidatesRoute
   ApiExternalMemoryProvidersRoute: typeof ApiExternalMemoryProvidersRoute
   ApiExternalMemorySearchRoute: typeof ApiExternalMemorySearchRoute
-  ApiHermesworldReservationsRoute: typeof ApiHermesworldReservationsRouteWithChildren
+  ApiNasTechworldReservationsRoute: typeof ApiNasTechworldReservationsRouteWithChildren
   ApiKnowledgeConfigRoute: typeof ApiKnowledgeConfigRoute
   ApiKnowledgeGraphRoute: typeof ApiKnowledgeGraphRoute
   ApiKnowledgeListRoute: typeof ApiKnowledgeListRoute
@@ -2192,11 +2192,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hermes-world': {
-      id: '/hermes-world'
-      path: '/hermes-world'
-      fullPath: '/hermes-world'
-      preLoaderRoute: typeof HermesWorldRouteImport
+    '/nastech-world': {
+      id: '/nastech-world'
+      path: '/nastech-world'
+      fullPath: '/nastech-world'
+      preLoaderRoute: typeof NasTechWorldRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/files': {
@@ -2640,18 +2640,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/hermes-tasks': {
-      id: '/api/hermes-tasks'
-      path: '/api/hermes-tasks'
-      fullPath: '/api/hermes-tasks'
-      preLoaderRoute: typeof ApiHermesTasksRouteImport
+    '/api/nastech-tasks': {
+      id: '/api/nastech-tasks'
+      path: '/api/nastech-tasks'
+      fullPath: '/api/nastech-tasks'
+      preLoaderRoute: typeof ApiNasTechTasksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/hermes-config': {
-      id: '/api/hermes-config'
-      path: '/api/hermes-config'
-      fullPath: '/api/hermes-config'
-      preLoaderRoute: typeof ApiHermesConfigRouteImport
+    '/api/nastech-config': {
+      id: '/api/nastech-config'
+      path: '/api/nastech-config'
+      fullPath: '/api/nastech-config'
+      preLoaderRoute: typeof ApiNasTechConfigRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/gateway-status': {
@@ -3095,19 +3095,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiKnowledgeConfigRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/hermesworld/reservations': {
-      id: '/api/hermesworld/reservations'
-      path: '/api/hermesworld/reservations'
-      fullPath: '/api/hermesworld/reservations'
-      preLoaderRoute: typeof ApiHermesworldReservationsRouteImport
+    '/api/nastechworld/reservations': {
+      id: '/api/nastechworld/reservations'
+      path: '/api/nastechworld/reservations'
+      fullPath: '/api/nastechworld/reservations'
+      preLoaderRoute: typeof ApiNasTechworldReservationsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/hermes-tasks/$taskId': {
-      id: '/api/hermes-tasks/$taskId'
+    '/api/nastech-tasks/$taskId': {
+      id: '/api/nastech-tasks/$taskId'
       path: '/$taskId'
-      fullPath: '/api/hermes-tasks/$taskId'
-      preLoaderRoute: typeof ApiHermesTasksTaskIdRouteImport
-      parentRoute: typeof ApiHermesTasksRoute
+      fullPath: '/api/nastech-tasks/$taskId'
+      preLoaderRoute: typeof ApiNasTechTasksTaskIdRouteImport
+      parentRoute: typeof ApiNasTechTasksRoute
     }
     '/api/external-memory/search': {
       id: '/api/external-memory/search'
@@ -3193,12 +3193,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMcpNameLogsRouteImport
       parentRoute: typeof ApiMcpNameRoute
     }
-    '/api/hermesworld/reservations/confirm': {
-      id: '/api/hermesworld/reservations/confirm'
+    '/api/nastechworld/reservations/confirm': {
+      id: '/api/nastechworld/reservations/confirm'
       path: '/confirm'
-      fullPath: '/api/hermesworld/reservations/confirm'
-      preLoaderRoute: typeof ApiHermesworldReservationsConfirmRouteImport
-      parentRoute: typeof ApiHermesworldReservationsRoute
+      fullPath: '/api/nastechworld/reservations/confirm'
+      preLoaderRoute: typeof ApiNasTechworldReservationsConfirmRouteImport
+      parentRoute: typeof ApiNasTechworldReservationsRoute
     }
     '/api/runs/$sessionKey/$runId/abandon': {
       id: '/api/runs/$sessionKey/$runId/abandon'
@@ -3271,16 +3271,16 @@ const ApiClaudeTasksRouteWithChildren = ApiClaudeTasksRoute._addFileChildren(
   ApiClaudeTasksRouteChildren,
 )
 
-interface ApiHermesTasksRouteChildren {
-  ApiHermesTasksTaskIdRoute: typeof ApiHermesTasksTaskIdRoute
+interface ApiNasTechTasksRouteChildren {
+  ApiNasTechTasksTaskIdRoute: typeof ApiNasTechTasksTaskIdRoute
 }
 
-const ApiHermesTasksRouteChildren: ApiHermesTasksRouteChildren = {
-  ApiHermesTasksTaskIdRoute: ApiHermesTasksTaskIdRoute,
+const ApiNasTechTasksRouteChildren: ApiNasTechTasksRouteChildren = {
+  ApiNasTechTasksTaskIdRoute: ApiNasTechTasksTaskIdRoute,
 }
 
-const ApiHermesTasksRouteWithChildren = ApiHermesTasksRoute._addFileChildren(
-  ApiHermesTasksRouteChildren,
+const ApiNasTechTasksRouteWithChildren = ApiNasTechTasksRoute._addFileChildren(
+  ApiNasTechTasksRouteChildren,
 )
 
 interface ApiMcpNameRouteChildren {
@@ -3407,19 +3407,19 @@ const ApiSwarmRuntimeRouteWithChildren = ApiSwarmRuntimeRoute._addFileChildren(
   ApiSwarmRuntimeRouteChildren,
 )
 
-interface ApiHermesworldReservationsRouteChildren {
-  ApiHermesworldReservationsConfirmRoute: typeof ApiHermesworldReservationsConfirmRoute
+interface ApiNasTechworldReservationsRouteChildren {
+  ApiNasTechworldReservationsConfirmRoute: typeof ApiNasTechworldReservationsConfirmRoute
 }
 
-const ApiHermesworldReservationsRouteChildren: ApiHermesworldReservationsRouteChildren =
+const ApiNasTechworldReservationsRouteChildren: ApiNasTechworldReservationsRouteChildren =
   {
-    ApiHermesworldReservationsConfirmRoute:
-      ApiHermesworldReservationsConfirmRoute,
+    ApiNasTechworldReservationsConfirmRoute:
+      ApiNasTechworldReservationsConfirmRoute,
   }
 
-const ApiHermesworldReservationsRouteWithChildren =
-  ApiHermesworldReservationsRoute._addFileChildren(
-    ApiHermesworldReservationsRouteChildren,
+const ApiNasTechworldReservationsRouteWithChildren =
+  ApiNasTechworldReservationsRoute._addFileChildren(
+    ApiNasTechworldReservationsRouteChildren,
   )
 
 const rootRouteChildren: RootRouteChildren = {
@@ -3431,7 +3431,7 @@ const rootRouteChildren: RootRouteChildren = {
   EarlyAccessRoute: EarlyAccessRoute,
   EchoStudioRoute: EchoStudioRoute,
   FilesRoute: FilesRoute,
-  HermesWorldRoute: HermesWorldRoute,
+  NasTechWorldRoute: NasTechWorldRoute,
   JobsRoute: JobsRoute,
   McpRoute: McpRoute,
   MemoryRoute: MemoryRoute,
@@ -3469,8 +3469,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFilesRoute: ApiFilesRoute,
   ApiGatewayReprobeRoute: ApiGatewayReprobeRoute,
   ApiGatewayStatusRoute: ApiGatewayStatusRoute,
-  ApiHermesConfigRoute: ApiHermesConfigRoute,
-  ApiHermesTasksRoute: ApiHermesTasksRouteWithChildren,
+  ApiNasTechConfigRoute: ApiNasTechConfigRoute,
+  ApiNasTechTasksRoute: ApiNasTechTasksRouteWithChildren,
   ApiHistoryRoute: ApiHistoryRoute,
   ApiIntegrationsRoute: ApiIntegrationsRoute,
   ApiLocalProvidersRoute: ApiLocalProvidersRoute,
@@ -3528,7 +3528,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiExternalMemoryCandidatesRoute: ApiExternalMemoryCandidatesRoute,
   ApiExternalMemoryProvidersRoute: ApiExternalMemoryProvidersRoute,
   ApiExternalMemorySearchRoute: ApiExternalMemorySearchRoute,
-  ApiHermesworldReservationsRoute: ApiHermesworldReservationsRouteWithChildren,
+  ApiNasTechworldReservationsRoute: ApiNasTechworldReservationsRouteWithChildren,
   ApiKnowledgeConfigRoute: ApiKnowledgeConfigRoute,
   ApiKnowledgeGraphRoute: ApiKnowledgeGraphRoute,
   ApiKnowledgeListRoute: ApiKnowledgeListRoute,

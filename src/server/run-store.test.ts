@@ -4,21 +4,21 @@ import { join } from 'node:path'
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const originalHermesHome = process.env.HERMES_HOME
+const originalNasTechHome = process.env.NASTECH_HOME
 
 let tempHome: string | null = null
 
 beforeEach(() => {
   vi.resetModules()
-  tempHome = mkdtempSync(join(tmpdir(), 'hermes-run-store-'))
-  process.env.HERMES_HOME = tempHome
+  tempHome = mkdtempSync(join(tmpdir(), 'nastech-run-store-'))
+  process.env.NASTECH_HOME = tempHome
 })
 
 afterEach(() => {
   if (tempHome) rmSync(tempHome, { recursive: true, force: true })
   tempHome = null
-  if (originalHermesHome === undefined) delete process.env.HERMES_HOME
-  else process.env.HERMES_HOME = originalHermesHome
+  if (originalNasTechHome === undefined) delete process.env.NASTECH_HOME
+  else process.env.NASTECH_HOME = originalNasTechHome
   vi.resetModules()
 })
 

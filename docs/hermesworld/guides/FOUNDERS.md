@@ -1,6 +1,6 @@
 # Founders
 
-Founders are early world-builders: the first cohort to enter, test, document, break, repair, and shape HermesWorld before the gates fully open.
+Founders are early world-builders: the first cohort to enter, test, document, break, repair, and shape NasTechWorld before the gates fully open.
 
 See also: [Timeline](../lore/TIMELINE.md), [Sigils Lore](../lore/SIGILS-LORE.md), [FAQ](../FAQ.md).
 

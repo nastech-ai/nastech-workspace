@@ -1,4 +1,4 @@
-# HermesWorld v2 Asset Manifest
+# NasTechWorld v2 Asset Manifest
 
 All Wave A/B/C/D/E generated assets land here. Each row tracks prompt, model, batch, vision-review status.
 

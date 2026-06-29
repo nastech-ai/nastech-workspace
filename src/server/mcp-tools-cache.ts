@@ -1,15 +1,15 @@
 /**
  * In-memory + disk-backed cache of last-known MCP probe results, keyed by server name.
  *
- * Populated by /api/mcp/test (which shells out to `hermes mcp test <name>`
+ * Populated by /api/mcp/test (which shells out to `nastech mcp test <name>`
  * in fallback mode) and read by /api/mcp GET to hydrate per-server tool
  * counts so cards display non-zero counts without forcing a fresh probe.
  *
- * US-504: persist to ~/.hermes/cache/mcp-tools.json on each setProbe via
+ * US-504: persist to ~/.nastech/cache/mcp-tools.json on each setProbe via
  * atomic tmp+linkSync (mirroring mcp-presets-store bootstrapSeed pattern).
  * On module load, prime in-memory cache from disk if file is valid JSON.
  * TTL: 24h default, override via MCP_TOOLS_CACHE_TTL_MS env.
- * HERMES_HOME env override for path resolution.
+ * NASTECH_HOME env override for path resolution.
  */
 import {
   closeSync,

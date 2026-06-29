@@ -1,7 +1,7 @@
 import type { AvatarConfig } from './avatar-config'
 
 /**
- * Hermes Playground RPG data model.
+ * NasTech Playground RPG data model.
  *
  * Training Grounds is the new first-run loop for the Nous Research x Kimi
  * creative hackathon build. Legacy worlds and items remain additive.
@@ -20,13 +20,13 @@ export type PlaygroundSkillId =
 export type EquipmentSlot = 'weapon' | 'cloak' | 'head' | 'artifact'
 
 export type PlaygroundItemId =
-  | 'hermes-sigil'
+  | 'nastech-sigil'
   | 'training-blade'
   | 'novice-cloak'
   | 'initiate-circlet'
   | 'archive-lens'
   | 'wisp-core'
-  | 'hermes-token'
+  | 'nastech-token'
   | 'athena-scroll'
   | 'forge-shard'
   | 'portal-key'
@@ -75,7 +75,7 @@ export type PlaygroundQuest = {
   chapter: string
   title: string
   description: string
-  /** What this quest teaches about Hermes Agent / product-building. */
+  /** What this quest teaches about NasTech Agent / product-building. */
   lesson?: string
   /** Why the player should care, shown in the journal as practical payoff. */
   payoff?: string
@@ -225,8 +225,8 @@ export const PLAYGROUND_SKILLS: PlaygroundSkill[] = [
 
 export const PLAYGROUND_ITEMS: PlaygroundItem[] = [
   {
-    id: 'hermes-sigil',
-    name: 'Hermes Sigil',
+    id: 'nastech-sigil',
+    name: 'NasTech Sigil',
     icon: '🜂',
     rarity: 'rare',
     description: 'A starter sigil that marks you as a builder entering the Training Grounds.',
@@ -285,8 +285,8 @@ export const PLAYGROUND_ITEMS: PlaygroundItem[] = [
     stat: { label: 'Burst', value: 4 },
   },
   {
-    id: 'hermes-token',
-    name: 'Hermes Token',
+    id: 'nastech-token',
+    name: 'NasTech Token',
     icon: '🪽',
     rarity: 'common',
     description: 'Proof you entered the Playground. Warm to the touch, weirdly useful.',
@@ -361,8 +361,8 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     id: 'training-q1',
     chapter: 'Training Grounds Tutorial',
     title: 'Move and Speak',
-    description: 'Walk to Athena at the Arrival Circle and accept the Hermes Sigil.',
-    lesson: 'Hermes Agent is the messenger layer for your workflow: one place to route prompts to models, tools, files, memory, and channels.',
+    description: 'Walk to Athena at the Arrival Circle and accept the NasTech Sigil.',
+    lesson: 'NasTech Agent is the messenger layer for your workflow: one place to route prompts to models, tools, files, memory, and channels.',
     payoff: 'You learn the basic interaction loop: approach an agent, choose a response, receive useful work back.',
     objectives: [
       {
@@ -375,13 +375,13 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
       {
         id: 'claim-sigil',
         type: 'collect_item',
-        label: 'Receive the Hermes Sigil',
-        target: 'hermes-sigil',
+        label: 'Receive the NasTech Sigil',
+        target: 'nastech-sigil',
       },
     ],
     reward: {
       xp: 40,
-      items: ['hermes-sigil', 'training-blade', 'novice-cloak'],
+      items: ['nastech-sigil', 'training-blade', 'novice-cloak'],
       skillXp: { promptcraft: 20, summoning: 10 },
     },
   },
@@ -390,7 +390,7 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     chapter: 'Training Grounds Tutorial',
     title: 'Open Your Kit',
     description: 'Open your inventory and equip the starter blade and cloak.',
-    lesson: 'In Hermes, capabilities are modular. Skills, tools, profiles, and context files are your equipment loadout for different jobs.',
+    lesson: 'In NasTech, capabilities are modular. Skills, tools, profiles, and context files are your equipment loadout for different jobs.',
     payoff: 'You learn how to inspect, equip, and combine capabilities before starting real work.',
     objectives: [
       {
@@ -422,7 +422,7 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     chapter: 'Training Grounds Tutorial',
     title: 'Learn Chat and Community',
     description: 'Send one local chat message to the builders around you.',
-    lesson: 'Hermes can operate across chat surfaces and human workflows, not just inside one app window.',
+    lesson: 'NasTech can operate across chat surfaces and human workflows, not just inside one app window.',
     payoff: 'You learn how multiplayer/social context turns isolated agent work into collaborative product-building.',
     objectives: [
       {
@@ -442,7 +442,7 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     chapter: 'Training Grounds Tutorial',
     title: 'Learn Memory and Docs',
     description: 'Visit the Archive Podium and inspect the docs and memory guidance.',
-    lesson: 'Memory, docs, and context let Hermes remember what matters: goals, decisions, repo state, preferences, and project handoffs.',
+    lesson: 'Memory, docs, and context let NasTech remember what matters: goals, decisions, repo state, preferences, and project handoffs.',
     payoff: 'You learn why durable context beats repeating yourself every session.',
     objectives: [
       {
@@ -467,10 +467,10 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
   {
     id: 'training-q5',
     chapter: 'Training Grounds Tutorial',
-    title: 'Build with Hermes',
+    title: 'Build with NasTech',
     description: 'Travel to the Forge Gate and ask Athena to build something with you.',
-    lesson: 'The Forge represents the core Hermes loop: describe an outcome, dispatch agents/tools, review progress, and turn prompts into products.',
-    payoff: 'You graduate from learning the interface to using Hermes as a builder system.',
+    lesson: 'The Forge represents the core NasTech loop: describe an outcome, dispatch agents/tools, review progress, and turn prompts into products.',
+    payoff: 'You graduate from learning the interface to using NasTech as a builder system.',
     objectives: [
       {
         id: 'visit-forge-gate',
@@ -499,8 +499,8 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     chapter: 'Agora Bonus — Diplomacy',
     title: 'Pact of the Agora',
     description: 'Find another live builder in the Agora Commons. Stand within speaking distance and exchange a chat.',
-    lesson: 'Hermes Diplomacy: agents shine when they coordinate with others. The first protocol is presence; the second is acknowledging another mind.',
-    payoff: 'Multiplayer coordination is a real Hermes skill — not just a flourish. Every collab pipeline starts here.',
+    lesson: 'NasTech Diplomacy: agents shine when they coordinate with others. The first protocol is presence; the second is acknowledging another mind.',
+    payoff: 'Multiplayer coordination is a real NasTech skill — not just a flourish. Every collab pipeline starts here.',
     optional: true,
     objectives: [
       { id: 'meet-builder', type: 'meet_player', label: 'Stand near another live builder in the Agora' },
@@ -516,8 +516,8 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     id: 'forge-summon',
     chapter: 'Forge Bonus — Summoning',
     title: 'Summon a Forge Familiar',
-    description: 'Channel a temporary Hermes familiar at the Forge. It walks beside you for one minute.',
-    lesson: 'Hermes Summoning: orchestrate sub-agents on demand to extend your reach without bloating your context.',
+    description: 'Channel a temporary NasTech familiar at the Forge. It walks beside you for one minute.',
+    lesson: 'NasTech Summoning: orchestrate sub-agents on demand to extend your reach without bloating your context.',
     payoff: 'You learn the foundation of agent composition — spawn helpers, get value, dismiss cleanly.',
     optional: true,
     objectives: [
@@ -536,7 +536,7 @@ export const PLAYGROUND_QUESTS: PlaygroundQuest[] = [
     title: 'Clear the Glitch Wisp',
     description: 'Defeat the unstable wisp haunting the Trainer’s Ring.',
     lesson: 'Real projects create glitches: bad prompts, broken tools, missing context, failing auth, and noisy feedback loops.',
-    payoff: 'You learn the product habit Hermes rewards: detect the issue, choose the right tool, and clear the blocker.',
+    payoff: 'You learn the product habit NasTech rewards: detect the issue, choose the right tool, and clear the blocker.',
     optional: true,
     objectives: [
       {

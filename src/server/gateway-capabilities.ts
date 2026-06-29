@@ -1,5 +1,5 @@
 /**
- * Probes Hermes services to detect which API groups are available.
+ * Probes NasTech services to detect which API groups are available.
  *
  * Zero-fork architecture:
  *   - Gateway (:8642 by default): /health, /v1/chat/completions, /v1/models
@@ -10,9 +10,9 @@
  *
  * Precedence for gateway/dashboard URLs:
  *   1. Runtime override saved via setGatewayUrl() / setDashboardUrl()
- *      (persisted to ~/.hermes/workspace-overrides.json) — set from the UI
+ *      (persisted to ~/.nastech/workspace-overrides.json) — set from the UI
  *      so remote / Tailscale users can relocate without a restart (#101).
- *   2. process.env.HERMES_API_URL / HERMES_DASHBOARD_URL at process start.
+ *   2. process.env.NASTECH_API_URL / NASTECH_DASHBOARD_URL at process start.
  *   3. Default localhost (8642 / 9119).
  */
 
@@ -61,13 +61,13 @@ const _initialOverrides = readOverrides()
 
 export let CLAUDE_API = normalizeUrl(
   _initialOverrides.claudeApiUrl ||
-    process.env.HERMES_API_URL ||
+    process.env.NASTECH_API_URL ||
     process.env.CLAUDE_API_URL ||
     'http://127.0.0.1:8642',
 )
 export let CLAUDE_DASHBOARD_URL = normalizeUrl(
   _initialOverrides.claudeDashboardUrl ||
-    process.env.HERMES_DASHBOARD_URL ||
+    process.env.NASTECH_DASHBOARD_URL ||
     process.env.CLAUDE_DASHBOARD_URL ||
     'http://127.0.0.1:9119',
 )
@@ -87,7 +87,7 @@ export function setGatewayUrl(input: string | null | undefined): string {
   } else {
     delete overrides.claudeApiUrl
     CLAUDE_API = normalizeUrl(
-      process.env.HERMES_API_URL || process.env.CLAUDE_API_URL || 'http://127.0.0.1:8642',
+      process.env.NASTECH_API_URL || process.env.CLAUDE_API_URL || 'http://127.0.0.1:8642',
     )
   }
   writeOverrides(overrides)
@@ -109,7 +109,7 @@ export function setDashboardUrl(input: string | null | undefined): string {
   } else {
     delete overrides.claudeDashboardUrl
     CLAUDE_DASHBOARD_URL = normalizeUrl(
-      process.env.HERMES_DASHBOARD_URL || process.env.CLAUDE_DASHBOARD_URL || 'http://127.0.0.1:9119',
+      process.env.NASTECH_DASHBOARD_URL || process.env.CLAUDE_DASHBOARD_URL || 'http://127.0.0.1:9119',
     )
   }
   writeOverrides(overrides)
@@ -127,19 +127,19 @@ export function getResolvedUrls(): {
   const overrides = readOverrides()
   const source = overrides.claudeApiUrl
     ? 'override'
-    : (process.env.HERMES_API_URL || process.env.CLAUDE_API_URL)
+    : (process.env.NASTECH_API_URL || process.env.CLAUDE_API_URL)
       ? 'env'
       : 'default'
   return { gateway: CLAUDE_API, dashboard: CLAUDE_DASHBOARD_URL, source }
 }
 
 export const CLAUDE_UPGRADE_INSTRUCTIONS =
-  'For full features, install Hermes Agent from source (`git clone https://github.com/NousResearch/hermes-agent && cd hermes-agent && pip install -e .`), then start the gateway on :8642 (`hermes gateway run`). For the extended APIs (Sessions, Skills, Config, Jobs) also start the dashboard on :9119 (`hermes dashboard`).'
+  'For full features, install NasTech Agent from source (`git clone https://github.com/nastech-ai/nastech-agent && cd nastech-agent && pip install -e .`), then start the gateway on :8642 (`nastech gateway run`). For the extended APIs (Sessions, Skills, Config, Jobs) also start the dashboard on :9119 (`nastech dashboard`).'
 
 export const DASHBOARD_REQUIRED_INSTRUCTIONS =
-  'Hermes gateway core APIs are healthy, but dashboard-backed APIs are unavailable. Start the dashboard on :9119 (`hermes dashboard`) or point HERMES_DASHBOARD_URL at the running dashboard service.'
+  'NasTech gateway core APIs are healthy, but dashboard-backed APIs are unavailable. Start the dashboard on :9119 (`nastech dashboard`) or point NASTECH_DASHBOARD_URL at the running dashboard service.'
 
-export const SESSIONS_API_UNAVAILABLE_MESSAGE = `Your Hermes backend does not support the sessions API. ${CLAUDE_UPGRADE_INSTRUCTIONS}`
+export const SESSIONS_API_UNAVAILABLE_MESSAGE = `Your NasTech backend does not support the sessions API. ${CLAUDE_UPGRADE_INSTRUCTIONS}`
 
 const PROBE_TIMEOUT_MS = 3_000
 // Probe TTL: 120s when the gateway is healthy, 15s when it isn't. The
@@ -155,7 +155,7 @@ function effectiveProbeTtl(caps: { health: boolean; chatCompletions: boolean }):
   return PROBE_TTL_DISCONNECTED_MS
 }
 const DASHBOARD_TOKEN_REGEX =
-  /window\._+(?:CLAUDE|HERMES)_+SESSION_+TOKEN__+\s*=\s*["']([^"']+)["']/
+  /window\._+(?:CLAUDE|NASTECH)_+SESSION_+TOKEN__+\s*=\s*["']([^"']+)["']/
 
 // ── Types ─────────────────────────────────────────────────────────
 
@@ -181,7 +181,7 @@ export type EnhancedCapabilities = {
    * exposes a `mcp_servers` map AND the deployment is loopback-only. The
    * workspace then performs CRUD against `config.mcp_servers` directly while
    * disabling Test/Discover/Logs (which require runtime probing). Removed
-   * once hermes-agent ships native `/api/mcp*` endpoints.
+   * once nastech-agent ships native `/api/mcp*` endpoints.
    */
   mcpFallback: boolean
   /**
@@ -192,7 +192,7 @@ export type EnhancedCapabilities = {
   conductor: boolean
   /**
    * True when the dashboard exposes `/api/plugins/kanban/board` (the native
-   * Hermes kanban plugin shipped upstream). When available, the workspace's
+   * NasTech kanban plugin shipped upstream). When available, the workspace's
    * /swarm kanban surface can sync with the dashboard's kanban DB so both
    * UIs read/write the same SQLite source of truth instead of running
    * separate stores. When false, the workspace falls back to its local
@@ -259,7 +259,7 @@ let dashboardTokenPromise: Promise<string> | null = null
 let dashboardTokenCache = ''
 
 /** Optional bearer token for authenticated gateway endpoints. */
-export const BEARER_TOKEN = process.env.HERMES_API_TOKEN || process.env.CLAUDE_API_TOKEN || ''
+export const BEARER_TOKEN = process.env.NASTECH_API_TOKEN || process.env.CLAUDE_API_TOKEN || ''
 
 /**
  * Dashboard API auth uses the ephemeral session token injected into the
@@ -406,7 +406,7 @@ async function probe(path: string): Promise<boolean> {
  * Stricter probe for the legacy enhanced chat-stream endpoint.
  *
  * The previous probe used a generic GET and treated any non-404/403 status
- * as "available". That misclassified vanilla hermes-agent (which serves a
+ * as "available". That misclassified vanilla nastech-agent (which serves a
  * router-level handler that 405s/400s GETs to that path) as having the
  * enhanced fork's session-stream capability. Workspace then fell through
  * to streamChat() which posts to /api/sessions/{id}/chat/stream — vanilla
@@ -428,7 +428,7 @@ async function probeEnhancedChatStream(): Promise<boolean> {
       body: '{}',
       signal: AbortSignal.timeout(PROBE_TIMEOUT_MS),
     })
-    // Vanilla hermes-agent has no such endpoint — dashboard layer 404s,
+    // Vanilla nastech-agent has no such endpoint — dashboard layer 404s,
     // gateway 404s, anything in between 404s. Enhanced fork accepts POST
     // and returns either a 4xx structured error (validation) or starts a
     // stream; either way the path is registered.
@@ -603,10 +603,10 @@ async function probeConductor(dashboardAvailable: boolean): Promise<boolean> {
 }
 
 /**
- * Lightweight probe for the upstream Hermes kanban plugin. When the dashboard
+ * Lightweight probe for the upstream NasTech kanban plugin. When the dashboard
  * exposes `/api/plugins/kanban/board` we assume the kanban plugin is loaded
  * and the workspace can sync its /swarm kanban surface with the dashboard's
- * SQLite-backed kanban DB. Mounted by hermes_cli.web_server
+ * SQLite-backed kanban DB. Mounted by nastech_cli.web_server
  * `_mount_plugin_api_routes()`. See v2.3.0 plan.
  */
 async function probeKanban(dashboardAvailable: boolean): Promise<boolean> {
@@ -627,10 +627,10 @@ async function probeKanban(dashboardAvailable: boolean): Promise<boolean> {
 }
 
 
-// Vanilla hermes-agent 0.10.0 satisfies: health, chatCompletions, models, streaming,
+// Vanilla nastech-agent 0.10.0 satisfies: health, chatCompletions, models, streaming,
 // sessions, skills, config, jobs. Dashboard-only endpoints (themes/plugins) and the
 // legacy enhanced-fork chat stream are optional — their absence should not emit the
-// "Missing Hermes APIs detected" warning, which only applies to critical gaps.
+// "Missing NasTech APIs detected" warning, which only applies to critical gaps.
 const OPTIONAL_APIS = new Set([
   'jobs',
   'chatCompletions',
@@ -672,7 +672,7 @@ export function getCapabilityWarningMessage(
     return `[gateway] ${DASHBOARD_REQUIRED_INSTRUCTIONS}`
   }
 
-  return `[gateway] Missing Hermes APIs detected. ${CLAUDE_UPGRADE_INSTRUCTIONS}`
+  return `[gateway] Missing NasTech APIs detected. ${CLAUDE_UPGRADE_INSTRUCTIONS}`
 }
 
 function logCapabilities(next: GatewayCapabilities): void {
@@ -725,7 +725,7 @@ function logCapabilities(next: GatewayCapabilities): void {
 }
 
 async function autoDetectGatewayUrl(): Promise<void> {
-  if (process.env.HERMES_API_URL || process.env.CLAUDE_API_URL) return
+  if (process.env.NASTECH_API_URL || process.env.CLAUDE_API_URL) return
 
   const candidates = [
     'http://127.0.0.1:8642',
@@ -740,7 +740,7 @@ async function autoDetectGatewayUrl(): Promise<void> {
       })
       if (res.ok) {
         CLAUDE_API = candidate
-        console.log(`[gateway] Connected to Hermes gateway at ${CLAUDE_API}`)
+        console.log(`[gateway] Connected to NasTech gateway at ${CLAUDE_API}`)
         return
       }
     } catch {
@@ -749,9 +749,9 @@ async function autoDetectGatewayUrl(): Promise<void> {
   }
 
   console.warn(
-    '[gateway] Could not reach Hermes gateway on 8645, 8642, or 8643. ' +
+    '[gateway] Could not reach NasTech gateway on 8645, 8642, or 8643. ' +
       'If you run the workspace on a different machine (Tailscale / VPN / LAN), ' +
-      'set HERMES_API_URL=http://<reachable-host>:8642 in .env and restart. ' +
+      'set NASTECH_API_URL=http://<reachable-host>:8642 in .env and restart. ' +
       'Also set API_SERVER_HOST=0.0.0.0 on the gateway so remote peers can connect.',
   )
 }
@@ -840,7 +840,7 @@ export async function probeGateway(options?: {
       sessions: dashboard.available || legacySessions,
       enhancedChat,
       skills: dashboard.available || legacySkills,
-      // Memory is always available: workspace reads $HERMES_HOME/MEMORY.md +
+      // Memory is always available: workspace reads $NASTECH_HOME/MEMORY.md +
       // memory/*.md + memories/*.md directly from the local filesystem.
       // No remote gateway endpoint is required.
       memory: true,
@@ -916,7 +916,7 @@ export function getEnhancedCapabilities(): EnhancedCapabilities {
 export function getGatewayMode(): GatewayMode {
   // 'zero-fork' requires the optional dashboard plugin bundle; 'enhanced' is
   // granted whenever the core enhanced-chat endpoints are present — which
-  // vanilla hermes-agent (≥0.10) satisfies. The label 'enhanced-fork' is
+  // vanilla nastech-agent (≥0.10) satisfies. The label 'enhanced-fork' is
   // legacy copy from the 2025-era fork and does NOT imply an actual fork is
   // required. We keep the value for backwards compatibility with UI code.
   if (capabilities.dashboard.available && capabilities.chatCompletions) {

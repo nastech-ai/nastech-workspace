@@ -12,8 +12,8 @@ export function shouldReplayPortableHistory(options?: {
   // workspace perspective, so replay the transcript there.
   if (localBaseUrl) return true
 
-  // When portable chat targets the Hermes gateway, Workspace now forwards a
-  // stable X-Hermes-Session-Id / X-Claude-Session-Id for server-side session
+  // When portable chat targets the NasTech gateway, Workspace now forwards a
+  // stable X-NasTech-Session-Id / X-Claude-Session-Id for server-side session
   // continuity. Replaying the full transcript on every turn would duplicate
   // prompt context and can explode token usage.
   return false

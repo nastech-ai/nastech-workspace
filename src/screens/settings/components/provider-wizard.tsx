@@ -80,7 +80,7 @@ function getAuthTypeMeta(authType: ProviderAuthType): AuthTypeMeta {
     return {
       title: 'CLI Token',
       description:
-        'Use your existing Hermes CLI auth token (from Claude Code / claude.ai)',
+        'Use your existing NasTech CLI auth token (from Claude Code / claude.ai)',
     }
   }
 
@@ -277,7 +277,7 @@ export function ProviderWizard({
       setSaveState('saved')
       setVerifyState('checking')
       setVerificationMessage(
-        `${providerName} API key saved. Hermes Agent is restarting…`,
+        `${providerName} API key saved. NasTech Agent is restarting…`,
       )
       setStep('verify')
 
@@ -301,7 +301,7 @@ export function ProviderWizard({
         } else {
           setVerifyState('warning')
           setVerificationMessage(
-            `Hermes Agent restarted, but ${providerName} models haven't appeared yet. ` +
+            `NasTech Agent restarted, but ${providerName} models haven't appeared yet. ` +
               `Check your API key or wait a moment and refresh.`,
           )
         }
@@ -353,7 +353,7 @@ export function ProviderWizard({
                 </DialogTitle>
                 <DialogDescription className="text-pretty">
                   Add provider credentials safely. API keys stay local in your
-                  Hermes config file and are never sent to Studio.
+                  NasTech config file and are never sent to Studio.
                 </DialogDescription>
               </div>
               <Button
@@ -559,7 +559,7 @@ export function ProviderWizard({
                     <p className="mt-1 text-sm text-primary-600 text-pretty">
                       This will run{' '}
                       <code className="font-mono text-primary-800">
-                        hermes setup
+                        nastech setup
                       </code>{' '}
                       in the terminal to start the OAuth flow. A browser window
                       will open for you to sign in with Google.
@@ -571,8 +571,8 @@ export function ProviderWizard({
                         onClick={function onLaunchOAuth() {
                           window.open('/terminal', '_blank')
                           setVerificationMessage(
-                            'Run "hermes setup" in the terminal and select Google OAuth when prompted. ' +
-                              'A browser window will open for sign-in. Once complete, Hermes Agent will restart automatically.',
+                            'Run "nastech setup" in the terminal and select Google OAuth when prompted. ' +
+                              'A browser window will open for sign-in. Once complete, NasTech Agent will restart automatically.',
                           )
                           setVerifyState('warning')
                           setStep('verify')
@@ -586,7 +586,7 @@ export function ProviderWizard({
                           In the terminal, run:
                         </p>
                         <pre className="mt-1 rounded-lg bg-primary-200/60 px-2 py-1.5 text-xs font-mono text-primary-900">
-                          hermes setup
+                          nastech setup
                         </pre>
                         <p className="mt-1.5 text-xs text-primary-600 text-pretty">
                           Select <strong>Google Antigravity</strong> →{' '}
@@ -599,12 +599,12 @@ export function ProviderWizard({
                         <p className="text-xs text-primary-700 text-pretty">
                           No terminal access?{' '}
                           <a
-                            href="https://github.com/NousResearch/hermes-agent"
+                            href="https://github.com/nastech-ai/nastech-agent"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary-800 underline decoration-primary-400 hover:text-primary-900"
                           >
-                            See the Hermes Agent docs
+                            See the NasTech Agent docs
                           </a>{' '}
                           for setup instructions.
                         </p>
@@ -614,8 +614,8 @@ export function ProviderWizard({
                 ) : selectedAuthType === 'cli-token' ? (
                   <>
                     <p className="mt-1 text-sm text-primary-600 text-pretty">
-                      If you have Claude Code or the Hermes CLI installed,
-                      Hermes Agent can use the same auth token. Run the configure
+                      If you have Claude Code or the NasTech CLI installed,
+                      NasTech Agent can use the same auth token. Run the configure
                       command to detect and import it automatically.
                     </p>
 
@@ -625,7 +625,7 @@ export function ProviderWizard({
                         onClick={function onLaunchCLI() {
                           window.open('/terminal', '_blank')
                           setVerificationMessage(
-                            'Run "hermes setup" in the terminal and select Anthropic → CLI Token. ' +
+                            'Run "nastech setup" in the terminal and select Anthropic → CLI Token. ' +
                               'It will detect compatible local credentials and import them automatically.',
                           )
                           setVerifyState('warning')
@@ -640,21 +640,21 @@ export function ProviderWizard({
                           In the terminal, run:
                         </p>
                         <pre className="mt-1 rounded-lg bg-primary-200/60 px-2 py-1.5 text-xs font-mono text-primary-900">
-                          hermes setup
+                          nastech setup
                         </pre>
                         <p className="mt-1.5 text-xs text-primary-600 text-pretty">
                           Select <strong>Anthropic</strong> →{' '}
-                          <strong>Setup Token (Hermes CLI)</strong>. It will
+                          <strong>Setup Token (NasTech CLI)</strong>. It will
                           detect your existing Claude credentials from{' '}
-                          <code className="font-mono">~/.hermes/</code>.
+                          <code className="font-mono">~/.nastech/</code>.
                         </p>
                       </div>
 
                       <div className="rounded-xl border border-amber-200 bg-amber-50/70 px-3 py-2">
                         <p className="text-xs text-amber-800 text-pretty">
-                          <strong>Requires:</strong> Claude Code or Hermes CLI
+                          <strong>Requires:</strong> Claude Code or NasTech CLI
                           must be installed and authenticated first. Run{' '}
-                          <code className="font-mono">hermes</code> in terminal
+                          <code className="font-mono">nastech</code> in terminal
                           to verify.
                         </p>
                       </div>
@@ -663,12 +663,12 @@ export function ProviderWizard({
                         <p className="text-xs text-primary-700 text-pretty">
                           No terminal access?{' '}
                           <a
-                            href="https://github.com/NousResearch/hermes-agent"
+                            href="https://github.com/nastech-ai/nastech-agent"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary-800 underline decoration-primary-400 hover:text-primary-900"
                           >
-                            See the Hermes Agent docs
+                            See the NasTech Agent docs
                           </a>{' '}
                           for CLI token setup instructions.
                         </p>
@@ -723,7 +723,7 @@ export function ProviderWizard({
                             strokeWidth={1.5}
                             className="inline mr-1"
                           />
-                          Key saved! Hermes Agent is restarting to apply changes.
+                          Key saved! NasTech Agent is restarting to apply changes.
                         </p>
                       ) : null}
                     </div>
@@ -856,7 +856,7 @@ export function ProviderWizard({
                     {verifyTitle}
                   </p>
                   <p className="mt-1 text-sm text-primary-600 text-pretty">
-                    {verificationMessage || 'Waiting for Hermes Agent to respond…'}
+                    {verificationMessage || 'Waiting for NasTech Agent to respond…'}
                   </p>
                 </div>
 

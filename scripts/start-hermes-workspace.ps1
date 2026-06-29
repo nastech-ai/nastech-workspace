@@ -1,7 +1,7 @@
 param(
   [string]$Distro = "Ubuntu",
   [string]$WorkspacePath = "",
-  [string]$SessionName = "hermes-workspace",
+  [string]$SessionName = "nastech-workspace",
   [switch]$Restart
 )
 
@@ -44,12 +44,12 @@ if ($whoamiResult.ExitCode -ne 0 -or $whoamiResult.Output.Count -eq 0) {
 }
 $wslUser = ($whoamiResult.Output[-1]).Trim()
 if ([string]::IsNullOrWhiteSpace($WorkspacePath)) {
-  $WorkspacePath = "/home/$wslUser/hermes-workspace"
+  $WorkspacePath = "/home/$wslUser/nastech-workspace"
 }
 
 Assert-WslOk -Command "command -v tmux >/dev/null 2>&1" -ErrorMessage "tmux is not installed in WSL distro '$Distro'."
 Assert-WslOk -Command "command -v pnpm >/dev/null 2>&1" -ErrorMessage "pnpm is not installed in WSL distro '$Distro'."
-Assert-WslOk -Command "command -v hermes >/dev/null 2>&1" -ErrorMessage "hermes is not installed in WSL distro '$Distro'."
+Assert-WslOk -Command "command -v nastech >/dev/null 2>&1" -ErrorMessage "nastech is not installed in WSL distro '$Distro'."
 Assert-WslOk -Command "test -d '$WorkspacePath'" -ErrorMessage "Workspace path not found: $WorkspacePath"
 
 $sessionCheck = Invoke-WslBash -Command "tmux has-session -t '$SessionName' 2>/dev/null"
@@ -78,7 +78,7 @@ if ($postStart.ExitCode -ne 0) {
 }
 $logResult = Invoke-WslBash -Command "tmux capture-pane -pt '$SessionName':0.0 -S -40"
 
-Write-Host "Started Hermes Gateway + Workspace in tmux session '$SessionName'."
+Write-Host "Started NasTech Gateway + Workspace in tmux session '$SessionName'."
 Write-Host "Workspace URL: http://localhost:3000"
 Write-Host "View logs with: wsl -d $Distro -- tmux attach -t $SessionName"
 Write-Host "Tail logs:"

@@ -1,7 +1,7 @@
 import { GroupProps } from '@react-three/fiber'
-import { HERMESWORLD_CHARACTER_ARCHETYPES } from '../lib/character-config'
+import { NASTECHWORLD_CHARACTER_ARCHETYPES } from '../lib/character-config'
 
-const PLAYER_ARCHETYPE = HERMESWORLD_CHARACTER_ARCHETYPES.find(
+const PLAYER_ARCHETYPE = NASTECHWORLD_CHARACTER_ARCHETYPES.find(
   (entry) => entry.id === 'player-adventurer',
 )
 

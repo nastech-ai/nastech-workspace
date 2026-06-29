@@ -59,14 +59,14 @@ export function McpScreen() {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="space-y-1.5">
               <p className="text-xs font-medium uppercase text-primary-500 tabular-nums">
-                Hermes Workspace · MCP
+                NasTech Workspace · MCP
               </p>
               <h1 className="text-2xl font-medium text-ink text-balance sm:text-3xl">
                 MCP Servers
               </h1>
               <p className="text-sm text-primary-500 text-pretty sm:text-base">
                 Discover, install, and manage Model Context Protocol servers
-                exposed to Hermes Agent.
+                exposed to NasTech Agent.
               </p>
             </div>
             <Button
@@ -86,7 +86,7 @@ export function McpScreen() {
               className="mt-3 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200"
             >
               ⚠ Local fallback mode — using config.yaml. Test, Discover, and
-              Logs require the new hermes-agent /api/mcp endpoints.
+              Logs require the new nastech-agent /api/mcp endpoints.
             </div>
           ) : null}
         </header>
@@ -251,7 +251,7 @@ function ServerList({ query, onEdit }: ServerListProps) {
     return (
       <EmptyCard
         title="Loading servers…"
-        description="Fetching MCP servers from Hermes Agent."
+        description="Fetching MCP servers from NasTech Agent."
       />
     )
   }

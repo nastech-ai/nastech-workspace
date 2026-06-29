@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
-  buildHermesChatQueryArgs,
-  buildHermesTmuxLaunchCommand,
+  buildNasTechChatQueryArgs,
+  buildNasTechTmuxLaunchCommand,
   buildWorkerPrompt,
   checkpointFromRuntimeSnapshot,
   dispatchBlockReason,
@@ -104,25 +104,25 @@ describe('checkpoint filtering', () => {
   })
 })
 
-describe('buildHermesTmuxLaunchCommand', () => {
+describe('buildNasTechTmuxLaunchCommand', () => {
   it('keeps the tmux shell alive so startup failures leave readable output', () => {
-    const command = buildHermesTmuxLaunchCommand({
-      profilePath: '/tmp/hermes profiles/swarm1',
-      hermesBin: '/opt/homebrew/bin/hermes',
+    const command = buildNasTechTmuxLaunchCommand({
+      profilePath: '/tmp/nastech profiles/swarm1',
+      nastechBin: '/opt/homebrew/bin/nastech',
       ghToken: 'ghp_te...3456',
     })
 
-    expect(command).toContain("HERMES_HOME='/tmp/hermes profiles/swarm1'")
-    expect(command).toContain("'/opt/homebrew/bin/hermes' chat --tui")
-    expect(command).toContain('[Hermes worker exited with status %s]')
+    expect(command).toContain("NASTECH_HOME='/tmp/nastech profiles/swarm1'")
+    expect(command).toContain("'/opt/homebrew/bin/nastech' chat --tui")
+    expect(command).toContain('[NasTech worker exited with status %s]')
     expect(command).not.toContain('exec ')
   })
 })
 
-describe('buildHermesChatQueryArgs', () => {
+describe('buildNasTechChatQueryArgs', () => {
   it('passes the prompt immediately after -q so flags are not parsed as the query', () => {
     const prompt = 'STATE: DONE\nRESULT: ok'
-    const args = buildHermesChatQueryArgs(prompt)
+    const args = buildNasTechChatQueryArgs(prompt)
 
     expect(args.slice(0, 3)).toEqual(['chat', '-q', prompt])
     expect(args).toContain('-Q')
@@ -138,7 +138,7 @@ describe('buildWorkerPrompt', () => {
     id: 'swarm5',
     name: 'Builder',
     role: 'Primary Builder',
-    specialty: 'full-stack implementation across Hermes Workspace and Swarm2',
+    specialty: 'full-stack implementation across NasTech Workspace and Swarm2',
     model: 'GPT-5.5',
     mission: 'Ship focused product slices with tests and clean diffs.',
     modes: [],

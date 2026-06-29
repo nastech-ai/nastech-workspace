@@ -26,7 +26,7 @@ function isTaskPriority(value: unknown): value is TaskPriority {
   return value === 'high' || value === 'medium' || value === 'low'
 }
 
-export const Route = createFileRoute('/api/hermes-tasks')({
+export const Route = createFileRoute('/api/nastech-tasks')({
   server: {
     handlers: {
       GET: async ({ request }) => {

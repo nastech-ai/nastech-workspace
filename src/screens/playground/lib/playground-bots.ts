@@ -20,7 +20,7 @@ export type BotProfile = {
 
 const COMMUNITY_NAMES = [
   'GrokKnight', 'NousPilgrim', 'KimiArtisan', 'OpusBard', 'CodexSmith',
-  'ClaudeWanderer', 'GeminiLore', 'MixtralOracle', 'LlamaScribe', 'HermesFan',
+  'ClaudeWanderer', 'GeminiLore', 'MixtralOracle', 'LlamaScribe', 'NasTechFan',
   'BuilderAva', 'GroveSpirit', 'ForgeBaron', 'OracleNote', 'ArenaRook',
 ]
 
@@ -58,7 +58,7 @@ export const BOT_PROFILES: Record<PlaygroundWorldId, BotProfile[]> = {
       avatar: 'eros',
       color: '#f472b6',
       spawn: [7, 0, 7],
-      lines: ['promptcraft is wildly fun', 'who else is on Hermes Workspace?', 'see u in the Grove'],
+      lines: ['promptcraft is wildly fun', 'who else is on NasTech Workspace?', 'see u in the Grove'],
     },
     {
       id: 'bot-agora-3',
@@ -135,7 +135,7 @@ export const BOT_PROFILES: Record<PlaygroundWorldId, BotProfile[]> = {
     {
       id: 'bot-arena-2',
       name: COMMUNITY_NAMES[10],
-      avatar: 'hermes',
+      avatar: 'nastech',
       color: '#2dd4bf',
       spawn: [5, 0, 0],
       lines: ['no judges, just judges', 'duel me', 'the model wars are heating up'],

@@ -8,7 +8,7 @@ Modes: check
 terminal, file, web, browser, gbrain, session_search, skills
 
 ## Skills
-maintainer-core, github-repo-management, github-pr-workflow, github-issues, github-code-review, gbrain, gstack-for-hermes, hermes-agent
+maintainer-core, github-repo-management, github-pr-workflow, github-issues, github-code-review, gbrain, gstack-for-nastech, nastech-agent
 
 ## MCP servers
 gbrain
@@ -16,4 +16,4 @@ gbrain
 ## Plugins
 none
 
-This file mirrors `swarm.yaml` and the profile config under `~/.hermes/profiles/maintainer/`.
+This file mirrors `swarm.yaml` and the profile config under `~/.nastech/profiles/maintainer/`.

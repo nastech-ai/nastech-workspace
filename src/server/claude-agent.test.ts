@@ -22,16 +22,16 @@ afterEach(() => {
 })
 
 describe('resolveClaudeAgentDir', () => {
-  it('prefers HERMES_AGENT_PATH when it points to a valid hermes-agent checkout', () => {
-    const hermesAgentDir = createAgentDir('hermes-agent-')
+  it('prefers NASTECH_AGENT_PATH when it points to a valid nastech-agent checkout', () => {
+    const nastechAgentDir = createAgentDir('nastech-agent-')
     const legacyAgentDir = createAgentDir('claude-agent-')
 
     expect(
       resolveClaudeAgentDir({
-        HERMES_AGENT_PATH: hermesAgentDir,
+        NASTECH_AGENT_PATH: nastechAgentDir,
         CLAUDE_AGENT_PATH: legacyAgentDir,
       }),
-    ).toBe(hermesAgentDir)
+    ).toBe(nastechAgentDir)
   })
 
   it('falls back to legacy CLAUDE_AGENT_PATH for backward compatibility', () => {

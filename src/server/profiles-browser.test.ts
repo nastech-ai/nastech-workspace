@@ -9,9 +9,9 @@ describe('listProfiles', () => {
   let tempHome: string
 
   beforeEach(() => {
-    tempHome = fs.mkdtempSync(path.join(os.tmpdir(), 'hermes-workspace-profiles-'))
+    tempHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nastech-workspace-profiles-'))
     vi.spyOn(os, 'homedir').mockReturnValue(tempHome)
-    delete process.env.HERMES_HOME
+    delete process.env.NASTECH_HOME
     delete process.env.CLAUDE_HOME
   })
 
@@ -21,14 +21,14 @@ describe('listProfiles', () => {
   })
 
   it('always includes the default profile even when a named profile is active', () => {
-    const hermesRoot = path.join(tempHome, '.hermes')
-    const profilesRoot = path.join(hermesRoot, 'profiles')
+    const nastechRoot = path.join(tempHome, '.nastech')
+    const profilesRoot = path.join(nastechRoot, 'profiles')
     const namedProfileRoot = path.join(profilesRoot, 'jarvis')
 
     fs.mkdirSync(namedProfileRoot, { recursive: true })
-    fs.writeFileSync(path.join(hermesRoot, 'active_profile'), 'jarvis\n', 'utf-8')
+    fs.writeFileSync(path.join(nastechRoot, 'active_profile'), 'jarvis\n', 'utf-8')
     fs.writeFileSync(
-      path.join(hermesRoot, 'config.yaml'),
+      path.join(nastechRoot, 'config.yaml'),
       'model: default-model\ndescription: Default operator\n',
       'utf-8',
     )
@@ -50,14 +50,14 @@ describe('listProfiles', () => {
   })
 
   it('skips profiles/default so only the root-backed default card renders', () => {
-    const hermesRoot = path.join(tempHome, '.hermes')
-    const defaultDirRoot = path.join(hermesRoot, 'profiles', 'default')
-    const namedProfileRoot = path.join(hermesRoot, 'profiles', 'builder')
+    const nastechRoot = path.join(tempHome, '.nastech')
+    const defaultDirRoot = path.join(nastechRoot, 'profiles', 'default')
+    const namedProfileRoot = path.join(nastechRoot, 'profiles', 'builder')
 
     fs.mkdirSync(defaultDirRoot, { recursive: true })
     fs.mkdirSync(namedProfileRoot, { recursive: true })
     fs.writeFileSync(
-      path.join(hermesRoot, 'config.yaml'),
+      path.join(nastechRoot, 'config.yaml'),
       'model: root-model\nprovider: openai\ndescription: Root default\n',
       'utf-8',
     )
@@ -71,7 +71,7 @@ describe('listProfiles', () => {
     const defaultProfiles = profiles.filter((profile) => profile.name === 'default')
 
     expect(defaultProfiles).toHaveLength(1)
-    expect(defaultProfiles[0]?.path).toBe(hermesRoot)
+    expect(defaultProfiles[0]?.path).toBe(nastechRoot)
     expect(defaultProfiles[0]?.model).toBe('root-model')
     expect(defaultProfiles[0]?.provider).toBe('openai')
     expect(defaultProfiles[0]?.description).toBe('Root default')
@@ -79,8 +79,8 @@ describe('listProfiles', () => {
   })
 
   it('reads and updates profile descriptions from config.yaml', () => {
-    const hermesRoot = path.join(tempHome, '.hermes')
-    const profileRoot = path.join(hermesRoot, 'profiles', 'builder')
+    const nastechRoot = path.join(tempHome, '.nastech')
+    const profileRoot = path.join(nastechRoot, 'profiles', 'builder')
 
     fs.mkdirSync(profileRoot, { recursive: true })
     fs.writeFileSync(
@@ -99,15 +99,15 @@ describe('listProfiles', () => {
   })
 
   it('surfaces system prompt from config or SOUL.md in profile summaries', () => {
-    const hermesRoot = path.join(tempHome, '.hermes')
-    const profilesRoot = path.join(hermesRoot, 'profiles')
+    const nastechRoot = path.join(tempHome, '.nastech')
+    const profilesRoot = path.join(nastechRoot, 'profiles')
     const soulProfileRoot = path.join(profilesRoot, 'leelo')
     const configProfileRoot = path.join(profilesRoot, 'ops')
 
     fs.mkdirSync(soulProfileRoot, { recursive: true })
     fs.mkdirSync(configProfileRoot, { recursive: true })
 
-    fs.writeFileSync(path.join(hermesRoot, 'config.yaml'), 'model: root-model\n', 'utf-8')
+    fs.writeFileSync(path.join(nastechRoot, 'config.yaml'), 'model: root-model\n', 'utf-8')
     fs.writeFileSync(path.join(soulProfileRoot, 'config.yaml'), 'model: named-model\n', 'utf-8')
     fs.writeFileSync(
       path.join(soulProfileRoot, 'SOUL.md'),

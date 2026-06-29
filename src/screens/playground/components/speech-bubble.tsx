@@ -65,17 +65,17 @@ const VARIANT_TOKENS: Record<
 function SpeechBubbleStyles() {
   return (
     <style>{`
-      @keyframes hermes-speech-bubble-in { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-      @keyframes hermes-speech-tail-wag { 0%, 100% { transform: translateX(-50%) rotate(45deg); } 50% { transform: translateX(-50%) rotate(38deg); } }
-      @keyframes hermes-speech-tail-left-wag { 0%, 100% { transform: translateY(-50%) rotate(45deg); } 50% { transform: translateY(-50%) rotate(52deg); } }
-      .hermes-speech-bubble { position: relative; isolation: isolate; }
-      .hermes-speech-bubble::before { content: ''; position: absolute; inset: 5px; border-radius: inherit; border: 1px solid rgba(138,86,24,.28); pointer-events: none; opacity: .85; }
-      .hermes-speech-bubble[data-variant='npc'] { clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 7px, 100% calc(100% - 7px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 7px), 0 7px); }
-      .hermes-speech-bubble[data-variant='npc']::before { box-shadow: inset 0 0 18px rgba(184,134,43,.18); }
-      .hermes-speech-bubble[data-tail='bottom']::after { content: ''; position: absolute; left: 50%; bottom: -7px; width: 14px; height: 14px; border-right: 2px solid var(--speech-border); border-bottom: 2px solid var(--speech-border); background: var(--speech-tail-bg); transform: translateX(-50%) rotate(45deg); animation: hermes-speech-tail-wag 1.9s ease-in-out infinite; }
-      .hermes-speech-bubble[data-tail='left']::after { content: ''; position: absolute; left: -7px; top: 50%; width: 14px; height: 14px; border-left: 2px solid var(--speech-border); border-bottom: 2px solid var(--speech-border); background: var(--speech-tail-bg); transform: translateY(-50%) rotate(45deg); animation: hermes-speech-tail-left-wag 2.1s ease-in-out infinite; }
-      .hermes-speech-bubble[data-tail='right']::after { content: ''; position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; border-right: 2px solid var(--speech-border); border-top: 2px solid var(--speech-border); background: var(--speech-tail-bg); transform: translateY(-50%) rotate(45deg); animation: hermes-speech-tail-left-wag 2.1s ease-in-out infinite reverse; }
-      @media (max-width: 760px) { .hermes-world-bubble { max-width: min(56vw, 220px) !important; font-size: 11px !important; line-height: 1.25 !important; } }
+      @keyframes nastech-speech-bubble-in { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes nastech-speech-tail-wag { 0%, 100% { transform: translateX(-50%) rotate(45deg); } 50% { transform: translateX(-50%) rotate(38deg); } }
+      @keyframes nastech-speech-tail-left-wag { 0%, 100% { transform: translateY(-50%) rotate(45deg); } 50% { transform: translateY(-50%) rotate(52deg); } }
+      .nastech-speech-bubble { position: relative; isolation: isolate; }
+      .nastech-speech-bubble::before { content: ''; position: absolute; inset: 5px; border-radius: inherit; border: 1px solid rgba(138,86,24,.28); pointer-events: none; opacity: .85; }
+      .nastech-speech-bubble[data-variant='npc'] { clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 7px, 100% calc(100% - 7px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 7px), 0 7px); }
+      .nastech-speech-bubble[data-variant='npc']::before { box-shadow: inset 0 0 18px rgba(184,134,43,.18); }
+      .nastech-speech-bubble[data-tail='bottom']::after { content: ''; position: absolute; left: 50%; bottom: -7px; width: 14px; height: 14px; border-right: 2px solid var(--speech-border); border-bottom: 2px solid var(--speech-border); background: var(--speech-tail-bg); transform: translateX(-50%) rotate(45deg); animation: nastech-speech-tail-wag 1.9s ease-in-out infinite; }
+      .nastech-speech-bubble[data-tail='left']::after { content: ''; position: absolute; left: -7px; top: 50%; width: 14px; height: 14px; border-left: 2px solid var(--speech-border); border-bottom: 2px solid var(--speech-border); background: var(--speech-tail-bg); transform: translateY(-50%) rotate(45deg); animation: nastech-speech-tail-left-wag 2.1s ease-in-out infinite; }
+      .nastech-speech-bubble[data-tail='right']::after { content: ''; position: absolute; right: -7px; top: 50%; width: 14px; height: 14px; border-right: 2px solid var(--speech-border); border-top: 2px solid var(--speech-border); background: var(--speech-tail-bg); transform: translateY(-50%) rotate(45deg); animation: nastech-speech-tail-left-wag 2.1s ease-in-out infinite reverse; }
+      @media (max-width: 760px) { .nastech-world-bubble { max-width: min(56vw, 220px) !important; font-size: 11px !important; line-height: 1.25 !important; } }
     `}</style>
   )
 }
@@ -98,7 +98,7 @@ export function SpeechBubble({
     <>
       <SpeechBubbleStyles />
       <div
-        className={`hermes-speech-bubble ${className}`}
+        className={`nastech-speech-bubble ${className}`}
         data-tail={tail}
         data-variant={variant}
         style={{
@@ -115,7 +115,7 @@ export function SpeechBubble({
           fontWeight: 700,
           lineHeight: 1.35,
           textAlign: compact ? 'center' : 'left',
-          animation: 'hermes-speech-bubble-in 180ms cubic-bezier(.2,.8,.2,1)',
+          animation: 'nastech-speech-bubble-in 180ms cubic-bezier(.2,.8,.2,1)',
           ...style,
         }}
       >

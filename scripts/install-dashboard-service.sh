@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Install Hermes Workspace as a user-level service.
+# Install NasTech Workspace as a user-level service.
 # macOS: launchd user agent
 # Linux: systemd --user unit
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SERVICE_NAME="hermes-workspace"
+SERVICE_NAME="nastech-workspace"
 PORT="${PORT:-3000}"
 HOST="${HOST:-127.0.0.1}"
 NODE_ENV="${NODE_ENV:-production}"
@@ -20,7 +20,7 @@ fi
 if [[ "${1:-install}" == "uninstall" ]]; then
   case "$(uname -s)" in
     Darwin)
-      plist="$HOME/Library/LaunchAgents/com.hermes.workspace.plist"
+      plist="$HOME/Library/LaunchAgents/com.nastech.workspace.plist"
       launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
       rm -f "$plist"
       echo "Removed launchd user agent: $plist"
@@ -42,13 +42,13 @@ fi
 case "$(uname -s)" in
   Darwin)
     mkdir -p "$HOME/Library/LaunchAgents" "$ROOT_DIR/logs"
-    plist="$HOME/Library/LaunchAgents/com.hermes.workspace.plist"
+    plist="$HOME/Library/LaunchAgents/com.nastech.workspace.plist"
     cat > "$plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>com.hermes.workspace</string>
+  <key>Label</key><string>com.nastech.workspace</string>
   <key>WorkingDirectory</key><string>$ROOT_DIR</string>
   <key>ProgramArguments</key>
   <array>
@@ -63,14 +63,14 @@ case "$(uname -s)" in
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>
-  <key>StandardOutPath</key><string>$ROOT_DIR/logs/hermes-workspace.out.log</string>
-  <key>StandardErrorPath</key><string>$ROOT_DIR/logs/hermes-workspace.err.log</string>
+  <key>StandardOutPath</key><string>$ROOT_DIR/logs/nastech-workspace.out.log</string>
+  <key>StandardErrorPath</key><string>$ROOT_DIR/logs/nastech-workspace.err.log</string>
 </dict>
 </plist>
 EOF
     launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
     launchctl bootstrap "gui/$(id -u)" "$plist"
-    launchctl kickstart -k "gui/$(id -u)/com.hermes.workspace"
+    launchctl kickstart -k "gui/$(id -u)/com.nastech.workspace"
     echo "Installed launchd user agent: $plist"
     ;;
   Linux)
@@ -78,7 +78,7 @@ EOF
     unit="$HOME/.config/systemd/user/$SERVICE_NAME.service"
     cat > "$unit" <<EOF
 [Unit]
-Description=Hermes Workspace dashboard
+Description=NasTech Workspace dashboard
 After=network-online.target
 
 [Service]

@@ -14,29 +14,29 @@ export interface CliTestResult {
 const ANSI_RE = /\x1b\[[0-9;]*m/g
 const DEFAULT_TIMEOUT_MS = 60_000
 
-const HERMES_BIN_CANDIDATES = [
-  process.env.HERMES_CLI_BIN,
-  join(homedir(), '.hermes', 'hermes-agent', 'venv', 'bin', 'hermes'),
-  join(homedir(), '.local', 'bin', 'hermes'),
-  'hermes',
+const NASTECH_BIN_CANDIDATES = [
+  process.env.NASTECH_CLI_BIN,
+  join(homedir(), '.nastech', 'nastech-agent', 'venv', 'bin', 'nastech'),
+  join(homedir(), '.local', 'bin', 'nastech'),
+  'nastech',
 ].filter((value): value is string => Boolean(value))
 
-function resolveHermesBin(): string {
-  for (const candidate of HERMES_BIN_CANDIDATES) {
+function resolveNasTechBin(): string {
+  for (const candidate of NASTECH_BIN_CANDIDATES) {
     if (candidate.includes('/')) {
       if (existsSync(candidate)) return candidate
       continue
     }
     return candidate
   }
-  return 'hermes'
+  return 'nastech'
 }
 
 function stripAnsi(text: string): string {
   return text.replace(ANSI_RE, '')
 }
 
-function execHermes(
+function execNasTech(
   args: Array<string>,
   timeoutMs: number,
 ): Promise<{ code: number; stdout: string; stderr: string }> {
@@ -45,7 +45,7 @@ function execHermes(
     // SIGKILL the whole tree (Python CLI + any MCP stdio grandchildren it
     // spawned) by sending the signal to -pid. Without this the grandchild
     // can outlive the killed CLI as an orphan. Codex review feedback.
-    const child = spawn(resolveHermesBin(), args, {
+    const child = spawn(resolveNasTechBin(), args, {
       stdio: ['ignore', 'pipe', 'pipe'],
       env: process.env,
       detached: true,
@@ -88,7 +88,7 @@ function execHermes(
 }
 
 /**
- * Parse `hermes mcp test <name>` text output into a structured result.
+ * Parse `nastech mcp test <name>` text output into a structured result.
  *
  * Expected lines (after ANSI strip):
  *   ✓ Connected (3760ms)            → ok=true, latencyMs=3760
@@ -96,7 +96,7 @@ function execHermes(
  *   ✓ Tools discovered: N
  *   <indent>tool_name        description (truncated to ~55 chars)
  */
-export function parseHermesTestOutput(raw: string): CliTestResult {
+export function parseNasTechTestOutput(raw: string): CliTestResult {
   const text = stripAnsi(raw)
   const lines = text.split(/\r?\n/)
 
@@ -157,14 +157,14 @@ export function parseHermesTestOutput(raw: string): CliTestResult {
 }
 
 /**
- * Run `hermes mcp test <name>` and return parsed result.
+ * Run `nastech mcp test <name>` and return parsed result.
  *
  * Used by the workspace MCP routes when capabilities.mcpFallback is true
- * (config-only mode where the hermes-agent runtime endpoint is not yet
+ * (config-only mode where the nastech-agent runtime endpoint is not yet
  * available). Reuses the CLI's `_probe_single_server` logic by shelling
  * out — no protocol duplication on the workspace side.
  */
-export async function runHermesMcpTest(
+export async function runNasTechMcpTest(
   serverName: string,
   options: { timeoutMs?: number } = {},
 ): Promise<CliTestResult> {
@@ -177,7 +177,7 @@ export async function runHermesMcpTest(
       error: 'Invalid server name',
     }
   }
-  const exec = await execHermes(
+  const exec = await execNasTech(
     ['mcp', 'test', serverName],
     options.timeoutMs ?? DEFAULT_TIMEOUT_MS,
   )
@@ -189,8 +189,8 @@ export async function runHermesMcpTest(
       discoveredTools: [],
       error:
         stripAnsi(exec.stderr).trim() ||
-        `hermes mcp test exited with code ${exec.code}`,
+        `nastech mcp test exited with code ${exec.code}`,
     }
   }
-  return parseHermesTestOutput(exec.stdout)
+  return parseNasTechTestOutput(exec.stdout)
 }

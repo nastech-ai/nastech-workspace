@@ -1,15 +1,15 @@
-# HermesWorld Visual Upgrade Spec
+# NasTechWorld Visual Upgrade Spec
 
 Status: draft locked for implementation
 Owner: Eric / Aurora
 Target release train: post-v2.2.x, candidate for v2.3.0 polish wave
-Reference inputs: TinySkies, current HermesWorld build, internal screenshots, multiplayer/MMO readability goals
+Reference inputs: TinySkies, current NasTechWorld build, internal screenshots, multiplayer/MMO readability goals
 
 ## 1. Goal
 
-Upgrade HermesWorld from "strong prototype / shippable novelty" to "memorable stylized game surface" without changing the core product concept.
+Upgrade NasTechWorld from "strong prototype / shippable novelty" to "memorable stylized game surface" without changing the core product concept.
 
-The point is **not** to turn HermesWorld into a different game.
+The point is **not** to turn NasTechWorld into a different game.
 The point is to:
 
 - increase visual identity
@@ -29,15 +29,15 @@ Do **not** do these in this pass:
 - no fully custom character rig system
 - no procedural world generator rewrite
 - no realistic/PBR pivot
-- no dependency on a separate HermesWorld repo
+- no dependency on a separate NasTechWorld repo
 - no bloated asset pipeline that slows rapid iteration
 
 ## 3. Product truth to preserve
 
 These are core and should stay intact:
 
-1. HermesWorld lives **inside Hermes Workspace**
-2. Every zone maps to real Hermes/agent concepts
+1. NasTechWorld lives **inside NasTech Workspace**
+2. Every zone maps to real NasTech/agent concepts
 3. Multiplayer presence matters
 4. The world should stay readable on recordings and streams
 5. It should remain lightweight enough to iterate fast
@@ -368,7 +368,7 @@ Expected result:
 
 ## 13. Success metrics
 
-HermesWorld visual pass is successful if:
+NasTechWorld visual pass is successful if:
 
 1. screenshots look meaningfully more premium without explanation
 2. each zone is recognizable from one frame
@@ -411,11 +411,11 @@ HermesWorld visual pass is successful if:
 
 ## 15. Final recommendation
 
-Do **not** rewrite HermesWorld.
+Do **not** rewrite NasTechWorld.
 
 Do a **premium stylized art-direction pass** guided by:
 - TinySkies for environment composition and atmosphere
-- HermesWorld’s own product identity for concept and UX
+- NasTechWorld’s own product identity for concept and UX
 
 This should be treated as a **polish/spec execution cycle**, not a research rabbit hole.
 

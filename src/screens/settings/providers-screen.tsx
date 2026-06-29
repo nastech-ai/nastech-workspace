@@ -47,7 +47,7 @@ async function patchConfig(patch: Record<string, unknown>): Promise<Record<strin
 }
 
 /**
- * Strip the provider prefix that hermes-agent adds internally via litellm.
+ * Strip the provider prefix that nastech-agent adds internally via litellm.
  * e.g. "openrouter/nvidia/nemotron-..." → "nvidia/nemotron-..."
  *      "anthropic/claude-3-5-sonnet"    → "claude-3-5-sonnet"
  * Only strips the first path segment if it matches a known provider ID.
@@ -136,7 +136,7 @@ type SaveSettingPayload = {
 }
 
 // Models are fetched through the workspace API proxy to support Docker and
-// reverse-proxy deployments where the browser cannot reach Hermes Agent directly.
+// reverse-proxy deployments where the browser cannot reach NasTech Agent directly.
 
 type ClaudeCatalogEntry =
   | string
@@ -198,7 +198,7 @@ async function fetchModels(): Promise<{
             ? record.owned_by.trim()
             : id.includes('/')
               ? id.split('/')[0]
-              : 'hermes-agent'
+              : 'nastech-agent'
 
       return {
         ...record,
@@ -292,7 +292,7 @@ const SETTINGS: Array<SettingDefinition> = [
     min: 1,
     step: 1000,
   },
-  // Thinking/reasoning settings removed — not supported by Hermes Agent
+  // Thinking/reasoning settings removed — not supported by NasTech Agent
   // Legacy settings removed: bootstrap, block streaming,
   // compaction, thinking, verbose, and fast mode do not apply here.
   {
@@ -410,7 +410,7 @@ function buildProviderSummaries(payload: {
       name: getProviderDisplayName(providerId),
       description:
         metadata?.description ||
-        'Configured provider in your local Hermes setup.',
+        'Configured provider in your local NasTech setup.',
       modelCount,
       status: modelCount > 0 ? 'active' : 'configured',
     })
@@ -1128,13 +1128,13 @@ function ActiveModelCard({
         </p>
       ) : configQuery.error ? (
         <p className="mt-4 text-sm text-red-500">
-          Could not load config — is Hermes Agent running?
+          Could not load config — is NasTech Agent running?
         </p>
       ) : (
         <div className="mt-5 space-y-4">
           <ModelConfigSection
             title="Primary Model"
-            description="Default provider, model, and base URL used for new Hermes Agent requests."
+            description="Default provider, model, and base URL used for new NasTech Agent requests."
             value={primaryConfig}
             onChange={setPrimaryConfig}
             modelOptions={modelOptions}
@@ -1149,7 +1149,7 @@ function ActiveModelCard({
                   Fallback Model
                 </h3>
                 <p className="text-sm text-primary-600">
-                  Optional secondary model Hermes Agent can use if the primary path
+                  Optional secondary model NasTech Agent can use if the primary path
                   fails.
                 </p>
               </div>
@@ -1233,7 +1233,7 @@ function ActiveModelCard({
 
             <p className="mt-4 rounded-xl border border-[var(--theme-border)] bg-[var(--theme-card2)] px-3 py-2 text-sm text-primary-600">
               Slow local runners such as Ollama and `llama-server` often need
-              more headroom before Hermes Agent decides a stream has stalled.
+              more headroom before NasTech Agent decides a stream has stalled.
             </p>
           </section>
         </div>
@@ -1292,7 +1292,7 @@ function ProviderManagementSection(props: {
               Configured Providers
             </h3>
             <p className="mt-1 text-xs text-primary-600">
-              API keys stay in your local Hermes config and are never sent to
+              API keys stay in your local NasTech config and are never sent to
               Studio.
             </p>
           </div>
@@ -1304,14 +1304,14 @@ function ProviderManagementSection(props: {
 
         {modelsQuery.isPending ? (
           <p className="rounded-xl border border-primary-200 bg-white px-3 py-2 text-sm text-primary-600">
-            Loading providers from Hermes Agent...
+            Loading providers from NasTech Agent...
           </p>
         ) : null}
 
         {modelsQuery.error ? (
           <div className="rounded-xl border border-primary-200 bg-white px-4 py-3">
             <p className="mb-2 text-sm text-primary-700">
-              Unable to load providers right now. Check your Hermes Agent connection.
+              Unable to load providers right now. Check your NasTech Agent connection.
             </p>
             <Button
               variant="outline"
@@ -1620,7 +1620,7 @@ export function ProvidersScreen({ embedded = false }: ProvidersScreenProps) {
                 Settings
               </h1>
               <p className="text-sm text-primary-600">
-                Configure providers plus Hermes Agent defaults in one place.
+                Configure providers plus NasTech Agent defaults in one place.
               </p>
             </div>
 

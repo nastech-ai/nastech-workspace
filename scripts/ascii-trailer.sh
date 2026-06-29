@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# scripts/ascii-trailer.sh — turn a screen recording of HermesWorld into ASCII frames
+# scripts/ascii-trailer.sh — turn a screen recording of NasTechWorld into ASCII frames
 # for a Discord/Twitter teaser. Uses ffmpeg + Python (PIL+ascii) since chafa isn't
 # installed. Output: ascii-trailer/ with per-frame .txt + a single combined .gif.
 #
 # Usage:
-#   ./scripts/ascii-trailer.sh ~/Movies/hermesworld-demo.mov
+#   ./scripts/ascii-trailer.sh ~/Movies/nastechworld-demo.mov
 set -euo pipefail
 INPUT="${1:-}"
 if [[ -z "$INPUT" || ! -f "$INPUT" ]]; then
   echo "Usage: $0 <video-file>"
-  echo "Example: $0 ~/Movies/hermesworld-demo.mov"
+  echo "Example: $0 ~/Movies/nastechworld-demo.mov"
   exit 1
 fi
 
@@ -59,7 +59,7 @@ PY
 # Build a single combined "carousel" markdown
 echo "→ Building combined ascii-trailer.md..."
 {
-  echo "# HermesWorld — ASCII Trailer"
+  echo "# NasTechWorld — ASCII Trailer"
   echo ""
   for f in "$ASCII_DIR"/*.txt; do
     echo "## Frame $(basename "$f" .txt)"

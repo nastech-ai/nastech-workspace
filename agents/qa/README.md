@@ -8,7 +8,7 @@ Modes: smoke
 browser, terminal, file, vision, gbrain, session_search, skills, web
 
 ## Skills
-qa-core, browser-harness-power-use, dogfood, gstack-for-hermes
+qa-core, browser-harness-power-use, dogfood, gstack-for-nastech
 
 ## MCP servers
 gbrain
@@ -16,4 +16,4 @@ gbrain
 ## Plugins
 none
 
-This file mirrors `swarm.yaml` and the profile config under `~/.hermes/profiles/qa/`.
+This file mirrors `swarm.yaml` and the profile config under `~/.nastech/profiles/qa/`.

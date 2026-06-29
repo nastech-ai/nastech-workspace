@@ -42,7 +42,7 @@ export function getZeroForkModelInfoFlags(
     readString(record?.backend)
 
   const vanillaAgent = runtime
-    ? /vanilla|upstream|dashboard|hermes-agent/i.test(runtime)
+    ? /vanilla|upstream|dashboard|nastech-agent/i.test(runtime)
     : !supportsRuntimeSwitching
 
   return {

@@ -83,7 +83,7 @@ export function AgoraAvatar({
           }}
           onError={(e) => {
             // Fallback to a generic placeholder if PNG missing
-            ;(e.currentTarget as HTMLImageElement).src = '/avatars/hermes.png'
+            ;(e.currentTarget as HTMLImageElement).src = '/avatars/nastech.png'
           }}
         />
         {/* Status dot */}

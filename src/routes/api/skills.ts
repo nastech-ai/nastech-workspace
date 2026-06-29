@@ -17,9 +17,9 @@ import { createCapabilityUnavailablePayload } from '@/lib/feature-gates'
 
 function getSkillsDir(): string {
   return (
-    process.env.HERMES_SKILLS_DIR ||
+    process.env.NASTECH_SKILLS_DIR ||
     path.join(
-      process.env.HERMES_HOME || path.join(os.homedir(), '.hermes'),
+      process.env.NASTECH_HOME || path.join(os.homedir(), '.nastech'),
       'skills',
     )
   )
@@ -107,7 +107,7 @@ function deriveOrigin(
   bundled: Set<string>,
 ): SkillSummary['origin'] {
   if (bundled.has(skill.id) || bundled.has(skill.slug)) return 'builtin'
-  if (skill.author === 'Hermes Agent' && skill.sourcePath) return 'agent-created'
+  if (skill.author === 'NasTech Agent' && skill.sourcePath) return 'agent-created'
   return 'marketplace'
 }
 

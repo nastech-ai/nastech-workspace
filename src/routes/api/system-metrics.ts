@@ -28,7 +28,7 @@ type SystemMetricsResponse = {
     totalBytes: number
     usedPercent: number
   }
-  hermes: {
+  nastech: {
     status: 'connected' | 'enhanced' | 'partial' | 'disconnected'
     health: boolean
     dashboard: boolean
@@ -123,7 +123,7 @@ function readMemory() {
 }
 
 function readDisk() {
-  const diskPath = process.env.HERMES_WORKSPACE_METRICS_DISK_PATH || os.homedir()
+  const diskPath = process.env.NASTECH_WORKSPACE_METRICS_DISK_PATH || os.homedir()
 
   try {
     const stats = fs.statfsSync(diskPath)
@@ -166,7 +166,7 @@ export const Route = createFileRoute('/api/system-metrics')({
           cpu,
           memory: readMemory(),
           disk: readDisk(),
-          hermes: {
+          nastech: {
             status,
             health: caps.health,
             dashboard: caps.dashboard.available,

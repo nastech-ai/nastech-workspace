@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import YAML from 'yaml'
 
-import type { HermesConfigPaths } from './hermes-config-migration'
+import type { NasTechConfigPaths } from './nastech-config-migration'
 
 export type SetDefaultModelPatch = {
   action: 'set-default-model'
@@ -37,34 +37,34 @@ export type RemoveCustomProviderPatch = {
   name: string
 }
 
-export type HermesConfigPatch =
+export type NasTechConfigPatch =
   | SetDefaultModelPatch
   | SetApiKeyPatch
   | RemoveApiKeyPatch
   | SetCustomProviderPatch
   | RemoveCustomProviderPatch
 
-export type HermesConfigPatchResult = {
+export type NasTechConfigPatchResult = {
   ok: boolean
   message?: string
 }
 
-export type HermesConfigFiles = {
+export type NasTechConfigFiles = {
   config: Record<string, unknown>
   env: Record<string, string>
   authProfiles: Record<string, unknown>
 }
 
-export function resolveHermesConfigPaths(): HermesConfigPaths {
-  const hermesHome =
-    process.env.HERMES_HOME ??
+export function resolveNasTechConfigPaths(): NasTechConfigPaths {
+  const nastechHome =
+    process.env.NASTECH_HOME ??
     process.env.CLAUDE_HOME ??
-    path.join(os.homedir(), '.hermes')
+    path.join(os.homedir(), '.nastech')
   return {
-    hermesHome,
-    configPath: path.join(hermesHome, 'config.yaml'),
-    envPath: path.join(hermesHome, '.env'),
-    authProfilesPath: path.join(hermesHome, 'auth-profiles.json'),
+    nastechHome,
+    configPath: path.join(nastechHome, 'config.yaml'),
+    envPath: path.join(nastechHome, '.env'),
+    authProfilesPath: path.join(nastechHome, 'auth-profiles.json'),
   }
 }
 
@@ -151,7 +151,7 @@ function readAuthProfiles(authProfilesPath: string): Record<string, unknown> {
   }
 }
 
-export function readHermesConfigFiles(paths: HermesConfigPaths): HermesConfigFiles {
+export function readNasTechConfigFiles(paths: NasTechConfigPaths): NasTechConfigFiles {
   return {
     config: readYamlConfig(paths.configPath),
     env: readEnv(paths.envPath),
@@ -169,14 +169,14 @@ function readCustomProvidersList(config: Record<string, unknown>): Array<Record<
 }
 
 function applySetDefaultModel(
-  paths: HermesConfigPaths,
+  paths: NasTechConfigPaths,
   patch: SetDefaultModelPatch,
-): HermesConfigPatchResult {
+): NasTechConfigPatchResult {
   const config = readYamlConfig(paths.configPath)
   config.provider = patch.providerId
 
   // Preserve any nested-form extension fields (e.g. temperature, max_tokens)
-  // some Hermes deployments stash under `model: { ... }`. Only update the
+  // some NasTech deployments stash under `model: { ... }`. Only update the
   // canonical `default`/`provider` keys; otherwise switch to flat form.
   const existing = config.model
   if (existing && typeof existing === 'object' && !Array.isArray(existing)) {
@@ -193,9 +193,9 @@ function applySetDefaultModel(
 }
 
 function applySetApiKey(
-  paths: HermesConfigPaths,
+  paths: NasTechConfigPaths,
   patch: SetApiKeyPatch,
-): HermesConfigPatchResult {
+): NasTechConfigPatchResult {
   const env = readEnv(paths.envPath)
   env[patch.envKey] = patch.value
   writeEnv(paths.envPath, env)
@@ -203,9 +203,9 @@ function applySetApiKey(
 }
 
 function applyRemoveApiKey(
-  paths: HermesConfigPaths,
+  paths: NasTechConfigPaths,
   patch: RemoveApiKeyPatch,
-): HermesConfigPatchResult {
+): NasTechConfigPatchResult {
   const env = readEnv(paths.envPath)
   delete env[patch.envKey]
   writeEnv(paths.envPath, env)
@@ -213,9 +213,9 @@ function applyRemoveApiKey(
 }
 
 function applySetCustomProvider(
-  paths: HermesConfigPaths,
+  paths: NasTechConfigPaths,
   patch: SetCustomProviderPatch,
-): HermesConfigPatchResult {
+): NasTechConfigPatchResult {
   const config = readYamlConfig(paths.configPath)
   const list = readCustomProvidersList(config)
   const next = list.filter((entry) => entry.name !== patch.provider.name)
@@ -232,9 +232,9 @@ function applySetCustomProvider(
 }
 
 function applyRemoveCustomProvider(
-  paths: HermesConfigPaths,
+  paths: NasTechConfigPaths,
   patch: RemoveCustomProviderPatch,
-): HermesConfigPatchResult {
+): NasTechConfigPatchResult {
   const config = readYamlConfig(paths.configPath)
   const list = readCustomProvidersList(config)
   const next = list.filter((entry) => entry.name !== patch.name)
@@ -244,10 +244,10 @@ function applyRemoveCustomProvider(
   return { ok: true }
 }
 
-export function applyHermesConfigPatch(
-  paths: HermesConfigPaths,
-  patch: HermesConfigPatch,
-): HermesConfigPatchResult {
+export function applyNasTechConfigPatch(
+  paths: NasTechConfigPaths,
+  patch: NasTechConfigPatch,
+): NasTechConfigPatchResult {
   switch (patch.action) {
     case 'set-default-model':
       return applySetDefaultModel(paths, patch)

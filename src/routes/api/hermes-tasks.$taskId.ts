@@ -29,7 +29,7 @@ function isTaskPriority(value: unknown): value is TaskPriority {
   return value === 'high' || value === 'medium' || value === 'low'
 }
 
-export const Route = createFileRoute('/api/hermes-tasks/$taskId')({
+export const Route = createFileRoute('/api/nastech-tasks/$taskId')({
   server: {
     handlers: {
       GET: async ({ request, params }) => {
@@ -129,7 +129,7 @@ export const Route = createFileRoute('/api/hermes-tasks/$taskId')({
 
           const hasPrior = Boolean(task.session_id && priorContext)
           const briefing = [
-            'You are picking up a task from the Hermes Workspace task board. Here is the full context:',
+            'You are picking up a task from the NasTech Workspace task board. Here is the full context:',
             '',
             `**Task:** ${task.title}`,
             `**Status:** ${task.column}  |  **Priority:** ${task.priority}  |  **Assignee:** ${task.assignee ?? 'Unassigned'}`,

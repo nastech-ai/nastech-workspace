@@ -1,14 +1,14 @@
-# HermesWorld — Guilds + Agent Companions + Economy
+# NasTechWorld — Guilds + Agent Companions + Economy
 
 Last updated: 2026-05-06
 
-Reference graphic: `/Users/aurora/Desktop/roadmap hermesworld .png`
+Reference graphic: `/Users/aurora/Desktop/roadmap nastechworld .png`
 
 ## Unlock insight
 
 The guild is not only humans. The guild is **humans + their agents**.
 
-Players bring their agents into HermesWorld, level with them, quest with them, trade with them, and build complementary party compositions.
+Players bring their agents into NasTechWorld, level with them, quest with them, trade with them, and build complementary party compositions.
 
 Example:
 - Human player: Priest / Healer

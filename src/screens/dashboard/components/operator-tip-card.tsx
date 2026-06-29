@@ -112,7 +112,7 @@ const TIPS: ReadonlyArray<Tip> = [
   {
     id: 'achievements-momentum',
     title: 'Achievement momentum',
-    body: "You unlocked something recently — keep going. The Hermes achievements track real workflows, so the next tier usually drops out of normal usage rather than grinding.",
+    body: "You unlocked something recently — keep going. The NasTech achievements track real workflows, so the next tier usually drops out of normal usage rather than grinding.",
     tone: 'positive',
     cta: 'View all',
     score: (o) => {
@@ -173,7 +173,7 @@ const TIPS: ReadonlyArray<Tip> = [
   {
     id: 'skills-shortcut',
     title: 'Skills are first-class',
-    body: "Hermes loads skills into context on demand. Click any row in Skills Usage to jump to that skill's page and edit its SKILL.md — every change is hot-reloaded.",
+    body: "NasTech loads skills into context on demand. Click any row in Skills Usage to jump to that skill's page and edit its SKILL.md — every change is hot-reloaded.",
     tone: 'info',
     cta: 'Open skills',
     href: '/skills',
@@ -182,7 +182,7 @@ const TIPS: ReadonlyArray<Tip> = [
   {
     id: 'new-chat',
     title: "Pick the right model up-front",
-    body: "Hitting New Chat without a model in mind is fine, but Hermes routes faster when you set a default in Settings → Models for your common task types.",
+    body: "Hitting New Chat without a model in mind is fine, but NasTech routes faster when you set a default in Settings → Models for your common task types.",
     tone: 'info',
     cta: 'New chat',
     href: '/chat/new',

@@ -12,7 +12,7 @@ function formatCount(n: number): string {
  * Hero-row tile showing the *active* model. Replaces the Cost tile
  * the operator was finding misleading (the gateway runs codex / OAuth
  * which structurally read \$0). This tile answers a more decision-
- * relevant question: "what is Hermes routing through right now and
+ * relevant question: "what is NasTech routing through right now and
  * how much of the load is it carrying?"
  *
  * Wireframe-equivalent to the other Hero tiles (matching gradient
@@ -30,7 +30,7 @@ export function ActiveModelKpi({
   const provider = modelInfo?.provider ?? '—'
 
   // Routing share (proxy): % of calls in the analytics window that hit
-  // the active model. Hermes Agent confirmed this is the closest
+  // the active model. NasTech Agent confirmed this is the closest
   // available metric without a dedicated routing-decisions endpoint.
   const share = ((): number | null => {
     if (!modelInfo || !analytics) return null

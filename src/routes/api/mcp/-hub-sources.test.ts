@@ -28,7 +28,7 @@ const mockIsAuthenticated = vi.mocked(isAuthenticated)
 
 const BUILTIN_SOURCES = [
   { id: 'mcp-get', name: 'Smithery Registry', url: 'https://registry.smithery.ai/servers', trust: 'community', format: 'smithery', enabled: true, builtin: true },
-  { id: 'local-file', name: 'Local Presets', url: 'file://~/.hermes/mcp-presets.json', trust: 'official', format: 'generic-json', enabled: true, builtin: true },
+  { id: 'local-file', name: 'Local Presets', url: 'file://~/.nastech/mcp-presets.json', trust: 'official', format: 'generic-json', enabled: true, builtin: true },
 ]
 
 function makeRequest(method: string, url: string, body?: unknown): Request {

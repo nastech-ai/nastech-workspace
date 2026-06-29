@@ -10,7 +10,7 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "hermes-workspace";
+  pname = "nastech-workspace";
   version = "2.3.0";
 
   src = lib.cleanSourceWith {
@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    local appDir="$out/lib/hermes-workspace"
+    local appDir="$out/lib/nastech-workspace"
     mkdir -p "$appDir"
 
     # Copy build artefacts and runtime sources
@@ -86,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Create a wrapper script so the binary lands in $out/bin
     mkdir -p "$out/bin"
-    makeWrapper "${nodejs}/bin/node" "$out/bin/hermes-workspace" \
+    makeWrapper "${nodejs}/bin/node" "$out/bin/nastech-workspace" \
       --add-flags "--max-old-space-size=2048" \
       --add-flags "$appDir/server-entry.js" \
       --set NODE_ENV "production" \
@@ -96,11 +96,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "Desktop workspace for Hermes Agent — chat, orchestration, and multi-agent coding pipelines";
-    homepage = "https://github.com/outsourc-e/hermes-workspace";
+    description = "Desktop workspace for NasTech Agent — chat, orchestration, and multi-agent coding pipelines";
+    homepage = "https://github.com/nastech-ai/nastech-workspace";
     license = lib.licenses.mit;
     maintainers = [ ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    mainProgram = "hermes-workspace";
+    mainProgram = "nastech-workspace";
   };
 })

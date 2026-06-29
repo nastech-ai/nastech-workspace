@@ -14,17 +14,17 @@ let tmpHome: string
 let originalHome: string | undefined
 
 beforeEach(() => {
-  tmpHome = mkdtempSync(join(tmpdir(), 'hermes-hub-cache-'))
-  originalHome = process.env.HERMES_HOME
-  process.env.HERMES_HOME = tmpHome
+  tmpHome = mkdtempSync(join(tmpdir(), 'nastech-hub-cache-'))
+  originalHome = process.env.NASTECH_HOME
+  process.env.NASTECH_HOME = tmpHome
   __resetHubCacheForTests()
 })
 
 afterEach(() => {
   if (originalHome === undefined) {
-    delete process.env.HERMES_HOME
+    delete process.env.NASTECH_HOME
   } else {
-    process.env.HERMES_HOME = originalHome
+    process.env.NASTECH_HOME = originalHome
   }
   __resetHubCacheForTests()
   try { rmSync(tmpHome, { recursive: true, force: true }) } catch { /* ignore */ }
@@ -128,17 +128,17 @@ describe('touchCache', () => {
 })
 
 describe('env override', () => {
-  it('uses HERMES_HOME for disk path', () => {
-    const altHome = mkdtempSync(join(tmpdir(), 'hermes-alt-'))
+  it('uses NASTECH_HOME for disk path', () => {
+    const altHome = mkdtempSync(join(tmpdir(), 'nastech-alt-'))
     try {
-      process.env.HERMES_HOME = altHome
+      process.env.NASTECH_HOME = altHome
       __resetHubCacheForTests()
       setCache('mcp-get', { payload: 'alt' })
       __resetHubCacheForTests()
       const result = getCache('mcp-get')
       expect(result?.payload).toBe('alt')
     } finally {
-      process.env.HERMES_HOME = tmpHome
+      process.env.NASTECH_HOME = tmpHome
       rmSync(altHome, { recursive: true, force: true })
     }
   })

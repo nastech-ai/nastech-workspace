@@ -4,8 +4,8 @@ set -e
 WORKSPACE_USER=workspace
 WORKSPACE_GROUP=workspace
 WORKSPACE_HOME="$(getent passwd "$WORKSPACE_USER" | cut -d: -f6)"
-TARGET_UID="${HERMES_UID:-}"
-TARGET_GID="${HERMES_GID:-}"
+TARGET_UID="${NASTECH_UID:-}"
+TARGET_GID="${NASTECH_GID:-}"
 
 fix_owner_if_needed() {
   local path="$1"
@@ -37,7 +37,7 @@ if [ "$(id -u)" = "0" ]; then
     usermod -o -u "$TARGET_UID" "$WORKSPACE_USER"
   fi
 
-  mkdir -p "$WORKSPACE_HOME/.hermes" /workspace
+  mkdir -p "$WORKSPACE_HOME/.nastech" /workspace
   fix_owner_if_needed "$WORKSPACE_HOME"
   fix_owner_if_needed /workspace
 

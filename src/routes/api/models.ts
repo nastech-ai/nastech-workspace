@@ -16,7 +16,7 @@ import {
   getDiscoveredModels,
 } from '../../server/local-provider-discovery'
 
-const CLAUDE_HOME = process.env.HERMES_HOME ?? process.env.CLAUDE_HOME ?? path.join(os.homedir(), '.hermes')
+const CLAUDE_HOME = process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME ?? path.join(os.homedir(), '.nastech')
 const MODELS_PATH = path.join(CLAUDE_HOME, 'models.json')
 const CONFIG_PATH = path.join(CLAUDE_HOME, 'config.yaml')
 
@@ -185,7 +185,7 @@ function readClaudeDefaultModel(): ModelEntry | null {
 
 /**
  * Read providers.*.models (+ provider default model) and model_aliases
- * from ~/.hermes/config.yaml so the picker reflects the user's full Hermes
+ * from ~/.nastech/config.yaml so the picker reflects the user's full NasTech
  * catalog, not just /v1/models + models.json + local discovery. Fix for #569.
  */
 function resolveConfiguredSecret(value: unknown): string {
@@ -386,14 +386,14 @@ function readClaudeConfigCatalog(): Array<ModelEntry> {
 }
 
 /**
- * Fallback: fetch models from the hermes-agent /v1/models endpoint.
+ * Fallback: fetch models from the nastech-agent /v1/models endpoint.
  */
 async function fetchClaudeModels(): Promise<Array<ModelEntry>> {
   const headers: Record<string, string> = {}
   if (BEARER_TOKEN) headers['Authorization'] = `Bearer ${BEARER_TOKEN}`
   const response = await fetch(`${CLAUDE_API}/v1/models`, { headers })
   if (!response.ok)
-    throw new Error(`Hermes models request failed (${response.status})`)
+    throw new Error(`NasTech models request failed (${response.status})`)
   const payload = asRecord(await response.json())
   const rawModels = Array.isArray(payload.data)
     ? payload.data
@@ -415,7 +415,7 @@ export const Route = createFileRoute('/api/models')({
         await ensureGatewayProbed()
 
         try {
-          // Primary: read user-configured models from ~/.hermes/models.json
+          // Primary: read user-configured models from ~/.nastech/models.json
           let models = readClaudeModelsJson()
           let source = 'models.json'
 
@@ -427,8 +427,8 @@ export const Route = createFileRoute('/api/models')({
           }
 
           // Merge providers.*.models + provider defaults + model_aliases
-          // from ~/.hermes/config.yaml so the picker reflects the user's full
-          // Hermes catalog, not just /v1/models + models.json + local discovery.
+          // from ~/.nastech/config.yaml so the picker reflects the user's full
+          // NasTech catalog, not just /v1/models + models.json + local discovery.
           // Fix for #569.
           const configModels = readClaudeConfigCatalog()
           if (configModels.length > 0) {
@@ -439,14 +439,14 @@ export const Route = createFileRoute('/api/models')({
                 : `${source}+config.yaml`
           }
 
-          // Merge the authoritative Hermes model catalog whenever it is
+          // Merge the authoritative NasTech model catalog whenever it is
           // available. Previously, a non-empty models.json stopped here, so the
           // Operations picker only showed the local Workspace subset and drifted
           // from the CLI/backend model universe.
           if (getGatewayCapabilities().models) {
-            const hermesModels = await fetchClaudeModels()
-            models = mergeModelEntries(models, hermesModels)
-            source = source === 'models.json' ? 'models.json+hermes-agent' : 'hermes-agent'
+            const nastechModels = await fetchClaudeModels()
+            models = mergeModelEntries(models, nastechModels)
+            source = source === 'models.json' ? 'models.json+nastech-agent' : 'nastech-agent'
           }
 
           // Merge live OpenAI-compatible catalogs from base_url entries that

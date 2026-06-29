@@ -8,9 +8,9 @@ describe('swarm-health model/auth readiness', () => {
     expect(resolveWorkerWrapperName('swarm5', null)).toBe('swarm5')
   })
 
-  it('detects primary auth failure and fallback provider from Hermes logs', () => {
+  it('detects primary auth failure and fallback provider from NasTech logs', () => {
     const events = parseModelAuthEventsFromText(`
-2026-05-04 18:37:56,770 WARNING cli: Primary provider auth failed (No Codex credentials stored. Run \`hermes auth\` to authenticate.). Falling through to fallback: minimax/MiniMax-M2.7
+2026-05-04 18:37:56,770 WARNING cli: Primary provider auth failed (No Codex credentials stored. Run \`nastech auth\` to authenticate.). Falling through to fallback: minimax/MiniMax-M2.7
 2026-05-04 18:37:56,771 WARNING provider: resolve_provider_client: openai-codex requested but no Codex OAuth token found
 `)
 

@@ -1,6 +1,6 @@
 # World Events
 
-World events are scheduled or triggered moments where HermesWorld feels alive: public objectives, guild conflicts, lore hunts, arena trials, and prize-adjacent campaigns.
+World events are scheduled or triggered moments where NasTechWorld feels alive: public objectives, guild conflicts, lore hunts, arena trials, and prize-adjacent campaigns.
 
 See also: [Social](../guides/SOCIAL.md), [Factions Lore](../lore/FACTIONS-LORE.md), [Timeline](../lore/TIMELINE.md).
 

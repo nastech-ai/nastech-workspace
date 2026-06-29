@@ -12,7 +12,7 @@ type QuestDialogPanelProps = {
 }
 
 const DIALOG_LINES = [
-  'The wind over HermesWorld is carrying a strange static tonight.',
+  'The wind over NasTechWorld is carrying a strange static tonight.',
   'Our builders have opened new panels, but the vault locks will only answer a player who knows the old route names.',
   'Find the glowing pins on the world map, inspect your inventory, then return with the founder sigil intact.',
 ]

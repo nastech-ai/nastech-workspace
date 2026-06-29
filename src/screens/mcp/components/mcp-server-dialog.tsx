@@ -104,7 +104,7 @@ export function McpServerDialog({ open, initial, onClose }: Props) {
 
   const fallbackMode = capabilityMode === 'fallback'
   const discoverDisabledReason = fallbackMode
-    ? 'Discover requires hermes-agent /api/mcp runtime endpoint (not available in local fallback mode).'
+    ? 'Discover requires nastech-agent /api/mcp runtime endpoint (not available in local fallback mode).'
     : ''
 
   return (
@@ -253,7 +253,7 @@ export function McpServerDialog({ open, initial, onClose }: Props) {
                 {fallbackMode ? (
                   <p className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200">
                     ⚠ Local fallback mode — config-only CRUD. Live tool
-                    Discover and connectivity Test require the hermes-agent
+                    Discover and connectivity Test require the nastech-agent
                     /api/mcp runtime endpoint.
                   </p>
                 ) : null}

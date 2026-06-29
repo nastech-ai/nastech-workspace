@@ -1,7 +1,7 @@
 /**
  * Optional GLB-based NPC body.
  *
- * Canonical path is now `/assets/hermesworld/characters/<id>.glb`.
+ * Canonical path is now `/assets/nastechworld/characters/<id>.glb`.
  * Legacy `/avatars-3d/<id>.glb` is still probed as a fallback.
  */
 
@@ -15,7 +15,7 @@ function candidateUrls(avatar?: string): string[] {
   const id = (avatar || 'villager-common').trim()
   const safe = id.replace(/[^a-z0-9_-]+/gi, '') || 'villager-common'
   return [
-    `/assets/hermesworld/characters/${safe}.glb`,
+    `/assets/nastechworld/characters/${safe}.glb`,
     `/avatars-3d/${safe}.glb`,
   ]
 }

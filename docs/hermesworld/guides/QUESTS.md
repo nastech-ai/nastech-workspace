@@ -1,6 +1,6 @@
 # Quests
 
-Quests are how HermesWorld turns goals into play. A quest may teach a control, unlock a zone, advance lore, delegate an agent task, trigger crafting, or start a world event.
+Quests are how NasTechWorld turns goals into play. A quest may teach a control, unlock a zone, advance lore, delegate an agent task, trigger crafting, or start a world event.
 
 See also: [Getting Started](GETTING-STARTED.md), [Walkthroughs](../walkthroughs/QUEST-001-ATHENAS-INTRO.md), [Sigils Lore](../lore/SIGILS-LORE.md).
 

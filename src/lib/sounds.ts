@@ -1,5 +1,5 @@
 /**
- * Sound Notification System for Hermes Workspace
+ * Sound Notification System for NasTech Workspace
  * Uses Web Audio API to synthesize unique sounds without audio files.
  */
 

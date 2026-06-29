@@ -48,13 +48,13 @@ describe('mergeSlashCommands', () => {
   it('appends installed skills without replacing built-ins', () => {
     const merged = mergeSlashCommands(DEFAULT_SLASH_COMMANDS, [
       {
-        command: '/hermes-agent',
-        description: 'Complete guide to using and extending Hermes Agent',
+        command: '/nastech-agent',
+        description: 'Complete guide to using and extending NasTech Agent',
       },
     ])
 
     expect(merged.map((entry) => entry.command)).toContain('/new')
-    expect(merged.map((entry) => entry.command)).toContain('/hermes-agent')
+    expect(merged.map((entry) => entry.command)).toContain('/nastech-agent')
   })
 
   it('deduplicates by command label and keeps the first definition', () => {

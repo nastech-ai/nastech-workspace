@@ -74,7 +74,7 @@ let _identity: DeviceIdentity | null = null
 function getDeviceIdentity(): DeviceIdentity {
   if (_identity) return _identity
   const idPath = path.join(
-    process.env.HERMES_HOME || process.env.CLAUDE_HOME || path.join(os.homedir(), '.hermes'),
+    process.env.NASTECH_HOME || process.env.CLAUDE_HOME || path.join(os.homedir(), '.nastech'),
     'identity', 'claude-device.json')
   try {
     if (fs.existsSync(idPath)) {
@@ -133,7 +133,7 @@ export function buildConnectParams(
   const role = 'operator'
   const scopes = ['operator.admin']
   const signedAtMs = Date.now()
-  const clientId = 'hermes-workspace-ui'
+  const clientId = 'nastech-workspace-ui'
   const clientMode = 'ui'
   const version = nonce ? 'v2' : 'v1'
   const parts = [version, identity.deviceId, clientId, clientMode, role, scopes.join(','), String(signedAtMs), token || '']

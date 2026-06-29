@@ -43,7 +43,7 @@ export type ProductUpdateStatus = {
   blockingFiles?: Array<string>
   updateMode:
     | 'git-ff'
-    | 'hermes-update'
+    | 'nastech-update'
     | 'desktop-auto-updater'
     | 'docker-manual'
     | 'manual'
@@ -271,11 +271,11 @@ function readCommits(
 
 function workspaceInstallKind(): InstallKind {
   if (
-    process.env.HERMES_WORKSPACE_DESKTOP === '1' ||
+    process.env.NASTECH_WORKSPACE_DESKTOP === '1' ||
     process.env.ELECTRON_RUN_AS_NODE
   )
     return 'desktop'
-  if (process.env.HERMES_WORKSPACE_DOCKER === '1' || existsSync('/.dockerenv'))
+  if (process.env.NASTECH_WORKSPACE_DOCKER === '1' || existsSync('/.dockerenv'))
     return 'docker'
   return realGitRepoPath(process.cwd()) ? 'git' : 'unknown'
 }
@@ -290,7 +290,7 @@ export function readWorkspaceUpdateStatus(
   if (installKind === 'desktop') {
     return {
       id: 'workspace',
-      label: 'Hermes Workspace',
+      label: 'NasTech Workspace',
       installKind,
       version,
       path: repoPath,
@@ -310,7 +310,7 @@ export function readWorkspaceUpdateStatus(
   if (installKind === 'docker') {
     return {
       id: 'workspace',
-      label: 'Hermes Workspace',
+      label: 'NasTech Workspace',
       installKind,
       version,
       path: repoPath,
@@ -330,7 +330,7 @@ export function readWorkspaceUpdateStatus(
   if (!gitRepo) {
     return {
       id: 'workspace',
-      label: 'Hermes Workspace',
+      label: 'NasTech Workspace',
       installKind: 'unknown',
       version,
       path: repoPath,
@@ -348,8 +348,8 @@ export function readWorkspaceUpdateStatus(
 
   const remoteUrl = git(['remote', 'get-url', 'origin'], gitRepo)
   const repoMatches = remoteUrlMatches(remoteUrl, [
-    'hermes-workspace',
-    'outsourc-e/hermes-workspace',
+    'nastech-workspace',
+    'nastech-ai/nastech-workspace',
   ])
   if (repoMatches) git(['fetch', 'origin', '--quiet'], gitRepo, 30_000)
   const currentHead = git(['rev-parse', 'HEAD'], gitRepo)
@@ -371,7 +371,7 @@ export function readWorkspaceUpdateStatus(
 
   return {
     id: 'workspace',
-    label: 'Hermes Workspace',
+    label: 'NasTech Workspace',
     installKind: 'git',
     version,
     path: repoPath,
@@ -393,7 +393,7 @@ export function readWorkspaceUpdateStatus(
               : 'blocked'
             : 'current',
     reason: !repoMatches
-      ? 'Workspace origin remote does not look like hermes-workspace.'
+      ? 'Workspace origin remote does not look like nastech-workspace.'
       : !supportedBranch
         ? 'Workspace one-click updates are only enabled on main/master branches.'
         : dirty
@@ -410,10 +410,10 @@ export function readWorkspaceUpdateStatus(
 
 function agentRepoPath(): string | null {
   const candidates = [
-    process.env.HERMES_AGENT_REPO,
-    join(homedir(), '.hermes', 'hermes-agent'),
-    join(homedir(), 'Projects', 'hermes-agent'),
-    join(homedir(), 'hermes-agent'),
+    process.env.NASTECH_AGENT_REPO,
+    join(homedir(), '.nastech', 'nastech-agent'),
+    join(homedir(), 'Projects', 'nastech-agent'),
+    join(homedir(), 'nastech-agent'),
   ]
   for (const candidate of candidates) {
     const repo = realGitRepoPath(candidate)
@@ -424,9 +424,9 @@ function agentRepoPath(): string | null {
 
 export function readAgentUpdateStatus(): ProductUpdateStatus {
   const repoPath = agentRepoPath()
-  const repoHermes = repoPath ? join(repoPath, 'venv', 'bin', 'hermes') : null
+  const repoNasTech = repoPath ? join(repoPath, 'venv', 'bin', 'nastech') : null
   const path =
-    repoHermes && existsSync(repoHermes) ? repoHermes : exec('which', ['hermes'])
+    repoNasTech && existsSync(repoNasTech) ? repoNasTech : exec('which', ['nastech'])
   const version =
     (path ? exec(path, ['--version'], { timeout: 10_000 }) : null)?.split(
       '\n',
@@ -435,7 +435,7 @@ export function readAgentUpdateStatus(): ProductUpdateStatus {
   if (!repoPath) {
     return {
       id: 'agent',
-      label: 'Hermes Agent',
+      label: 'NasTech Agent',
       installKind: 'unknown',
       version,
       path,
@@ -447,16 +447,16 @@ export function readAgentUpdateStatus(): ProductUpdateStatus {
       canUpdate: false,
       state: 'unsupported',
       reason:
-        'Hermes Agent git checkout was not found. Bundled desktop installs will update through the app updater.',
+        'NasTech Agent git checkout was not found. Bundled desktop installs will update through the app updater.',
       updateMode: 'manual',
     }
   }
 
   const remoteUrl = git(['remote', 'get-url', 'origin'], repoPath)
   const repoMatches = remoteUrlMatches(remoteUrl, [
-    'hermes-agent',
-    'outsourc-e/hermes-agent',
-    'NousResearch/hermes-agent',
+    'nastech-agent',
+    'nastech-ai/nastech-agent',
+    'nastech-ai/nastech-agent',
   ])
   if (repoMatches) git(['fetch', 'origin', '--quiet'], repoPath, 30_000)
   const currentHead = git(['rev-parse', 'HEAD'], repoPath)
@@ -474,7 +474,7 @@ export function readAgentUpdateStatus(): ProductUpdateStatus {
 
   return {
     id: 'agent',
-    label: 'Hermes Agent',
+    label: 'NasTech Agent',
     installKind: 'git',
     version,
     path,
@@ -494,16 +494,16 @@ export function readAgentUpdateStatus(): ProductUpdateStatus {
             ? 'blocked'
             : 'current',
     reason: !repoMatches
-      ? 'Hermes Agent origin remote does not look like hermes-agent.'
+      ? 'NasTech Agent origin remote does not look like nastech-agent.'
       : dirty
-        ? 'Hermes Agent checkout has local changes. Commit, stash, or remove the listed files before updating.'
+        ? 'NasTech Agent checkout has local changes. Commit, stash, or remove the listed files before updating.'
         : updateAvailable && !canSync
-          ? 'Hermes Agent update could not verify the remote branch ref.'
+          ? 'NasTech Agent update could not verify the remote branch ref.'
           : updateAvailable && !ff
-            ? 'Hermes Agent branch diverged from origin. One-click update will realign to the remote branch.'
+            ? 'NasTech Agent branch diverged from origin. One-click update will realign to the remote branch.'
             : null,
     blockingFiles: dirty ? listDirtyFiles(repoPath) : undefined,
-    updateMode: 'hermes-update',
+    updateMode: 'nastech-update',
   }
 }
 
@@ -596,7 +596,7 @@ export function applyWorkspaceUpdate(): ApplyUpdateResult {
   const releaseNotes = [
     {
       product: 'workspace' as const,
-      label: 'Hermes Workspace',
+      label: 'NasTech Workspace',
       from: before.currentHead,
       to: after.currentHead,
       commits: readCommits(
@@ -627,7 +627,7 @@ export function applyAgentUpdate(): ApplyUpdateResult {
       restartRequired: false,
       status: before,
       releaseNotes: [],
-      error: before.reason || 'Hermes Agent update is not available.',
+      error: before.reason || 'NasTech Agent update is not available.',
     }
   }
 
@@ -657,7 +657,7 @@ export function applyAgentUpdate(): ApplyUpdateResult {
   const releaseNotes = [
     {
       product: 'agent' as const,
-      label: 'Hermes Agent',
+      label: 'NasTech Agent',
       from: before.currentHead,
       to: after.currentHead,
       commits: readCommits(

@@ -1,5 +1,5 @@
 /**
- * Avatar Customizer — a Sims-lite character builder for Hermes Playground.
+ * Avatar Customizer — a Sims-lite character builder for NasTech Playground.
  * Lives in a modal (toggled with C key or button). Persists to localStorage.
  */
 import { useEffect, useState } from 'react'
@@ -127,9 +127,9 @@ export function PlaygroundCustomizer({ open, onClose, value, onChange }: Props) 
           <div className="flex gap-2">
             <button
               onClick={() => {
-                saveAvatarConfig(AVATAR_PRESETS.hermes)
-                setCfg(AVATAR_PRESETS.hermes)
-                onChange?.(AVATAR_PRESETS.hermes)
+                saveAvatarConfig(AVATAR_PRESETS.nastech)
+                setCfg(AVATAR_PRESETS.nastech)
+                onChange?.(AVATAR_PRESETS.nastech)
               }}
               className="rounded-lg border border-white/15 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white/75 hover:bg-white/5"
             >

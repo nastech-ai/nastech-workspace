@@ -1,5 +1,5 @@
 /**
- * Hermes Playground narration system.
+ * NasTech Playground narration system.
  *
  * Uses the browser's built-in Web Speech API (SpeechSynthesis) so we don't
  * need an API key or paid TTS. Each world has an auto-play narration that
@@ -11,14 +11,14 @@
 
 import type { PlaygroundWorldId } from './playground-rpg'
 
-const STORAGE_KEY = 'hermes.playground.narration.played'
-const MUTE_KEY = 'hermes.playground.narration.muted'
+const STORAGE_KEY = 'nastech.playground.narration.played'
+const MUTE_KEY = 'nastech.playground.narration.muted'
 
 const NARRATION: Record<PlaygroundWorldId, { name: string; lines: string[] }> = {
   training: {
     name: 'Training Grounds',
     lines: [
-      'Welcome to the Training Grounds. This is where every Hermes Agent begins.',
+      'Welcome to the Training Grounds. This is where every NasTech Agent begins.',
       'Walk to the glowing Arrival Circle. Talk to Athena to accept your first quest.',
       'You will learn five skills: movement, gear, chat, memory, and building.',
       'Press F to toggle focus mode while playing. The arrow at the top of the screen points to your current objective.',
@@ -36,7 +36,7 @@ const NARRATION: Record<PlaygroundWorldId, { name: string; lines: string[] }> = 
     name: 'The Forge',
     lines: [
       'You stand in the Forge — the builder realm where prompts harden into tools.',
-      'Pan the Hacker and Chronos the Architect can help you ship a real Hermes-powered tool.',
+      'Pan the Hacker and Chronos the Architect can help you ship a real NasTech-powered tool.',
       'This is where engineering meets magic. Pick up the Forge Shard to advance.',
     ],
   },
@@ -45,7 +45,7 @@ const NARRATION: Record<PlaygroundWorldId, { name: string; lines: string[] }> = 
     lines: [
       'You enter the Grove — a bioluminescent forest for music, ritual, and creative work.',
       'Here you will find Pan the Druid, Apollo the Songkeeper, and Artemis the Tracker.',
-      'Gather a Song Fragment to learn how Hermes can weave creative content.',
+      'Gather a Song Fragment to learn how NasTech can weave creative content.',
     ],
   },
   oracle: {
@@ -53,14 +53,14 @@ const NARRATION: Record<PlaygroundWorldId, { name: string; lines: string[] }> = 
     lines: [
       'You have entered the Oracle Temple, the quiet archive of lore and memory.',
       'Athena the Oracle, Chronos the Archivist, and Eros the Whisperer keep the long-term context here.',
-      'Solve the Oracle\u2019s Riddle to learn how Hermes searches and recalls your memories.',
+      'Solve the Oracle\u2019s Riddle to learn how NasTech searches and recalls your memories.',
     ],
   },
   arena: {
     name: 'Benchmark Arena',
     lines: [
       'Welcome to the Benchmark Arena, where models duel through prompts, evals, and agent battles.',
-      'Hermes himself referees here. Nike champions the strongest. Chronos sets the odds.',
+      'NasTech himself referees here. Nike champions the strongest. Chronos sets the odds.',
       'Win the duel to claim the Kimi Sigil and prove your agent\u2019s worth.',
     ],
   },

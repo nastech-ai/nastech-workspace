@@ -1,8 +1,8 @@
 {
-  "name": "hermes-workspace",
+  "name": "nastech-workspace",
   "version": "2.3.0",
-  "description": "Desktop workspace for Hermes Agent — chat, orchestration, and multi-agent coding pipelines",
-  "author": "Eric (https://github.com/outsourc-e)",
+  "description": "Desktop workspace for NasTech Agent — chat, orchestration, and multi-agent coding pipelines",
+  "author": "Eric (https://github.com/nastech-ai)",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start:all": "concurrently \"hermes gateway run\" \"pnpm dev\"",
+    "start:all": "concurrently \"nastech gateway run\" \"pnpm dev\"",
     "start": "node server-entry.js",
     "start:dev": "vite dev",
     "preview": "vite preview",

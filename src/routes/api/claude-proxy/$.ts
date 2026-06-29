@@ -3,7 +3,7 @@ import { BEARER_TOKEN, CLAUDE_API } from '../../../server/gateway-capabilities'
 import { isAuthenticated } from '../../../server/auth-middleware'
 
 /**
- * Vanilla hermes-agent (any version through 2026-05) does not expose
+ * Vanilla nastech-agent (any version through 2026-05) does not expose
  * `/api/available-models` — that's a legacy fork-only endpoint. When the
  * proxy gets a 404, synthesize a compatible response from `/v1/models`
  * filtered by provider so the chat composer / settings dialog don't
@@ -57,7 +57,7 @@ async function proxyRequest(request: Request, splat: string) {
   headers.delete('content-length')
   // Read at request time — follows the same fix as PR #234.
   const bearer =
-    process.env.HERMES_API_TOKEN || process.env.CLAUDE_API_TOKEN || BEARER_TOKEN
+    process.env.NASTECH_API_TOKEN || process.env.CLAUDE_API_TOKEN || BEARER_TOKEN
   if (bearer) headers.set('Authorization', `Bearer ${bearer}`)
 
   const init: RequestInit = {

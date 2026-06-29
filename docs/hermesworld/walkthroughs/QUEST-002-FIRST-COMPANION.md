@@ -71,4 +71,4 @@ The player understands:
 - What the companion can do.
 - What the companion cannot do.
 - How to configure or inspect it.
-- Why agents in HermesWorld are visible citizens.
+- Why agents in NasTechWorld are visible citizens.

@@ -317,8 +317,8 @@ export function ProfilesScreen() {
             <h1 className="text-lg font-semibold text-primary-900">Profiles</h1>
           </div>
           <p className="mt-1 text-sm text-primary-600">
-            Browse and manage Hermes profiles stored under{' '}
-            <span className="font-mono">~/.hermes/profiles</span>.
+            Browse and manage NasTech profiles stored under{' '}
+            <span className="font-mono">~/.nastech/profiles</span>.
           </p>
         </div>
         <Button onClick={() => setCreateOpen(true)} className="gap-2">
@@ -623,7 +623,7 @@ export function ProfilesScreen() {
                   <p className="text-xs text-primary-500 dark:text-neutral-400">
                     Profiles are stored under{' '}
                     <code className="rounded bg-primary-100 px-1 py-0.5 font-mono text-[11px] dark:bg-neutral-800">
-                      ~/.hermes/profiles/&lt;name&gt;/
+                      ~/.nastech/profiles/&lt;name&gt;/
                     </code>{' '}
                     with their own config, skills, sessions, and env.
                   </p>
@@ -643,7 +643,7 @@ export function ProfilesScreen() {
                     </div>
                   ) : allModels.length === 0 ? (
                     <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-3 text-xs text-amber-700 dark:border-amber-900/40 dark:bg-amber-950/20 dark:text-amber-300">
-                      No models found. Make sure Hermes Agent is running and
+                      No models found. Make sure NasTech Agent is running and
                       has models configured.
                     </div>
                   ) : (
@@ -713,7 +713,7 @@ export function ProfilesScreen() {
                   <p className="text-xs text-emerald-700 dark:text-emerald-300">
                     This will create{' '}
                     <code className="rounded bg-emerald-100 px-1 py-0.5 font-mono text-[11px] dark:bg-emerald-900/40">
-                      ~/.hermes/profiles/{newProfileName.trim()}/
+                      ~/.nastech/profiles/{newProfileName.trim()}/
                     </code>{' '}
                     with config.yaml
                     {cloneFrom ? ` cloned from ${cloneFrom}` : ''}, skills/, and

@@ -4,10 +4,10 @@
  *   GET /api/profiles/skills?name=<profile>
  *     → dashboard GET /api/profiles/<profile>/skills
  *
- * Pairs with NousResearch/hermes-agent#25116, which lets one dashboard
+ * Pairs with nastech-ai/nastech-agent#25116, which lets one dashboard
  * daemon edit `skills.disabled` across every installed profile. Without
  * this proxy the workspace can only manage the dashboard's currently
- * bound profile (whichever HERMES_HOME the daemon launched against),
+ * bound profile (whichever NASTECH_HOME the daemon launched against),
  * matching the old single-profile constraint.
  *
  * The dashboard returns a lighter payload than `/api/skills` — just

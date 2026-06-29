@@ -10,7 +10,7 @@ const DEFAULT_RESERVED_NAMES = [
   'moderator',
   'mod',
   'gm',
-  'hermes',
+  'nastech',
   'apollo',
   'athena',
   'root',
@@ -86,7 +86,7 @@ export function normalizeReservationName(value: string): string {
 }
 
 function getReservedNames(): Set<string> {
-  const extra = (process.env.HERMESWORLD_RESERVED_NAMES || '')
+  const extra = (process.env.NASTECHWORLD_RESERVED_NAMES || '')
     .split(',')
     .map((value) => normalizeReservationName(value))
     .filter(Boolean)
@@ -159,7 +159,7 @@ export async function createReservation(
       ? crypto.randomUUID()
       : `${Date.now()}_${Math.random().toString(36).slice(2)}`)
   const now = options.now?.() || new Date()
-  const baseUrl = (options.baseUrl || process.env.HERMESWORLD_RESERVE_BASE_URL || 'https://hermes-world.ai').replace(/\/$/, '')
+  const baseUrl = (options.baseUrl || process.env.NASTECHWORLD_RESERVE_BASE_URL || 'https://nastech-world.ai').replace(/\/$/, '')
 
   const record = await options.store.insertReservation({
     ...validated,
@@ -224,8 +224,8 @@ function mapSupabaseRow(row: SupabaseReservationRow): NameReservationRecord {
 }
 
 async function supabaseRequest(path: string, init: RequestInit): Promise<Response> {
-  const url = requireEnv('HERMESWORLD_SUPABASE_URL').replace(/\/$/, '')
-  const key = requireEnv('HERMESWORLD_SUPABASE_SERVICE_ROLE_KEY')
+  const url = requireEnv('NASTECHWORLD_SUPABASE_URL').replace(/\/$/, '')
+  const key = requireEnv('NASTECHWORLD_SUPABASE_SERVICE_ROLE_KEY')
   return fetch(`${url}/rest/v1/${path}`, {
     ...init,
     headers: {
@@ -320,9 +320,9 @@ export async function sendReservationConfirmationEmail(
     body: JSON.stringify({
       from,
       to: [payload.email],
-      subject: `Confirm your HermesWorld name reservation: ${payload.desiredName}`,
+      subject: `Confirm your NasTechWorld name reservation: ${payload.desiredName}`,
       html: `<div style="font-family:Inter,Arial,sans-serif;line-height:1.6;color:#111827">
-  <h2>Confirm your HermesWorld reservation</h2>
+  <h2>Confirm your NasTechWorld reservation</h2>
   <p>You asked to reserve <strong>${payload.desiredName}</strong>.</p>
   <p>Confirm it here:</p>
   <p><a href="${payload.confirmationUrl}">${payload.confirmationUrl}</a></p>

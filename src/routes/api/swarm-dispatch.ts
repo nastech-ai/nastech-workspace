@@ -13,22 +13,22 @@ import { rosterByWorkerId, type SwarmRosterWorker } from '../../server/swarm-ros
 import { publishSwarmCheckpointNotification } from '../../server/swarm-notifications'
 import { ensureSwarmProfileConfig } from '../../server/swarm-profile-config'
 
-const HERMES_BIN_CANDIDATES = [
-  process.env.HERMES_CLI_BIN,
-  join(homedir(), '.hermes', 'hermes-agent', 'venv', 'bin', 'hermes'),
-  join(homedir(), '.local', 'bin', 'hermes'),
-  'hermes',
+const NASTECH_BIN_CANDIDATES = [
+  process.env.NASTECH_CLI_BIN,
+  join(homedir(), '.nastech', 'nastech-agent', 'venv', 'bin', 'nastech'),
+  join(homedir(), '.local', 'bin', 'nastech'),
+  'nastech',
 ].filter((value): value is string => Boolean(value))
 
-function resolveHermesBin(): string {
-  for (const candidate of HERMES_BIN_CANDIDATES) {
+function resolveNasTechBin(): string {
+  for (const candidate of NASTECH_BIN_CANDIDATES) {
     if (candidate.includes('/')) {
       if (existsSync(candidate)) return candidate
       continue
     }
     return candidate
   }
-  return 'hermes'
+  return 'nastech'
 }
 
 type AssignmentRequest = {
@@ -85,7 +85,7 @@ const DEFAULT_TIMEOUT_S = 240
 const MAX_TIMEOUT_S = 600
 
 function getProfilesDir(): string {
-  const base = process.env.HERMES_HOME ?? process.env.CLAUDE_HOME
+  const base = process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME
   if (base) {
     const parts = base.split('/').filter(Boolean)
     if (parts.length >= 2 && parts.at(-2) === 'profiles') {
@@ -93,7 +93,7 @@ function getProfilesDir(): string {
     }
     return join(base, 'profiles')
   }
-  return join(homedir(), '.hermes', 'profiles')
+  return join(homedir(), '.nastech', 'profiles')
 }
 
 function getWrapperPath(workerId: string): string {
@@ -123,7 +123,7 @@ function resolveTmuxBin(): string | null {
   // Allow operators on non-standard installs (Docker, NixOS, custom
   // package layouts) to point Swarm at the right tmux binary without
   // patching this list. See #244.
-  const override = process.env.HERMES_TMUX_BIN || process.env.CLAUDE_TMUX_BIN
+  const override = process.env.NASTECH_TMUX_BIN || process.env.CLAUDE_TMUX_BIN
   if (override) {
     if (existsSync(override)) return override
     // If the override looks like a bare command (no slashes), trust it
@@ -197,23 +197,23 @@ function shellEscapeSingle(value: string): string {
   return value.replace(/'/g, `'\\''`)
 }
 
-export function buildHermesTmuxLaunchCommand(input: {
+export function buildNasTechTmuxLaunchCommand(input: {
   profilePath: string
-  hermesBin: string
+  nastechBin: string
   ghToken?: string | null
 }): string {
   const launchPrefix = [
-    `HERMES_HOME='${shellEscapeSingle(input.profilePath)}'`,
-    `HERMES_CLI_BIN='${shellEscapeSingle(input.hermesBin)}'`,
+    `NASTECH_HOME='${shellEscapeSingle(input.profilePath)}'`,
+    `NASTECH_CLI_BIN='${shellEscapeSingle(input.nastechBin)}'`,
     input.ghToken ? `GH_TOKEN='${shellEscapeSingle(input.ghToken)}'` : '',
     input.ghToken ? `GITHUB_TOKEN='${shellEscapeSingle(input.ghToken)}'` : '',
   ].filter(Boolean).join(' ')
-  const hermesBin = shellEscapeSingle(input.hermesBin)
+  const nastechBin = shellEscapeSingle(input.nastechBin)
 
-  // Do not exec the Hermes process. Keeping the parent shell alive means a
+  // Do not exec the NasTech process. Keeping the parent shell alive means a
   // failed worker startup leaves a readable tmux pane instead of destroying the
   // session and turning the real error into "can't find pane".
-  return `${launchPrefix} '${hermesBin}' chat --tui; status=$?; printf '\n[Hermes worker exited with status %s]\n' "$status"`
+  return `${launchPrefix} '${nastechBin}' chat --tui; status=$?; printf '\n[NasTech worker exited with status %s]\n' "$status"`
 }
 
 function parseAssignments(value: unknown): Array<AssignmentRequest> {
@@ -448,7 +448,7 @@ export function buildWorkerPrompt(input: {
     input.task,
     '',
     '## Operating Rules',
-    '- Work in your persistent Hermes worker session and preserve your profile context.',
+    '- Work in your persistent NasTech worker session and preserve your profile context.',
     `- The Worker Startup Memory Snapshot above is your authoritative starting context. If you have filesystem tools, also read \`~/.\u0068\u0065\u0072\u006d\u0065\u0073/profiles/${input.workerId}/MEMORY.md\`, \`SOUL.md\`, \`USER.md\`, and \`memory/IDENTITY.md\` for full detail.`,
     `- Search your own memory before starting if relevant: GET /api/swarm-memory/search?workerId=${input.workerId}&q=<term>.`,
     '- Do not blame a generic sandbox for missing access. Assume repo/filesystem/network are available unless a command proves otherwise. If auth or tools fail, report the exact failing command and exact missing token/tool/env.',
@@ -624,10 +624,10 @@ async function ensureLiveTmuxSession(workerId: string): Promise<{ ok: true; tmux
   const profilePath = getProfilePath(workerId)
   ensureSwarmProfileConfig(profilePath)
   const cwd = resolveWorkerCwd(workerId)
-  const hermesBin = resolveHermesBin()
-  const launchCommand = buildHermesTmuxLaunchCommand({
+  const nastechBin = resolveNasTechBin()
+  const launchCommand = buildNasTechTmuxLaunchCommand({
     profilePath,
-    hermesBin,
+    nastechBin,
     ghToken: resolveGithubToken(),
   })
 
@@ -648,18 +648,18 @@ async function ensureLiveTmuxSession(workerId: string): Promise<{ ok: true; tmux
     return { ok: false, error: launched.error }
   }
 
-  // Give the agent a moment to render its prompt before sending keys. If Hermes
+  // Give the agent a moment to render its prompt before sending keys. If NasTech
   // exits immediately, the shell stays alive and prints a sentinel that lets us
   // surface the real startup failure instead of a later tmux "can't find pane".
   await sleep(1200)
   if (!(await tmuxHasSession(tmuxBin, sessionName))) {
-    return { ok: false, error: `Hermes worker tmux session ${sessionName} exited during startup` }
+    return { ok: false, error: `NasTech worker tmux session ${sessionName} exited during startup` }
   }
 
   const startupOutput = await captureTmuxPane(tmuxBin, sessionName)
   // Match only at the start of a line so the echoed shell command's printf
   // format string doesn't trigger a false positive startup-failure sentinel.
-  const exitedPattern = /(?:^|\n)\[Hermes worker exited with status/
+  const exitedPattern = /(?:^|\n)\[NasTech worker exited with status/
   if (exitedPattern.test(startupOutput)) {
     const sanitizedOutput = redactStartupOutput(startupOutput).slice(-4_000)
     const logsDir = join(profilePath, 'logs')
@@ -669,7 +669,7 @@ async function ensureLiveTmuxSession(workerId: string): Promise<{ ok: true; tmux
 `, { flag: 'a' })
     return {
       ok: false,
-      error: `Hermes worker failed to start in tmux session ${sessionName}. Startup output saved to ${startupLogPath}: ${sanitizedOutput}`,
+      error: `NasTech worker failed to start in tmux session ${sessionName}. Startup output saved to ${startupLogPath}: ${sanitizedOutput}`,
     }
   }
 
@@ -742,7 +742,7 @@ async function sendPromptToLiveSession(workerId: string, prompt: string): Promis
     }
   }
 
-  // Give the TUI enough time to ingest the paste before submitting. The Hermes
+  // Give the TUI enough time to ingest the paste before submitting. The NasTech
   // prompt can visually contain the pasted text before prompt_toolkit is ready
   // to accept Enter; sending a confirmation Enter shortly after the first one
   // prevents the user-visible failure mode where the task sits at the prompt.
@@ -784,8 +784,8 @@ async function sendPromptToLiveSession(workerId: string, prompt: string): Promis
   }
 }
 
-export function buildHermesChatQueryArgs(prompt: string): string[] {
-  // `hermes chat -q` requires the query as the *immediate* next argv item.
+export function buildNasTechChatQueryArgs(prompt: string): string[] {
+  // `nastech chat -q` requires the query as the *immediate* next argv item.
   // Keeping the prompt adjacent to -q prevents argparse from interpreting
   // following flags (for example -Q) as a missing query and failing with:
   // "argument -q/--query: expected one argument".
@@ -923,11 +923,11 @@ function runWorker(assignment: AssignmentRequest, timeoutMs: number, roster: Swa
     }
 
     const useWrapper = existsSync(wrapperPath)
-    const cmd = useWrapper ? wrapperPath : resolveHermesBin()
-    const args = buildHermesChatQueryArgs(prompt)
+    const cmd = useWrapper ? wrapperPath : resolveNasTechBin()
+    const args = buildNasTechChatQueryArgs(prompt)
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      HERMES_HOME: profilePath,
+      NASTECH_HOME: profilePath,
     }
     const ghToken = resolveGithubToken()
     if (ghToken) {

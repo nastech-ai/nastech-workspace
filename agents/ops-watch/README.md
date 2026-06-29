@@ -8,7 +8,7 @@ Modes: health
 terminal, cronjob, file, gbrain, skills, session_search, web
 
 ## Skills
-ops-watch-core, gbrain, hermes-agent, systematic-debugging, webhook-subscriptions
+ops-watch-core, gbrain, nastech-agent, systematic-debugging, webhook-subscriptions
 
 ## MCP servers
 gbrain
@@ -16,4 +16,4 @@ gbrain
 ## Plugins
 none
 
-This file mirrors `swarm.yaml` and the profile config under `~/.hermes/profiles/ops-watch/`.
+This file mirrors `swarm.yaml` and the profile config under `~/.nastech/profiles/ops-watch/`.

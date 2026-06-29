@@ -8,7 +8,7 @@ Modes: quick, autoresearch
 gbrain, web, browser, terminal, file, vision, session_search, skills, todo
 
 ## Skills
-researcher-core, gbrain, autoresearch, browser-harness-power-use, gstack-for-hermes, researcher-quick, researcher-autoresearch, arxiv, youtube-content, polymarket
+researcher-core, gbrain, autoresearch, browser-harness-power-use, gstack-for-nastech, researcher-quick, researcher-autoresearch, arxiv, youtube-content, polymarket
 
 ## MCP servers
 gbrain
@@ -23,4 +23,4 @@ none
 
 The source-owned operating contract is `docs/swarm/AUTORESEARCH.md`.
 
-This file mirrors `swarm.yaml` and the profile config under `~/.hermes/profiles/researcher/`.
+This file mirrors `swarm.yaml` and the profile config under `~/.nastech/profiles/researcher/`.

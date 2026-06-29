@@ -1,6 +1,6 @@
 /**
  * Animated p5js-flavored hero canvas for the Playground title screen.
- * Vanilla 2D canvas, no deps, ~60fps, draws an orbiting "Hermes"
+ * Vanilla 2D canvas, no deps, ~60fps, draws an orbiting "NasTech"
  * caduceus ring of particles + a soft starfield.
  */
 import { useEffect, useRef } from 'react'
@@ -36,7 +36,7 @@ export function PlaygroundHeroCanvas() {
     for (let i = 0; i < 90; i++) stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.4 + 0.2, tw: Math.random() * Math.PI * 2 })
 
     const orbiters: Array<{ phase: number; orbit: number; speed: number; size: number; color: string }> = []
-    // Gold-warm palette to match HermesWorld branding
+    // Gold-warm palette to match NasTechWorld branding
     const palette = ['#facc15', '#fbbf24', '#fde68a', '#22d3ee', '#a78bfa', '#fb7185', '#34d399']
     for (let i = 0; i < 42; i++) orbiters.push({ phase: Math.random() * Math.PI * 2, orbit: 0.18 + Math.random() * 0.22, speed: 0.4 + Math.random() * 0.5, size: 1.5 + Math.random() * 2.4, color: palette[Math.floor(Math.random() * palette.length)] })
 

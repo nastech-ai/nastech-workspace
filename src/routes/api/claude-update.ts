@@ -30,15 +30,15 @@ type RemoteDefinition = {
 export const UPDATE_REMOTE_DEFINITIONS: Array<RemoteDefinition> = [
   {
     name: 'origin',
-    label: 'Hermes Workspace',
-    expectedRepo: 'hermes-workspace',
-    aliases: ['claude-workspace', 'hermes-workspace', 'outsourc-e/hermes-workspace'],
+    label: 'NasTech Workspace',
+    expectedRepo: 'nastech-workspace',
+    aliases: ['claude-workspace', 'nastech-workspace', 'nastech-ai/nastech-workspace'],
   },
   {
     name: 'upstream',
-    label: 'Hermes Agent',
-    expectedRepo: 'hermes-agent',
-    aliases: ['claude-agent', 'hermes-agent', 'NousResearch/hermes-agent'],
+    label: 'NasTech Agent',
+    expectedRepo: 'nastech-agent',
+    aliases: ['claude-agent', 'nastech-agent', 'nastech-ai/nastech-agent'],
   },
 ]
 
@@ -144,7 +144,7 @@ export const Route = createFileRoute('/api/claude-update')({
           ok: true,
           checkedAt: Date.now(),
           app: {
-            name: 'Hermes Workspace',
+            name: 'NasTech Workspace',
             version: pkgVersion(),
             branch,
             currentHead,

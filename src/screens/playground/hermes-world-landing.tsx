@@ -1,9 +1,9 @@
 import { PlaygroundHeroCanvas } from './components/playground-hero-canvas'
 
-const HERMES_REPO_URL = 'https://github.com/outsourc-e/hermes-workspace'
-const HERMES_ROADMAP_URL = 'https://github.com/outsourc-e/hermes-workspace/blob/main/docs/hermesworld/master-roadmap.md'
-const HERMES_DOCS_URL = 'https://github.com/outsourc-e/hermes-workspace/tree/main/docs/hermesworld'
-const HERMES_FEATURES_URL = 'https://github.com/outsourc-e/hermes-workspace/blob/main/FEATURES-INVENTORY.md'
+const NASTECH_REPO_URL = 'https://github.com/nastech-ai/nastech-workspace'
+const NASTECH_ROADMAP_URL = 'https://github.com/nastech-ai/nastech-workspace/blob/main/docs/nastechworld/master-roadmap.md'
+const NASTECH_DOCS_URL = 'https://github.com/nastech-ai/nastech-workspace/tree/main/docs/nastechworld'
+const NASTECH_FEATURES_URL = 'https://github.com/nastech-ai/nastech-workspace/blob/main/FEATURES-INVENTORY.md'
 
 const externalLinkProps = { target: '_blank', rel: 'noreferrer' }
 
@@ -12,7 +12,7 @@ const capabilities = [
   { label: 'Live Agents', copy: 'Companions follow, plan, craft, scout, and report back.', icon: '◈' },
   { label: 'Zones & Quests', copy: 'Each zone gives humans and agents a place to act.', icon: '◇' },
   { label: 'Memory Progression', copy: 'Agents carry context, unlocks, and completed history.', icon: '◎' },
-  { label: 'Hermes Sigils', copy: 'Make invisible agent progress visible and collectible.', icon: '⚚' },
+  { label: 'NasTech Sigils', copy: 'Make invisible agent progress visible and collectible.', icon: '⚚' },
   { label: 'Multiplayer Presence', copy: 'Humans and agents share the same world layer.', icon: '◌' },
 ]
 
@@ -65,7 +65,7 @@ const consoleLines = [
   'move_to("Agora")',
   'talk_to("Quartermaster")',
   'accept_quest("Northern Gate")',
-  'equip("Hermes Sigil")',
+  'equip("NasTech Sigil")',
   'send_agent("Oracle", "plan route")',
   'complete_quest("First Step")',
 ]
@@ -78,23 +78,23 @@ const progression = [
 ]
 
 const todayDrops = [
-  ['Landing Page', 'A cinematic share surface for the HermesWorld reveal.'],
+  ['Landing Page', 'A cinematic share surface for the NasTechWorld reveal.'],
   ['Roadmap', 'The build path from preview world to persistent agent RPG.'],
   ['Feature List', 'Zones, companions, quests, sigils, multiplayer, and world systems.'],
   ['Graphics Sprint', 'Next pass: in-game world art, logo lockup, and launch visuals.'],
 ]
 
-export function HermesWorldLanding() {
+export function NasTechWorldLanding() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#03060a] text-[#f8f3e7] selection:bg-[#d9b35f] selection:text-[#07080d]">
-      <HermesBackdrop />
+      <NasTechBackdrop />
       <Header />
 
       <section className="relative mx-auto grid min-h-[calc(100vh-82px)] w-full max-w-[1560px] items-center gap-10 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8 lg:pb-18 lg:pt-10">
         <div className="relative z-10 max-w-2xl lg:pl-2">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#d9b35f]/30 bg-[#d9b35f]/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.24em] text-[#f8e4ac] shadow-[0_0_42px_rgba(217,179,95,.12)]">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-200 shadow-[0_0_18px_rgba(34,211,238,.95)]" />
-            HermesWorld Preview // Persistent Agent World
+            NasTechWorld Preview // Persistent Agent World
           </div>
 
           <h1 className="max-w-[760px] text-balance font-serif text-[clamp(3.6rem,7.5vw,8.4rem)] leading-[0.82] tracking-[-0.075em] text-[#fff6df] drop-shadow-[0_20px_80px_rgba(0,0,0,.65)]">
@@ -102,17 +102,17 @@ export function HermesWorldLanding() {
           </h1>
 
           <p className="mt-7 max-w-xl text-pretty text-lg leading-8 text-[#d7d0bd]/72 sm:text-xl">
-            HermesWorld turns agents into companions inside a persistent world. Explore zones, complete quests, collect sigils, and watch agents keep working while the world keeps moving.
+            NasTechWorld turns agents into companions inside a persistent world. Explore zones, complete quests, collect sigils, and watch agents keep working while the world keeps moving.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href="/playground" className="group inline-flex items-center justify-center rounded-xl border border-[#ffe7a3]/50 bg-[linear-gradient(180deg,#ffe7a3,#d9a63f)] px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#11100b] shadow-[0_24px_80px_rgba(217,179,95,.28)] transition hover:-translate-y-0.5 hover:brightness-110">
               ▶ Play Now <span className="ml-2 transition group-hover:translate-x-1">→</span>
             </a>
-            <a href={HERMES_REPO_URL} {...externalLinkProps} className="inline-flex items-center justify-center rounded-xl border border-[#d9b35f]/24 bg-[#0b1118]/78 px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#f8e4ac] shadow-[inset_0_1px_0_rgba(255,255,255,.08)] backdrop-blur-xl transition hover:border-[#d9b35f]/50 hover:bg-[#121823]">
+            <a href={NASTECH_REPO_URL} {...externalLinkProps} className="inline-flex items-center justify-center rounded-xl border border-[#d9b35f]/24 bg-[#0b1118]/78 px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#f8e4ac] shadow-[inset_0_1px_0_rgba(255,255,255,.08)] backdrop-blur-xl transition hover:border-[#d9b35f]/50 hover:bg-[#121823]">
               View on GitHub
             </a>
-            <a href={HERMES_DOCS_URL} {...externalLinkProps} className="inline-flex items-center justify-center rounded-xl border border-[#d9b35f]/24 bg-[#0b1118]/78 px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#f8e4ac] shadow-[inset_0_1px_0_rgba(255,255,255,.08)] backdrop-blur-xl transition hover:border-[#d9b35f]/50 hover:bg-[#121823]">
+            <a href={NASTECH_DOCS_URL} {...externalLinkProps} className="inline-flex items-center justify-center rounded-xl border border-[#d9b35f]/24 bg-[#0b1118]/78 px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#f8e4ac] shadow-[inset_0_1px_0_rgba(255,255,255,.08)] backdrop-blur-xl transition hover:border-[#d9b35f]/50 hover:bg-[#121823]">
               Read Docs
             </a>
           </div>
@@ -130,7 +130,7 @@ export function HermesWorldLanding() {
               <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#d9b35f]/35 bg-[#d9b35f]/12 text-lg shadow-[0_0_28px_rgba(217,179,95,.16)]">🏆</span>
               <div>
                 <div className="text-[10px] font-black uppercase tracking-[0.22em] text-[#d9b35f]/70">Dropping today</div>
-                <div className="mt-1 text-sm font-bold leading-5 text-[#fff6df]">HermesWorld landing page, roadmap, feature list, and the first public build notes.</div>
+                <div className="mt-1 text-sm font-bold leading-5 text-[#fff6df]">NasTechWorld landing page, roadmap, feature list, and the first public build notes.</div>
               </div>
             </div>
           </div>
@@ -153,10 +153,10 @@ export function HermesWorldLanding() {
 function Header() {
   return (
     <header className="relative z-30 mx-auto mt-4 flex max-w-[1560px] items-center justify-between border-b border-[#d9b35f]/20 px-4 pb-4 sm:px-6 lg:px-8">
-      <a href="/hermes-world" className="flex items-center gap-3">
-        <img src="/hermesworld-logo.svg" alt="HermesWorld" className="h-10 w-10 rounded-2xl shadow-[0_0_34px_rgba(34,211,238,.18)]" />
+      <a href="/nastech-world" className="flex items-center gap-3">
+        <img src="/nastechworld-logo.svg" alt="NasTechWorld" className="h-10 w-10 rounded-2xl shadow-[0_0_34px_rgba(34,211,238,.18)]" />
         <div>
-          <div className="font-serif text-lg font-bold tracking-[-0.03em] text-[#f8e4ac]">Hermes<span className="text-cyan-200">World</span></div>
+          <div className="font-serif text-lg font-bold tracking-[-0.03em] text-[#f8e4ac]">NasTech<span className="text-cyan-200">World</span></div>
           <div className="text-[9px] font-black uppercase tracking-[0.22em] text-[#bfb49a]/46">Persistent Agent RPG</div>
         </div>
       </a>
@@ -167,9 +167,9 @@ function Header() {
         <a href="#sigils" className="transition hover:text-[#f8e4ac]">Sigils</a>
         <a href="#preview" className="transition hover:text-[#f8e4ac]">Preview</a>
         <a href="#today" className="transition hover:text-[#f8e4ac]">Today</a>
-        <a href={HERMES_DOCS_URL} {...externalLinkProps} className="transition hover:text-[#f8e4ac]">Docs</a>
+        <a href={NASTECH_DOCS_URL} {...externalLinkProps} className="transition hover:text-[#f8e4ac]">Docs</a>
         <a href="/playground" className="rounded-lg border border-[#ffe7a3]/55 bg-[linear-gradient(180deg,#ffe7a3,#d9a63f)] px-4 py-2 font-black text-[#11100b] shadow-[0_0_30px_rgba(217,179,95,.18)] transition hover:brightness-110">▶ Play</a>
-        <a href={HERMES_REPO_URL} {...externalLinkProps} className="rounded-lg border border-[#d9b35f]/30 bg-[#d9b35f]/10 px-4 py-2 text-[#f8e4ac] shadow-[0_0_30px_rgba(217,179,95,.08)] transition hover:bg-[#d9b35f]/18">GitHub</a>
+        <a href={NASTECH_REPO_URL} {...externalLinkProps} className="rounded-lg border border-[#d9b35f]/30 bg-[#d9b35f]/10 px-4 py-2 text-[#f8e4ac] shadow-[0_0_30px_rgba(217,179,95,.08)] transition hover:bg-[#d9b35f]/18">GitHub</a>
       </nav>
     </header>
   )
@@ -199,7 +199,7 @@ function HeroWorldFrame() {
           </div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,transparent_36%,rgba(3,6,10,.28)_78%),linear-gradient(180deg,rgba(3,6,10,.02),rgba(3,6,10,.62))]" />
           <div className="absolute left-4 top-4 rounded-xl border border-[#d9b35f]/24 bg-[#05080e]/70 px-3 py-2 shadow-2xl backdrop-blur-xl">
-            <div className="text-[9px] font-black uppercase tracking-[0.2em] text-[#f8e4ac]/70">HermesWorld Entry</div>
+            <div className="text-[9px] font-black uppercase tracking-[0.2em] text-[#f8e4ac]/70">NasTechWorld Entry</div>
             <div className="mt-1 text-xs text-[#d7d0bd]/70">Portal online · Zones awakening · Sigils active</div>
           </div>
           <div className="absolute bottom-4 left-4 max-w-[320px] rounded-xl border border-cyan-200/20 bg-[#05080e]/72 p-3 shadow-2xl backdrop-blur-xl">
@@ -246,7 +246,7 @@ function TodayDropSection() {
               Launch drop
             </div>
             <h2 className="mt-4 font-serif text-4xl font-bold leading-[0.92] tracking-[-0.055em] text-[#fff6df] sm:text-5xl lg:text-6xl">
-              Dropping HermesWorld today.
+              Dropping NasTechWorld today.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-[#d7d0bd]/62 sm:text-base">
               Landing page, roadmap, feature list, and build notes first. Then we move straight into the game graphics sprint: world art, logo lockup, social cards, and clip-ready visuals.
@@ -302,7 +302,7 @@ function AgentsSection() {
         <div>
           <div className="text-[11px] font-black uppercase tracking-[0.24em] text-cyan-100/60">Humans + Agents</div>
           <h2 className="mt-3 max-w-2xl font-serif text-4xl font-bold tracking-[-0.055em] text-[#fff6df] sm:text-6xl">Your agents live in the world with you.</h2>
-          <p className="mt-5 max-w-xl text-base leading-8 text-[#d7d0bd]/62">HermesWorld turns agents into visible companions. They can follow, take quests, report progress, and eventually move through the world on their own.</p>
+          <p className="mt-5 max-w-xl text-base leading-8 text-[#d7d0bd]/62">NasTechWorld turns agents into visible companions. They can follow, take quests, report progress, and eventually move through the world on their own.</p>
           <div className="mt-7 grid gap-3 text-sm text-[#d7d0bd]/62 sm:grid-cols-3">
             <InfoPill title="Companions" copy="Roles, memory, and status." />
             <InfoPill title="Takeover" copy="Future agent world actions." />
@@ -353,14 +353,14 @@ function SigilsSection() {
         <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-[1.35rem] border border-[#d9b35f]/18 bg-[#04070c]">
           <div className="absolute h-64 w-64 rounded-full bg-[#d9b35f]/20 blur-3xl" />
           <div className="relative flex h-56 w-56 items-center justify-center rounded-full border border-[#d9b35f]/42 bg-[radial-gradient(circle,#f8e4ac_0%,#d9b35f_22%,#4b3516_68%,#120d08_100%)] shadow-[0_0_90px_rgba(217,179,95,.32)]">
-            <img src="/hermesworld-logo.svg" alt="Hermes Sigil" loading="lazy" decoding="async" className="h-36 w-36 rounded-[2rem] shadow-[0_0_40px_rgba(34,211,238,.18)]" />
+            <img src="/nastechworld-logo.svg" alt="NasTech Sigil" loading="lazy" decoding="async" className="h-36 w-36 rounded-[2rem] shadow-[0_0_40px_rgba(34,211,238,.18)]" />
           </div>
         </div>
 
         <div className="flex flex-col justify-center">
           <div className="text-[11px] font-black uppercase tracking-[0.24em] text-[#d9b35f]/72">In-world progression</div>
-          <h2 className="mt-3 font-serif text-4xl font-bold tracking-[-0.055em] text-[#fff6df] sm:text-6xl">Collect Hermes Sigils as you unlock the world.</h2>
-          <p className="mt-5 text-base leading-8 text-[#d7d0bd]/62">Hermes Sigils are progression artifacts earned through quests, agent upgrades, world exploration, and system mastery. They make invisible agent progress visible.</p>
+          <h2 className="mt-3 font-serif text-4xl font-bold tracking-[-0.055em] text-[#fff6df] sm:text-6xl">Collect NasTech Sigils as you unlock the world.</h2>
+          <p className="mt-5 text-base leading-8 text-[#d7d0bd]/62">NasTech Sigils are progression artifacts earned through quests, agent upgrades, world exploration, and system mastery. They make invisible agent progress visible.</p>
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             {progression.map(([title, copy]) => (
               <div key={title} className="rounded-xl border border-[#d9b35f]/14 bg-black/20 p-4">
@@ -378,17 +378,17 @@ function SigilsSection() {
 function FinalCta() {
   return (
     <section className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(3,6,10,.18),#03060a),url('/hermesworld-world.png')] bg-cover bg-center opacity-45" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(3,6,10,.18),#03060a),url('/nastechworld-world.png')] bg-cover bg-center opacity-45" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(217,179,95,.2),transparent_42%),linear-gradient(90deg,#03060a_0%,rgba(3,6,10,.58)_50%,#03060a_100%)]" />
       <div className="mx-auto max-w-[880px] rounded-[2rem] border border-[#d9b35f]/24 bg-[#05080e]/78 p-8 text-center shadow-[0_40px_140px_rgba(0,0,0,.52)] backdrop-blur-xl sm:p-12">
         <div className="text-[11px] font-black uppercase tracking-[0.24em] text-cyan-100/62">Enter the world</div>
         <h2 className="mt-3 font-serif text-4xl font-bold tracking-[-0.055em] text-[#fff6df] sm:text-6xl">Build with agents in a world, not a chat box.</h2>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[#d7d0bd]/62">Enter HermesWorld and explore the first playable layer of Hermes Workspace: zones, quests, companions, sigils, and persistent agent progression.</p>
+        <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[#d7d0bd]/62">Enter NasTechWorld and explore the first playable layer of NasTech Workspace: zones, quests, companions, sigils, and persistent agent progression.</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/playground" className="rounded-xl bg-[#f8e4ac] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#11100b] transition hover:-translate-y-0.5 hover:bg-white">▶ Play Now</a>
-          <a href={HERMES_DOCS_URL} {...externalLinkProps} className="rounded-xl border border-white/12 bg-white/[0.055] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-white/78 transition hover:bg-white/[0.1]">Read Docs</a>
-          <a href={HERMES_REPO_URL} {...externalLinkProps} className="rounded-xl border border-white/12 bg-white/[0.055] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-white/78 transition hover:bg-white/[0.1]">View GitHub</a>
-          <a href={HERMES_ROADMAP_URL} {...externalLinkProps} className="rounded-xl border border-white/12 bg-white/[0.055] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-white/78 transition hover:bg-white/[0.1]">Read Roadmap</a>
+          <a href={NASTECH_DOCS_URL} {...externalLinkProps} className="rounded-xl border border-white/12 bg-white/[0.055] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-white/78 transition hover:bg-white/[0.1]">Read Docs</a>
+          <a href={NASTECH_REPO_URL} {...externalLinkProps} className="rounded-xl border border-white/12 bg-white/[0.055] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-white/78 transition hover:bg-white/[0.1]">View GitHub</a>
+          <a href={NASTECH_ROADMAP_URL} {...externalLinkProps} className="rounded-xl border border-white/12 bg-white/[0.055] px-7 py-4 text-sm font-black uppercase tracking-[0.14em] text-white/78 transition hover:bg-white/[0.1]">Read Roadmap</a>
         </div>
       </div>
     </section>
@@ -399,14 +399,14 @@ function Footer() {
   return (
     <footer className="mx-auto flex max-w-[1560px] flex-col gap-4 border-t border-[#d9b35f]/14 px-4 py-8 text-xs text-[#d7d0bd]/42 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
       <div className="flex items-center gap-3">
-        <img src="/hermesworld-logo.svg" alt="HermesWorld" loading="lazy" decoding="async" className="h-8 w-8 rounded-xl" />
-        <span className="font-serif text-base text-[#f8e4ac]">Hermes<span className="text-cyan-200">World</span></span>
+        <img src="/nastechworld-logo.svg" alt="NasTechWorld" loading="lazy" decoding="async" className="h-8 w-8 rounded-xl" />
+        <span className="font-serif text-base text-[#f8e4ac]">NasTech<span className="text-cyan-200">World</span></span>
       </div>
       <div className="flex flex-wrap gap-4 uppercase tracking-[0.16em]">
-        <a href={HERMES_REPO_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">GitHub</a>
-        <a href={HERMES_DOCS_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">Docs</a>
-        <a href={HERMES_ROADMAP_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">Roadmap</a>
-        <a href={HERMES_FEATURES_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">Feature List</a>
+        <a href={NASTECH_REPO_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">GitHub</a>
+        <a href={NASTECH_DOCS_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">Docs</a>
+        <a href={NASTECH_ROADMAP_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">Roadmap</a>
+        <a href={NASTECH_FEATURES_URL} {...externalLinkProps} className="hover:text-[#f8e4ac]">Feature List</a>
         <a href="#today" className="hover:text-[#f8e4ac]">Today’s Drop</a>
       </div>
     </footer>
@@ -439,7 +439,7 @@ function ZoneDiorama({ tone, index }: { tone: string; index: number }) {
   )
 }
 
-function HermesBackdrop() {
+function NasTechBackdrop() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,#071018_0%,#03060a_54%,#020305_100%)]" />

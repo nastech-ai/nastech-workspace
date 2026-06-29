@@ -23,8 +23,8 @@ const ACTIVE_TAB_KEY = 'terminal.active'
 const DEFAULT_HEIGHT = 360
 const MIN_HEIGHT = 300
 const MAX_HEIGHT = 480
-// Use ~ (not ~/.hermes): in Docker, ~/.hermes under passwd HOME is often absent
-// and Hermes state may live under HERMES_HOME elsewhere; shell should start in a real dir.
+// Use ~ (not ~/.nastech): in Docker, ~/.nastech under passwd HOME is often absent
+// and NasTech state may live under NASTECH_HOME elsewhere; shell should start in a real dir.
 const DEFAULT_CWD = '~'
 
 type TerminalTabState = {

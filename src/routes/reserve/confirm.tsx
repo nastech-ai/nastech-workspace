@@ -8,7 +8,7 @@ export const Route = createFileRoute('/reserve/confirm')({
 })
 
 function ReserveConfirmRoute() {
-  usePageTitle('Confirm HermesWorld reservation')
+  usePageTitle('Confirm NasTechWorld reservation')
   const token = Route.useSearch({ strict: false }).token || ''
   const [state, setState] = useState<{
     status: 'loading' | 'success' | 'error'
@@ -27,7 +27,7 @@ function ReserveConfirmRoute() {
       return
     }
 
-    fetch('/api/hermesworld/reservations/confirm', {
+    fetch('/api/nastechworld/reservations/confirm', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ token }),
@@ -72,10 +72,10 @@ function ReserveConfirmRoute() {
             Back to reserve
           </a>
           <a
-            href="/hermes-world"
+            href="/nastech-world"
             className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-[#f8e4ac]"
           >
-            HermesWorld landing
+            NasTechWorld landing
           </a>
         </div>
       </div>

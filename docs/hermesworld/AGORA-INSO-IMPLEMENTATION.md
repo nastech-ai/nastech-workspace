@@ -1,6 +1,6 @@
 # Agora Center Implementation Plan — Inso Reference
 
-Reference: `docs/hermesworld/reference-images/agora-center-inso-reference.jpeg`
+Reference: `docs/nastechworld/reference-images/agora-center-inso-reference.jpeg`
 
 ## What the reference proves
 
@@ -20,7 +20,7 @@ The target is not just higher-poly models. It is a composed game screen:
   - quick tools right edge
 - environment density around the edges, clear walkable center
 
-## Target for HermesWorld v0.3
+## Target for NasTechWorld v0.3
 
 Create an Agora scene that feels like the reference while staying browser-native:
 

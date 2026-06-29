@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  buildHermesActivitySummary,
-  shouldAutoExpandHermesActivityCard,
+  buildNasTechActivitySummary,
+  shouldAutoExpandNasTechActivityCard,
   shouldRenderStandaloneActivityMenu,
   shouldRenderStreamingThoughtSummary,
 } from './streaming-activity-ui'
@@ -30,21 +30,21 @@ describe('streaming activity ui helpers', () => {
 
   it('auto-expands the tool card while tool calls are actively streaming', () => {
     expect(
-      shouldAutoExpandHermesActivityCard({
+      shouldAutoExpandNasTechActivityCard({
         isStreaming: true,
         toolCount: 1,
       }),
     ).toBe(true)
 
     expect(
-      shouldAutoExpandHermesActivityCard({
+      shouldAutoExpandNasTechActivityCard({
         isStreaming: true,
         toolCount: 0,
       }),
     ).toBe(false)
 
     expect(
-      shouldAutoExpandHermesActivityCard({
+      shouldAutoExpandNasTechActivityCard({
         isStreaming: false,
         toolCount: 1,
       }),
@@ -72,7 +72,7 @@ describe('streaming activity ui helpers', () => {
   })
 
   it('returns an idle summary when no tools are active', () => {
-    expect(buildHermesActivitySummary([])).toMatchObject({
+    expect(buildNasTechActivitySummary([])).toMatchObject({
       countLabel: '0 calls',
       statusLabel: 'idle',
       visibleLabel: 'No active tools',
@@ -82,7 +82,7 @@ describe('streaming activity ui helpers', () => {
 
   it('builds a compact TUI-style summary from active tool calls', () => {
     expect(
-      buildHermesActivitySummary([
+      buildNasTechActivitySummary([
         {
           type: 'read_file',
           state: 'input-available',

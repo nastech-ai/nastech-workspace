@@ -1,4 +1,4 @@
-# CODEOWNERS — Hermes Workspace
+# CODEOWNERS — NasTech Workspace
 #
 # This file defines code ownership for automated review routing.
 # Owners are automatically requested for review when a PR touches their paths.
@@ -7,58 +7,58 @@
 # See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # ── Auth & authentication middleware ──────────────────────────────────────
-/src/server/auth-middleware.ts       @outsourc-e
-/src/server/auth-middleware.test.ts  @outsourc-e
-/src/routes/api/auth.ts              @outsourc-e
-/src/routes/api/auth-check.ts        @outsourc-e
-/src/routes/api/oauth.device-code.ts @outsourc-e
-/src/routes/api/oauth.poll-token.ts  @outsourc-e
+/src/server/auth-middleware.ts       @nastech-ai
+/src/server/auth-middleware.test.ts  @nastech-ai
+/src/routes/api/auth.ts              @nastech-ai
+/src/routes/api/auth-check.ts        @nastech-ai
+/src/routes/api/oauth.device-code.ts @nastech-ai
+/src/routes/api/oauth.poll-token.ts  @nastech-ai
 
 # ── Security: rate limiter, security policy, security CI ─────────────────
-/src/server/rate-limit.ts            @outsourc-e
-/src/server/rate-limit.test.ts       @outsourc-e
-/SECURITY.md                         @outsourc-e
-/.github/workflows/security.yml      @outsourc-e
+/src/server/rate-limit.ts            @nastech-ai
+/src/server/rate-limit.test.ts       @nastech-ai
+/SECURITY.md                         @nastech-ai
+/.github/workflows/security.yml      @nastech-ai
 
 # ── CI/CD workflows (all) ────────────────────────────────────────────────
-/.github/workflows/                  @outsourc-e
+/.github/workflows/                  @nastech-ai
 
 # ── Docker & container configs ───────────────────────────────────────────
-/Dockerfile                          @outsourc-e
-/docker-compose.yml                  @outsourc-e
-/docker-compose.dev.yml              @outsourc-e
-/docker/                             @outsourc-e
-/.dockerignore                       @outsourc-e
-/.devcontainer/                      @outsourc-e
+/Dockerfile                          @nastech-ai
+/docker-compose.yml                  @nastech-ai
+/docker-compose.dev.yml              @nastech-ai
+/docker/                             @nastech-ai
+/.dockerignore                       @nastech-ai
+/.devcontainer/                      @nastech-ai
 
 # ── Server-side infrastructure (all) ─────────────────────────────────────
-/src/server/                         @outsourc-e
+/src/server/                         @nastech-ai
 
 # ── Nix packaging & flake ────────────────────────────────────────────────
-/flake.nix                           @outsourc-e
-/flake.lock                          @outsourc-e
-/nix/                                @outsourc-e
+/flake.nix                           @nastech-ai
+/flake.lock                          @nastech-ai
+/nix/                                @nastech-ai
 
 # ── Root config & infrastructure ─────────────────────────────────────────
-/package.json                        @outsourc-e
-/pnpm-lock.yaml                      @outsourc-e
-/pnpm-workspace.yaml                 @outsourc-e
-/tsconfig.json                       @outsourc-e
-/vite.config.ts                      @outsourc-e
-/wrangler.jsonc                      @outsourc-e
-/eslint.config.js                    @outsourc-e
-/prettier.config.js                  @outsourc-e
-/electron-builder.config.cjs         @outsourc-e
+/package.json                        @nastech-ai
+/pnpm-lock.yaml                      @nastech-ai
+/pnpm-workspace.yaml                 @nastech-ai
+/tsconfig.json                       @nastech-ai
+/vite.config.ts                      @nastech-ai
+/wrangler.jsonc                      @nastech-ai
+/eslint.config.js                    @nastech-ai
+/prettier.config.js                  @nastech-ai
+/electron-builder.config.cjs         @nastech-ai
 
 # ── Electron (desktop app) ───────────────────────────────────────────────
-/electron/                           @outsourc-e
+/electron/                           @nastech-ai
 
 # ── Server entry point ───────────────────────────────────────────────────
-/server-entry.js                     @outsourc-e
+/server-entry.js                     @nastech-ai
 
 # ── Install & bootstrap ──────────────────────────────────────────────────
-/install.sh                          @outsourc-e
-/.env.example                        @outsourc-e
+/install.sh                          @nastech-ai
+/.env.example                        @nastech-ai
 
 # ── GitHub Actions directory (non-workflow files) ────────────────────────
-/.github/                            @outsourc-e
+/.github/                            @nastech-ai

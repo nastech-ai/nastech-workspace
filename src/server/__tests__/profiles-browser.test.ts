@@ -37,7 +37,7 @@ vi.mock('node:os', () => ({
 
 beforeEach(() => {
   vi.clearAllMocks()
-  delete process.env.HERMES_HOME
+  delete process.env.NASTECH_HOME
   delete process.env.CLAUDE_HOME
 })
 
@@ -49,7 +49,7 @@ async function loadMod() {
 describe('profiles-browser', () => {
   describe('listProfiles', () => {
     it('includes symlinked profiles when the target is a directory', async () => {
-      const root = path.join('/home/testuser', '.hermes')
+      const root = path.join('/home/testuser', '.nastech')
       const profilesRoot = path.join(root, 'profiles')
       const kayPath = path.join(profilesRoot, 'kay')
       const brokenPath = path.join(profilesRoot, 'broken')
@@ -88,25 +88,25 @@ describe('profiles-browser', () => {
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
       existsSync.mockImplementation((p: string) => {
-        if (p === path.join('/home/testuser', '.hermes', 'profiles', 'jarvis')) return true
+        if (p === path.join('/home/testuser', '.nastech', 'profiles', 'jarvis')) return true
         return false
       })
 
       const mod = await loadMod()
       mod.setActiveProfile('jarvis')
       expect(warnSpy).toHaveBeenCalledTimes(1)
-      expect(warnSpy.mock.calls[0][0]).toContain('Restart the Hermes Agent gateway')
+      expect(warnSpy.mock.calls[0][0]).toContain('Restart the NasTech Agent gateway')
 
       warnSpy.mockRestore()
     })
 
-    it('skips sticky active_profile writes when HERMES_WORKSPACE_STICKY_PROFILE=0', async () => {
-      process.env.HERMES_WORKSPACE_STICKY_PROFILE = '0'
+    it('skips sticky active_profile writes when NASTECH_WORKSPACE_STICKY_PROFILE=0', async () => {
+      process.env.NASTECH_WORKSPACE_STICKY_PROFILE = '0'
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
       existsSync.mockImplementation((p: string) => {
-        if (p === path.join('/home/testuser', '.hermes', 'profiles', 'jarvis')) return true
-        if (p === path.join('/home/testuser', '.hermes', 'active_profile')) return true
+        if (p === path.join('/home/testuser', '.nastech', 'profiles', 'jarvis')) return true
+        if (p === path.join('/home/testuser', '.nastech', 'active_profile')) return true
         return false
       })
 
@@ -115,33 +115,33 @@ describe('profiles-browser', () => {
       mod.setActiveProfile('default')
 
       expect(writeFileSync).not.toHaveBeenCalledWith(
-        path.join('/home/testuser', '.hermes', 'active_profile'),
+        path.join('/home/testuser', '.nastech', 'active_profile'),
         expect.anything(),
         'utf-8',
       )
-      expect(unlinkSync).not.toHaveBeenCalledWith(path.join('/home/testuser', '.hermes', 'active_profile'))
+      expect(unlinkSync).not.toHaveBeenCalledWith(path.join('/home/testuser', '.nastech', 'active_profile'))
       expect(warnSpy).toHaveBeenCalledTimes(1)
 
       warnSpy.mockRestore()
-      delete process.env.HERMES_WORKSPACE_STICKY_PROFILE
+      delete process.env.NASTECH_WORKSPACE_STICKY_PROFILE
     })
 
     it('clears active profile file when setting default', async () => {
       existsSync.mockImplementation((p: string) => {
-        if (p === path.join('/home/testuser', '.hermes', 'active_profile')) return true
+        if (p === path.join('/home/testuser', '.nastech', 'active_profile')) return true
         return false
       })
 
       const mod = await loadMod()
       mod.setActiveProfile('default')
-      expect(unlinkSync).toHaveBeenCalledWith(path.join('/home/testuser', '.hermes', 'active_profile'))
+      expect(unlinkSync).toHaveBeenCalledWith(path.join('/home/testuser', '.nastech', 'active_profile'))
     })
   })
 
   describe('renameProfile', () => {
-    it('skips sticky active_profile rewrites on rename when HERMES_WORKSPACE_STICKY_PROFILE=0', async () => {
-      process.env.HERMES_WORKSPACE_STICKY_PROFILE = '0'
-      const profilesRoot = path.join('/home/testuser', '.hermes', 'profiles')
+    it('skips sticky active_profile rewrites on rename when NASTECH_WORKSPACE_STICKY_PROFILE=0', async () => {
+      process.env.NASTECH_WORKSPACE_STICKY_PROFILE = '0'
+      const profilesRoot = path.join('/home/testuser', '.nastech', 'profiles')
       const oldPath = path.join(profilesRoot, 'jarvis')
       const newPath = path.join(profilesRoot, 'friday')
       const configPath = path.join(newPath, 'config.yaml')
@@ -157,7 +157,7 @@ describe('profiles-browser', () => {
         return false
       })
       readFileSync.mockImplementation((p: string) => {
-        if (p === path.join('/home/testuser', '.hermes', 'active_profile')) return 'jarvis\n'
+        if (p === path.join('/home/testuser', '.nastech', 'active_profile')) return 'jarvis\n'
         if (p === configPath) return 'model: named-model\n'
         return ''
       })
@@ -167,19 +167,19 @@ describe('profiles-browser', () => {
 
       expect(renameSync).toHaveBeenCalledWith(oldPath, newPath)
       expect(writeFileSync).not.toHaveBeenCalledWith(
-        path.join('/home/testuser', '.hermes', 'active_profile'),
+        path.join('/home/testuser', '.nastech', 'active_profile'),
         expect.anything(),
         'utf-8',
       )
       expect(renamed.name).toBe('friday')
 
-      delete process.env.HERMES_WORKSPACE_STICKY_PROFILE
+      delete process.env.NASTECH_WORKSPACE_STICKY_PROFILE
     })
   })
 
   describe('updateProfileConfig', () => {
     it('deep-merges nested objects instead of overwriting', async () => {
-      const root = path.join('/home/testuser', '.hermes')
+      const root = path.join('/home/testuser', '.nastech')
       const configPath = path.join(root, 'config.yaml')
       const existingYaml =
         'model:\n  default: gpt-4\n  provider: openai\n  extra: keep-me\ntopLevel: stay\n'
@@ -209,7 +209,7 @@ describe('profiles-browser', () => {
     })
 
     it('handles null as explicit deletion of keys', async () => {
-      const root = path.join('/home/testuser', '.hermes')
+      const root = path.join('/home/testuser', '.nastech')
       const configPath = path.join(root, 'config.yaml')
       const existingYaml =
         'model:\n  default: gpt-4\n  provider: openai\napi_key: secret\n'

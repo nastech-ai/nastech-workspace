@@ -1,7 +1,7 @@
 /**
  * MCP Hub Sources store — Phase 3.2.
  *
- * Manages `~/.hermes/mcp-hub-sources.json` — user-configurable marketplace
+ * Manages `~/.nastech/mcp-hub-sources.json` — user-configurable marketplace
  * sources. Built-in sources (mcp-get, local-file) are always injected and
  * cannot be removed by the user.
  *
@@ -75,7 +75,7 @@ export const BUILTIN_SOURCES: HubSourceEntry[] = [
   {
     id: 'local-file',
     name: 'Local Presets',
-    url: 'file://~/.hermes/mcp-presets.json',
+    url: 'file://~/.nastech/mcp-presets.json',
     trust: 'official',
     format: 'generic-json',
     enabled: true,

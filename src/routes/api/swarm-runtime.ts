@@ -96,7 +96,7 @@ function lastLogTail(
 }
 
 function resolveTmuxBin(): string {
-  const override = process.env.HERMES_TMUX_BIN || process.env.CLAUDE_TMUX_BIN
+  const override = process.env.NASTECH_TMUX_BIN || process.env.CLAUDE_TMUX_BIN
   if (override) return override
   const local = join(homedir(), '.local', 'bin', 'tmux')
   return existsSync(local) ? local : 'tmux'
@@ -122,7 +122,7 @@ async function probeTmuxName(
     hint,
     getSwarmTmuxSessionName(workerId),
     workerId,
-    `hermes-${workerId}`,
+    `nastech-${workerId}`,
     `agent-${workerId}`,
   ].filter((value): value is string => Boolean(value))
   const seen = new Set<string>()

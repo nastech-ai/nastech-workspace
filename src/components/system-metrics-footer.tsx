@@ -21,7 +21,7 @@ type SystemMetrics = {
     totalBytes: number
     usedPercent: number
   }
-  hermes: {
+  nastech: {
     status: 'connected' | 'enhanced' | 'partial' | 'disconnected'
     health: boolean
     dashboard: boolean
@@ -119,9 +119,9 @@ export function SystemMetricsFooter({ leftOffsetPx = 0 }: { leftOffsetPx?: numbe
     staleTime: 14_000,
   })
 
-  const hermesHealthy = data?.hermes.status === 'connected' || data?.hermes.status === 'enhanced'
-  const hermesTone = hermesHealthy ? 'accent' : data?.hermes.status === 'disconnected' ? 'critical' : 'warn'
-  const hermesDotTone = hermesHealthy ? 'ok' : data?.hermes.status === 'disconnected' ? 'critical' : 'warn'
+  const nastechHealthy = data?.nastech.status === 'connected' || data?.nastech.status === 'enhanced'
+  const nastechTone = nastechHealthy ? 'accent' : data?.nastech.status === 'disconnected' ? 'critical' : 'warn'
+  const nastechDotTone = nastechHealthy ? 'ok' : data?.nastech.status === 'disconnected' ? 'critical' : 'warn'
 
   return (
     <footer
@@ -152,8 +152,8 @@ export function SystemMetricsFooter({ leftOffsetPx = 0 }: { leftOffsetPx?: numbe
             />
             <Separator />
             <span className="inline-flex min-w-0 items-center gap-1.5 whitespace-nowrap">
-              <StatusDot tone={hermesDotTone} />
-              <MetricItem label="Hermes" value={data.hermes.status} tone={hermesTone} />
+              <StatusDot tone={nastechDotTone} />
+              <MetricItem label="NasTech" value={data.nastech.status} tone={nastechTone} />
             </span>
             <Separator />
             <MetricItem

@@ -4,18 +4,18 @@ import { remoteUrlMatches, updateAvailableFromDivergence } from './update-system
 describe('update-system helpers', () => {
   it('matches GitHub URL forms against expected repo aliases', () => {
     expect(
-      remoteUrlMatches('https://github.com/outsourc-e/hermes-workspace.git', [
-        'outsourc-e/hermes-workspace',
+      remoteUrlMatches('https://github.com/nastech-ai/nastech-workspace.git', [
+        'nastech-ai/nastech-workspace',
       ]),
     ).toBe(true)
     expect(
-      remoteUrlMatches('git@github.com:NousResearch/hermes-agent.git', [
-        'hermes-agent',
+      remoteUrlMatches('git@github.com:nastech-ai/nastech-agent.git', [
+        'nastech-agent',
       ]),
     ).toBe(true)
     expect(
       remoteUrlMatches('https://github.com/example/other.git', [
-        'hermes-workspace',
+        'nastech-workspace',
       ]),
     ).toBe(false)
   })

@@ -9,7 +9,7 @@ import {
   normalizeJobState,
   normalizeJobsResponse,
 } from './jobs-api'
-import type { HermesJob, JobOutput } from './jobs-api'
+import type { NasTechJob, JobOutput } from './jobs-api'
 
 const job = {
   id: 'job-1',
@@ -18,7 +18,7 @@ const job = {
   schedule: {},
   enabled: true,
   state: 'scheduled',
-} satisfies HermesJob
+} satisfies NasTechJob
 
 describe('normalizeJobsResponse', () => {
   it('accepts dashboard cron jobs returned as a top-level array', () => {
@@ -69,7 +69,7 @@ describe('job helpers', () => {
 
 
 describe('job mutation payloads', () => {
-  it('sends prompt as input for Hermes cron APIs that require an input string', () => {
+  it('sends prompt as input for NasTech cron APIs that require an input string', () => {
     expect(
       buildJobMutationPayload({
         name: 'Daily summary',
@@ -86,7 +86,7 @@ describe('job mutation payloads', () => {
     })
   })
 
-  it('serializes multiple delivery targets into the string format expected by Hermes cron APIs', () => {
+  it('serializes multiple delivery targets into the string format expected by NasTech cron APIs', () => {
     expect(
       buildJobMutationPayload({
         name: 'Push updates',

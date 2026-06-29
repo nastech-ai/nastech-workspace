@@ -796,7 +796,7 @@ async function streamPortableConductorMission(params: {
       history: [],
       idempotencyKey: crypto.randomUUID(),
       model: params.model || undefined,
-      locale: typeof window !== 'undefined' ? localStorage.getItem('hermes-workspace-locale') || 'en' : 'en',
+      locale: typeof window !== 'undefined' ? localStorage.getItem('nastech-workspace-locale') || 'en' : 'en',
     }),
     signal: params.signal,
   })
@@ -806,7 +806,7 @@ async function streamPortableConductorMission(params: {
     throw new Error(text || `Conductor stream failed (${response.status})`)
   }
 
-  let sessionKey = response.headers.get('x-hermes-session-key')?.trim() || params.sessionKey
+  let sessionKey = response.headers.get('x-nastech-session-key')?.trim() || params.sessionKey
   let runId: string | null = null
   let accumulated = ''
   let sawDone = false
@@ -1110,7 +1110,7 @@ export function useConductorGateway() {
       lastActivityAtRef.current = Date.now()
       setTimeoutWarning(false)
     } else if (phase === 'decomposing' || phase === 'running') {
-      setPlanText((current) => current || `Conductor mission ${status ?? 'running'}. Waiting for Hermes to report the session...`)
+      setPlanText((current) => current || `Conductor mission ${status ?? 'running'}. Waiting for NasTech to report the session...`)
     }
 
     if (missionLog) {
@@ -1680,7 +1680,7 @@ export function useConductorGateway() {
       // Transition to running — the orchestrator is alive, workers will appear via polling
       setPlanText(
         nextMissionId
-          ? 'Conductor mission launched. Waiting for Hermes session and worker activity...'
+          ? 'Conductor mission launched. Waiting for NasTech session and worker activity...'
           : 'Orchestrator spawned. Decomposing mission and spawning workers...',
       )
       setPhase('running')

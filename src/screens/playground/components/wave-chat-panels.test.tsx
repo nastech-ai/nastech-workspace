@@ -27,7 +27,7 @@ describe('Wave chat RPG panels', () => {
 
     expect(screen.getByRole('dialog', { name: /quest dialog/i })).not.toBeNull()
     expect(screen.getByAltText(/athena portrait/i)).not.toBeNull()
-    expect(screen.getByRole('region', { name: /dialog scroll/i }).textContent).toMatch(/HermesWorld/i)
+    expect(screen.getByRole('region', { name: /dialog scroll/i }).textContent).toMatch(/NasTechWorld/i)
     expect(screen.getAllByRole('button', { name: /ask about|promise|request/i })).toHaveLength(3)
     expect(screen.getByRole('button', { name: /accept quest/i })).not.toBeNull()
     expect(screen.getByRole('button', { name: /decline/i })).not.toBeNull()

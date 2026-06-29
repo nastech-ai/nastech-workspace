@@ -300,7 +300,7 @@ type OAuthPollResponse = {
   message?: string
 }
 
-function HermesContent() {
+function NasTechContent() {
   const configAvailable = useFeatureAvailable('config')
   const [activeProvider, setActiveProvider] = useState('')
   const [activeModel, setActiveModel] = useState('')
@@ -375,7 +375,7 @@ function HermesContent() {
   }, [])
 
   useEffect(() => {
-    fetch('/api/hermes-config')
+    fetch('/api/nastech-config')
       .then((r) => r.json())
       .then((d: any) => {
         setActiveProvider(d.activeProvider || '')
@@ -406,7 +406,7 @@ function HermesContent() {
   }, [])
 
   const refreshConfig = async () => {
-    const ref = await fetch('/api/hermes-config')
+    const ref = await fetch('/api/nastech-config')
     const d = await ref.json()
     setDefaultProvider(d.activeProvider || '')
     setDefaultModelId(d.activeModel || '')
@@ -433,7 +433,7 @@ function HermesContent() {
     setSaving(true)
     setMsg(null)
     try {
-      const res = await fetch('/api/hermes-config', {
+      const res = await fetch('/api/nastech-config', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates),
@@ -586,7 +586,7 @@ function HermesContent() {
         if (pollData.status === 'success') {
           setOauthStatus('success')
           setOauthMessage(
-            `${provider.name} OAuth is connected. TUI and WebUI will use the shared Hermes credentials.`,
+            `${provider.name} OAuth is connected. TUI and WebUI will use the shared NasTech credentials.`,
           )
           await refreshConfig()
           return
@@ -611,7 +611,7 @@ function HermesContent() {
   if (!configAvailable) {
     return (
       <BackendUnavailableState
-        feature="Hermes Agent Settings"
+        feature="NasTech Agent Settings"
         description={getUnavailableReason('config')}
       />
     )
@@ -1086,7 +1086,7 @@ function HermesContent() {
           <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-3 py-2 text-xs text-yellow-200">
             ⚠️ Gateway restart needed to use {disc.name}. Run{' '}
             <code className="rounded bg-black/30 px-1">
-              hermes gateway restart
+              nastech gateway restart
             </code>{' '}
             in your terminal.
           </div>
@@ -1273,7 +1273,7 @@ function HermesContent() {
               '—'}
           </span>
           <span style={mutedStyle}>Config</span>
-          <span className="font-mono font-medium">~/.hermes/config.yaml</span>
+          <span className="font-mono font-medium">~/.nastech/config.yaml</span>
         </div>
       </div>
     </div>
@@ -1489,7 +1489,7 @@ function AppearanceContent() {
       <div className={SETTINGS_CARD_CLASS}>
         <Row
           label="System metrics footer"
-          description="Show a persistent footer with CPU, RAM, disk, and Hermes Agent status."
+          description="Show a persistent footer with CPU, RAM, disk, and NasTech Agent status."
         >
           <Switch
             checked={settings.showSystemMetricsFooter}
@@ -1500,7 +1500,7 @@ function AppearanceContent() {
           />
         </Row>
 
-        {/* Mobile chat nav removed — not relevant for Hermes */}
+        {/* Mobile chat nav removed — not relevant for NasTech */}
       </div>
     </div>
   )
@@ -1740,7 +1740,7 @@ function _LoaderContent() {
   const { settings: cs, updateSettings: updateCS } = useChatSettingsStore()
   const styles: Array<{ value: LoaderStyle; label: string }> = [
     { value: 'dots', label: 'Dots' },
-    { value: 'braille-claude', label: 'Hermes' },
+    { value: 'braille-claude', label: 'NasTech' },
     { value: 'braille-orbit', label: 'Orbit' },
     { value: 'braille-breathe', label: 'Breathe' },
     { value: 'braille-pulse', label: 'Pulse' },
@@ -1894,7 +1894,7 @@ function ChatContent() {
           />
         </Row>
       </div>
-      {/* Loading animation removed — not relevant for Hermes */}
+      {/* Loading animation removed — not relevant for NasTech */}
     </div>
   )
 }
@@ -1980,11 +1980,11 @@ function _AdvancedContent() {
     <div className="space-y-4">
       <SectionHeader
         title="Advanced"
-        description="Hermes Agent endpoint and connectivity."
+        description="NasTech Agent endpoint and connectivity."
       />
       <div className={SETTINGS_CARD_CLASS}>
         <Row
-          label="Hermes Agent URL"
+          label="NasTech Agent URL"
           description="Used for API requests from Studio"
         >
           <div className="w-full max-w-sm">
@@ -1994,7 +1994,7 @@ function _AdvancedContent() {
               value={settings.claudeUrl}
               onChange={(e) => validateAndUpdateUrl(e.target.value)}
               className="h-8 w-full rounded-lg border-primary-200 text-sm"
-              aria-label="Hermes Agent URL"
+              aria-label="NasTech Agent URL"
               aria-invalid={!!urlError}
               aria-describedby={urlError ? urlErrorId : undefined}
             />
@@ -2092,7 +2092,7 @@ function AgentBehaviorContent() {
   const [msg, setMsg] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/hermes-config')
+    fetch('/api/nastech-config')
       .then((r) => r.json())
       .then((d: any) => {
         setConfig((d.config?.agent as Record<string, unknown>) || {})
@@ -2103,7 +2103,7 @@ function AgentBehaviorContent() {
   const save = async (key: string, value: unknown) => {
     setMsg(null)
     try {
-      await fetch('/api/hermes-config', {
+      await fetch('/api/nastech-config', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ config: { agent: { [key]: value } } }),
@@ -2182,7 +2182,7 @@ function VoiceContent() {
   const [msg, setMsg] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/hermes-config')
+    fetch('/api/nastech-config')
       .then((r) => r.json())
       .then((d: any) => {
         setTts((d.config?.tts as Record<string, unknown>) || {})
@@ -2194,7 +2194,7 @@ function VoiceContent() {
   const saveTts = async (key: string, value: unknown) => {
     setMsg(null)
     try {
-      await fetch('/api/hermes-config', {
+      await fetch('/api/nastech-config', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ config: { tts: { [key]: value } } }),
@@ -2210,7 +2210,7 @@ function VoiceContent() {
   const saveStt = async (key: string, value: unknown) => {
     setMsg(null)
     try {
-      await fetch('/api/hermes-config', {
+      await fetch('/api/nastech-config', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ config: { stt: { [key]: value } } }),
@@ -2352,7 +2352,7 @@ function DisplayContent() {
   const [msg, setMsg] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/hermes-config')
+    fetch('/api/nastech-config')
       .then((r) => r.json())
       .then((d: any) => {
         setConfig((d.config?.display as Record<string, unknown>) || {})
@@ -2363,7 +2363,7 @@ function DisplayContent() {
   const save = async (key: string, value: unknown) => {
     setMsg(null)
     try {
-      await fetch('/api/hermes-config', {
+      await fetch('/api/nastech-config', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ config: { display: { [key]: value } } }),
@@ -2474,7 +2474,7 @@ function LanguageContent() {
 // ── Main Dialog ─────────────────────────────────────────────────────────
 
 const CONTENT_MAP: Record<SectionId, () => React.JSX.Element> = {
-  claude: HermesContent,
+  claude: NasTechContent,
   agent: AgentBehaviorContent,
   voice: VoiceContent,
   display: DisplayContent,
@@ -2521,7 +2521,7 @@ export function SettingsDialog({
                 Settings
               </DialogTitle>
               <DialogDescription className="sr-only">
-                Configure Hermes Workspace
+                Configure NasTech Workspace
               </DialogDescription>
             </div>
             <DialogClose

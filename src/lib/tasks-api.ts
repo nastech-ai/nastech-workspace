@@ -2,21 +2,21 @@
  * Tasks API client with automatic backend detection.
  *
  * Two backend routes exist for task storage:
- *   /api/hermes-tasks  — flat-file store at ~/.hermes/tasks.json (used by agents/cron)
- *   /api/claude-tasks  — kanban-backend abstraction (local JSON, or Hermes Dashboard proxy)
+ *   /api/nastech-tasks  — flat-file store at ~/.nastech/tasks.json (used by agents/cron)
+ *   /api/claude-tasks  — kanban-backend abstraction (local JSON, or NasTech Dashboard proxy)
  *
  * On first fetch this module probes both in parallel and selects the backend that has
- * data. If both have data, hermes-tasks wins (it is the canonical agent task store).
+ * data. If both have data, nastech-tasks wins (it is the canonical agent task store).
  * The decision is cached for the page session so subsequent calls never re-probe.
  *
  * All mutations (create, update, move, delete, launch) route through the same resolved
  * backend so reads and writes are always consistent.
  */
 
-const HERMES_BASE = '/api/hermes-tasks'
+const NASTECH_BASE = '/api/nastech-tasks'
 const CLAUDE_BASE = '/api/claude-tasks'
 
-export type TasksBackend = 'hermes' | 'claude'
+export type TasksBackend = 'nastech' | 'claude'
 
 // --- Backend resolution -------------------------------------------------
 
@@ -48,20 +48,20 @@ async function resolveBackend(): Promise<BackendResolution> {
   if (_resolving) return _resolving
 
   _resolving = (async () => {
-    const [hermesCount, claudeCount] = await Promise.all([
-      probeBackend(HERMES_BASE),
+    const [nastechCount, claudeCount] = await Promise.all([
+      probeBackend(NASTECH_BASE),
       probeBackend(CLAUDE_BASE),
     ])
 
-    // Prefer hermes if it has real data (> 0); fall back to claude if hermes is
+    // Prefer nastech if it has real data (> 0); fall back to claude if nastech is
     // missing (returns -1 for non-JSON / route-not-found) or empty.
     // Default to claude when both are empty — it is the active backend after the
-    // hermes-tasks → claude-tasks route rename (commit efcb7d14).
-    const useHermes = hermesCount > 0 && hermesCount >= claudeCount
+    // nastech-tasks → claude-tasks route rename (commit efcb7d14).
+    const useNasTech = nastechCount > 0 && nastechCount >= claudeCount
     _resolved = {
-      base: useHermes ? HERMES_BASE : CLAUDE_BASE,
-      assigneesBase: useHermes ? '/api/hermes-tasks-assignees' : '/api/claude-tasks-assignees',
-      backend: useHermes ? 'hermes' : 'claude',
+      base: useNasTech ? NASTECH_BASE : CLAUDE_BASE,
+      assigneesBase: useNasTech ? '/api/nastech-tasks-assignees' : '/api/claude-tasks-assignees',
+      backend: useNasTech ? 'nastech' : 'claude',
     }
     return _resolved
   })()

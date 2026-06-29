@@ -9,7 +9,7 @@ import { Toast } from './components/toast'
 import { FpsCounter } from './components/fps-counter'
 import { KeyboardShortcutsOverlay } from './components/keyboard-shortcuts-overlay'
 import { PhotosensitiveWarningSplash } from './components/photosensitive-warning-splash'
-import { useHermesWorldSettings } from './components/hermesworld-settings'
+import { useNasTechWorldSettings } from './components/nastechworld-settings'
 import { usePlaygroundRpg } from './hooks/use-playground-rpg'
 import { playgroundAudio, usePlaygroundAudioMuted } from './lib/playground-audio'
 import { autoNarrateWorld, cancelNarration, isNarrationMuted, narrateWorldNow, setNarrationMuted } from './lib/playground-narration'
@@ -40,7 +40,7 @@ const WORLD_META: Record<PlaygroundWorldId, { name: string; accent: string }> = 
   arena: { name: 'Benchmark Arena', accent: '#fb7185' },
 }
 
-const FORGE_INTRO_STORAGE_KEY = 'hermes-playground-forge-intro-seen'
+const FORGE_INTRO_STORAGE_KEY = 'nastech-playground-forge-intro-seen'
 const FORGE_FALLBACK_FLAVOR =
   'The Forge wakes with a lattice of cyan sparks as half-finished tools hum themselves into being around you.'
 
@@ -71,7 +71,7 @@ class PlaygroundErrorBoundary extends Component<
 export function PlaygroundScreen() {
   const rpg = usePlaygroundRpg()
   const audioMuted = usePlaygroundAudioMuted()
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const [launched, setLaunched] = useState(false)
   const [world, setWorld] = useState<PlaygroundWorldId>(rpg.state.playerProfile.lastZone)
   const [dialogNpc, setDialogNpc] = useState<string | null>(null)
@@ -108,15 +108,15 @@ export function PlaygroundScreen() {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     const fromUrl = params.get('admin') === '1'
-    const fromStorage = window.localStorage.getItem('hermes-playground-admin') === '1'
+    const fromStorage = window.localStorage.getItem('nastech-playground-admin') === '1'
     setAdminMode(fromUrl || fromStorage)
   }, [])
   const toggleAdminMode = () => {
     setAdminMode((prev) => {
       const next = !prev
       if (typeof window !== 'undefined') {
-        if (next) window.localStorage.setItem('hermes-playground-admin', '1')
-        else window.localStorage.removeItem('hermes-playground-admin')
+        if (next) window.localStorage.setItem('nastech-playground-admin', '1')
+        else window.localStorage.removeItem('nastech-playground-admin')
       }
       return next
     })
@@ -198,8 +198,8 @@ export function PlaygroundScreen() {
       setOnboardingHintOpen(true)
       const id = window.setTimeout(() => setOnboardingHintOpen(false), 8000)
       const onJump = () => setOnboardingHintOpen(false)
-      window.addEventListener('hermesworld-player-jumped', onJump, { once: true })
-      return () => { window.clearTimeout(id); window.removeEventListener('hermesworld-player-jumped', onJump) }
+      window.addEventListener('nastechworld-player-jumped', onJump, { once: true })
+      return () => { window.clearTimeout(id); window.removeEventListener('nastechworld-player-jumped', onJump) }
     }
   }, [activeQuest?.id, rpg.state.playerProfile.questProgress, rpg.state.completedQuests])
 
@@ -281,8 +281,8 @@ export function PlaygroundScreen() {
   }, [world])
 
   useEffect(() => {
-    ;(window as any).__hermesPlaygroundOpenDialog = (id: string) => setDialogNpc(id)
-    return () => { try { delete (window as any).__hermesPlaygroundOpenDialog } catch {} }
+    ;(window as any).__nastechPlaygroundOpenDialog = (id: string) => setDialogNpc(id)
+    return () => { try { delete (window as any).__nastechPlaygroundOpenDialog } catch {} }
   }, [])
 
   useEffect(() => {
@@ -380,10 +380,10 @@ export function PlaygroundScreen() {
     // Speech bubble over our own head too, so we see what we said in-world.
     try {
       window.dispatchEvent(
-        new CustomEvent('hermes-playground-self-chat-bubble', { detail: body }),
+        new CustomEvent('nastech-playground-self-chat-bubble', { detail: body }),
       )
     } catch {}
-    try { (window as any).__hermesPlaygroundSendChat?.(body) } catch {}
+    try { (window as any).__nastechPlaygroundSendChat?.(body) } catch {}
   }
 
   function handleIncomingChat(msg: { id: string; name: string; color: string; text: string; ts: number }) {
@@ -426,7 +426,7 @@ export function PlaygroundScreen() {
         return attackMonster(10 + Math.floor(Math.random() * 4))
       case 'dash':
         rpg.useMp(8)
-        window.dispatchEvent(new CustomEvent('hermes-playground-dash'))
+        window.dispatchEvent(new CustomEvent('nastech-playground-dash'))
         return true
       case 'bolt':
         rpg.useMp(15)
@@ -435,7 +435,7 @@ export function PlaygroundScreen() {
         rpg.useMp(20)
         // Spawn a 60-second familiar via custom event — the world component listens.
         window.dispatchEvent(
-          new CustomEvent('hermes-playground-summon-familiar', {
+          new CustomEvent('nastech-playground-summon-familiar', {
             detail: { durationMs: 60000, color: '#a78bfa' },
           }),
         )
@@ -879,10 +879,10 @@ function MobileAbilityControls() {
   const [crouching, setCrouching] = useState(false)
   const emitCrouch = (active: boolean) => {
     setCrouching(active)
-    try { window.dispatchEvent(new CustomEvent('hermesworld-mobile-crouch', { detail: { active } })) } catch {}
+    try { window.dispatchEvent(new CustomEvent('nastechworld-mobile-crouch', { detail: { active } })) } catch {}
   }
   const jump = () => {
-    try { window.dispatchEvent(new CustomEvent('hermesworld-mobile-jump')) } catch {}
+    try { window.dispatchEvent(new CustomEvent('nastechworld-mobile-jump')) } catch {}
   }
   return (
     <>
@@ -976,12 +976,12 @@ function TitleScreen({
               }}
             >
               <span style={{ color: '#facc15' }}>✦</span>
-              Hermes Agent Realm
+              NasTech Agent Realm
               <span className="opacity-60">· Nous Research × Kimi</span>
             </div>
             <img
-              src="/assets/hermesworld/art/hermesworld-logo-horizontal.svg"
-              alt="HermesWorld"
+              src="/assets/nastechworld/art/nastechworld-logo-horizontal.svg"
+              alt="NasTechWorld"
               width={760}
               height={228}
               fetchPriority="high"
@@ -1015,7 +1015,7 @@ function TitleScreen({
             </div>
             <p className="mt-5 max-w-[560px] text-[15px] leading-relaxed text-white/72">
               {displayName.trim().length === 0
-                ? 'Step into a shared world of Hermes agents. Train, build, and quest with builders worldwide.'
+                ? 'Step into a shared world of NasTech agents. Train, build, and quest with builders worldwide.'
                 : tutorialComplete
                   ? `Welcome back, ${displayName}. Six worlds await.`
                   : `${displayName}, your training awaits. Six worlds. One builder. Forge your path.`}
@@ -1082,7 +1082,7 @@ function TitleScreen({
             <div className="grid gap-2 text-[12px] sm:grid-cols-3">
               <PremiumFeatureCard icon="❁" title="Six Worlds" desc="Training Grounds → Forge → Arena" />
               <PremiumFeatureCard icon="⛔" title="Live Multiplayer" desc="Walk with builders worldwide" />
-              <PremiumFeatureCard icon="🔮" title="Hermes Skills" desc="Promptcraft · Memory · Diplomacy" />
+              <PremiumFeatureCard icon="🔮" title="NasTech Skills" desc="Promptcraft · Memory · Diplomacy" />
             </div>
           </div>
 
@@ -1098,7 +1098,7 @@ function TitleScreen({
             </div>
             <ol className="mt-4 space-y-3 text-[13px]">
               {[
-                'Meet Athena. Claim the Hermes Sigil.',
+                'Meet Athena. Claim the NasTech Sigil.',
                 'Equip your kit at the Quartermaster.',
                 'Send your first chat message.',
                 'Visit the Archive Podium.',
@@ -1132,11 +1132,11 @@ function TitleStars() {
           background:
             'radial-gradient(1px 1px at 20% 30%, white 50%, transparent), radial-gradient(1px 1px at 70% 60%, white 50%, transparent), radial-gradient(1px 1px at 40% 80%, rgba(245,217,122,0.7) 50%, transparent), radial-gradient(2px 2px at 85% 15%, rgba(34,211,238,0.6) 50%, transparent), radial-gradient(1px 1px at 10% 75%, white 50%, transparent), radial-gradient(1.5px 1.5px at 55% 25%, rgba(168,85,247,0.5) 50%, transparent)',
           backgroundSize: '600px 600px',
-          animation: 'hermesworld-stars 90s linear infinite',
+          animation: 'nastechworld-stars 90s linear infinite',
         }}
       />
       <style>{`
-        @keyframes hermesworld-stars {
+        @keyframes nastechworld-stars {
           0% { transform: translate(0, 0); }
           100% { transform: translate(-600px, -300px); }
         }
@@ -1184,7 +1184,7 @@ function ArchiveBriefingModal({
         <div className="mt-1 text-xl font-extrabold">Docs and Memory Loop</div>
         <div className="mt-4 space-y-3 text-sm text-white/80">
           <p><strong>Docs:</strong> `docs/playground/README.md` explains the worlds, systems, and multiplayer wiring.</p>
-          <p><strong>Memory:</strong> Hermes saves project intent in `memory/goals/...` so the next iteration starts with context, recall, and less drift.</p>
+          <p><strong>Memory:</strong> NasTech saves project intent in `memory/goals/...` so the next iteration starts with context, recall, and less drift.</p>
           <p><strong>Builder habit:</strong> read the spec, inspect the state shape, ship the smallest slice, then verify with a clean build.</p>
         </div>
         <div className="mt-5 flex justify-end gap-2">
@@ -1220,7 +1220,7 @@ function TutorialCompleteModal({
             <li>Starter gear and loadout basics</li>
             <li>Local chat and nearby builders</li>
             <li>Docs, memory, and briefing recall</li>
-            <li>How Hermes turns prompts into builds</li>
+            <li>How NasTech turns prompts into builds</li>
           </ul>
         </div>
         <div className="mt-4 flex justify-end gap-2">
@@ -1279,7 +1279,7 @@ function NearbyBuildersChip({ players }: { players: Array<RemotePlayer> }) {
             type="button"
             onClick={() => {
               setPingedId(player.id)
-              window.dispatchEvent(new CustomEvent('hermes-playground-ping-remote', { detail: player.id }))
+              window.dispatchEvent(new CustomEvent('nastech-playground-ping-remote', { detail: player.id }))
               window.setTimeout(() => setPingedId((current) => (current === player.id ? null : current)), 2000)
             }}
             className="flex w-full items-center justify-between rounded-xl border border-white/8 bg-white/5 px-2 py-1.5 text-left hover:bg-white/10"
@@ -1306,11 +1306,11 @@ function LowHpOverlay({ active }: { active: boolean }) {
         opacity: active ? 1 : 0,
         background:
           'radial-gradient(circle at center, transparent 56%, rgba(127,29,29,0.16) 76%, rgba(153,27,27,0.32) 100%)',
-        animation: active ? 'hermes-low-hp-pulse 2.8s ease-in-out infinite' : 'none',
+        animation: active ? 'nastech-low-hp-pulse 2.8s ease-in-out infinite' : 'none',
       }}
     >
       <style>{`
-        @keyframes hermes-low-hp-pulse {
+        @keyframes nastech-low-hp-pulse {
           0%, 100% { opacity: 0.68; }
           50% { opacity: 1; }
         }
@@ -1330,8 +1330,8 @@ function CameraPresetToast() {
       const id = window.setTimeout(() => setName(null), 1400)
       return () => window.clearTimeout(id)
     }
-    window.addEventListener('hermes-playground-camera-preset', onPreset)
-    return () => window.removeEventListener('hermes-playground-camera-preset', onPreset)
+    window.addEventListener('nastech-playground-camera-preset', onPreset)
+    return () => window.removeEventListener('nastech-playground-camera-preset', onPreset)
   }, [])
   if (!name) return null
   return (
@@ -1343,25 +1343,25 @@ function CameraPresetToast() {
   )
 }
 
-const HERMES_LORE_LINES = [
-  'Hermes carried prompts between the gods of Olympus and the builders of Earth.',
-  'A Hermes Agent is just a fast, faithful messenger — with memory.',
+const NASTECH_LORE_LINES = [
+  'NasTech carried prompts between the gods of Olympus and the builders of Earth.',
+  'A NasTech Agent is just a fast, faithful messenger — with memory.',
   'Promptcraft is the first skill. Diplomacy is the last.',
   'Build small. Ship now. Iterate at the speed of intent.',
   'Memory turns moments into a story. Story turns a tool into a teammate.',
   'The Forge is where prompts harden into tools. The Arena is where they earn their keep.',
   'Six worlds. One builder. Forge your path.',
-  'Every NPC here teaches a real Hermes Agent skill. Listen.',
+  'Every NPC here teaches a real NasTech Agent skill. Listen.',
   'Routing is the art of choosing the right tool, the right model, the right moment.',
   'You are not alone. The Agora is full of builders walking the same road.',
 ]
 
-/** Loading screen shown during world transitions — rotating Hermes lore + spinner. */
+/** Loading screen shown during world transitions — rotating NasTech lore + spinner. */
 function TransitionLoadingScreen({ active, worldName }: { active: boolean; worldName: string }) {
-  const [lore, setLore] = useState(HERMES_LORE_LINES[0])
+  const [lore, setLore] = useState(NASTECH_LORE_LINES[0])
   useEffect(() => {
     if (!active) return
-    setLore(HERMES_LORE_LINES[Math.floor(Math.random() * HERMES_LORE_LINES.length)])
+    setLore(NASTECH_LORE_LINES[Math.floor(Math.random() * NASTECH_LORE_LINES.length)])
   }, [active])
   return (
     <div
@@ -1402,7 +1402,7 @@ function TransitionLoadingScreen({ active, worldName }: { active: boolean; world
               className="h-full rounded-full"
               style={{
                 background: 'linear-gradient(90deg, transparent, #facc15, transparent)',
-                animation: 'hermes-loading-bar 1.4s linear infinite',
+                animation: 'nastech-loading-bar 1.4s linear infinite',
                 width: '40%',
               }}
             />
@@ -1412,7 +1412,7 @@ function TransitionLoadingScreen({ active, worldName }: { active: boolean; world
           “{lore}”
         </p>
       </div>
-      <style>{`@keyframes hermes-loading-bar { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }`}</style>
+      <style>{`@keyframes nastech-loading-bar { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }`}</style>
     </div>
   )
 }
@@ -1470,7 +1470,7 @@ function PlaygroundUtilityDock({
       const dataUrl = (canvas).toDataURL('image/png')
       const a = document.createElement('a')
       a.href = dataUrl
-      a.download = `hermesworld-${new Date().toISOString().replace(/[:.]/g, '-')}.png`
+      a.download = `nastechworld-${new Date().toISOString().replace(/[:.]/g, '-')}.png`
       a.click()
     } catch {}
   }
@@ -1547,7 +1547,7 @@ function RouteFallback() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#050b12] p-6 text-white">
       <div className="max-w-[520px] rounded-3xl border border-amber-300/25 bg-[#070b14] p-5 shadow-2xl">
-        <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-amber-200/80">HermesWorld</div>
+        <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-amber-200/80">NasTechWorld</div>
         <div className="mt-1 text-xl font-extrabold">Route fallback active</div>
         <p className="mt-3 text-sm text-white/75">
           The 3D route failed to render in this browser context. Reload the page or open `/agora` for the lightweight fallback.

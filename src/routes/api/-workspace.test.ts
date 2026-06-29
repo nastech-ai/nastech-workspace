@@ -14,13 +14,13 @@ async function makeDir(...parts: Array<string>) {
 }
 
 beforeEach(async () => {
-  tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'hermes-workspace-route-'))
+  tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'nastech-workspace-route-'))
   process.env = { ...originalEnv }
-  process.env.HERMES_HOME = path.join(tempRoot, '.hermes')
-  delete process.env.HERMES_WORKSPACE_DIR
+  process.env.NASTECH_HOME = path.join(tempRoot, '.nastech')
+  delete process.env.NASTECH_WORKSPACE_DIR
   delete process.env.CLAUDE_WORKSPACE_DIR
-  delete process.env.HERMES_WEBUI_DEFAULT_WORKSPACE
-  await fs.mkdir(process.env.HERMES_HOME, { recursive: true })
+  delete process.env.NASTECH_WEBUI_DEFAULT_WORKSPACE
+  await fs.mkdir(process.env.NASTECH_HOME, { recursive: true })
 })
 
 afterEach(async () => {
@@ -29,10 +29,10 @@ afterEach(async () => {
 })
 
 describe('workspace API catalog semantics', () => {
-  it('uses the Hermes profile default workspace instead of ~/.hermes state', async () => {
+  it('uses the NasTech profile default workspace instead of ~/.nastech state', async () => {
     const project = await makeDir(tempRoot, 'workspace')
     await fs.writeFile(
-      path.join(process.env.HERMES_HOME!, 'config.yaml'),
+      path.join(process.env.NASTECH_HOME!, 'config.yaml'),
       `default_workspace: ${JSON.stringify(project)}\n`,
       'utf-8',
     )
@@ -47,34 +47,34 @@ describe('workspace API catalog semantics', () => {
       last: project,
     })
     expect(catalog.workspaces).toEqual([{ name: 'Home', path: project }])
-    expect(catalog.path).not.toBe(process.env.HERMES_HOME)
+    expect(catalog.path).not.toBe(process.env.NASTECH_HOME)
   })
 
-  it('ignores legacy persisted Hermes state paths as workspaces', async () => {
+  it('ignores legacy persisted NasTech state paths as workspaces', async () => {
     const project = await makeDir(tempRoot, 'workspace')
     await fs.writeFile(
-      path.join(process.env.HERMES_HOME!, 'config.yaml'),
+      path.join(process.env.NASTECH_HOME!, 'config.yaml'),
       `default_workspace: ${JSON.stringify(project)}
 `,
       'utf-8',
     )
-    await fs.mkdir(path.join(process.env.HERMES_HOME!, 'webui_state'), {
+    await fs.mkdir(path.join(process.env.NASTECH_HOME!, 'webui_state'), {
       recursive: true,
     })
     await fs.writeFile(
-      path.join(process.env.HERMES_HOME!, 'webui_state', 'workspaces.json'),
+      path.join(process.env.NASTECH_HOME!, 'webui_state', 'workspaces.json'),
       JSON.stringify({
         workspaces: [
-          { name: 'Bad Hermes Home', path: process.env.HERMES_HOME },
+          { name: 'Bad NasTech Home', path: process.env.NASTECH_HOME },
           { name: 'Home', path: project },
         ],
-        last: process.env.HERMES_HOME,
+        last: process.env.NASTECH_HOME,
       }),
       'utf-8',
     )
     await fs.writeFile(
-      path.join(process.env.HERMES_HOME!, 'webui_state', 'last_workspace.txt'),
-      `${process.env.HERMES_HOME}
+      path.join(process.env.NASTECH_HOME!, 'webui_state', 'last_workspace.txt'),
+      `${process.env.NASTECH_HOME}
 `,
       'utf-8',
     )
@@ -85,9 +85,9 @@ describe('workspace API catalog semantics', () => {
     expect(catalog.workspaces).toEqual([{ name: 'Home', path: project }])
   })
 
-  it('rejects manual selection of Hermes state directories', async () => {
+  it('rejects manual selection of NasTech state directories', async () => {
     await expect(
-      saveWorkspaceSelection({ path: process.env.HERMES_HOME!, name: 'State' }),
+      saveWorkspaceSelection({ path: process.env.NASTECH_HOME!, name: 'State' }),
     ).rejects.toThrow('cannot be used as workspaces')
   })
 
@@ -97,10 +97,10 @@ describe('workspace API catalog semantics', () => {
     ).rejects.toThrow('System directories cannot be used as workspaces')
   })
 
-  it('honors CLAUDE_HOME as the profile root when HERMES_HOME is unset', async () => {
+  it('honors CLAUDE_HOME as the profile root when NASTECH_HOME is unset', async () => {
     const claudeHome = path.join(tempRoot, '.claude-home')
     const project = await makeDir(tempRoot, 'claude-workspace')
-    delete process.env.HERMES_HOME
+    delete process.env.NASTECH_HOME
     process.env.CLAUDE_HOME = claudeHome
     await fs.mkdir(claudeHome, { recursive: true })
     await fs.writeFile(
@@ -126,7 +126,7 @@ describe('workspace API catalog semantics', () => {
   it('persists the selected workspace in profile-local Web UI state', async () => {
     const homeProject = await makeDir(tempRoot, 'workspace')
     const selectedProject = await makeDir(tempRoot, 'client-app')
-    process.env.HERMES_WEBUI_DEFAULT_WORKSPACE = homeProject
+    process.env.NASTECH_WEBUI_DEFAULT_WORKSPACE = homeProject
 
     const saved = await saveWorkspaceSelection({
       path: selectedProject,
@@ -142,7 +142,7 @@ describe('workspace API catalog semantics', () => {
     await expect(
       fs.readFile(
         path.join(
-          process.env.HERMES_HOME!,
+          process.env.NASTECH_HOME!,
           'webui_state',
           'last_workspace.txt',
         ),

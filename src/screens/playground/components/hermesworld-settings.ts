@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 
-export const HERMESWORLD_SETTINGS_KEY = 'hermesworld:settings'
+export const NASTECHWORLD_SETTINGS_KEY = 'nastechworld:settings'
 
-export type HermesWorldSettings = {
+export type NasTechWorldSettings = {
   graphics: {
     renderDistance: 'low' | 'med' | 'high' | 'ultra'
     shadowQuality: 'low' | 'med' | 'high' | 'ultra'
@@ -35,7 +35,7 @@ export type HermesWorldSettings = {
   }
 }
 
-export const DEFAULT_HERMESWORLD_SETTINGS: HermesWorldSettings = {
+export const DEFAULT_NASTECHWORLD_SETTINGS: NasTechWorldSettings = {
   graphics: {
     renderDistance: 'high',
     shadowQuality: 'high',
@@ -84,20 +84,20 @@ export const DEFAULT_HERMESWORLD_SETTINGS: HermesWorldSettings = {
   },
 }
 
-function mergeSettings(value: Partial<HermesWorldSettings> | null): HermesWorldSettings {
+function mergeSettings(value: Partial<NasTechWorldSettings> | null): NasTechWorldSettings {
   return {
-    ...DEFAULT_HERMESWORLD_SETTINGS,
+    ...DEFAULT_NASTECHWORLD_SETTINGS,
     ...value,
-    graphics: { ...DEFAULT_HERMESWORLD_SETTINGS.graphics, ...value?.graphics },
-    performance: { ...DEFAULT_HERMESWORLD_SETTINGS.performance, ...value?.performance },
+    graphics: { ...DEFAULT_NASTECHWORLD_SETTINGS.graphics, ...value?.graphics },
+    performance: { ...DEFAULT_NASTECHWORLD_SETTINGS.performance, ...value?.performance },
     controls: {
-      ...DEFAULT_HERMESWORLD_SETTINGS.controls,
+      ...DEFAULT_NASTECHWORLD_SETTINGS.controls,
       ...value?.controls,
-      bindings: { ...DEFAULT_HERMESWORLD_SETTINGS.controls.bindings, ...value?.controls?.bindings },
+      bindings: { ...DEFAULT_NASTECHWORLD_SETTINGS.controls.bindings, ...value?.controls?.bindings },
     },
-    audio: { ...DEFAULT_HERMESWORLD_SETTINGS.audio, ...value?.audio },
-    display: { ...DEFAULT_HERMESWORLD_SETTINGS.display, ...value?.display },
-    accessibility: { ...DEFAULT_HERMESWORLD_SETTINGS.accessibility, ...value?.accessibility },
+    audio: { ...DEFAULT_NASTECHWORLD_SETTINGS.audio, ...value?.audio },
+    display: { ...DEFAULT_NASTECHWORLD_SETTINGS.display, ...value?.display },
+    accessibility: { ...DEFAULT_NASTECHWORLD_SETTINGS.accessibility, ...value?.accessibility },
   }
 }
 
@@ -105,7 +105,7 @@ function prefersReducedMotion() {
   try { return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches } catch { return false }
 }
 
-function withReducedMotionDefaults(settings: HermesWorldSettings, hasStoredSettings: boolean): HermesWorldSettings {
+function withReducedMotionDefaults(settings: NasTechWorldSettings, hasStoredSettings: boolean): NasTechWorldSettings {
   if (!prefersReducedMotion()) return settings
   if (hasStoredSettings) return settings
   return {
@@ -115,41 +115,41 @@ function withReducedMotionDefaults(settings: HermesWorldSettings, hasStoredSetti
   }
 }
 
-export function loadHermesWorldSettings(): HermesWorldSettings {
-  if (typeof window === 'undefined') return DEFAULT_HERMESWORLD_SETTINGS
+export function loadNasTechWorldSettings(): NasTechWorldSettings {
+  if (typeof window === 'undefined') return DEFAULT_NASTECHWORLD_SETTINGS
   try {
-    const raw = window.localStorage.getItem(HERMESWORLD_SETTINGS_KEY)
+    const raw = window.localStorage.getItem(NASTECHWORLD_SETTINGS_KEY)
     return withReducedMotionDefaults(mergeSettings(raw ? JSON.parse(raw) : null), !!raw)
   } catch {
-    return withReducedMotionDefaults(DEFAULT_HERMESWORLD_SETTINGS, false)
+    return withReducedMotionDefaults(DEFAULT_NASTECHWORLD_SETTINGS, false)
   }
 }
 
-export function applyHermesWorldSettings(settings: HermesWorldSettings) {
+export function applyNasTechWorldSettings(settings: NasTechWorldSettings) {
   if (typeof document === 'undefined') return
-  document.documentElement.style.setProperty('--hermesworld-ui-scale', String(settings.display.uiScale / 100))
-  document.documentElement.style.setProperty('--hermesworld-hud-opacity', String(settings.display.hudOpacity / 100))
-  document.documentElement.style.setProperty('--hermesworld-master-volume', String(settings.audio.master / 100))
+  document.documentElement.style.setProperty('--nastechworld-ui-scale', String(settings.display.uiScale / 100))
+  document.documentElement.style.setProperty('--nastechworld-hud-opacity', String(settings.display.hudOpacity / 100))
+  document.documentElement.style.setProperty('--nastechworld-master-volume', String(settings.audio.master / 100))
   document.documentElement.style.setProperty('--hw-flash-rate', settings.accessibility.photosensitiveMode ? '0s' : '1.5s')
-  document.documentElement.classList.toggle('hermesworld-photosensitive', settings.accessibility.photosensitiveMode)
-  document.documentElement.classList.toggle('hermesworld-reduced-motion', settings.performance.reducedMotion)
+  document.documentElement.classList.toggle('nastechworld-photosensitive', settings.accessibility.photosensitiveMode)
+  document.documentElement.classList.toggle('nastechworld-reduced-motion', settings.performance.reducedMotion)
 }
 
-export function saveHermesWorldSettings(settings: HermesWorldSettings) {
+export function saveNasTechWorldSettings(settings: NasTechWorldSettings) {
   if (typeof window === 'undefined') return
-  window.localStorage.setItem(HERMESWORLD_SETTINGS_KEY, JSON.stringify(settings))
-  applyHermesWorldSettings(settings)
-  window.dispatchEvent(new CustomEvent('hermesworld-settings-changed', { detail: settings }))
+  window.localStorage.setItem(NASTECHWORLD_SETTINGS_KEY, JSON.stringify(settings))
+  applyNasTechWorldSettings(settings)
+  window.dispatchEvent(new CustomEvent('nastechworld-settings-changed', { detail: settings }))
 }
 
-export function useHermesWorldSettings() {
-  const [settings, setSettings] = useState<HermesWorldSettings>(() => loadHermesWorldSettings())
+export function useNasTechWorldSettings() {
+  const [settings, setSettings] = useState<NasTechWorldSettings>(() => loadNasTechWorldSettings())
 
   useEffect(() => {
-    applyHermesWorldSettings(settings)
-    const onStorage = () => setSettings(loadHermesWorldSettings())
+    applyNasTechWorldSettings(settings)
+    const onStorage = () => setSettings(loadNasTechWorldSettings())
     const onChange = (event: Event) => {
-      const detail = (event as CustomEvent<HermesWorldSettings>).detail
+      const detail = (event as CustomEvent<NasTechWorldSettings>).detail
       if (detail) setSettings(detail)
     }
     const media = window.matchMedia?.('(prefers-reduced-motion: reduce)')
@@ -162,20 +162,20 @@ export function useHermesWorldSettings() {
       }))
     }
     window.addEventListener('storage', onStorage)
-    window.addEventListener('hermesworld-settings-changed', onChange)
+    window.addEventListener('nastechworld-settings-changed', onChange)
     media?.addEventListener?.('change', onMedia)
     return () => {
       window.removeEventListener('storage', onStorage)
-      window.removeEventListener('hermesworld-settings-changed', onChange)
+      window.removeEventListener('nastechworld-settings-changed', onChange)
       media?.removeEventListener?.('change', onMedia)
     }
   }, [settings])
 
   const update = useMemo(
-    () => (patch: (current: HermesWorldSettings) => HermesWorldSettings) => {
+    () => (patch: (current: NasTechWorldSettings) => NasTechWorldSettings) => {
       setSettings((current) => {
         const next = patch(current)
-        saveHermesWorldSettings(next)
+        saveNasTechWorldSettings(next)
         return next
       })
     },

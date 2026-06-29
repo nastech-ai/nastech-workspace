@@ -48,7 +48,7 @@ function stripChannelPrefix(text: string): string {
 }
 
 /**
- * Strip Hermes system metadata from user messages.
+ * Strip NasTech system metadata from user messages.
  * Removes [media attached: ...] blocks, image-send instructions,
  * and [Telegram/Signal/etc ...] headers, leaving just the user's text.
  */
@@ -286,7 +286,7 @@ export async function readError(res: Response): Promise<string> {
 }
 
 export const missingAuthMessage =
-  'Hermes Agent connection failed. Make sure Hermes Agent is running and HERMES_API_URL is set correctly.'
+  'NasTech Agent connection failed. Make sure NasTech Agent is running and NASTECH_API_URL is set correctly.'
 
 export function isMissingAuth(message: string): boolean {
   return message.includes(missingAuthMessage)

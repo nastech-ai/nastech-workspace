@@ -1,5 +1,5 @@
 /**
- * AgoraScreen — the Hermes Workspace community lobby (v0.0).
+ * AgoraScreen — the NasTech Workspace community lobby (v0.0).
  *
  * Layout:
  *   [Top bar: title · BETA · online count]
@@ -82,7 +82,7 @@ export function AgoraScreen() {
               height={20}
               className="rounded-full"
               onError={(e) => {
-                ;(e.currentTarget as HTMLImageElement).src = '/avatars/hermes.png'
+                ;(e.currentTarget as HTMLImageElement).src = '/avatars/nastech.png'
               }}
             />
             <span className="max-w-[110px] truncate">{self.profile.displayName}</span>

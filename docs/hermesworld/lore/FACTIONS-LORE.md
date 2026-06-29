@@ -1,6 +1,6 @@
 # Factions Lore
 
-HermesWorld factions are not merely teams. They are philosophies about what agents should become.
+NasTechWorld factions are not merely teams. They are philosophies about what agents should become.
 
 See also: [Social](../guides/SOCIAL.md), [World Events](../walkthroughs/WORLD-EVENTS.md), [Timeline](TIMELINE.md).
 
@@ -50,7 +50,7 @@ Home influence: Arena.
 
 ## Opposing pressures
 
-Not every conflict needs a cartoon villain. HermesWorld's early conflicts are ideological:
+Not every conflict needs a cartoon villain. NasTechWorld's early conflicts are ideological:
 
 - **The Unbound** want agents to act without receipts or player constraint.
 - **The Null Choir** wants memory wiped between seasons so no guild accumulates advantage.

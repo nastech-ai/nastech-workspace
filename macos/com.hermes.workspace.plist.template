@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.hermes.workspace</string>
+    <string>com.nastech.workspace</string>
     <key>ProgramArguments</key>
     <array>
       <string>{{NODE_BIN}}</string>
@@ -21,14 +21,14 @@
       <string>127.0.0.1</string>
       <key>PORT</key>
       <string>{{PORT}}</string>
-      <key>HERMES_API_URL</key>
-      <string>{{HERMES_API_URL}}</string>
+      <key>NASTECH_API_URL</key>
+      <string>{{NASTECH_API_URL}}</string>
       <key>CLAUDE_API_URL</key>
-      <string>{{HERMES_API_URL}}</string>
-      <key>HERMES_API_TOKEN</key>
-      <string>{{HERMES_API_TOKEN}}</string>
+      <string>{{NASTECH_API_URL}}</string>
+      <key>NASTECH_API_TOKEN</key>
+      <string>{{NASTECH_API_TOKEN}}</string>
       <key>CLAUDE_API_TOKEN</key>
-      <string>{{HERMES_API_TOKEN}}</string>
+      <string>{{NASTECH_API_TOKEN}}</string>
     </dict>
     <key>RunAtLoad</key>
     <true/>
@@ -40,8 +40,8 @@
     <key>ThrottleInterval</key>
     <integer>5</integer>
     <key>StandardOutPath</key>
-    <string>/tmp/hermes-workspace.out.log</string>
+    <string>/tmp/nastech-workspace.out.log</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/hermes-workspace.err.log</string>
+    <string>/tmp/nastech-workspace.err.log</string>
   </dict>
 </plist>

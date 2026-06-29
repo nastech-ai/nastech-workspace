@@ -20,7 +20,7 @@ const FEATURE_LABELS: Record<EnhancedFeature, string> = {
   jobs: 'Jobs',
   mcp: 'MCP Servers',
   mcpFallback: 'MCP Servers (config fallback)',
-  kanban: 'Kanban (Hermes plugin)',
+  kanban: 'Kanban (NasTech plugin)',
 }
 
 const FEATURE_PROBES: Record<EnhancedFeature, Array<string>> = {
@@ -67,7 +67,7 @@ export function getUnavailableReason(
   const probes = normalized
     ? FEATURE_PROBES[normalized].join(' or ')
     : '/api/gateway-status'
-  return `${getFeatureLabel(feature)} is not reachable through the local Hermes Workspace probes yet. Verify ${probes} before starting another gateway; if those endpoints pass, refresh or reprobe the Workspace UI.`
+  return `${getFeatureLabel(feature)} is not reachable through the local NasTech Workspace probes yet. Verify ${probes} before starting another gateway; if those endpoints pass, refresh or reprobe the Workspace UI.`
 }
 
 export function createCapabilityUnavailablePayload(

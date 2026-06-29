@@ -1,5 +1,5 @@
 /**
- * Hermes Playground multiplayer hub — Cloudflare Worker + Durable Object.
+ * NasTech Playground multiplayer hub — Cloudflare Worker + Durable Object.
  *
  * One Durable Object instance per "room" (currently global).
  *
@@ -569,7 +569,7 @@ export class PlaygroundHubV2 {
 
       // Send initial bootstrap (hello + count + presence snapshot + chat ring).
       try {
-        server.send(JSON.stringify({ kind: 'hello', server: 'hermes.playground.cf-worker.v2-hibernation', ts: Date.now() }))
+        server.send(JSON.stringify({ kind: 'hello', server: 'nastech.playground.cf-worker.v2-hibernation', ts: Date.now() }))
         server.send(this.countMessage())
         for (const p of this.presence.values()) {
           try { server.send(JSON.stringify(p)) } catch {}

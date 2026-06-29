@@ -1,7 +1,7 @@
 import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-import { getHermesRoot } from './claude-paths'
+import { getNasTechRoot } from './claude-paths'
 
 export type PersistedRunToolCall = {
   id: string
@@ -34,7 +34,7 @@ export type PersistedRunState = {
   errorMessage?: string
 }
 
-const RUNS_ROOT = path.join(getHermesRoot(), 'webui-mvp', 'runs')
+const RUNS_ROOT = path.join(getNasTechRoot(), 'webui-mvp', 'runs')
 const runUpdateQueues = new Map<string, Promise<void>>()
 
 function encodeSessionKey(sessionKey: string): string {

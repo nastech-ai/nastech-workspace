@@ -1,4 +1,4 @@
-# Hermes Playground — ship-ready checklist + multiplayer test plan
+# NasTech Playground — ship-ready checklist + multiplayer test plan
 
 Status: **branch local-only on `feat/agent-view-port-from-clawsuite`** (do not push without Eric approval).
 Latest commit: `13bc6e234`.
@@ -22,15 +22,15 @@ Latest commit: `13bc6e234`.
    - `tailscale serve --bg http://localhost:3005` → use the printed `https://aurora.tail***.ts.net` URL.
    - Or just use the public WS hub directly: anyone running their own copy of Playground will already meet you in the same shared world (the WS hub is global, the dev server is local-only).
 3. With the `.env` we just wrote, both clients connect to:
-   `wss://hermes-playground-ws.myaurora-agi.workers.dev/playground`
+   `wss://nastech-playground-ws.myaurora-agi.workers.dev/playground`
 4. Verify in the browser console: you should see one WebSocket connection to that URL and **no fallback to BroadcastChannel-only** (transport indicator shows "ws" or "both").
 
 ### Verify hub health from CLI
 ```bash
-curl https://hermes-playground-ws.myaurora-agi.workers.dev/health
+curl https://nastech-playground-ws.myaurora-agi.workers.dev/health
 # → {"ok":true,"online":N,"ts":...}
 
-curl https://hermes-playground-ws.myaurora-agi.workers.dev/stats
+curl https://nastech-playground-ws.myaurora-agi.workers.dev/stats
 # → {"online":N,"byWorld":{...},"peakToday":N,"peakDay":"..."}
 ```
 
@@ -41,11 +41,11 @@ curl https://hermes-playground-ws.myaurora-agi.workers.dev/stats
 | Surface | Status |
 | --- | --- |
 | Mouse camera (left/right/middle drag, wheel zoom) | ✅ |
-| Hermes statue + braziers + banners | ✅ Training, Agora, Forge, Arena |
+| NasTech statue + braziers + banners | ✅ Training, Agora, Forge, Arena |
 | Practice dummies + weapon racks | ✅ Trainer's Ring |
-| Knight-styled NPCs (helmet/plume/sword sheath) | ✅ Trainer, Recruiter, Hermes |
-| 5-step Hermes tutorial chain | ✅ |
-| Quest education panels (Hermes lesson + Why it matters) | ✅ |
+| Knight-styled NPCs (helmet/plume/sword sheath) | ✅ Trainer, Recruiter, NasTech |
+| 5-step NasTech tutorial chain | ✅ |
+| Quest education panels (NasTech lesson + Why it matters) | ✅ |
 | Action bar (Strike/Dash/Bolt) + cooldowns | ✅ |
 | Glitch Wisp training enemy | ✅ |
 | HUD: minimap, quest tracker, equip/inventory, HP/MP/SP/XP | ✅ |
@@ -76,7 +76,7 @@ curl https://hermes-playground-ws.myaurora-agi.workers.dev/stats
 | # | Beat | Time |
 | --- | --- | --- |
 | 1 | Title screen → display name → avatar → enter Training Grounds | 5s |
-| 2 | Slow orbit on **Hermes statue** at the center of Training Grounds | 5s |
+| 2 | Slow orbit on **NasTech statue** at the center of Training Grounds | 5s |
 | 3 | Talk to Athena → accept first quest | 8s |
 | 4 | Trainer's Ring: practice dummies + weapon racks + Glitch Wisp duel using `1` `2` `3` | 12s |
 | 5 | Quartermaster Tent → equip Training Blade + Novice Cloak | 6s |
@@ -85,8 +85,8 @@ curl https://hermes-playground-ws.myaurora-agi.workers.dev/stats
 | 8 | Forge: cyan-flame braziers, Pan + Chronos build dialog | 8s |
 | 9 | Map screen showing world graph | 4s |
 | 10 | Open second tab → multiplayer nameplate visible | 6s |
-| 11 | Quick cuts: Grove, Oracle, Arena (with Hermes referee + caduceus + 6-brazier ring) | 12s |
-| 12 | End on slow zoom-out from the Hermes statue with banners + braziers | 5s |
+| 11 | Quick cuts: Grove, Oracle, Arena (with NasTech referee + caduceus + 6-brazier ring) | 12s |
+| 12 | End on slow zoom-out from the NasTech statue with banners + braziers | 5s |
 | **Total** | | **~80s** |
 
 ---
@@ -106,7 +106,7 @@ curl https://hermes-playground-ws.myaurora-agi.workers.dev/stats
 | Symptom | Fix |
 | --- | --- |
 | Camera frozen / left-drag dead | Cmd+Shift+R; check console for WS errors; mouse-look effect is in `playground-world-3d.tsx` ~L939 |
-| Multiplayer nameplate missing | Check Network tab for `wss://hermes-playground-ws.*/playground`; `.env` must be loaded by Vite (restart dev if needed) |
+| Multiplayer nameplate missing | Check Network tab for `wss://nastech-playground-ws.*/playground`; `.env` must be loaded by Vite (restart dev if needed) |
 | Audio dead | Click anywhere first (browsers gate audio behind user gesture); check mute toggle in utility dock |
 | Quest stuck | Try `localStorage.removeItem('playerProfile'); location.reload()` |
 | WS hub down | Falls back to BroadcastChannel — same-browser MP still works |
@@ -118,12 +118,12 @@ curl https://hermes-playground-ws.myaurora-agi.workers.dev/stats
 
 When Eric explicitly OKs a push:
 ```bash
-cd /Users/aurora/.worktrees/hermes-playground-local
+cd /Users/aurora/.worktrees/nastech-playground-local
 git log --oneline feat/agent-view-port-from-controlsuite ^origin/main
 # Expect: ~6 commits including 0134c1b13, e2ff6bb05, c9268f77a, 94f861f6b, 13bc6e234
 
 git push origin feat/agent-view-port-from-controlsuite
-gh pr create --title "Hermes Playground: Training Grounds + multiplayer" \
+gh pr create --title "NasTech Playground: Training Grounds + multiplayer" \
              --body "$(cat memory/goals/2026-05-03-playground-training-grounds/iterations/006-showcase.md)"
 ```
 

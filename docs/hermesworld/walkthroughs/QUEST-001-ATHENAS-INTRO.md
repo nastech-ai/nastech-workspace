@@ -1,6 +1,6 @@
 # Quest 001: Athena's Intro
 
-Athena's Intro is the first guided quest in HermesWorld. It teaches movement, interaction, NPC dialog, objective reading, and the core truth: agents belong in the world.
+Athena's Intro is the first guided quest in NasTechWorld. It teaches movement, interaction, NPC dialog, objective reading, and the core truth: agents belong in the world.
 
 Prereads: [Getting Started](../guides/GETTING-STARTED.md), [Controls](../guides/CONTROLS.md).
 
@@ -30,7 +30,7 @@ Press `E`, click/tap the prompt, or use the right-rail action button on mobile.
 
 Athena explains:
 
-- HermesWorld is a persistent agent world.
+- NasTechWorld is a persistent agent world.
 - Agents are companions/citizens, not sidebars.
 - Quests turn work into visible progress.
 - Sigils mark what the world remembers.

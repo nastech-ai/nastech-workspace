@@ -54,11 +54,11 @@ const TOKENS: Record<
 function ToastStyles() {
   return (
     <style>{`
-      @keyframes hermes-toast-enter { from { opacity: 0; transform: translateY(-12px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-      @keyframes hermes-toast-glint { 0% { transform: translateX(-130%); } 100% { transform: translateX(180%); } }
-      .hermes-toast { position: relative; overflow: hidden; }
-      .hermes-toast::before { content: ''; position: absolute; top: 0; bottom: 0; width: 42%; left: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent); transform: translateX(-130%); animation: hermes-toast-glint 2.8s ease-in-out infinite; pointer-events: none; }
-      @media (max-width: 760px) { .hermes-toast-lane { top: 88px !important; width: min(76vw, 360px) !important; max-height: 28vh !important; } .hermes-toast { font-size: 12px !important; padding: 9px 11px !important; } }
+      @keyframes nastech-toast-enter { from { opacity: 0; transform: translateY(-12px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes nastech-toast-glint { 0% { transform: translateX(-130%); } 100% { transform: translateX(180%); } }
+      .nastech-toast { position: relative; overflow: hidden; }
+      .nastech-toast::before { content: ''; position: absolute; top: 0; bottom: 0; width: 42%; left: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent); transform: translateX(-130%); animation: nastech-toast-glint 2.8s ease-in-out infinite; pointer-events: none; }
+      @media (max-width: 760px) { .nastech-toast-lane { top: 88px !important; width: min(76vw, 360px) !important; max-height: 28vh !important; } .nastech-toast { font-size: 12px !important; padding: 9px 11px !important; } }
     `}</style>
   )
 }
@@ -75,7 +75,7 @@ export function Toast({
     <>
       <ToastStyles />
       <div
-        className={`hermes-toast ${className}`}
+        className={`nastech-toast ${className}`}
         data-rarity={rarity}
         style={{
           border: `2px solid ${t.border}`,
@@ -84,7 +84,7 @@ export function Toast({
           background: t.bg,
           color: '#fff7df',
           boxShadow: `0 16px 38px rgba(0,0,0,.55), 0 0 28px ${t.glow}, inset 0 1px 0 rgba(255,255,255,.16)`,
-          animation: 'hermes-toast-enter 180ms cubic-bezier(.2,.8,.2,1)',
+          animation: 'nastech-toast-enter 180ms cubic-bezier(.2,.8,.2,1)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>

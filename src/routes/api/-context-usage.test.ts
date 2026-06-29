@@ -69,7 +69,7 @@ describe('context usage estimation', () => {
     })
   })
 
-  it('resolves main to the canonical Hermes session id before reading runtime usage', async () => {
+  it('resolves main to the canonical NasTech session id before reading runtime usage', async () => {
     vi.mocked(listSessions).mockResolvedValue([
       {
         id: 'session-abc',
@@ -157,7 +157,7 @@ describe('context usage estimation', () => {
     )
   })
 
-  it('maps a mirrored local chat to the nearest real Hermes runtime session even when the runtime session has zero stored messages', async () => {
+  it('maps a mirrored local chat to the nearest real NasTech runtime session even when the runtime session has zero stored messages', async () => {
     vi.mocked(getLocalSession).mockReturnValue({
       id: 'local-mirror',
       model: null,

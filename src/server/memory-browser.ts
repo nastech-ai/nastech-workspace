@@ -24,10 +24,10 @@ function isBrowserMemoryPath(relativePath: string): boolean {
 }
 
 function normalizeWorkspaceRoot(): string {
-  // Honor HERMES_HOME when set (e.g. ~/.hermes-vanilla for running alongside prod).
-  // Fall back to ~/.hermes for the default install location.
-  const envHome = (process.env.HERMES_HOME || process.env.CLAUDE_HOME)?.trim()
-  const resolved = envHome ? path.resolve(envHome) : path.resolve(path.join(os.homedir(), '.hermes'))
+  // Honor NASTECH_HOME when set (e.g. ~/.nastech-vanilla for running alongside prod).
+  // Fall back to ~/.nastech for the default install location.
+  const envHome = (process.env.NASTECH_HOME || process.env.CLAUDE_HOME)?.trim()
+  const resolved = envHome ? path.resolve(envHome) : path.resolve(path.join(os.homedir(), '.nastech'))
   return resolved
 }
 

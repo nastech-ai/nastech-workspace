@@ -2,7 +2,7 @@
  * Live "agents online now" chip with connection-state indicator.
  *
  * Strategy:
- *   1. Prefer server-pushed count via `hermes-playground-count` CustomEvent
+ *   1. Prefer server-pushed count via `nastech-playground-count` CustomEvent
  *      (emitted by the multiplayer hook on every server `count` message).
  *      Zero polling, real-time.
  *   2. Fall back to one /stats fetch on mount if no WS push has arrived in
@@ -49,13 +49,13 @@ export function PlaygroundOnlineChip({ accent = '#34d399' }: { accent?: string }
       const detail = (ev as CustomEvent).detail as Transport
       if (detail) setTransport(detail)
     }
-    window.addEventListener('hermes-playground-count', onCount)
-    window.addEventListener('hermes-playground-transport', onTransport)
+    window.addEventListener('nastech-playground-count', onCount)
+    window.addEventListener('nastech-playground-transport', onTransport)
 
     // Pre-populate from window globals if hook fired before mount.
-    const cur = (window as any).__hermesPlaygroundLiveCount as Stats | undefined
+    const cur = (window as any).__nastechPlaygroundLiveCount as Stats | undefined
     if (cur) setStats(cur)
-    const curT = (window as any).__hermesPlaygroundLiveTransport as Transport | undefined
+    const curT = (window as any).__nastechPlaygroundLiveTransport as Transport | undefined
     if (curT) setTransport(curT)
 
     // Fallback: one-shot /stats fetch if no push arrives in 3s.
@@ -81,8 +81,8 @@ export function PlaygroundOnlineChip({ accent = '#34d399' }: { accent?: string }
     return () => {
       cancelled = true
       window.clearTimeout(fallbackId)
-      window.removeEventListener('hermes-playground-count', onCount)
-      window.removeEventListener('hermes-playground-transport', onTransport)
+      window.removeEventListener('nastech-playground-count', onCount)
+      window.removeEventListener('nastech-playground-transport', onTransport)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

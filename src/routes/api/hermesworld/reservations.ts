@@ -19,7 +19,7 @@ function requestBaseUrl(request: Request): string {
   return `${url.protocol}//${url.host}`
 }
 
-export const Route = createFileRoute('/api/hermesworld/reservations')({
+export const Route = createFileRoute('/api/nastechworld/reservations')({
   server: {
     handlers: {
       GET: async () => {

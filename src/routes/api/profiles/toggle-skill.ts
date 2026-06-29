@@ -7,7 +7,7 @@
  *
  * Writes `skills.disabled` in the *target profile's* config.yaml, not the
  * active profile's. Pairs with the per-profile skills GET proxy and
- * NousResearch/hermes-agent#25116.
+ * nastech-ai/nastech-agent#25116.
  */
 import { createFileRoute } from '@tanstack/react-router'
 import { json } from '@tanstack/react-start'

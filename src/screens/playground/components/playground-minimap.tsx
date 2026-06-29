@@ -66,7 +66,7 @@ export function PlaygroundMinimap({ worldId, worldName, worldAccent }: Props) {
     const sync = (now: number) => {
       if (now - last >= minFrameMs) {
         last = now
-        const player = (window as any).__hermesPlaygroundPlayerPos as { x?: number; z?: number } | undefined
+        const player = (window as any).__nastechPlaygroundPlayerPos as { x?: number; z?: number } | undefined
         const x = typeof player?.x === 'number' ? player.x : 0
         const z = typeof player?.z === 'number' ? player.z : 0
         setPlayerPos((prev) => (Math.abs(prev.x - x) < 0.15 && Math.abs(prev.z - z) < 0.15 ? prev : { x, z }))

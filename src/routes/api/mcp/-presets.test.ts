@@ -23,7 +23,7 @@ const VALID_SEED = {
 
 let homeDir: string
 let seedFile: string
-const originalHermesHome = process.env.HERMES_HOME
+const originalNasTechHome = process.env.NASTECH_HOME
 const originalSeedPath = process.env.MCP_PRESETS_SEED_PATH
 const originalPassword = process.env.CLAUDE_PASSWORD
 
@@ -44,18 +44,18 @@ async function loadRoute(): Promise<PresetsRouteModule> {
 
 beforeEach(() => {
   vi.resetModules()
-  homeDir = mkdtempSync(join(tmpdir(), 'hermes-presets-route-'))
-  const assetDir = mkdtempSync(join(tmpdir(), 'hermes-seed-route-'))
+  homeDir = mkdtempSync(join(tmpdir(), 'nastech-presets-route-'))
+  const assetDir = mkdtempSync(join(tmpdir(), 'nastech-seed-route-'))
   seedFile = join(assetDir, 'mcp-presets.seed.json')
   writeFileSync(seedFile, JSON.stringify(VALID_SEED))
-  process.env.HERMES_HOME = homeDir
+  process.env.NASTECH_HOME = homeDir
   process.env.MCP_PRESETS_SEED_PATH = seedFile
 })
 
 afterEach(() => {
   vi.restoreAllMocks()
-  if (originalHermesHome === undefined) delete process.env.HERMES_HOME
-  else process.env.HERMES_HOME = originalHermesHome
+  if (originalNasTechHome === undefined) delete process.env.NASTECH_HOME
+  else process.env.NASTECH_HOME = originalNasTechHome
   if (originalSeedPath === undefined) delete process.env.MCP_PRESETS_SEED_PATH
   else process.env.MCP_PRESETS_SEED_PATH = originalSeedPath
   if (originalPassword === undefined) delete process.env.CLAUDE_PASSWORD

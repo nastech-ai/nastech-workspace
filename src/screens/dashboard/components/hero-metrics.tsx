@@ -262,7 +262,7 @@ export function HeroMetrics({
         value: formatTokens(tokensTotal),
         sub: useAnalytics
           ? `${formatTokens(analytics!.cacheReadTokens)} cached`
-          : 'Hermes ledger',
+          : 'NasTech ledger',
         delta: useAnalytics ? deltaPct(tokCurr, tokPrev) : null,
         spark: useAnalytics ? dailyTokens : undefined,
         tone: 'var(--theme-accent-secondary)',

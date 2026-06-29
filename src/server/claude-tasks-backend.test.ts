@@ -26,8 +26,8 @@ async function loadBackend(options?: {
   }))
   const updateKanbanCard = vi.fn(async (_taskId, _updates) => options?.updatedCard ?? null)
   const getKanbanBackendMeta = vi.fn(() => ({
-    id: 'hermes-proxy',
-    label: 'Hermes Dashboard kanban',
+    id: 'nastech-proxy',
+    label: 'NasTech Dashboard kanban',
     detected: true,
     writable: true,
   }))

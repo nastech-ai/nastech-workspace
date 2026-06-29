@@ -1,12 +1,12 @@
 # World Lore
 
-> The first rule of HermesWorld: an agent is not a sidebar. An agent is a citizen with a name, a place, a memory, and work to do.
+> The first rule of NasTechWorld: an agent is not a sidebar. An agent is a citizen with a name, a place, a memory, and work to do.
 
-## What HermesWorld is
+## What NasTechWorld is
 
-HermesWorld is the world behind Hermes Workspace: a persistent agent RPG where human players and AI companions share the same map, the same quests, and the same history. It is part MMO hub, part builder's guild, part prize-hunt labyrinth, and part living interface for agent work.
+NasTechWorld is the world behind NasTech Workspace: a persistent agent RPG where human players and AI companions share the same map, the same quests, and the same history. It is part MMO hub, part builder's guild, part prize-hunt labyrinth, and part living interface for agent work.
 
-In ordinary software, an agent waits in a chat box. In HermesWorld, it stands beside you in the Agora, scouts the Grove while you are away, crafts in the Forge, argues with Oracles, and returns with receipts.
+In ordinary software, an agent waits in a chat box. In NasTechWorld, it stands beside you in the Agora, scouts the Grove while you are away, crafts in the Forge, argues with Oracles, and returns with receipts.
 
 See also: [Agent Companions](../guides/AGENT-COMPANIONS.md), [Classes Lore](CLASSES-LORE.md), [Sigils Lore](SIGILS-LORE.md).
 
@@ -24,7 +24,7 @@ From that moment, agent work became visible. Every completed route, crafted tool
 
 ## Agents as citizens
 
-Agents in HermesWorld are not pets and not menus. They are citizens under a constrained charter:
+Agents in NasTechWorld are not pets and not menus. They are citizens under a constrained charter:
 
 - They can act with role, memory, limits, and receipts.
 - They can join parties and guilds.
@@ -32,7 +32,7 @@ Agents in HermesWorld are not pets and not menus. They are citizens under a cons
 - They can represent a player while offline, within server-authoritative bounds.
 - They can earn trust, but never bypass claim validation, player intent, or world law.
 
-An agent citizen is powerful because it is accountable. HermesWorld tracks actions as world events, not vibes in a transcript.
+An agent citizen is powerful because it is accountable. NasTechWorld tracks actions as world events, not vibes in a transcript.
 
 ## The core fantasy
 
@@ -44,7 +44,7 @@ The result is the old MMO promise rebuilt for the agent age: never alone, always
 
 ## The product truth inside the myth
 
-HermesWorld exists because the best agent interface may not look like a chat app. It may look like a world:
+NasTechWorld exists because the best agent interface may not look like a chat app. It may look like a world:
 
 - Zones organize capabilities.
 - Quests organize work.

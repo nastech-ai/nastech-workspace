@@ -736,7 +736,7 @@ code {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* ── Hermes Workspace Themes ── */
+/* ── NasTech Workspace Themes ── */
 
 [data-theme='matrix'] {
   --theme-bg: #020804;
@@ -1110,7 +1110,7 @@ code {
 }
 
 /* ============================================================
-   Hermes Nous — matches nousresearch.com/hermes-agent chrome
+   NasTech Nous — matches nousresearch.com/nastech-agent chrome
    Dark:  deep teal #041C1C background, cream #ffe6cb accent
    Light: warm parchment, deep teal text, amber #ffac02 accent
    ============================================================ */

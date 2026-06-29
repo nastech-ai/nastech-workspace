@@ -13,7 +13,7 @@ describe('stt transcription helpers', () => {
     })
   })
 
-  it('resolves Groq transcription settings from config and hermes env', () => {
+  it('resolves Groq transcription settings from config and nastech env', () => {
     const result = resolveTranscriptionTarget(
       {
         stt: {

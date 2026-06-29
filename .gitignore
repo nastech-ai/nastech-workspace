@@ -149,6 +149,6 @@ workspace-final-markdown-review.md
 skills-bundle/
 
 # Local agent artifacts (audit dumps, temporary playwright scripts)
-.hermes/
+.nastech/
 .env.bak-*
 pr-triage-20260505-*/

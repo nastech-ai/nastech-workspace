@@ -20,7 +20,7 @@ export const Route = createFileRoute('/reserve')({
 })
 
 function ReserveRoute() {
-  usePageTitle('Reserve your HermesWorld name')
+  usePageTitle('Reserve your NasTechWorld name')
 
   const [desiredName, setDesiredName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,7 +37,7 @@ function ReserveRoute() {
 
   useEffect(() => {
     let cancelled = false
-    fetch('/api/hermesworld/reservations', { cache: 'no-store' })
+    fetch('/api/nastechworld/reservations', { cache: 'no-store' })
       .then(async (response) => {
         const payload = await response.json()
         if (!response.ok) throw new Error(payload.error || 'Failed to load counter')
@@ -62,7 +62,7 @@ function ReserveRoute() {
     event.preventDefault()
     setSubmitState({ status: 'submitting', message: null })
     try {
-      const response = await fetch('/api/hermesworld/reservations', {
+      const response = await fetch('/api/nastechworld/reservations', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -105,14 +105,14 @@ function ReserveRoute() {
 
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
         <section className="rounded-[2rem] border border-[#d9b35f]/24 bg-[#05080e]/82 p-7 shadow-[0_40px_140px_rgba(0,0,0,.52)] backdrop-blur-2xl sm:p-9">
-          <a href="/hermes-world" className="text-[11px] font-black uppercase tracking-[0.22em] text-[#d9b35f]/72 hover:text-[#f8e4ac]">
-            ← Back to HermesWorld
+          <a href="/nastech-world" className="text-[11px] font-black uppercase tracking-[0.22em] text-[#d9b35f]/72 hover:text-[#f8e4ac]">
+            ← Back to NasTechWorld
           </a>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#d9b35f]/30 bg-[#d9b35f]/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.22em] text-[#f8e4ac]">
             Name reservation live
           </div>
           <h1 className="mt-5 font-serif text-4xl font-bold leading-[0.92] tracking-[-0.05em] text-[#fff6df] sm:text-6xl">
-            Reserve your HermesWorld name before accounts launch.
+            Reserve your NasTechWorld name before accounts launch.
           </h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-[#d7d0bd]/68 sm:text-lg">
             Lock your desired handle now. We validate duplicates, profanity, and admin/system names server-side, then email you a confirmation link so the reservation can auto-bind when the account system goes live.
@@ -153,7 +153,7 @@ function ReserveRoute() {
               </div>
             </div>
             <div className="rounded-full border border-cyan-200/22 bg-cyan-200/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100/82">
-              hermes-world.ai/reserve
+              nastech-world.ai/reserve
             </div>
           </div>
 

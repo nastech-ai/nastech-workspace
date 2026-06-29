@@ -1,11 +1,11 @@
 /**
- * Reusable scenery primitives for Hermes Playground worlds.
+ * Reusable scenery primitives for NasTech Playground worlds.
  * All Three.js primitives — no external assets. Looks intentional + low-poly.
  */
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { useHermesWorldSettings } from './hermesworld-settings'
+import { useNasTechWorldSettings } from './nastechworld-settings'
 
 // Deterministic pseudo-random based on seed so layout is stable per render
 function rng(seed: number) {
@@ -419,7 +419,7 @@ export function LogPile({ position, rotation = 0 }: { position: [number, number,
 /* ── Fountain (Agora centerpiece) ── */
 export function Fountain({ position, accent = '#7dd3fc' }: { position: [number, number, number]; accent?: string }) {
   const splashRef = useRef<THREE.Mesh>(null)
-  const [settings] = useHermesWorldSettings()
+  const [settings] = useNasTechWorldSettings()
   const safeMotion = settings.accessibility.photosensitiveMode || settings.performance.reducedMotion
   useFrame(({ clock }) => {
     if (!splashRef.current || safeMotion) return

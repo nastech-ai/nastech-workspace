@@ -16,9 +16,9 @@ import { AVATAR_PRESETS, saveAvatarConfig, type AvatarConfig } from '../lib/avat
 
 export type PlaygroundRpg = ReturnType<typeof usePlaygroundRpg>
 
-export const PLAYGROUND_PROFILE_STORAGE_KEY = 'hermes-playground-player-profile'
-export const PLAYGROUND_DISPLAY_NAME_STORAGE_KEY = 'hermes-playground-display-name'
-export const PLAYGROUND_LEGACY_NAME_KEY = 'hermes-playground-builder-name'
+export const PLAYGROUND_PROFILE_STORAGE_KEY = 'nastech-playground-player-profile'
+export const PLAYGROUND_DISPLAY_NAME_STORAGE_KEY = 'nastech-playground-display-name'
+export const PLAYGROUND_LEGACY_NAME_KEY = 'nastech-playground-builder-name'
 
 const STORAGE_KEY = PLAYGROUND_PROFILE_STORAGE_KEY
 
@@ -56,7 +56,7 @@ const EMPTY_EQUIPPED = {
   artifact: null,
 } satisfies PlayerProfile['equipped']
 
-const STARTER_INVENTORY: PlaygroundItemId[] = ['hermes-sigil', 'training-blade', 'novice-cloak']
+const STARTER_INVENTORY: PlaygroundItemId[] = ['nastech-sigil', 'training-blade', 'novice-cloak']
 
 function defaultQuestProgress(): Record<string, QuestProgressEntry> {
   return Object.fromEntries(
@@ -73,7 +73,7 @@ function defaultQuestProgress(): Record<string, QuestProgressEntry> {
 function defaultProfile(): PlayerProfile {
   return {
     displayName: '',
-    avatarConfig: AVATAR_PRESETS.hermes,
+    avatarConfig: AVATAR_PRESETS.nastech,
     equipped: { ...EMPTY_EQUIPPED },
     inventory: [],
     questProgress: defaultQuestProgress(),

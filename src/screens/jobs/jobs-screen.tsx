@@ -513,7 +513,7 @@ export function JobsScreen() {
               />
               <p className="text-sm font-medium">No scheduled jobs</p>
               <p className="mt-1 text-xs">
-                No cron jobs found across Hermes profiles
+                No cron jobs found across NasTech profiles
               </p>
             </div>
           ) : (

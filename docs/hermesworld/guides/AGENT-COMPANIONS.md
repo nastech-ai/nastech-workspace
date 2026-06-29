@@ -1,6 +1,6 @@
 # Agent Companions
 
-Agent companions are the signature of HermesWorld. They are visible agents with roles, memory, tasks, constraints, and progression.
+Agent companions are the signature of NasTechWorld. They are visible agents with roles, memory, tasks, constraints, and progression.
 
 See also: [World Lore](../lore/WORLD-LORE.md), [Classes Lore](../lore/CLASSES-LORE.md), [Quest 002](../walkthroughs/QUEST-002-FIRST-COMPANION.md).
 
@@ -93,7 +93,7 @@ Limits:
 
 ## Trust model
 
-HermesWorld companions become powerful by being legible:
+NasTechWorld companions become powerful by being legible:
 
 - What did it do?
 - Why did it do it?

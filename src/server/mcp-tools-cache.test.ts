@@ -5,7 +5,7 @@
  *  - write → read roundtrip (disk file matches in-memory)
  *  - corrupt file → empty cache, no throw
  *  - TTL stale flag
- *  - HERMES_HOME override for path resolution
+ *  - NASTECH_HOME override for path resolution
  */
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest'
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -19,19 +19,19 @@ let tmpDir: string
 
 beforeEach(() => {
   tmpDir = mkdtempSync(join(tmpdir(), 'mcp-tools-cache-test-'))
-  process.env.HERMES_HOME = tmpDir
+  process.env.NASTECH_HOME = tmpDir
   vi.resetModules()
 })
 
 afterEach(() => {
-  delete process.env.HERMES_HOME
+  delete process.env.NASTECH_HOME
   delete process.env.MCP_TOOLS_CACHE_TTL_MS
   rmSync(tmpDir, { recursive: true, force: true })
   vi.resetModules()
 })
 
 async function loadCache() {
-  // Fresh module import after resetModules() so HERMES_HOME is picked up
+  // Fresh module import after resetModules() so NASTECH_HOME is picked up
   return import('./mcp-tools-cache')
 }
 
@@ -154,13 +154,13 @@ describe('TTL stale flag', () => {
 })
 
 // ---------------------------------------------------------------------------
-// HERMES_HOME override
+// NASTECH_HOME override
 // ---------------------------------------------------------------------------
 
-describe('HERMES_HOME override for path resolution', () => {
-  it('uses HERMES_HOME to resolve cache file path', async () => {
-    const customHome = mkdtempSync(join(tmpdir(), 'custom-hermes-'))
-    process.env.HERMES_HOME = customHome
+describe('NASTECH_HOME override for path resolution', () => {
+  it('uses NASTECH_HOME to resolve cache file path', async () => {
+    const customHome = mkdtempSync(join(tmpdir(), 'custom-nastech-'))
+    process.env.NASTECH_HOME = customHome
     vi.resetModules()
 
     const mod = await loadCache()

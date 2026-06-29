@@ -5,7 +5,7 @@ in the Playground. The portrait-chip nameplate stays the same.
 
 ## Recognized NPC ids
 
-`athena`, `apollo`, `iris`, `nike`, `pan`, `chronos`, `hermes`, `eros`
+`athena`, `apollo`, `iris`, `nike`, `pan`, `chronos`, `nastech`, `eros`
 
 Plus: `tavernkeeper`, `banker`, `trainer`, `innkeeper`, `apothecary`, `recruiter`, `shopkeeper`
 
@@ -20,7 +20,7 @@ Plus: `tavernkeeper`, `banker`, `trainer`, `innkeeper`, `apothecary`, `recruiter
    - `nike.glb` — "Greek goddess Nike of victory, winged warrior, bronze armor, stylized low-poly game character, T-pose, full body"
    - `pan.glb` — "Greek god Pan, satyr legs, panpipes, leather smith apron, stylized low-poly game character, T-pose, full body"
    - `chronos.glb` — "Personification of time as a Greek archivist, hourglass robe, long beard, stylized low-poly game character, T-pose, full body"
-   - `hermes.glb` — "Greek god Hermes, winged sandals, winged helmet, caduceus, traveler robe, stylized low-poly game character, T-pose, full body"
+   - `nastech.glb` — "Greek god NasTech, winged sandals, winged helmet, caduceus, traveler robe, stylized low-poly game character, T-pose, full body"
    - `eros.glb` — "Greek god Eros as an apothecary, bow on back, robe with vials, stylized low-poly game character, T-pose, full body"
 4. Refine to a "Stylized" or "Realistic" art style — pick whichever looks
    most consistent across the set. Recommend the *same* style for all 8.

@@ -1,12 +1,12 @@
-# HermesWorld Graphics + Usability Development Plan
+# NasTechWorld Graphics + Usability Development Plan
 
 Status: start now
 Owner: Eric / Aurora
-Stack: Hermes Workspace + React + Three.js / React Three Fiber
+Stack: NasTech Workspace + React + Three.js / React Three Fiber
 
 ## Goal
 
-Upgrade HermesWorld from "promising web demo" to "serious playable world" with:
+Upgrade NasTechWorld from "promising web demo" to "serious playable world" with:
 - stronger visual identity
 - much better usability
 - more believable characters
@@ -20,7 +20,7 @@ Do **not** switch engines now.
 Stay on:
 - **Three.js**
 - **React Three Fiber**
-- current Hermes Workspace integration
+- current NasTech Workspace integration
 
 Reason:
 - web shareability matters
@@ -64,7 +64,7 @@ Recommended order:
 2. **Mixamo** for animation clips
 3. export to **GLB**
 4. optimize materials / texture sizes for browser
-5. adapt wardrobe/colors to HermesWorld visual language
+5. adapt wardrobe/colors to NasTechWorld visual language
 
 ### Why this path
 - gets believable humans fast

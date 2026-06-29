@@ -2,7 +2,7 @@
  * Two-tier cache for MCP Hub source responses.
  *
  * Tier 1 — in-memory: 30 min TTL (env MCP_HUB_CACHE_TTL_MS overrides).
- * Tier 2 — disk: ~/.hermes/cache/mcp-hub/<source>.json, 24 h TTL.
+ * Tier 2 — disk: ~/.nastech/cache/mcp-hub/<source>.json, 24 h TTL.
  *
  * Disk writes are atomic via tmp+rename, mirroring the Phase 2 preset-store
  * pattern.
@@ -52,12 +52,12 @@ const DISK_TTL_MS = 24 * 60 * 60 * 1_000 // 24 h
 // Helpers
 // ------------------------------------------------------------------
 
-function hermesHome(): string {
-  return process.env.HERMES_HOME?.trim() || process.env.CLAUDE_HOME?.trim() || join(homedir(), '.hermes')
+function nastechHome(): string {
+  return process.env.NASTECH_HOME?.trim() || process.env.CLAUDE_HOME?.trim() || join(homedir(), '.nastech')
 }
 
 function cacheDir(): string {
-  return join(hermesHome(), 'cache', 'mcp-hub')
+  return join(nastechHome(), 'cache', 'mcp-hub')
 }
 
 function cacheFilePath(source: string): string {

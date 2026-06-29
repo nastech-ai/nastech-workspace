@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { HERMESWORLD_SETTINGS_KEY, loadHermesWorldSettings, saveHermesWorldSettings } from './hermesworld-settings'
+import { NASTECHWORLD_SETTINGS_KEY, loadNasTechWorldSettings, saveNasTechWorldSettings } from './nastechworld-settings'
 
-const WARNING_DISMISSED_KEY = 'hermesworld:photosensitive-warning-dismissed'
+const WARNING_DISMISSED_KEY = 'nastechworld:photosensitive-warning-dismissed'
 
 type Props = { onOpenSettings?: () => void }
 
@@ -23,15 +23,15 @@ export function PhotosensitiveWarningSplash({ onOpenSettings }: Props) {
     setOpen(false)
   }
   const enable = () => {
-    const current = loadHermesWorldSettings()
-    saveHermesWorldSettings({
+    const current = loadNasTechWorldSettings()
+    saveNasTechWorldSettings({
       ...current,
       performance: { ...current.performance, reducedMotion: true },
       accessibility: { ...current.accessibility, photosensitiveMode: true },
     })
     try {
-      const raw = window.localStorage.getItem(HERMESWORLD_SETTINGS_KEY)
-      if (raw) window.localStorage.setItem(HERMESWORLD_SETTINGS_KEY, raw)
+      const raw = window.localStorage.getItem(NASTECHWORLD_SETTINGS_KEY)
+      if (raw) window.localStorage.setItem(NASTECHWORLD_SETTINGS_KEY, raw)
     } catch {}
     dismiss()
     onOpenSettings?.()

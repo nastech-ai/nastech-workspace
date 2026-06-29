@@ -1,5 +1,5 @@
 /**
- * Agora — shared types for the Hermes Workspace community surface.
+ * Agora — shared types for the NasTech Workspace community surface.
  *
  * v0.0: local mock lobby with fake users.
  * v0.1+: same types will be used for real WebSocket multiplayer.
@@ -13,7 +13,7 @@ export type AgoraStatus = 'online' | 'away' | 'busy'
  * AgentView (see src/components/agent-view/avatar-options.ts).
  */
 export type AgoraAvatarId =
-  | 'hermes'
+  | 'nastech'
   | 'athena'
   | 'apollo'
   | 'artemis'
@@ -23,7 +23,7 @@ export type AgoraAvatarId =
   | 'pan'
   | 'chronos'
   | 'owl'
-  | 'hermes-cat'
+  | 'nastech-cat'
   | 'robot'
   | 'fox'
   | 'ghost'
@@ -41,7 +41,7 @@ export interface AgoraProfile {
   status: AgoraStatus
   /** Optional links (twitter, github, etc) */
   links?: { label: string; url: string }[]
-  /** Current activity hint, e.g. "Building Hermes Workspace" */
+  /** Current activity hint, e.g. "Building NasTech Workspace" */
   activity?: string
 }
 
@@ -83,11 +83,11 @@ export interface AgoraWorld {
 export const DEFAULT_WORLD: AgoraWorld = {
   id: 'agora-main',
   name: 'The Agora',
-  description: 'Default Hermes community lobby.',
+  description: 'Default NasTech community lobby.',
   width: 1200,
   height: 720,
   spawn: { x: 600, y: 360 },
   theme: 'agora',
 }
 
-export const AGORA_PROFILE_STORAGE_KEY = 'hermes-workspace-agora-profile'
+export const AGORA_PROFILE_STORAGE_KEY = 'nastech-workspace-agora-profile'

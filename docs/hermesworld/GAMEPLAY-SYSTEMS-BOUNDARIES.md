@@ -1,8 +1,8 @@
-# HermesWorld Lane B Gameplay Systems Boundaries
+# NasTechWorld Lane B Gameplay Systems Boundaries
 
 Status: implementation contract for parallel swarm workers
 Scope: quest, event, NPC state, inventory, rewards, and agent-action APIs
-Source: `docs/hermesworld/SWARM-GAME-ARCHITECTURE.md`
+Source: `docs/nastechworld/SWARM-GAME-ARCHITECTURE.md`
 
 ## Goal
 
@@ -109,7 +109,7 @@ MVP rule: keep item ids public and harmless. Anything valuable uses a hosted pri
 
 ## Agent action API boundary
 
-Agent actions are gameplay verbs that may call Hermes later. They must be request/response objects, not ad hoc component callbacks.
+Agent actions are gameplay verbs that may call NasTech later. They must be request/response objects, not ad hoc component callbacks.
 
 MVP actions:
 - `agent.ask_npc` — get dynamic NPC line/lore.
@@ -136,7 +136,7 @@ Agent action handler must not own:
 3. `inventory-rewards.ts` — pure reward application; migrate duplicate reward code out of hook.
 4. `quest-engine.ts` — pure event-to-objective/quest advancement.
 5. `npc-state.ts` — normalize dialog effects, once-only choices, relationship flags.
-6. `agent-actions.ts` — local mock handler first; server/Hermes call later.
+6. `agent-actions.ts` — local mock handler first; server/NasTech call later.
 7. Thin `usePlaygroundRpg` integration — hook becomes orchestration/glue, not game-law soup.
 
 ## Parallel-worker rules

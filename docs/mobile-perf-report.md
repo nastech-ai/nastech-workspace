@@ -1,4 +1,4 @@
-# HermesWorld mobile performance baseline
+# NasTechWorld mobile performance baseline
 
 Branch: `perf/mobile-bundle-split`
 Base: `origin/perf/playground-engine-pass-1`
@@ -33,7 +33,7 @@ Deferred chunks created by the static standalone split:
 | Playground route chunk raw | ~37.6 KB | ~37.7 KB | effectively flat |
 | Playground route chunk gzip | ~7.1 KB | ~7.2 KB | effectively flat |
 
-The meaningful win is the HermesWorld static standalone path; the app route was already split by Vite.
+The meaningful win is the NasTechWorld static standalone path; the app route was already split by Vite.
 
 ## Lighthouse mobile, local static server
 
@@ -72,7 +72,7 @@ Headless Chrome reports 120Hz RAF, so this is useful for relative frame-time reg
 
 | Asset | PNG | WebP | Delta |
 | --- | ---: | ---: | ---: |
-| `hermesworld-logo-horizontal@2x` | 137,541 B | 59,088 B | -78,453 B |
-| `hermesworld-logo-horizontal@3x` | 258,461 B | 98,076 B | -160,385 B |
-| `hermesworld-logo-stacked@2x` | 335,190 B | 99,954 B | -235,236 B |
-| `hermesworld-logo-stacked@3x` | 640,821 B | 161,012 B | -479,809 B |
+| `nastechworld-logo-horizontal@2x` | 137,541 B | 59,088 B | -78,453 B |
+| `nastechworld-logo-horizontal@3x` | 258,461 B | 98,076 B | -160,385 B |
+| `nastechworld-logo-stacked@2x` | 335,190 B | 99,954 B | -235,236 B |
+| `nastechworld-logo-stacked@3x` | 640,821 B | 161,012 B | -479,809 B |

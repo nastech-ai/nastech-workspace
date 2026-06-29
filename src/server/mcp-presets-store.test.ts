@@ -44,7 +44,7 @@ const VALID_SEED = {
 
 let homeDir: string
 let seedFile: string
-let originalHermesHome: string | undefined
+let originalNasTechHome: string | undefined
 let originalSeedPath: string | undefined
 
 function writeSeed(payload: unknown): void {
@@ -57,20 +57,20 @@ function writeUserFile(payload: unknown): void {
 }
 
 beforeEach(() => {
-  homeDir = mkdtempSync(join(tmpdir(), 'hermes-presets-'))
-  const assetDir = mkdtempSync(join(tmpdir(), 'hermes-seed-'))
+  homeDir = mkdtempSync(join(tmpdir(), 'nastech-presets-'))
+  const assetDir = mkdtempSync(join(tmpdir(), 'nastech-seed-'))
   seedFile = join(assetDir, 'mcp-presets.seed.json')
   writeSeed(VALID_SEED)
-  originalHermesHome = process.env.HERMES_HOME
+  originalNasTechHome = process.env.NASTECH_HOME
   originalSeedPath = process.env.MCP_PRESETS_SEED_PATH
-  process.env.HERMES_HOME = homeDir
+  process.env.NASTECH_HOME = homeDir
   process.env.MCP_PRESETS_SEED_PATH = seedFile
   __resetPresetsCacheForTests()
 })
 
 afterEach(() => {
-  if (originalHermesHome === undefined) delete process.env.HERMES_HOME
-  else process.env.HERMES_HOME = originalHermesHome
+  if (originalNasTechHome === undefined) delete process.env.NASTECH_HOME
+  else process.env.NASTECH_HOME = originalNasTechHome
   if (originalSeedPath === undefined) delete process.env.MCP_PRESETS_SEED_PATH
   else process.env.MCP_PRESETS_SEED_PATH = originalSeedPath
   rmSync(homeDir, { recursive: true, force: true })
@@ -257,9 +257,9 @@ describe('readPresets', () => {
     expect(r2.presets.length).toBe(2)
   })
 
-  it('honors HERMES_HOME override for the user file path', async () => {
-    const altHome = mkdtempSync(join(tmpdir(), 'hermes-alt-'))
-    process.env.HERMES_HOME = altHome
+  it('honors NASTECH_HOME override for the user file path', async () => {
+    const altHome = mkdtempSync(join(tmpdir(), 'nastech-alt-'))
+    process.env.NASTECH_HOME = altHome
     __resetPresetsCacheForTests()
     try {
       const result = await readPresets()
@@ -267,7 +267,7 @@ describe('readPresets', () => {
       expect(existsSync(join(altHome, 'mcp-presets.json'))).toBe(true)
     } finally {
       rmSync(altHome, { recursive: true, force: true })
-      process.env.HERMES_HOME = homeDir
+      process.env.NASTECH_HOME = homeDir
       __resetPresetsCacheForTests()
     }
   })

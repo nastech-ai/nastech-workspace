@@ -7,13 +7,13 @@ type AvatarProps = {
 }
 
 /**
- * Assistant avatar — Hermes Agent caduceus on Nous blue.
+ * Assistant avatar — NasTech Agent caduceus on Nous blue.
  */
 function AssistantAvatarComponent({ size = 28, className }: AvatarProps) {
   return (
     <img
       src="/claude-avatar.webp"
-      alt="Hermes Agent"
+      alt="NasTech Agent"
       className={cn('shrink-0', className)}
       style={{
         width: size,

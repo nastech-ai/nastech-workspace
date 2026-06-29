@@ -95,8 +95,8 @@ export type DashboardStatusSection = {
   configVersion: number | null
   /** Latest config schema the dashboard knows about. */
   latestConfigVersion: number | null
-  /** Resolved `HERMES_HOME` directory the dashboard reports. */
-  hermesHome: string | null
+  /** Resolved `NASTECH_HOME` directory the dashboard reports. */
+  nastechHome: string | null
 }
 
 export type DashboardPlatformEntry = {
@@ -230,7 +230,7 @@ export type BuildOverviewOptions = {
 }
 
 const DEFAULT_OPTIONS = {
-  // 30 days matches the native Hermes dashboard's default analytics
+  // 30 days matches the native NasTech dashboard's default analytics
   // window and gives the sparkline enough breathing room.
   analyticsWindowDays: 30,
   achievementsLimit: 3,
@@ -309,7 +309,7 @@ function normalizeStatus(
     releaseDate: readOptionalString(r.release_date),
     configVersion: readOptionalNumber(r.config_version),
     latestConfigVersion: readOptionalNumber(r.latest_config_version),
-    hermesHome: readOptionalString(r.hermes_home),
+    nastechHome: readOptionalString(r.nastech_home),
   }
 }
 
@@ -527,7 +527,7 @@ function normalizeSkillsUsage(
 ): DashboardSkillsUsageSection | null {
   if (!raw || typeof raw !== 'object') return null
   // Native shape: analytics payload's `skills` field is an object with
-  // `summary` and `top_skills` per the Hermes Agent confirmation.
+  // `summary` and `top_skills` per the NasTech Agent confirmation.
   const skillsRaw = (raw as Record<string, unknown>).skills
   if (!skillsRaw || typeof skillsRaw !== 'object') return null
   const s = skillsRaw as Record<string, unknown>
@@ -584,7 +584,7 @@ function normalizeAnalytics(
   if (!raw || typeof raw !== 'object') return null
   const r = raw as Record<string, unknown>
 
-  // Native Hermes dashboard shape:
+  // Native NasTech dashboard shape:
   //   { daily: [...], by_model: [...], totals: {...}, period_days, skills }
   // Older / synthetic shape may use total_tokens / top_models. Support both.
   const totalsRaw =
@@ -698,7 +698,7 @@ function normalizeAnalytics(
       } => entry !== null,
     )
 
-  // Cost-coverage trust label. The Hermes Agent confirmed that codex /
+  // Cost-coverage trust label. The NasTech Agent confirmed that codex /
   // anthropic-oauth / minimax sessions report cost 0 because they're
   // subscription-included, not because they cost zero dollars. Showing
   // a precise $0.052 with 247M tokens routed through OAuth providers is
@@ -785,7 +785,7 @@ function formatTokensCompact(n: number): string {
 
 /**
  * Strip namespace prefix on a skill id (e.g.
- * `autonomous-ai-agents:hermes-agent` -> `hermes-agent`). Mirrors the
+ * `autonomous-ai-agents:nastech-agent` -> `nastech-agent`). Mirrors the
  * Workspace `formatSkillName` helper but lives here so the aggregator
  * can produce already-pretty insight text.
  */
@@ -807,7 +807,7 @@ function shortModelName(raw: string): string {
 
 /**
  * Build server-side insight callouts so the UI can render them as-is.
- * Per the Hermes Agent guidance, computing this in the aggregator keeps
+ * Per the NasTech Agent guidance, computing this in the aggregator keeps
  * the UI dumb and lets us swap in a real anomaly endpoint later without
  * touching components.
  */
@@ -1081,7 +1081,7 @@ export type BuildOverviewExtraFetchers = {
   /**
    * Optional fetcher for the gateway runtime endpoint (`/health/detailed`).
    * Different host/port from the dashboard fetcher; lets the aggregator
-   * pick up the canonical `active_agents` value the Hermes Agent
+   * pick up the canonical `active_agents` value the NasTech Agent
    * confirmed is the right “currently running” source.
    */
   gatewayFetcher?: DashboardFetcher
@@ -1111,9 +1111,9 @@ export async function buildDashboardOverview(
     safeJson<unknown>(fetcher, '/api/cron/jobs'),
     safeJson<unknown>(
       fetcher,
-      `/api/plugins/hermes-achievements/recent-unlocks?limit=${achievementsLimit}`,
+      `/api/plugins/nastech-achievements/recent-unlocks?limit=${achievementsLimit}`,
     ),
-    safeJson<unknown>(fetcher, '/api/plugins/hermes-achievements/achievements'),
+    safeJson<unknown>(fetcher, '/api/plugins/nastech-achievements/achievements'),
     safeJson<unknown>(fetcher, '/api/model/info'),
     safeJson<unknown>(
       fetcher,

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedBy": "Hermes asset wiring inventory",
+  "generatedBy": "NasTech asset wiring inventory",
   "sourceRoots": [
-    "public/assets/hermesworld/art",
-    "public/assets/hermesworld/characters",
-    "public/assets/hermesworld/zones",
-    "public/assets/hermesworld/v2",
-    "public/assets/hermesworld/video"
+    "public/assets/nastechworld/art",
+    "public/assets/nastechworld/characters",
+    "public/assets/nastechworld/zones",
+    "public/assets/nastechworld/v2",
+    "public/assets/nastechworld/video"
   ],
   "assetCount": 38,
   "notes": [
@@ -16,9 +16,9 @@
   ],
   "assets": [
     {
-      "path": "public/assets/hermesworld/art/hermesworld-app-icon.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-app-icon.png",
+      "path": "public/assets/nastechworld/art/nastechworld-app-icon.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-app-icon.png",
       "extension": "png",
       "bytes": 1257,
       "sizeLabel": "1.2 KB",
@@ -28,9 +28,9 @@
       "suggestedUseCategory": "app_icon"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-app-icon.svg",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-app-icon.svg",
+      "path": "public/assets/nastechworld/art/nastechworld-app-icon.svg",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-app-icon.svg",
       "extension": "svg",
       "bytes": 259,
       "sizeLabel": "0.3 KB",
@@ -40,9 +40,9 @@
       "suggestedUseCategory": "app_icon"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-app-icon@2x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-app-icon@2x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-app-icon@2x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-app-icon@2x.png",
       "extension": "png",
       "bytes": 26594,
       "sizeLabel": "26.0 KB",
@@ -52,9 +52,9 @@
       "suggestedUseCategory": "app_icon"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-app-icon@3x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-app-icon@3x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-app-icon@3x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-app-icon@3x.png",
       "extension": "png",
       "bytes": 52299,
       "sizeLabel": "51.1 KB",
@@ -64,9 +64,9 @@
       "suggestedUseCategory": "app_icon"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-caduceus-badge.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-caduceus-badge.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-caduceus-badge.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-caduceus-badge.png",
       "extension": "png",
       "bytes": 162956,
       "sizeLabel": "159.1 KB",
@@ -76,9 +76,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-caduceus-favicon.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-caduceus-favicon.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-caduceus-favicon.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-caduceus-favicon.png",
       "extension": "png",
       "bytes": 15211,
       "sizeLabel": "14.9 KB",
@@ -88,9 +88,9 @@
       "suggestedUseCategory": "app_icon"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-caduceus.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-caduceus.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-caduceus.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-caduceus.png",
       "extension": "png",
       "bytes": 124317,
       "sizeLabel": "121.4 KB",
@@ -100,9 +100,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-h.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-h.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-h.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-h.png",
       "extension": "png",
       "bytes": 15211,
       "sizeLabel": "14.9 KB",
@@ -112,9 +112,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-horizontal.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-horizontal.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-horizontal.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-horizontal.png",
       "extension": "png",
       "bytes": 37128,
       "sizeLabel": "36.3 KB",
@@ -124,9 +124,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-horizontal.svg",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-horizontal.svg",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-horizontal.svg",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-horizontal.svg",
       "extension": "svg",
       "bytes": 273,
       "sizeLabel": "0.3 KB",
@@ -136,9 +136,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-horizontal@2x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-horizontal@2x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-horizontal@2x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-horizontal@2x.png",
       "extension": "png",
       "bytes": 137541,
       "sizeLabel": "134.3 KB",
@@ -148,9 +148,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-horizontal@3x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-horizontal@3x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-horizontal@3x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-horizontal@3x.png",
       "extension": "png",
       "bytes": 258461,
       "sizeLabel": "252.4 KB",
@@ -160,9 +160,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-stacked.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-stacked.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-stacked.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-stacked.png",
       "extension": "png",
       "bytes": 99870,
       "sizeLabel": "97.5 KB",
@@ -172,9 +172,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-stacked.svg",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-stacked.svg",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-stacked.svg",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-stacked.svg",
       "extension": "svg",
       "bytes": 267,
       "sizeLabel": "0.3 KB",
@@ -184,9 +184,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-stacked@2x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-stacked@2x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-stacked@2x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-stacked@2x.png",
       "extension": "png",
       "bytes": 335190,
       "sizeLabel": "327.3 KB",
@@ -196,9 +196,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-logo-stacked@3x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-logo-stacked@3x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-logo-stacked@3x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-logo-stacked@3x.png",
       "extension": "png",
       "bytes": 640821,
       "sizeLabel": "625.8 KB",
@@ -208,9 +208,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-sigil.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-sigil.png",
+      "path": "public/assets/nastechworld/art/nastechworld-sigil.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-sigil.png",
       "extension": "png",
       "bytes": 15211,
       "sizeLabel": "14.9 KB",
@@ -220,9 +220,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-sigil.svg",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-sigil.svg",
+      "path": "public/assets/nastechworld/art/nastechworld-sigil.svg",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-sigil.svg",
       "extension": "svg",
       "bytes": 253,
       "sizeLabel": "0.2 KB",
@@ -232,9 +232,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-sigil@2x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-sigil@2x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-sigil@2x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-sigil@2x.png",
       "extension": "png",
       "bytes": 51261,
       "sizeLabel": "50.1 KB",
@@ -244,9 +244,9 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/hermesworld-sigil@3x.png",
-      "directory": "public/assets/hermesworld/art",
-      "fileName": "hermesworld-sigil@3x.png",
+      "path": "public/assets/nastechworld/art/nastechworld-sigil@3x.png",
+      "directory": "public/assets/nastechworld/art",
+      "fileName": "nastechworld-sigil@3x.png",
       "extension": "png",
       "bytes": 96409,
       "sizeLabel": "94.1 KB",
@@ -256,8 +256,8 @@
       "suggestedUseCategory": "brand_logo"
     },
     {
-      "path": "public/assets/hermesworld/art/social-preview-hero.jpg",
-      "directory": "public/assets/hermesworld/art",
+      "path": "public/assets/nastechworld/art/social-preview-hero.jpg",
+      "directory": "public/assets/nastechworld/art",
       "fileName": "social-preview-hero.jpg",
       "extension": "jpg",
       "bytes": 82326,
@@ -268,8 +268,8 @@
       "suggestedUseCategory": "social_share_preview"
     },
     {
-      "path": "public/assets/hermesworld/characters/README.md",
-      "directory": "public/assets/hermesworld/characters",
+      "path": "public/assets/nastechworld/characters/README.md",
+      "directory": "public/assets/nastechworld/characters",
       "fileName": "README.md",
       "extension": "md",
       "bytes": 684,
@@ -280,8 +280,8 @@
       "suggestedUseCategory": "character_asset_placeholder"
     },
     {
-      "path": "public/assets/hermesworld/zones/cityscape.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/cityscape.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "cityscape.jpg",
       "extension": "jpg",
       "bytes": 63712,
@@ -292,8 +292,8 @@
       "suggestedUseCategory": "zone_background_hero"
     },
     {
-      "path": "public/assets/hermesworld/zones/hero.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/hero.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "hero.jpg",
       "extension": "jpg",
       "bytes": 119035,
@@ -304,8 +304,8 @@
       "suggestedUseCategory": "zone_background_hero"
     },
     {
-      "path": "public/assets/hermesworld/zones/zone-1.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/zone-1.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "zone-1.jpg",
       "extension": "jpg",
       "bytes": 28167,
@@ -316,8 +316,8 @@
       "suggestedUseCategory": "zone_fallback_background"
     },
     {
-      "path": "public/assets/hermesworld/zones/zone-2.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/zone-2.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "zone-2.jpg",
       "extension": "jpg",
       "bytes": 41268,
@@ -328,8 +328,8 @@
       "suggestedUseCategory": "zone_fallback_background"
     },
     {
-      "path": "public/assets/hermesworld/zones/zone-3.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/zone-3.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "zone-3.jpg",
       "extension": "jpg",
       "bytes": 48092,
@@ -340,8 +340,8 @@
       "suggestedUseCategory": "zone_fallback_background"
     },
     {
-      "path": "public/assets/hermesworld/zones/zone-4.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/zone-4.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "zone-4.jpg",
       "extension": "jpg",
       "bytes": 48371,
@@ -352,8 +352,8 @@
       "suggestedUseCategory": "zone_fallback_background"
     },
     {
-      "path": "public/assets/hermesworld/zones/zone-5.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/zone-5.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "zone-5.jpg",
       "extension": "jpg",
       "bytes": 40418,
@@ -364,8 +364,8 @@
       "suggestedUseCategory": "zone_fallback_background"
     },
     {
-      "path": "public/assets/hermesworld/zones/zone-6.jpg",
-      "directory": "public/assets/hermesworld/zones",
+      "path": "public/assets/nastechworld/zones/zone-6.jpg",
+      "directory": "public/assets/nastechworld/zones",
       "fileName": "zone-6.jpg",
       "extension": "jpg",
       "bytes": 59446,
@@ -376,8 +376,8 @@
       "suggestedUseCategory": "zone_fallback_background"
     },
     {
-      "path": "public/assets/hermesworld/v2/IMAGEGEN-STATUS.md",
-      "directory": "public/assets/hermesworld/v2",
+      "path": "public/assets/nastechworld/v2/IMAGEGEN-STATUS.md",
+      "directory": "public/assets/nastechworld/v2",
       "fileName": "IMAGEGEN-STATUS.md",
       "extension": "md",
       "bytes": 796,
@@ -388,8 +388,8 @@
       "suggestedUseCategory": "v2_pipeline_doc"
     },
     {
-      "path": "public/assets/hermesworld/v2/MANIFEST.md",
-      "directory": "public/assets/hermesworld/v2",
+      "path": "public/assets/nastechworld/v2/MANIFEST.md",
+      "directory": "public/assets/nastechworld/v2",
       "fileName": "MANIFEST.md",
       "extension": "md",
       "bytes": 358,
@@ -400,8 +400,8 @@
       "suggestedUseCategory": "v2_pipeline_doc"
     },
     {
-      "path": "public/assets/hermesworld/v2/wave-a-source/A03-A08-rerolls.png",
-      "directory": "public/assets/hermesworld/v2/wave-a-source",
+      "path": "public/assets/nastechworld/v2/wave-a-source/A03-A08-rerolls.png",
+      "directory": "public/assets/nastechworld/v2/wave-a-source",
       "fileName": "A03-A08-rerolls.png",
       "extension": "png",
       "bytes": 1605926,
@@ -412,8 +412,8 @@
       "suggestedUseCategory": "source_contact_sheet_or_portrait_reference"
     },
     {
-      "path": "public/assets/hermesworld/v2/wave-a-source/all-images-contact-sheet.png",
-      "directory": "public/assets/hermesworld/v2/wave-a-source",
+      "path": "public/assets/nastechworld/v2/wave-a-source/all-images-contact-sheet.png",
+      "directory": "public/assets/nastechworld/v2/wave-a-source",
       "fileName": "all-images-contact-sheet.png",
       "extension": "png",
       "bytes": 2131604,
@@ -424,8 +424,8 @@
       "suggestedUseCategory": "source_contact_sheet_or_portrait_reference"
     },
     {
-      "path": "public/assets/hermesworld/video/hero-720p.mp4",
-      "directory": "public/assets/hermesworld/video",
+      "path": "public/assets/nastechworld/video/hero-720p.mp4",
+      "directory": "public/assets/nastechworld/video",
       "fileName": "hero-720p.mp4",
       "extension": "mp4",
       "bytes": 644082,
@@ -436,8 +436,8 @@
       "suggestedUseCategory": "video_demo"
     },
     {
-      "path": "public/assets/hermesworld/video/hero-poster.jpg",
-      "directory": "public/assets/hermesworld/video",
+      "path": "public/assets/nastechworld/video/hero-poster.jpg",
+      "directory": "public/assets/nastechworld/video",
       "fileName": "hero-poster.jpg",
       "extension": "jpg",
       "bytes": 64556,
@@ -448,8 +448,8 @@
       "suggestedUseCategory": "video_poster"
     },
     {
-      "path": "public/assets/hermesworld/video/world-demo-720p.mp4",
-      "directory": "public/assets/hermesworld/video",
+      "path": "public/assets/nastechworld/video/world-demo-720p.mp4",
+      "directory": "public/assets/nastechworld/video",
       "fileName": "world-demo-720p.mp4",
       "extension": "mp4",
       "bytes": 10353994,
@@ -460,8 +460,8 @@
       "suggestedUseCategory": "video_demo"
     },
     {
-      "path": "public/assets/hermesworld/video/world-demo-poster.jpg",
-      "directory": "public/assets/hermesworld/video",
+      "path": "public/assets/nastechworld/video/world-demo-poster.jpg",
+      "directory": "public/assets/nastechworld/video",
       "fileName": "world-demo-poster.jpg",
       "extension": "jpg",
       "bytes": 63007,

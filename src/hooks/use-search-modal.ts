@@ -14,7 +14,7 @@ export type SearchScope =
   | 'skills'
   | 'actions'
 
-const RECENT_SEARCHES_KEY = 'hermes-recent-searches-v1'
+const RECENT_SEARCHES_KEY = 'nastech-recent-searches-v1'
 const RECENT_SEARCHES_LIMIT = 6
 
 function loadRecentSearches(): Array<string> {

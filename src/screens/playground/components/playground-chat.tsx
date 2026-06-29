@@ -41,9 +41,9 @@ function PlaygroundChatInner({ worldId, messages, onSend, collapsed = false, onT
   useEffect(() => {
     // Seed from window globals so we don't miss the first dispatch if chat
     // mounts after world-3d has already fired the events.
-    const cur = (window as any).__hermesPlaygroundLiveCount as { online?: number } | undefined
+    const cur = (window as any).__nastechPlaygroundLiveCount as { online?: number } | undefined
     if (typeof cur?.online === 'number') setServerOnline(cur.online)
-    const curT = (window as any).__hermesPlaygroundLiveTransport as string | undefined
+    const curT = (window as any).__nastechPlaygroundLiveTransport as string | undefined
     if (curT) setTransport(curT)
     const onCount = (ev: Event) => {
       const detail = (ev as CustomEvent).detail as { online?: number } | undefined
@@ -53,11 +53,11 @@ function PlaygroundChatInner({ worldId, messages, onSend, collapsed = false, onT
       const detail = (ev as CustomEvent).detail as string | undefined
       if (detail) setTransport(detail)
     }
-    window.addEventListener('hermes-playground-count', onCount)
-    window.addEventListener('hermes-playground-transport', onTransport)
+    window.addEventListener('nastech-playground-count', onCount)
+    window.addEventListener('nastech-playground-transport', onTransport)
     return () => {
-      window.removeEventListener('hermes-playground-count', onCount)
-      window.removeEventListener('hermes-playground-transport', onTransport)
+      window.removeEventListener('nastech-playground-count', onCount)
+      window.removeEventListener('nastech-playground-transport', onTransport)
     }
   }, [])
   const liveConnected = transport === 'ws' || transport === 'both'
@@ -91,7 +91,7 @@ function PlaygroundChatInner({ worldId, messages, onSend, collapsed = false, onT
       onMouseLeave={() => setSoftExpanded(false)}
       onFocus={() => setSoftExpanded(true)}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSoftExpanded(false) }}
-      style={{ width: 380, height: visiblyCollapsed ? 32 : 264, maxWidth: chromeMaxWidth, left: chromeLeft, opacity: 'var(--hermesworld-hud-opacity, .88)' }}
+      style={{ width: 380, height: visiblyCollapsed ? 32 : 264, maxWidth: chromeMaxWidth, left: chromeLeft, opacity: 'var(--nastechworld-hud-opacity, .88)' }}
     >
       <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
         <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-white/65">

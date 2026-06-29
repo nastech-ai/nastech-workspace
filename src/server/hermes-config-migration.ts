@@ -1,35 +1,35 @@
-export type HermesProviderKind = 'oauth' | 'api_key' | 'local' | 'custom'
+export type NasTechProviderKind = 'oauth' | 'api_key' | 'local' | 'custom'
 
-export type HermesAuthSource =
+export type NasTechAuthSource =
   | 'env'
   | 'auth-profiles'
   | 'config'
   | 'local-discovery'
   | 'none'
 
-export type HermesConfigPaths = {
-  hermesHome: string
+export type NasTechConfigPaths = {
+  nastechHome: string
   configPath: string
   envPath: string
   authProfilesPath: string
 }
 
-export type HermesProviderState = {
+export type NasTechProviderState = {
   id: string
   name: string
-  kind: HermesProviderKind
+  kind: NasTechProviderKind
   configured: boolean
   authenticated: boolean
   available: boolean
   isDefault: boolean
-  authSource: HermesAuthSource
+  authSource: NasTechAuthSource
   envKeys: Array<string>
   maskedCredentials: Record<string, string>
   models: Array<{ id: string; name: string }>
   warnings: Array<string>
 }
 
-export type HermesCustomProviderState = {
+export type NasTechCustomProviderState = {
   id: string
   name: string
   baseUrl: string
@@ -39,9 +39,9 @@ export type HermesCustomProviderState = {
   available: boolean
 }
 
-export type HermesConfigState = {
+export type NasTechConfigState = {
   ok: true
-  paths: HermesConfigPaths
+  paths: NasTechConfigPaths
   defaultModel: {
     provider: string
     model: string
@@ -49,15 +49,15 @@ export type HermesConfigState = {
   } | null
   activeProvider: string
   activeModel: string
-  providers: Array<HermesProviderState>
-  customProviders: Array<HermesCustomProviderState>
+  providers: Array<NasTechProviderState>
+  customProviders: Array<NasTechCustomProviderState>
   config: Record<string, unknown>
 }
 
 type ProviderDef = {
   id: string
   name: string
-  kind: HermesProviderKind
+  kind: NasTechProviderKind
   envKeys: Array<string>
   models: Array<{ id: string; name: string }>
 }
@@ -74,8 +74,8 @@ type LocalModelSummary = {
   provider: string
 }
 
-export type NormalizeHermesConfigInput = {
-  paths: HermesConfigPaths
+export type NormalizeNasTechConfigInput = {
+  paths: NasTechConfigPaths
   config: Record<string, unknown>
   env: Record<string, string>
   authProfiles: Record<string, unknown>
@@ -83,7 +83,7 @@ export type NormalizeHermesConfigInput = {
   localModels: Array<LocalModelSummary>
 }
 
-export const HERMES_PROVIDER_CATALOG: Array<ProviderDef> = [
+export const NASTECH_PROVIDER_CATALOG: Array<ProviderDef> = [
   { id: 'nous', name: 'Nous Portal', kind: 'oauth', envKeys: [], models: [] },
   { id: 'openai-codex', name: 'OpenAI Codex', kind: 'oauth', envKeys: [], models: [] },
   { id: 'anthropic', name: 'Anthropic', kind: 'api_key', envKeys: ['ANTHROPIC_API_KEY'], models: [] },
@@ -98,7 +98,7 @@ export const HERMES_PROVIDER_CATALOG: Array<ProviderDef> = [
   { id: 'custom', name: 'Custom', kind: 'custom', envKeys: ['CUSTOM_API_KEY'], models: [] },
 ]
 
-const KNOWN_PROVIDER_IDS = new Set(HERMES_PROVIDER_CATALOG.map((p) => p.id))
+const KNOWN_PROVIDER_IDS = new Set(NASTECH_PROVIDER_CATALOG.map((p) => p.id))
 
 function readRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === 'object' && !Array.isArray(value)
@@ -116,7 +116,7 @@ function maskSecret(value: string): string {
   return `${value.slice(0, 4)}...${value.slice(-4)}`
 }
 
-function readDefaultModel(config: Record<string, unknown>): HermesConfigState['defaultModel'] {
+function readDefaultModel(config: Record<string, unknown>): NasTechConfigState['defaultModel'] {
   const flatModel = readString(config.model)
   const flatProvider = readString(config.provider)
   if (flatModel && flatProvider) {
@@ -170,17 +170,17 @@ function customProviderApiMode(entry: Record<string, unknown>): string {
   return readString(entry.api_mode) || readString(entry.apiMode)
 }
 
-export function normalizeHermesConfigState(input: NormalizeHermesConfigInput): HermesConfigState {
+export function normalizeNasTechConfigState(input: NormalizeNasTechConfigInput): NasTechConfigState {
   const defaultModel = readDefaultModel(input.config)
   const customEntries = readCustomProviderEntries(input.config)
   const customByName = new Map(customEntries.map((entry) => [customProviderName(entry), entry]))
   const localById = new Map(input.localProviders.map((provider) => [provider.id, provider]))
 
-  const providers = HERMES_PROVIDER_CATALOG.map((def): HermesProviderState => {
+  const providers = NASTECH_PROVIDER_CATALOG.map((def): NasTechProviderState => {
     const maskedCredentials: Record<string, string> = {}
     let authenticated = false
     let configured = false
-    let authSource: HermesAuthSource = 'none'
+    let authSource: NasTechAuthSource = 'none'
     let available = false
     let models = def.models
 
@@ -241,7 +241,7 @@ export function normalizeHermesConfigState(input: NormalizeHermesConfigInput): H
     }
   })
 
-  const customProviders = customEntries.flatMap((entry): Array<HermesCustomProviderState> => {
+  const customProviders = customEntries.flatMap((entry): Array<NasTechCustomProviderState> => {
     const id = customProviderName(entry)
     if (!id || KNOWN_PROVIDER_IDS.has(id)) return []
     const apiKeyEnv = customProviderKeyEnv(entry)

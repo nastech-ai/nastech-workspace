@@ -27,7 +27,7 @@ export const Route = createFileRoute('/api/oauth/device-code')({
         if (provider === 'nous') {
           try {
             const res = await fetch(
-              'https://portal.nousresearch.com/api/oauth/device/code',
+              'https://portal.nastechai.com/api/oauth/device/code',
               {
                 method: 'POST',
                 headers: {

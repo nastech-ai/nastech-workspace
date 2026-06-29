@@ -322,9 +322,9 @@ export function useStreamingMessage(options: UseStreamingMessageOptions = {}) {
 
         // Navigating away from Chat unmounts this hook. Previously this cleanup
         // aborted /api/send-stream and reset the local stream state, which made
-        // the UI look like Hermes stopped thinking. Leave the accepted request
+        // the UI look like NasTech stopped thinking. Leave the accepted request
         // alive instead: the server-side route deliberately keeps the upstream
-        // Hermes run alive after the browser reader is cancelled, and the
+        // NasTech run alive after the browser reader is cancelled, and the
         // persisted waiting/session state lets the screen recover from history
         // or active-run polling when the user comes back.
         lifecyclePhaseRef.current = 'handoff'
@@ -440,15 +440,15 @@ export function useStreamingMessage(options: UseStreamingMessageOptions = {}) {
       const payload = data as Record<string, unknown>
 
       // [DEBUG TUI] Log every SSE event so we can see whether tool.* events arrive
-      // from Hermes Agent through Workspace. Toggle off by setting
-      // localStorage.removeItem('hermes:debug:sse')
+      // from NasTech Agent through Workspace. Toggle off by setting
+      // localStorage.removeItem('nastech:debug:sse')
       if (
         typeof window !== 'undefined' &&
-        window.localStorage?.getItem('hermes:debug:sse') === '1'
+        window.localStorage?.getItem('nastech:debug:sse') === '1'
       ) {
          
         console.log(
-          '[hermes-sse]',
+          '[nastech-sse]',
           event,
           (payload?.name as string) || '',
           (payload?.phase as string) || '',
@@ -770,7 +770,7 @@ export function useStreamingMessage(options: UseStreamingMessageOptions = {}) {
           ) {
             transitionToHandoff()
           } else {
-            markFailed('Hermes Agent connection closed')
+            markFailed('NasTech Agent connection closed')
           }
           break
         }
@@ -873,7 +873,7 @@ export function useStreamingMessage(options: UseStreamingMessageOptions = {}) {
             model: params.model || undefined,
             locale:
               typeof window !== 'undefined'
-                ? localStorage.getItem('hermes-workspace-locale') || 'en'
+                ? localStorage.getItem('nastech-workspace-locale') || 'en'
                 : 'en',
           }),
           signal: abortController.signal,
@@ -913,8 +913,8 @@ export function useStreamingMessage(options: UseStreamingMessageOptions = {}) {
         markAccepted()
         schedulePostAcceptanceTimeout('accepted')
 
-        // HTTP 200 — message accepted by Hermes Agent. Clear optimistic "sending"
-        // status so the Retry timer never fires. Hermes Agent does NOT echo
+        // HTTP 200 — message accepted by NasTech Agent. Clear optimistic "sending"
+        // status so the Retry timer never fires. NasTech Agent does NOT echo
         // user messages via SSE, so this is the only confirmation we get.
         if (params.idempotencyKey && onMessageAccepted) {
           onMessageAccepted(

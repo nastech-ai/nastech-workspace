@@ -387,7 +387,7 @@ export const Route = createFileRoute('/api/send-stream')({
         let heartbeatTimer: ReturnType<typeof setInterval> | null = null
         const abortController = new AbortController()
         // Close out the SSE stream — stop enqueueing, clear timers, and
-        // abort the upstream Hermes gateway request so the agent stops
+        // abort the upstream NasTech gateway request so the agent stops
         // processing.  Does NOT touch run status (persistActiveRun etc.).
         // The abort path (request.signal / handleAbort) owns run cleanup.
         let closeStream = () => {
@@ -564,7 +564,7 @@ export const Route = createFileRoute('/api/send-stream')({
                     : []
                   // Load persisted history for this session, then append user message.
                   // When the gateway can bind portable chat to a server-side session
-                  // via X-Hermes-Session-Id, replaying the entire local transcript on
+                  // via X-NasTech-Session-Id, replaying the entire local transcript on
                   // every turn duplicates prompt context and can trip model limits
                   // on otherwise simple tasks (#405).
                   const persistedMessages = getLocalMessages(portableSessionKey)
@@ -592,19 +592,19 @@ export const Route = createFileRoute('/api/send-stream')({
                       content: userContent,
                     },
                   ]
-                  // Vanilla Hermes Agent (>=v0.12.x) ships a structured
+                  // Vanilla NasTech Agent (>=v0.12.x) ships a structured
                   // Responses-API streaming surface at POST /v1/responses
                   // that carries full tool args + results, unlike the
                   // /v1/chat/completions surface which only emits a thin
-                  // hermes.tool.progress lifecycle event. When the user
+                  // nastech.tool.progress lifecycle event. When the user
                   // opts into the Responses path AND we're talking to the
-                  // local Hermes gateway (no localBaseUrl override), use
+                  // local NasTech gateway (no localBaseUrl override), use
                   // it so the TUI tool card can render INPUT JSON and
                   // tool output text live during the run. Falls back
                   // automatically on any error to the existing
                   // openaiChat path.
                   const useResponsesApi =
-                    process.env.HERMES_USE_RESPONSES === '1' && !localBaseUrl
+                    process.env.NASTECH_USE_RESPONSES === '1' && !localBaseUrl
                   if (useResponsesApi) {
                     const thinking = ''
                     // Track tool calls by callId so a `tool.completed`
@@ -786,7 +786,7 @@ export const Route = createFileRoute('/api/send-stream')({
                       // Prefer the gateway's stable tool_call_id so 'running'
                       // and 'completed' events for the same call collapse to
                       // one card row. Fall back to a synthetic id only when
-                      // the upstream payload lacks one (older Hermes builds).
+                      // the upstream payload lacks one (older NasTech builds).
                       toolEventCount += 1
                       const toolCallId =
                         chunk.toolCallId ||
@@ -932,7 +932,7 @@ export const Route = createFileRoute('/api/send-stream')({
               // useRealtimeChatHistory from creating duplicate message bubbles.
               const skipPublish = true
 
-              // Mid-run tool polling: vanilla Hermes Agent currently does not
+              // Mid-run tool polling: vanilla NasTech Agent currently does not
               // emit tool.* SSE events live (callback signature drift). Until
               // upstream fixes that, we synthesize live tool events by polling
               // the agent's session messages every ~1.5s during the run and
@@ -1362,7 +1362,7 @@ export const Route = createFileRoute('/api/send-stream')({
                             ?.message,
                         ) ||
                         readString(data.message) ||
-                        'Hermes stream error'
+                        'NasTech stream error'
                       persistActiveRun((runSessionKey, activeId) =>
                         markRunStatus(
                           runSessionKey,
@@ -1382,7 +1382,7 @@ export const Route = createFileRoute('/api/send-stream')({
 
                     if (event === 'run.completed') {
                       // Backfill tool calls from session history.
-                      // Hermes Agent currently does not stream tool.* events
+                      // NasTech Agent currently does not stream tool.* events
                       // reliably, but it persists tool calls on the assistant
                       // message. Fetch the latest assistant message and emit
                       // synthetic 'tool' events for each tool call so the

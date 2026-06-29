@@ -1,5 +1,5 @@
 /**
- * Jobs API proxy — forwards individual job operations to Hermes Agent FastAPI
+ * Jobs API proxy — forwards individual job operations to NasTech Agent FastAPI
  * or the upstream dashboard cron API.
  */
 import { createFileRoute } from '@tanstack/react-router'
@@ -17,7 +17,7 @@ import {
   readProfileCronOutputs,
   runProfileCronAction,
   updateProfileCronJob,
-} from '../../server/hermes-cron-profiles'
+} from '../../server/nastech-cron-profiles'
 
 function authHeaders(): Record<string, string> {
   return BEARER_TOKEN ? { Authorization: `Bearer ${BEARER_TOKEN}` } : {}

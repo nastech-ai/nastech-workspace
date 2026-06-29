@@ -24,7 +24,7 @@ test.describe('Chat thinking state #449', () => {
     await page.goto(SESSION_PATH)
     await page.waitForLoadState('load')
 
-    // Dismiss the "Hermes updated" modal if present
+    // Dismiss the "NasTech updated" modal if present
     const continueBtn = page.getByRole('button', { name: 'Continue' })
     if (await continueBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
       await continueBtn.click()

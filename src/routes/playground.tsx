@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { usePageTitle } from '@/hooks/use-page-title'
-import { HermesWorldEmbed } from '@/screens/playground/hermes-world-embed'
+import { NasTechWorldEmbed } from '@/screens/playground/nastech-world-embed'
 
 export const Route = createFileRoute('/playground')({
   ssr: false,
@@ -8,6 +8,6 @@ export const Route = createFileRoute('/playground')({
 })
 
 function PlaygroundRoute() {
-  usePageTitle('HermesWorld')
-  return <HermesWorldEmbed />
+  usePageTitle('NasTechWorld')
+  return <NasTechWorldEmbed />
 }

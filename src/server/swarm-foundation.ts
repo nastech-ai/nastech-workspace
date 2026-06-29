@@ -495,7 +495,7 @@ export function buildSwarmSessionMetadata(input: {
     sessionId: input.runtime.sessionId ?? input.tmuxSession ?? input.workerId,
     sessionTitle:
       input.runtime.sessionTitle ??
-      (input.tmuxSession ? `Hermes worker ${input.workerId}` : null),
+      (input.tmuxSession ? `NasTech worker ${input.workerId}` : null),
     historySource:
       input.runtime.historySource === 'unavailable'
         ? inferSwarmHistorySource(input.profilePath)
@@ -597,9 +597,9 @@ export function getWorkspacePluginRoots(workspaceRoot = process.cwd()): Array<{
   root: string
   source: 'user' | 'project'
 }> {
-  const hermesHome = process.env.HERMES_HOME || process.env.CLAUDE_HOME || path.join(os.homedir(), '.hermes')
+  const nastechHome = process.env.NASTECH_HOME || process.env.CLAUDE_HOME || path.join(os.homedir(), '.nastech')
   return [
-    { root: path.join(hermesHome, 'plugins'), source: 'user' },
-    { root: path.join(workspaceRoot, '.hermes', 'plugins'), source: 'project' },
+    { root: path.join(nastechHome, 'plugins'), source: 'user' },
+    { root: path.join(workspaceRoot, '.nastech', 'plugins'), source: 'project' },
   ]
 }

@@ -1,10 +1,10 @@
-# HermesWorld Guild/Event/Economy Contracts
+# NasTechWorld Guild/Event/Economy Contracts
 
 Last updated: 2026-05-06
 
 ## Goal
 
-Define safe client/server data contracts for HermesWorld guild creation, weekend wars, raids, leaderboards, Founders Vault, and chat trade. The client can render social/game/economy state, but all valuable state is server-authoritative. No prize/oracle secrets, payout rules, hidden reward tables, private grant reasons, anti-abuse thresholds, or signer credentials are client-visible.
+Define safe client/server data contracts for NasTechWorld guild creation, weekend wars, raids, leaderboards, Founders Vault, and chat trade. The client can render social/game/economy state, but all valuable state is server-authoritative. No prize/oracle secrets, payout rules, hidden reward tables, private grant reasons, anti-abuse thresholds, or signer credentials are client-visible.
 
 ## Non-negotiable security rules
 
@@ -716,39 +716,39 @@ This ledger is never exposed directly to the browser. Public histories are separ
 ## 11. API surface summary
 
 Public/browser-callable:
-- GET /api/hermesworld/guilds/:guildId
-- POST /api/hermesworld/guilds/create
-- POST /api/hermesworld/guilds/:guildId/invites
-- POST /api/hermesworld/guilds/:guildId/agents
-- GET /api/hermesworld/guilds/:guildId/vault
-- POST /api/hermesworld/guilds/:guildId/vault/deposit
-- POST /api/hermesworld/guilds/:guildId/vault/withdraw
-- GET /api/hermesworld/events/weekend-wars
-- POST /api/hermesworld/events/weekend-wars/:eventId/register
-- POST /api/hermesworld/events/weekend-wars/:eventId/actions
-- GET /api/hermesworld/events/weekend-wars/:eventId/scoreboard
-- GET /api/hermesworld/raids
-- POST /api/hermesworld/raids/instances
-- POST /api/hermesworld/raids/:raidInstanceId/actions
-- GET /api/hermesworld/leaderboards/:leaderboardId
-- GET /api/hermesworld/founders-vault
-- POST /api/hermesworld/founders-vault/:grantId/claim
-- POST /api/hermesworld/trades/open
-- POST /api/hermesworld/trades/:tradeId/offer
-- POST /api/hermesworld/trades/:tradeId/lock
-- POST /api/hermesworld/trades/:tradeId/confirm
-- GET /api/hermesworld/feed
+- GET /api/nastechworld/guilds/:guildId
+- POST /api/nastechworld/guilds/create
+- POST /api/nastechworld/guilds/:guildId/invites
+- POST /api/nastechworld/guilds/:guildId/agents
+- GET /api/nastechworld/guilds/:guildId/vault
+- POST /api/nastechworld/guilds/:guildId/vault/deposit
+- POST /api/nastechworld/guilds/:guildId/vault/withdraw
+- GET /api/nastechworld/events/weekend-wars
+- POST /api/nastechworld/events/weekend-wars/:eventId/register
+- POST /api/nastechworld/events/weekend-wars/:eventId/actions
+- GET /api/nastechworld/events/weekend-wars/:eventId/scoreboard
+- GET /api/nastechworld/raids
+- POST /api/nastechworld/raids/instances
+- POST /api/nastechworld/raids/:raidInstanceId/actions
+- GET /api/nastechworld/leaderboards/:leaderboardId
+- GET /api/nastechworld/founders-vault
+- POST /api/nastechworld/founders-vault/:grantId/claim
+- POST /api/nastechworld/trades/open
+- POST /api/nastechworld/trades/:tradeId/offer
+- POST /api/nastechworld/trades/:tradeId/lock
+- POST /api/nastechworld/trades/:tradeId/confirm
+- GET /api/nastechworld/feed
 
 Private service-only:
-- POST /private/hermesworld/event-grants/create
-- POST /private/hermesworld/event-grants/revoke
-- POST /private/hermesworld/war/finalize-score
-- POST /private/hermesworld/war/grant-rewards
-- POST /private/hermesworld/raid/finalize-loot
-- POST /private/hermesworld/leaderboards/finalize
-- POST /private/hermesworld/trades/settle-hard-currency
-- POST /private/hermesworld/oracle/validate-prize-eligibility
-- POST /private/hermesworld/audit/events
+- POST /private/nastechworld/event-grants/create
+- POST /private/nastechworld/event-grants/revoke
+- POST /private/nastechworld/war/finalize-score
+- POST /private/nastechworld/war/grant-rewards
+- POST /private/nastechworld/raid/finalize-loot
+- POST /private/nastechworld/leaderboards/finalize
+- POST /private/nastechworld/trades/settle-hard-currency
+- POST /private/nastechworld/oracle/validate-prize-eligibility
+- POST /private/nastechworld/audit/events
 
 ## 12. What must never be public
 

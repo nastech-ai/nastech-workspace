@@ -110,7 +110,7 @@ export function PlaygroundAdminPanel() {
               <span className="rounded-full border border-amber-200/25 bg-amber-200/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-amber-100">Private</span>
               <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">Dashboard admin</span>
             </div>
-            <div className="mt-1 text-base font-bold tracking-tight text-white">HermesWorld Control Room</div>
+            <div className="mt-1 text-base font-bold tracking-tight text-white">NasTechWorld Control Room</div>
             <div className="mt-0.5 text-[11px] text-white/50">Human relay analytics. NPC ambient chatter is client-side flavor and intentionally excluded.</div>
           </div>
           <div className="text-right text-[10px] text-white/45">

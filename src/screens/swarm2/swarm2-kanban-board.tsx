@@ -34,7 +34,7 @@ type KanbanWorker = {
 }
 
 type KanbanBackendMeta = {
-  id: 'local' | 'claude' | 'hermes-proxy'
+  id: 'local' | 'claude' | 'nastech-proxy'
   label: string
   detected: boolean
   writable: boolean
@@ -58,7 +58,7 @@ type Swarm2KanbanBoardProps = {
 
 type KanbanBackendPresentation = {
   badgeLabel: string
-  badgeTone: 'hermes-proxy' | 'claude' | 'local' | 'unknown'
+  badgeTone: 'nastech-proxy' | 'claude' | 'local' | 'unknown'
   toastTitle: string
   toastBody: string
   title: string | undefined
@@ -82,11 +82,11 @@ export function getKanbanBackendPresentation(backend: KanbanBackendMeta | null |
       badgeLabel: 'Detecting board',
       badgeTone: 'unknown',
       toastTitle: 'Detecting Swarm Board backend',
-      toastBody: 'Checking Hermes Kanban before falling back locally.',
+      toastBody: 'Checking NasTech Kanban before falling back locally.',
       title: undefined,
     }
   }
-  if (backend.id === 'hermes-proxy' && backend.detected) {
+  if (backend.id === 'nastech-proxy' && backend.detected) {
     // Backend.path is the dashboard origin. Do not deep-link to loopback
     // origins (127.0.0.1/localhost): in a remote browser that points at the
     // user's own device, not the VPS. The board still syncs via Workspace's
@@ -98,15 +98,15 @@ export function getKanbanBackendPresentation(backend: KanbanBackendMeta | null |
         ? `${backend.path.replace(/\/+$/, '')}/kanban`
         : undefined
     return {
-      badgeLabel: 'Synced • Hermes',
-      badgeTone: 'hermes-proxy',
-      toastTitle: 'Synced with Hermes Dashboard',
+      badgeLabel: 'Synced • NasTech',
+      badgeTone: 'nastech-proxy',
+      toastTitle: 'Synced with NasTech Dashboard',
       toastBody:
-        'Cards and status changes round-trip through the Hermes Dashboard kanban plugin. Single source of truth, dispatcher-aware.',
+        'Cards and status changes round-trip through the NasTech Dashboard kanban plugin. Single source of truth, dispatcher-aware.',
       title:
         backend.details ??
         backend.path ??
-        'Hermes Dashboard kanban plugin detected',
+        'NasTech Dashboard kanban plugin detected',
       dashboardUrl,
     }
   }
@@ -123,7 +123,7 @@ export function getKanbanBackendPresentation(backend: KanbanBackendMeta | null |
     badgeLabel: 'Local fallback',
     badgeTone: 'local',
     toastTitle: 'Using local Swarm Board',
-    toastBody: backend.details || 'Hermes Kanban is not available yet. Cards stay local and the board will switch automatically when Hermes storage is detected.',
+    toastBody: backend.details || 'NasTech Kanban is not available yet. Cards stay local and the board will switch automatically when NasTech storage is detected.',
     title: backend.details ?? backend.path ?? 'Local Swarm Board fallback',
   }
 }
@@ -266,8 +266,8 @@ export function Swarm2KanbanBoard({
   const [backendToast, setBackendToast] = useState<KanbanBackendPresentation | null>(null)
   const lastToastedBackendKey = useRef<string | null>(null)
 
-  // Poll every 5s so cards added/moved on the Hermes Dashboard appear here
-  // without a manual refresh. The Hermes plugin also exposes a WebSocket
+  // Poll every 5s so cards added/moved on the NasTech Dashboard appear here
+  // without a manual refresh. The NasTech plugin also exposes a WebSocket
   // (/api/plugins/kanban/events) for true live updates; wiring that in is
   // the next step on the v2.3.0 kanban roadmap.
   const query = useQuery({
@@ -388,7 +388,7 @@ export function Swarm2KanbanBoard({
                 'inline-flex items-center gap-1.5 rounded-full border px-2 py-1 font-medium transition-colors',
                 'border-emerald-400/40 bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20',
               )}
-              title={`${backendPresentation.title ?? ''}\nOpen in Hermes Dashboard ↗`}
+              title={`${backendPresentation.title ?? ''}\nOpen in NasTech Dashboard ↗`}
               aria-live="polite"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
@@ -401,7 +401,7 @@ export function Swarm2KanbanBoard({
             <span
               className={cn(
                 'inline-flex items-center gap-1.5 rounded-full border px-2 py-1 font-medium',
-                backendPresentation.badgeTone === 'hermes-proxy'
+                backendPresentation.badgeTone === 'nastech-proxy'
                   ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-700'
                   : backendPresentation.badgeTone === 'claude'
                     ? 'border-violet-400/40 bg-violet-500/10 text-violet-700'
@@ -415,7 +415,7 @@ export function Swarm2KanbanBoard({
               <span
                 className={cn(
                   'h-1.5 w-1.5 rounded-full',
-                  backendPresentation.badgeTone === 'hermes-proxy'
+                  backendPresentation.badgeTone === 'nastech-proxy'
                     ? 'bg-emerald-500'
                     : backendPresentation.badgeTone === 'claude'
                       ? 'bg-violet-500'
@@ -538,7 +538,7 @@ export function Swarm2KanbanBoard({
               </label>
               <label className="block text-xs md:col-span-2">
                 <span className="mb-1 block font-semibold text-[var(--theme-muted)]">Labels</span>
-                <input value={draftLabels} onChange={(event) => setDraftLabels(event.target.value)} placeholder="label:Hermes/Workspace, priority:high" className="w-full rounded-xl border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-sm text-[var(--theme-text)] outline-none" />
+                <input value={draftLabels} onChange={(event) => setDraftLabels(event.target.value)} placeholder="label:NasTech/Workspace, priority:high" className="w-full rounded-xl border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-sm text-[var(--theme-text)] outline-none" />
                 <span className="mt-1 block text-[10px] text-[var(--theme-muted)]">Use label:Business/Sub-scope for the two-tier board filter.</span>
               </label>
               <label className="flex items-center gap-2 self-end rounded-xl border border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-2 text-xs text-[var(--theme-muted)]">

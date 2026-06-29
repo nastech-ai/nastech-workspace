@@ -8,7 +8,7 @@ Modes: triage
 gbrain, web, file, session_search, todo, skills, terminal
 
 ## Skills
-inbox-triage-core, gbrain, obsidian-markdown, gstack-for-hermes, defuddle, youtube-content
+inbox-triage-core, gbrain, obsidian-markdown, gstack-for-nastech, defuddle, youtube-content
 
 ## MCP servers
 gbrain
@@ -16,4 +16,4 @@ gbrain
 ## Plugins
 none
 
-This file mirrors `swarm.yaml` and the profile config under `~/.hermes/profiles/inbox-triage/`.
+This file mirrors `swarm.yaml` and the profile config under `~/.nastech/profiles/inbox-triage/`.

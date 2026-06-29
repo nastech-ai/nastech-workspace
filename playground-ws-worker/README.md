@@ -1,4 +1,4 @@
-# Hermes Playground multiplayer hub (Cloudflare Worker)
+# NasTech Playground multiplayer hub (Cloudflare Worker)
 
 Drop-in port of `scripts/playground-ws.mjs` to Cloudflare Workers + Durable Objects.
 Free tier covers a hackathon and well beyond. Zero cold starts. Edge-deployed.
@@ -40,17 +40,17 @@ pnpm deploy                  # publishes to <name>.<your-subdomain>.workers.dev
 Then in workspace `.env.production`:
 
 ```bash
-VITE_PLAYGROUND_WS_URL=wss://hermes-playground-ws.<your-subdomain>.workers.dev/playground
-VITE_PLAYGROUND_STATS_URL=https://hermes-playground-ws.<your-subdomain>.workers.dev/stats
+VITE_PLAYGROUND_WS_URL=wss://nastech-playground-ws.<your-subdomain>.workers.dev/playground
+VITE_PLAYGROUND_STATS_URL=https://nastech-playground-ws.<your-subdomain>.workers.dev/stats
 ```
 
-(Custom domain optional via Workers Routes — `wss://hub.hermes-playground.app`.)
+(Custom domain optional via Workers Routes — `wss://hub.nastech-playground.app`.)
 
 ## Local dev
 
 ```bash
 pnpm wrangler dev            # hot-reload on http://localhost:8787
-# In hermes-workspace:
+# In nastech-workspace:
 VITE_PLAYGROUND_WS_URL=ws://localhost:8787/playground pnpm dev
 ```
 

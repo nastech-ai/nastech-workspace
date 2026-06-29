@@ -1,8 +1,8 @@
 /**
- * Hermes Dashboard kanban plugin proxy.
+ * NasTech Dashboard kanban plugin proxy.
  *
  * When `caps.kanban === true` (probed in gateway-capabilities), the
- * dashboard exposes the upstream Hermes kanban plugin at
+ * dashboard exposes the upstream NasTech kanban plugin at
  * `/api/plugins/kanban/*`. This module is a thin HTTP proxy so the
  * workspace's `/api/swarm-kanban/*` routes can talk to the dashboard
  * without touching SQLite directly.
@@ -186,8 +186,8 @@ export async function updateDashboardKanbanTask(
 /**
  * List boards. The dashboard kanban plugin supports multi-board (project
  * scoping); each board is a separate SQLite file under
- * `<hermes-root>/kanban/boards/<slug>/kanban.db`. The first board is
- * always `default` and lives at `<hermes-root>/kanban.db` for back-compat.
+ * `<nastech-root>/kanban/boards/<slug>/kanban.db`. The first board is
+ * always `default` and lives at `<nastech-root>/kanban.db` for back-compat.
  */
 export type DashboardKanbanBoard = {
   slug: string

@@ -260,7 +260,7 @@ export function ExternalMemoryBrowserScreen() {
             No external memory providers
           </h2>
           <p className="mt-2 text-sm text-primary-600 dark:text-neutral-400">
-            Register providers in $HERMES_HOME/external_memory_providers.json to
+            Register providers in $NASTECH_HOME/external_memory_providers.json to
             inspect external memory review queues here.
           </p>
         </div>

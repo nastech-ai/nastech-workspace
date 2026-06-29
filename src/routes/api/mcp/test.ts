@@ -11,7 +11,7 @@ import {
 } from '../../../server/gateway-capabilities'
 import { requireJsonContentType, safeErrorMessage } from '../../../server/rate-limit'
 import { normalizeTestResult } from '../../../server/mcp-normalize'
-import { runHermesMcpTest } from '../../../server/mcp-cli-bridge'
+import { runNasTechMcpTest } from '../../../server/mcp-cli-bridge'
 import { setProbe } from '../../../server/mcp-tools-cache'
 import { parseMcpServerInput } from '../../../server/mcp-input-validate'
 import { createCapabilityUnavailablePayload } from '@/lib/feature-gates'
@@ -41,7 +41,7 @@ export const Route = createFileRoute('/api/mcp/test')({
         if (csrfCheck) return csrfCheck
         const capabilities = await ensureGatewayProbed()
         if (capabilities.mcpFallback && !capabilities.mcp) {
-          // Phase 1.5 fallback: shell out to `hermes mcp test <name>` and
+          // Phase 1.5 fallback: shell out to `nastech mcp test <name>` and
           // parse stdout. Reuses the CLI's _probe_single_server logic
           // without duplicating MCP protocol handling on the workspace
           // side. Only the by-name form is supported (config-only mode);
@@ -58,7 +58,7 @@ export const Route = createFileRoute('/api/mcp/test')({
                   'Local fallback only supports testing existing servers by name.',
               })
             }
-            const result = await runHermesMcpTest(name, { timeoutMs: TEST_TIMEOUT_MS })
+            const result = await runNasTechMcpTest(name, { timeoutMs: TEST_TIMEOUT_MS })
             setProbe(name, {
               status: result.status,
               toolCount: result.discoveredTools.length,

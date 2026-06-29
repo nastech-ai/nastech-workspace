@@ -143,7 +143,7 @@ function AgentAvatar({
           ) : (
             <img
               src="/claude-avatar.webp"
-              alt="Hermes Agent"
+              alt="NasTech Agent"
               className={cn(
                 getLogoSizeClassName(size),
                 iconClassName,

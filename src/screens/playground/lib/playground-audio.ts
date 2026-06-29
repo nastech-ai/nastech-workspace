@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 type AmbientZone = 'training' | 'forge' | null
 
-const STORAGE_KEY = 'hermes-playground-audio-muted'
-const MUTE_EVENT = 'hermes-playground-audio-muted'
+const STORAGE_KEY = 'nastech-playground-audio-muted'
+const MUTE_EVENT = 'nastech-playground-audio-muted'
 
 let audioContext: AudioContext | null = null
 let masterGain: GainNode | null = null

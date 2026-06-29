@@ -23,7 +23,7 @@ workers:
   - web
   skills:
   - orchestrator-core
-  - gstack-for-hermes
+  - gstack-for-nastech
   - gbrain
   - kanban-orchestrator
   - subagent-driven-development
@@ -81,7 +81,7 @@ workers:
   - obsidian-cli
   - obsidian-bases
   - json-canvas
-  - gstack-for-hermes
+  - gstack-for-nastech
   capabilities:
   - gbrain
   - razsoc
@@ -127,7 +127,7 @@ workers:
   - todo
   skills:
   - builder-core
-  - gstack-for-hermes
+  - gstack-for-nastech
   - test-driven-development
   - systematic-debugging
   - github-pr-workflow
@@ -178,7 +178,7 @@ workers:
   - requesting-code-review
   - github-code-review
   - systematic-debugging
-  - gstack-for-hermes
+  - gstack-for-nastech
   - gbrain
   - codebase-inspection
   capabilities:
@@ -227,7 +227,7 @@ workers:
   - qa-core
   - browser-harness-power-use
   - dogfood
-  - gstack-for-hermes
+  - gstack-for-nastech
   capabilities:
   - browser-qa
   - smoke-verification
@@ -275,7 +275,7 @@ workers:
   - gbrain
   - autoresearch
   - browser-harness-power-use
-  - gstack-for-hermes
+  - gstack-for-nastech
   - researcher-quick
   - researcher-autoresearch
   - arxiv
@@ -309,7 +309,7 @@ workers:
   role: Local Infra / Runtime Health Watch
   specialty: gateway health, cron, MCP, workspace services, local process status, boring reliability
   model: GPT-5.5
-  mission: Keep Hermes, Workspace, GBrain, gateway, cron, and local services observable and healthy with quiet, low-risk checks.
+  mission: Keep NasTech, Workspace, GBrain, gateway, cron, and local services observable and healthy with quiet, low-risk checks.
   profile: ops-watch
   modes:
   - health
@@ -324,7 +324,7 @@ workers:
   skills:
   - ops-watch-core
   - gbrain
-  - hermes-agent
+  - nastech-agent
   - systematic-debugging
   - webhook-subscriptions
   capabilities:
@@ -376,8 +376,8 @@ workers:
   - github-issues
   - github-code-review
   - gbrain
-  - gstack-for-hermes
-  - hermes-agent
+  - gstack-for-nastech
+  - nastech-agent
   capabilities:
   - upstream-tracking
   - dependency-maintenance
@@ -421,7 +421,7 @@ workers:
   - clarify
   skills:
   - strategist-core
-  - gstack-for-hermes
+  - gstack-for-nastech
   - gbrain
   - writing-plans
   - polymarket
@@ -469,7 +469,7 @@ workers:
   - inbox-triage-core
   - gbrain
   - obsidian-markdown
-  - gstack-for-hermes
+  - gstack-for-nastech
   - defuddle
   - youtube-content
   capabilities:

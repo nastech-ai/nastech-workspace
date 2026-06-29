@@ -50,7 +50,7 @@ const ACTIONS: Array<ActionSlot> = [
     icon: '✦',
     cost: 20,
     cooldownMs: 30000,
-    description: 'Summon a temporary Hermes familiar that walks beside you for 60s. (Hermes Summoning skill)',
+    description: 'Summon a temporary NasTech familiar that walks beside you for 60s. (NasTech Summoning skill)',
     color: '#F4E9D3',
   },
   {
@@ -60,7 +60,7 @@ const ACTIONS: Array<ActionSlot> = [
     icon: '☤',
     cost: 0,
     cooldownMs: 1,
-    description: 'Hermes sigil focus slot. Unlocks in Agora.',
+    description: 'NasTech sigil focus slot. Unlocks in Agora.',
     color: '#F1C56D',
     locked: true,
   },

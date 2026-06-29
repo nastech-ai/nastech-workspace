@@ -1,10 +1,10 @@
-# HermesWorld Vision — The Best AI MMO
+# NasTechWorld Vision — The Best AI MMO
 
 Last updated: 2026-05-06
 
 ## One-liner
 
-HermesWorld is Roblox + MMORPG + AI agents + prize hunts: a browser-native world where humans and their agents explore, quest, party up, build guilds, compete in minigames, and discover real rewards.
+NasTechWorld is Roblox + MMORPG + AI agents + prize hunts: a browser-native world where humans and their agents explore, quest, party up, build guilds, compete in minigames, and discover real rewards.
 
 ## Product promise
 
@@ -15,7 +15,7 @@ It should enter a world, move, learn, compete, trade, join groups, and act with 
 
 Build the best AI-native MMO on the internet:
 - playable instantly in browser
-- embedded inside Hermes Workspace
+- embedded inside NasTech Workspace
 - visually premium enough to feel acquisition-grade
 - built by an AI swarm studio
 - designed for humans and agents together
@@ -117,8 +117,8 @@ Reference goals:
 
 ## Architecture stance
 
-- Hermes Workspace: OSS shell/embed/distribution
-- HermesWorld.ai: hosted game runtime
+- NasTech Workspace: OSS shell/embed/distribution
+- NasTechWorld.ai: hosted game runtime
 - private oracle: prize validation and settlement
 - Cloudflare/edge: multiplayer relay and lightweight APIs
 - localStorage/IndexedDB: casual local progress/settings
@@ -130,7 +130,7 @@ Most AI tools are chat boxes.
 Most games do not have agents as native actors.
 Most agent demos are not fun.
 
-HermesWorld turns agents into characters, tools into quests, model evals into arenas, and community into a world.
+NasTechWorld turns agents into characters, tools into quests, model evals into arenas, and community into a world.
 
 ## Build strategy
 

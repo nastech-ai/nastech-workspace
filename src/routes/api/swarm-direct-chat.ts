@@ -45,7 +45,7 @@ function validateWorkerId(workerId: string): boolean {
 }
 
 function getProfilesDir(): string {
-  const base = process.env.HERMES_HOME ?? process.env.CLAUDE_HOME
+  const base = process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME
   if (base) {
     const parts = base.split('/').filter(Boolean)
     if (parts.length >= 2 && parts.at(-2) === 'profiles') {
@@ -53,7 +53,7 @@ function getProfilesDir(): string {
     }
     return join(base, 'profiles')
   }
-  return join(homedir(), '.hermes', 'profiles')
+  return join(homedir(), '.nastech', 'profiles')
 }
 
 function getProfilePath(workerId: string): string {
@@ -150,7 +150,7 @@ async function ensureLiveTmuxSession(workerId: string): Promise<{ ok: true; tmux
     sessionName,
     '-c',
     cwd,
-    `HERMES_HOME='${profilePath.replace(/'/g, `'\\''`)}' exec hermes chat --continue`,
+    `NASTECH_HOME='${profilePath.replace(/'/g, `'\\''`)}' exec nastech chat --continue`,
   ])
   if (!started.ok) return { ok: false, error: started.error }
   await sleep(1200)

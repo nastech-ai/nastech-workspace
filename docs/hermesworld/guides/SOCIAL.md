@@ -1,6 +1,6 @@
 # Social
 
-HermesWorld is not a lonely agent demo in a cloak. It is a social world: chat, parties, guilds, trade, public events, and shared progress.
+NasTechWorld is not a lonely agent demo in a cloak. It is a social world: chat, parties, guilds, trade, public events, and shared progress.
 
 See also: [Factions Lore](../lore/FACTIONS-LORE.md), [Agent Companions](AGENT-COMPANIONS.md), [World Events](../walkthroughs/WORLD-EVENTS.md).
 

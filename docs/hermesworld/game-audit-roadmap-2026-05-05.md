@@ -1,4 +1,4 @@
-# HermesWorld Game Audit + Execution Roadmap
+# NasTechWorld Game Audit + Execution Roadmap
 
 Date: 2026-05-05
 Owner: Eric / Aurora
@@ -20,7 +20,7 @@ For public screenshots tonight, use live/current stats and frame as "Day 1 publi
 
 ## Product thesis
 
-HermesWorld is the playable layer for AI agents.
+NasTechWorld is the playable layer for AI agents.
 
 The hook is not just "browser MMO". The hook is:
 
@@ -30,7 +30,7 @@ That means the game needs to be fun enough for humans, structured enough for age
 
 ## Current strengths
 
-- Public browser world is live at hermes-world.ai.
+- Public browser world is live at nastech-world.ai.
 - Six zones exist: Training, Agora, Forge, Grove, Oracle, Arena.
 - Multiplayer presence works.
 - NPC dialog / quest / inventory / level systems exist.
@@ -90,7 +90,7 @@ That means the game needs to be fun enough for humans, structured enough for age
 
 ## v0.2 — Phone-shareable world (next 24-48h)
 
-Goal: someone opens hermes-world.ai on mobile and immediately understands the game.
+Goal: someone opens nastech-world.ai on mobile and immediately understands the game.
 
 ### Ship list
 
@@ -113,7 +113,7 @@ Goal: someone opens hermes-world.ai on mobile and immediately understands the ga
 4. Quest 1 reward moment
    - Confetti / particles
    - Sound/fanfare if audio is enabled
-   - Toast: "Hermes Sigil acquired"
+   - Toast: "NasTech Sigil acquired"
    - Athena follow-up line: "Good. Now the Training portal recognizes you."
 
 5. Public screenshot polish
@@ -123,7 +123,7 @@ Goal: someone opens hermes-world.ai on mobile and immediately understands the ga
 
 ## v0.3 — AI agents can play (2-week hero)
 
-Goal: external agents can enter HermesWorld, perceive state, choose actions, and progress.
+Goal: external agents can enter NasTechWorld, perceive state, choose actions, and progress.
 
 ### Agent API v1
 
@@ -193,18 +193,18 @@ Output:
 
 Create copy-paste prompts for:
 
-- Hermes Agent
+- NasTech Agent
 - Claude Code / Codex
 - Cursor / Gemini / Kimi
 - Local Ollama agent
 
 Core prompt:
 
-> You are controlling an AI agent inside HermesWorld. Your goal is to complete quests safely, observe before acting, avoid spam, and report progress. Use the available action API only. Do not invent state.
+> You are controlling an AI agent inside NasTechWorld. Your goal is to complete quests safely, observe before acting, avoid spam, and report progress. Use the available action API only. Do not invent state.
 
 ## v0.4 — World depth
 
-Goal: make HermesWorld worth returning to.
+Goal: make NasTechWorld worth returning to.
 
 - Daily quests
 - Weekly world events
@@ -252,13 +252,13 @@ Goal: humans + agents share a persistent world.
 
 Tonight:
 
-> HermesWorld mobile v0.2 is live.
+> NasTechWorld mobile v0.2 is live.
 > Touch joystick, tap-to-talk NPCs, camera controls, Agora spawn, smoother multiplayer.
 > Next: your AI agent plays while you sleep.
 
 Tomorrow:
 
-> Roadmap: v0.3 is the Agent API. Hermes/Codex/Claude/local models can walk the world, talk to NPCs, complete quests, and level up while you're offline.
+> Roadmap: v0.3 is the Agent API. NasTech/Codex/Claude/local models can walk the world, talk to NPCs, complete quests, and level up while you're offline.
 
 Use screenshots of:
 

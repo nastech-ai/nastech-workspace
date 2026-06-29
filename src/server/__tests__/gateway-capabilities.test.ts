@@ -35,12 +35,12 @@ beforeEach(() => {
   fetchMock.mockReset()
   vi.stubGlobal('fetch', fetchMock)
   delete process.env.CLAUDE_HOME
-  delete process.env.HERMES_HOME
+  delete process.env.NASTECH_HOME
   delete process.env.CLAUDE_API_URL
-  delete process.env.HERMES_API_URL
+  delete process.env.NASTECH_API_URL
   delete process.env.CLAUDE_DASHBOARD_URL
-  delete process.env.HERMES_DASHBOARD_URL
-  delete process.env.HERMES_DASHBOARD_TOKEN
+  delete process.env.NASTECH_DASHBOARD_URL
+  delete process.env.NASTECH_DASHBOARD_TOKEN
   delete process.env.CLAUDE_DASHBOARD_TOKEN
   delete process.env.HOST
 })
@@ -118,7 +118,7 @@ describe('gateway-capabilities', () => {
           },
           ['health', 'sessions'],
         ),
-      ).toBe(`[gateway] Missing Hermes APIs detected. ${mod.CLAUDE_UPGRADE_INSTRUCTIONS}`)
+      ).toBe(`[gateway] Missing NasTech APIs detected. ${mod.CLAUDE_UPGRADE_INSTRUCTIONS}`)
     })
   })
 
@@ -150,7 +150,7 @@ describe('gateway-capabilities', () => {
       fetchMock.mockResolvedValue({
         ok: true,
         status: 200,
-        text: async () => '<html><head><script>window.__HERMES_SESSION_TOKEN__="fresh-token";</script></head></html>',
+        text: async () => '<html><head><script>window.__NASTECH_SESSION_TOKEN__="fresh-token";</script></head></html>',
       })
 
       const mod = await loadMod()
@@ -162,11 +162,11 @@ describe('gateway-capabilities', () => {
     })
 
     it('ignores copied dashboard token env vars and scrapes the current token instead', async () => {
-      process.env.HERMES_DASHBOARD_TOKEN = 'stale-token'
+      process.env.NASTECH_DASHBOARD_TOKEN = 'stale-token'
       fetchMock.mockResolvedValue({
         ok: true,
         status: 200,
-        text: async () => '<html><head><script>window.__HERMES_SESSION_TOKEN__="live-token";</script></head></html>',
+        text: async () => '<html><head><script>window.__NASTECH_SESSION_TOKEN__="live-token";</script></head></html>',
       })
 
       const mod = await loadMod()
@@ -176,7 +176,7 @@ describe('gateway-capabilities', () => {
   })
 
   it('does not mark Conductor available when dashboard returns SPA HTML fallback', async () => {
-    process.env.HERMES_API_URL = 'http://gateway.test'
+    process.env.NASTECH_API_URL = 'http://gateway.test'
     process.env.CLAUDE_DASHBOARD_URL = 'http://dashboard.test'
     const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = String(input)
@@ -237,7 +237,7 @@ describe('gateway-capabilities', () => {
   })
 
   it('marks Conductor available when dashboard returns JSON from missions API', async () => {
-    process.env.HERMES_API_URL = 'http://gateway.test'
+    process.env.NASTECH_API_URL = 'http://gateway.test'
     process.env.CLAUDE_DASHBOARD_URL = 'http://dashboard.test'
     vi.stubGlobal('fetch', vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input)

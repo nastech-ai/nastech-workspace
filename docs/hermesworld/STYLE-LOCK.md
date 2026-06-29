@@ -1,4 +1,4 @@
-# HermesWorld — Style Lock
+# NasTechWorld — Style Lock
 
 Locked: 2026-05-06 02:38 EDT
 Owner: Eric
@@ -64,7 +64,7 @@ New icons must follow the same line-art gold-stroke language.
 
 ### Typography (locked)
 
-- **Display serif**: Canela / Instrument Serif (for HermesWorld wordmark, hero copy, zone titles)
+- **Display serif**: Canela / Instrument Serif (for NasTechWorld wordmark, hero copy, zone titles)
 - **UI / body**: Inter / Söhne (for HUD, buttons, chat)
 - **Weights**: Light / Regular / Medium / Semibold / Bold
 

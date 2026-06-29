@@ -25,23 +25,23 @@ function getSetupSteps(
   return [
     {
       title: 'Use any OpenAI-compatible backend',
-      command: 'Set HERMES_API_URL to your backend base URL',
+      command: 'Set NASTECH_API_URL to your backend base URL',
       note: 'Portable chat works with any backend that exposes /v1/chat/completions (Ollama, LiteLLM, vLLM, etc.)',
     },
     {
-      title: 'Optional: install Hermes Agent locally',
+      title: 'Optional: install NasTech Agent locally',
       command:
-        'curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash',
-      note: 'Vanilla hermes-agent unlocks sessions, skills, memory, jobs, and config automatically — no fork required',
+        'curl -fsSL https://raw.githubusercontent.com/nastech-ai/nastech-agent/main/scripts/install.sh | bash',
+      note: 'Vanilla nastech-agent unlocks sessions, skills, memory, jobs, and config automatically — no fork required',
     },
     {
       title: 'Set up your agent',
-      command: 'hermes setup',
-      note: 'Pick your providers once; Hermes Agent stores them under ~/.hermes',
+      command: 'nastech setup',
+      note: 'Pick your providers once; NasTech Agent stores them under ~/.nastech',
     },
     {
       title: 'Start the gateway',
-      command: 'hermes gateway run',
+      command: 'nastech gateway run',
       note: 'This starts the HTTP API on :8642 for the workspace',
     },
   ]
@@ -94,7 +94,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
     }, FAILURE_REVEAL_MS)
 
     // After a short grace period, fire /api/start-claude once silently.
-    // If hermes-agent is installed and just not running, this brings it back
+    // If nastech-agent is installed and just not running, this brings it back
     // up without making the user click anything. The polling loop will see it.
     const fireSilentAutoStart = async () => {
       if (autoStartFired || isDone.current) return
@@ -113,7 +113,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
           setServerLog([
             String(
               data.message ||
-                'Auto-started Hermes Agent gateway — reconnecting…',
+                'Auto-started NasTech Agent gateway — reconnecting…',
             ),
           ])
         }
@@ -169,7 +169,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
   const handleAutoStart = async () => {
     setServerStarting(true)
     setServerError(null)
-    setServerLog(['Looking for hermes-agent...'])
+    setServerLog(['Looking for nastech-agent...'])
     try {
       const res = await fetch('/api/start-claude', {
         method: 'POST',
@@ -193,7 +193,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
         return
       }
 
-      const msg = String(data.error || 'Could not find hermes-agent')
+      const msg = String(data.error || 'Could not find nastech-agent')
       const hint = data.hint ? String(data.hint) : ''
       setServerLog([`Error: ${msg}`])
       if (hint) setServerLog((prev) => [...prev, `Hint: ${hint}`])
@@ -221,12 +221,12 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
       <div className="flex w-full max-w-lg flex-col items-center text-center">
         <img
           src="/claude-avatar.webp"
-          alt="Hermes Agent"
+          alt="NasTech Agent"
           className="mb-5 h-20 w-20 rounded-2xl object-cover shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
         />
 
         <h1 className="text-[2rem] font-semibold tracking-tight text-white">
-          Hermes Workspace
+          NasTech Workspace
         </h1>
 
         {/* Connecting spinner */}
@@ -255,7 +255,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
               Welcome! Let&apos;s connect your backend
             </p>
             <p className="mt-2 text-sm leading-6 text-white/60">
-              Hermes Workspace works with any OpenAI-compatible backend. Hermes Agent
+              NasTech Workspace works with any OpenAI-compatible backend. NasTech Agent
               gateway APIs unlock enhanced features automatically when they are
               available.
             </p>
@@ -279,7 +279,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
                     Detecting...
                   </span>
                 ) : (
-                  'Auto-Start Hermes Agent Gateway'
+                  'Auto-Start NasTech Agent Gateway'
                 )}
               </button>
 
@@ -358,12 +358,12 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
                 <p className="text-xs font-medium text-white/50">
                   Point{' '}
                   <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-white/70">
-                    HERMES_API_URL
+                    NASTECH_API_URL
                   </code>{' '}
                   at any OpenAI-compatible backend:
                 </p>
                 <pre className="mt-2 overflow-x-auto font-mono text-xs text-white/60">
-                  HERMES_API_URL=http://your-server:8642 pnpm dev
+                  NASTECH_API_URL=http://your-server:8642 pnpm dev
                 </pre>
               </div>
             </div>

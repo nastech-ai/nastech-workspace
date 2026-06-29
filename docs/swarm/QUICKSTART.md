@@ -1,6 +1,6 @@
 # Swarm Mode Quickstart
 
-This quickstart gets a local Hermes Workspace checkout running, confirms profile auto-detection, starts a tmux-backed Hermes Agent, dispatches a first task, and shows where to review the result.
+This quickstart gets a local NasTech Workspace checkout running, confirms profile auto-detection, starts a tmux-backed NasTech Agent, dispatches a first task, and shows where to review the result.
 
 ## 0. Prerequisites
 
@@ -10,15 +10,15 @@ You need:
 - pnpm
 - git
 - tmux for persistent TUI-backed workers
-- a configured Hermes Agent profile under `~/.hermes/profiles/`
+- a configured NasTech Agent profile under `~/.nastech/profiles/`
 
 The workspace can still render without tmux, but tmux is what makes the worker sessions feel alive instead of one-shot and disposable.
 
 ## 1. Clone the workspace
 
 ```bash
-git clone https://github.com/outsourc-e/hermes-workspace.git
-cd hermes-workspace
+git clone https://github.com/nastech-ai/nastech-workspace.git
+cd nastech-workspace
 ```
 
 ## 2. Install dependencies
@@ -43,16 +43,16 @@ Some release lanes run on `:3002`; trust the terminal output if it differs.
 
 ## 4. First-run profile detection
 
-On first run, the workspace looks for Hermes Agent profiles in:
+On first run, the workspace looks for NasTech Agent profiles in:
 
 ```text
-~/.hermes/profiles/
+~/.nastech/profiles/
 ```
 
 Each worker profile can include:
 
 ```text
-~/.hermes/profiles/<workerId>/
+~/.nastech/profiles/<workerId>/
   MEMORY.md
   SOUL.md
   USER.md
@@ -191,7 +191,7 @@ Pick the closest role first, then tune. Avoid starting from Custom unless you ar
 Before trusting a new worker:
 
 - It appears in the roster.
-- Its profile exists under `~/.hermes/profiles/<workerId>/`.
+- Its profile exists under `~/.nastech/profiles/<workerId>/`.
 - Runtime view can attach to tmux or open a shell/log stream.
 - `/api/swarm-dispatch` can deliver a task.
 - The worker returns the canonical checkpoint format.

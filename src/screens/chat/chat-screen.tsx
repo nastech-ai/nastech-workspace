@@ -252,7 +252,7 @@ function exportConversationTranscript(payload: {
     .join('\n\n')
     .trim()
 
-  const content = `# Hermes Conversation Export\n\nSession: ${payload.sessionLabel}\nExported: ${new Date().toISOString()}\n\n${body || '_No messages in this conversation._'}\n`
+  const content = `# NasTech Conversation Export\n\nSession: ${payload.sessionLabel}\nExported: ${new Date().toISOString()}\n\n${body || '_No messages in this conversation._'}\n`
   const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
@@ -514,7 +514,7 @@ export function ChatScreen({
     return 'low'
   })
   // Tracks whether the user has explicitly picked a thinking level for this session.
-  // A missing/absent sessionStorage key means we should fall back to the Hermes config default.
+  // A missing/absent sessionStorage key means we should fall back to the NasTech config default.
   const thinkingInitializedByUserRef = useRef(false)
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -1030,12 +1030,12 @@ export function ChatScreen({
   })
 
   // Fetch the configured reasoning effort so the Chat Controls default matches
-  // what Hermes actually uses instead of hardcoding 'low'.
+  // what NasTech actually uses instead of hardcoding 'low'.
   const reasoningEffortQuery = useQuery({
-    queryKey: ['hermes-config', 'reasoning-effort'],
+    queryKey: ['nastech-config', 'reasoning-effort'],
     queryFn: async () => {
       try {
-        const res = await fetch('/api/hermes-config')
+        const res = await fetch('/api/nastech-config')
         if (!res.ok) return 'low'
         const data = await res.json() as { config?: Record<string, unknown> }
         const agentSection = data?.config?.agent
@@ -1088,7 +1088,7 @@ export function ChatScreen({
     }
   }, [currentModel, activeFriendlyId])
 
-  // If no per-session thinking level override exists, inherit from Hermes config
+  // If no per-session thinking level override exists, inherit from NasTech config
   useEffect(() => {
     if (thinkingInitializedByUserRef.current) return
     const configEffort = reasoningEffortQuery.data
@@ -1662,7 +1662,7 @@ export function ChatScreen({
           }
         : statusQuery.data && !statusQuery.data.ok
           ? {
-              message: statusQuery.data.error || 'Hermes Agent unavailable',
+              message: statusQuery.data.error || 'NasTech Agent unavailable',
               status: statusQuery.data.status,
             }
           : null
@@ -1705,7 +1705,7 @@ export function ChatScreen({
   // Memory, etc.), the component re-mounts. If a response finished while we
   // were away, the initial refetch may hit stale data. A delayed re-refetch
   // ensures we pick up responses that were persisted shortly after the first
-  // fetch. See: https://github.com/outsourc-e/hermes-workspace/issues/43
+  // fetch. See: https://github.com/nastech-ai/nastech-workspace/issues/43
   useEffect(() => {
     const timer = window.setTimeout(() => {
       void historyQuery.refetch()
@@ -1789,7 +1789,7 @@ export function ChatScreen({
       : historyError
         ? `Failed to load history. ${historyError}`
         : statusError
-          ? `Hermes Agent unavailable. ${statusError.message}`
+          ? `NasTech Agent unavailable. ${statusError.message}`
           : null
     if (message) setError(message)
   }, [
@@ -2215,7 +2215,7 @@ export function ChatScreen({
 
   useEffect(() => {
     if (false) {
-      // Server connection checks removed — Hermes Agent uses direct API
+      // Server connection checks removed — NasTech Agent uses direct API
       hasSeenDisconnectRef.current = true
       retriedQueuedMessageKeysRef.current.clear()
       return

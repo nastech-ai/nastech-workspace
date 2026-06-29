@@ -51,8 +51,8 @@ export function ConnectionCheckStep({
       if (!connected) {
         setLastError(
           data.error === 'server_timeout'
-            ? 'Hermes Agent did not respond in time.'
-            : 'Hermes Agent is not reachable yet.',
+            ? 'NasTech Agent did not respond in time.'
+            : 'NasTech Agent is not reachable yet.',
         )
       }
     } catch (error) {
@@ -111,12 +111,12 @@ export function ConnectionCheckStep({
       {status === 'disconnected' && (
         <div className="mb-6 w-full rounded-2xl border border-red-200 bg-red-50 p-4 text-left">
           <p className="mb-3 text-sm font-medium text-red-700">
-            Make sure the Hermes Agent HTTP API server is enabled:
+            Make sure the NasTech Agent HTTP API server is enabled:
           </p>
           <div className="space-y-2">
             <div>
               <p className="text-xs font-medium text-red-700 mb-1">
-                1. Enable the API server in <code>~/.hermes/.env</code>:
+                1. Enable the API server in <code>~/.nastech/.env</code>:
               </p>
               <code className="block overflow-x-auto rounded-lg bg-red-100 px-3 py-2 text-xs text-red-900">
                 API_SERVER_ENABLED=true
@@ -127,12 +127,12 @@ export function ConnectionCheckStep({
                 2. Restart the gateway:
               </p>
               <code className="block overflow-x-auto rounded-lg bg-red-100 px-3 py-2 text-xs text-red-900">
-                cd hermes-agent && hermes --gateway
+                cd nastech-agent && nastech --gateway
               </code>
             </div>
           </div>
           <p className="mt-3 text-xs text-red-700">
-            Or point <code>HERMES_API_URL</code> at any OpenAI-compatible
+            Or point <code>NASTECH_API_URL</code> at any OpenAI-compatible
             backend (Ollama, LiteLLM, vLLM, etc.).
           </p>
           {lastError && (
@@ -213,7 +213,7 @@ export function ModelConfigurationStep({
       </h2>
 
       <p className="mb-6 max-w-md text-base leading-relaxed text-primary-600">
-        Core chat works with any OpenAI-compatible backend. Hermes Agent gateway APIs
+        Core chat works with any OpenAI-compatible backend. NasTech Agent gateway APIs
         make provider and model setup editable from the workspace.
       </p>
 

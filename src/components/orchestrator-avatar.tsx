@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
 
 export type AvatarStyle =
   // Greek god PNGs (premium tier, the "More" gallery)
-  | 'hermes'
+  | 'nastech'
   | 'athena'
   | 'apollo'
   | 'artemis'
@@ -24,7 +24,7 @@ export type AvatarStyle =
   | 'chronos'
   // Emoji-styled SVG avatars (default quick tier)
   | 'owl'
-  | 'hermes-cat'
+  | 'nastech-cat'
   | 'robot'
   | 'ghost'
   | 'fox'
@@ -42,7 +42,7 @@ type AvatarOption = {
 
 const AVATAR_OPTIONS: Array<AvatarOption> = [
   // Greek god PNG portraits (premium tier)
-  { id: 'hermes', label: 'Hermes', emoji: '🩽', tier: 'greek' },
+  { id: 'nastech', label: 'NasTech', emoji: '🩽', tier: 'greek' },
   { id: 'athena', label: 'Athena', emoji: '🦉', tier: 'greek' },
   { id: 'apollo', label: 'Apollo', emoji: '☀️', tier: 'greek' },
   { id: 'artemis', label: 'Artemis', emoji: '🌙', tier: 'greek' },
@@ -53,7 +53,7 @@ const AVATAR_OPTIONS: Array<AvatarOption> = [
   { id: 'chronos', label: 'Chronos', emoji: '⏳', tier: 'greek' },
   // Emoji SVG quick avatars
   { id: 'owl', label: 'Owl', emoji: '🦉', tier: 'emoji' },
-  { id: 'hermes-cat', label: 'Cat', emoji: '🐱', tier: 'emoji' },
+  { id: 'nastech-cat', label: 'Cat', emoji: '🐱', tier: 'emoji' },
   { id: 'robot', label: 'Robot', emoji: '🤖', tier: 'emoji' },
   { id: 'fox', label: 'Fox', emoji: '🦊', tier: 'emoji' },
   { id: 'ghost', label: 'Ghost', emoji: '👻', tier: 'emoji' },
@@ -66,7 +66,7 @@ const AVATAR_OPTIONS: Array<AvatarOption> = [
 const GREEK_AVATARS = AVATAR_OPTIONS.filter((o) => o.tier === 'greek')
 const EMOJI_AVATARS = AVATAR_OPTIONS.filter((o) => o.tier === 'emoji')
 
-const STORAGE_KEY = 'hermes-workspace-orchestrator-avatar'
+const STORAGE_KEY = 'nastech-workspace-orchestrator-avatar'
 
 function getStoredAvatar(): AvatarStyle {
   try {
@@ -75,7 +75,7 @@ function getStoredAvatar(): AvatarStyle {
   } catch {
     /* noop */
   }
-  return 'hermes'
+  return 'nastech'
 }
 
 /* ── Greek god PNG avatar factory ────────────────── */
@@ -141,7 +141,7 @@ function makeGreekPNG(name: string, label: string) {
   }
 }
 
-const HermesPNG = makeGreekPNG('hermes', 'Hermes')
+const NasTechPNG = makeGreekPNG('nastech', 'NasTech')
 const AthenaPNG = makeGreekPNG('athena', 'Athena')
 const ApolloPNG = makeGreekPNG('apollo', 'Apollo')
 const ArtemisPNG = makeGreekPNG('artemis', 'Artemis')
@@ -196,7 +196,7 @@ function LobsterSVG({
 }) {
   ensureStyles()
   const ey = state === 'thinking' ? 8 : 9.5
-  const hermesAnim =
+  const nastechAnim =
     state !== 'idle' ? 'oa-type 0.6s ease-in-out infinite' : 'none'
   const mouth =
     state === 'orchestrating'
@@ -306,7 +306,7 @@ function LobsterSVG({
       />
 
       {/* Claws — left */}
-      <g style={{ transformOrigin: '5px 14px', animation: hermesAnim }}>
+      <g style={{ transformOrigin: '5px 14px', animation: nastechAnim }}>
         <path
           d="M9,13 Q6,11 4,13"
           fill="none"
@@ -334,7 +334,7 @@ function LobsterSVG({
       <g
         style={{
           transformOrigin: '27px 14px',
-          animation: hermesAnim.replace('0.6s', '0.65s'),
+          animation: nastechAnim.replace('0.6s', '0.65s'),
         }}
       >
         <path
@@ -1565,7 +1565,7 @@ const AVATAR_RENDERERS: Record<
   React.FC<{ state: OrchestratorState; size: number }>
 > = {
   // Greek PNGs
-  hermes: HermesPNG,
+  nastech: NasTechPNG,
   athena: AthenaPNG,
   apollo: ApolloPNG,
   artemis: ArtemisPNG,
@@ -1576,7 +1576,7 @@ const AVATAR_RENDERERS: Record<
   chronos: ChronosPNG,
   // Emoji SVGs
   wolf: WolfSVG,
-  'hermes-cat': ClawCatSVG,
+  'nastech-cat': ClawCatSVG,
   robot: RobotSVG,
   fox: FoxSVG,
   owl: OwlSVG,

@@ -1,19 +1,19 @@
 /**
- * Hermes Config API — proxy route for hermes-config-route handlers.
+ * NasTech Config API — proxy route for nastech-config-route handlers.
  * Maps GET and PATCH/POST to the server-side config read/write logic.
  */
 import { createFileRoute } from '@tanstack/react-router'
 import {
-  handleHermesConfigGet,
-  handleHermesConfigPatch,
-} from '../../server/hermes-config-route'
+  handleNasTechConfigGet,
+  handleNasTechConfigPatch,
+} from '../../server/nastech-config-route'
 
-export const Route = createFileRoute('/api/hermes-config')({
+export const Route = createFileRoute('/api/nastech-config')({
   server: {
     handlers: {
-      GET: handleHermesConfigGet,
-      PATCH: handleHermesConfigPatch,
-      POST: handleHermesConfigPatch,
+      GET: handleNasTechConfigGet,
+      PATCH: handleNasTechConfigPatch,
+      POST: handleNasTechConfigPatch,
     },
   },
 })

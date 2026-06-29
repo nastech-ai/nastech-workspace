@@ -163,7 +163,7 @@ describe('createReservation', () => {
         sendConfirmationEmail: async (payload) => {
           sent.push(payload)
         },
-        baseUrl: 'https://hermes-world.ai',
+        baseUrl: 'https://nastech-world.ai',
         now: () => new Date('2026-05-06T12:00:00.000Z'),
         randomToken: () => 'tok_new',
       },
@@ -175,7 +175,7 @@ describe('createReservation', () => {
       {
         email: 'scout@example.com',
         desiredName: 'AgoraScout',
-        confirmationUrl: 'https://hermes-world.ai/reserve/confirm?token=tok_new',
+        confirmationUrl: 'https://nastech-world.ai/reserve/confirm?token=tok_new',
       },
     ])
     await expect(countReservations(store)).resolves.toBe(1)
@@ -202,7 +202,7 @@ describe('createReservation', () => {
           sendConfirmationEmail: async (payload) => {
             sent.push(payload.desiredName)
           },
-          baseUrl: 'https://hermes-world.ai',
+          baseUrl: 'https://nastech-world.ai',
           now: () => new Date('2026-05-06T12:00:00.000Z'),
           randomToken: () => attempt.token,
         },

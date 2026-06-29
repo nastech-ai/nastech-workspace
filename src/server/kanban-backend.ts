@@ -20,7 +20,7 @@ import {
   type DashboardKanbanTask,
 } from './kanban-dashboard-proxy'
 
-export type KanbanBackendId = 'local' | 'claude' | 'hermes-proxy'
+export type KanbanBackendId = 'local' | 'claude' | 'nastech-proxy'
 
 export type KanbanBackendMeta = {
   id: KanbanBackendId
@@ -41,7 +41,7 @@ type KanbanBackend = {
   ): SwarmKanbanCard | null | Promise<SwarmKanbanCard | null>
 }
 
-// Map upstream Hermes kanban statuses (triage/todo/ready/running/done/blocked
+// Map upstream NasTech kanban statuses (triage/todo/ready/running/done/blocked
 // and any custom user statuses) into our internal lane vocabulary. Mirrors
 // mapClaudeStatus() but kept separate because the dashboard plugin sometimes
 // returns slightly different status strings than direct SQL access.
@@ -81,14 +81,14 @@ function mapLaneToDashboardStatus(lane: SwarmKanbanCard['status']): string {
     case 'ready':
       return 'ready'
     case 'running':
-      // The Hermes dashboard rejects direct writes of 'running' — only the
+      // The NasTech dashboard rejects direct writes of 'running' — only the
       // dispatcher's claim path may move a task into 'running'. Treat a
       // user dragging a card to the running lane as 'mark it ready, let
       // the dispatcher pick it up'. The card will flip to running on the
       // next dispatcher tick (default 60s).
       return 'ready'
     case 'review':
-      // 'review' isn't a first-class Hermes status; map to 'ready' so the
+      // 'review' isn't a first-class NasTech status; map to 'ready' so the
       // task remains visible on the board until a worker is assigned.
       return 'ready'
     case 'blocked':
@@ -115,7 +115,7 @@ function dashboardTaskToCard(task: DashboardKanbanTask): SwarmKanbanCard {
     status: mapDashboardStatusToLane(task.status),
     missionId: null,
     reportPath: null,
-    createdBy: task.created_by ?? 'hermes-kanban',
+    createdBy: task.created_by ?? 'nastech-kanban',
     createdAt,
     updatedAt,
   }
@@ -193,7 +193,7 @@ function detectClaudeKanban(): ClaudeDetection {
       cliPath: null,
       dbPath,
       workspacePath,
-      reason: 'Hermes Kanban storage not found; using the local Swarm Board fallback.',
+      reason: 'NasTech Kanban storage not found; using the local Swarm Board fallback.',
     }
   }
 
@@ -203,7 +203,7 @@ function detectClaudeKanban(): ClaudeDetection {
     cliPath: cli.ok ? cli.path ?? null : null,
     dbPath,
     workspacePath,
-    reason: cli.ok ? undefined : 'Hermes Kanban storage detected; CLI unavailable, using direct local storage access.',
+    reason: cli.ok ? undefined : 'NasTech Kanban storage detected; CLI unavailable, using direct local storage access.',
   }
 }
 
@@ -346,7 +346,7 @@ function validateNativeParents(dbPath: string, parentIds: string[]): Map<string,
     if (typeof row.id === 'string') statuses.set(row.id, row.status ?? '')
   }
   const missing = uniqueParentIds.filter((parentId) => !statuses.has(parentId))
-  if (missing.length > 0) throw new Error(`Cannot create Hermes task with missing parent(s): ${missing.join(', ')}`)
+  if (missing.length > 0) throw new Error(`Cannot create NasTech task with missing parent(s): ${missing.join(', ')}`)
   return statuses
 }
 
@@ -419,13 +419,13 @@ const claudeBackend: KanbanBackend = {
     const detection = detectClaudeKanban()
     return {
       id: 'claude',
-      label: 'Hermes Kanban',
+      label: 'NasTech Kanban',
       detected: detection.available,
       writable: detection.available,
       path: fs.existsSync(detection.dbPath) ? detection.dbPath : null,
       details: detection.available
-        ? detection.reason ?? `Hermes Kanban storage detected (${detection.cliPath ?? 'direct sqlite'}, ${detection.dbPath})`
-        : detection.reason ?? 'Hermes Kanban not detected.',
+        ? detection.reason ?? `NasTech Kanban storage detected (${detection.cliPath ?? 'direct sqlite'}, ${detection.dbPath})`
+        : detection.reason ?? 'NasTech Kanban not detected.',
     }
   },
   list() {
@@ -433,7 +433,7 @@ const claudeBackend: KanbanBackend = {
   },
   create(input) {
     const detection = detectClaudeKanban()
-    if (!detection.available) throw new Error(detection.reason ?? 'Hermes Kanban not detected')
+    if (!detection.available) throw new Error(detection.reason ?? 'NasTech Kanban not detected')
     const nowSeconds = Math.floor(Date.now() / 1000)
     const parentIds = Array.isArray(input.parents)
       ? input.parents.filter((parentId): parentId is string => typeof parentId === 'string' && parentId.trim().length > 0)
@@ -479,7 +479,7 @@ const claudeBackend: KanbanBackend = {
     ].join(' ')
     runSqlite(detection.dbPath, statements)
     const created = readClaudeTask(taskId)
-    if (!created) throw new Error(`Created Hermes task ${taskId} but could not read it back`)
+    if (!created) throw new Error(`Created NasTech task ${taskId} but could not read it back`)
     return claudeTaskToCard(created)
   },
   update(cardId, updates) {
@@ -506,9 +506,9 @@ const claudeBackend: KanbanBackend = {
   },
 }
 
-// Hermes Dashboard kanban plugin backend (HTTP proxy).
+// NasTech Dashboard kanban plugin backend (HTTP proxy).
 //
-// Used when the upstream Hermes Agent dashboard exposes the kanban plugin
+// Used when the upstream NasTech Agent dashboard exposes the kanban plugin
 // (caps.kanban === true). Goes through HTTP rather than direct SQLite so
 // remote workspaces (Docker, VPS, separate machines) can use the same
 // kanban DB the agent is using. See kanban-dashboard-proxy.ts.
@@ -516,14 +516,14 @@ const dashboardProxyBackend: KanbanBackend = {
   meta() {
     const caps = getCapabilities()
     return {
-      id: 'hermes-proxy',
-      label: 'Hermes Dashboard kanban',
+      id: 'nastech-proxy',
+      label: 'NasTech Dashboard kanban',
       detected: caps.kanban,
       writable: caps.kanban,
       path: caps.dashboard.url || CLAUDE_DASHBOARD_URL,
       details: caps.kanban
-        ? `Synced with the Hermes Dashboard kanban plugin at ${caps.dashboard.url}/kanban (single SQLite source of truth, dispatcher-aware).`
-        : 'Hermes Dashboard kanban plugin not detected.',
+        ? `Synced with the NasTech Dashboard kanban plugin at ${caps.dashboard.url}/kanban (single SQLite source of truth, dispatcher-aware).`
+        : 'NasTech Dashboard kanban plugin not detected.',
     }
   },
   async list() {
@@ -544,7 +544,7 @@ const dashboardProxyBackend: KanbanBackend = {
       body: (input.spec ?? '').trim() || undefined,
       assignee: input.assignedWorker?.trim() || undefined,
       status: mapLaneToDashboardStatus(input.status ?? 'backlog'),
-      created_by: input.createdBy?.trim() || 'hermes-workspace',
+      created_by: input.createdBy?.trim() || 'nastech-workspace',
     })
     return dashboardTaskToCard(task)
   },
@@ -580,12 +580,12 @@ const dashboardProxyBackend: KanbanBackend = {
  * Resolve which backend to use.
  *
  * Precedence (highest first):
- *   1. CLAUDE_KANBAN_BACKEND env var (local | claude | hermes-proxy | auto)
- *   2. caps.kanban (Hermes Dashboard plugin available) → hermes-proxy
- *   3. legacy claudeBackend (direct sqlite to ~/.hermes/kanban.db) when DB exists
+ *   1. CLAUDE_KANBAN_BACKEND env var (local | claude | nastech-proxy | auto)
+ *   2. caps.kanban (NasTech Dashboard plugin available) → nastech-proxy
+ *   3. legacy claudeBackend (direct sqlite to ~/.nastech/kanban.db) when DB exists
  *   4. localBackend (file-backed swarm2-kanban.json) as last resort
  *
- * The 'auto' default deliberately prefers hermes-proxy over the legacy direct
+ * The 'auto' default deliberately prefers nastech-proxy over the legacy direct
  * SQLite path so dispatchers + transactional helpers stay in charge of writes.
  * Set CLAUDE_KANBAN_BACKEND=claude to force the direct-SQLite path during
  * troubleshooting.
@@ -593,7 +593,7 @@ const dashboardProxyBackend: KanbanBackend = {
 export function resolveKanbanBackend(): KanbanBackend {
   const preference = (env('CLAUDE_KANBAN_BACKEND') ?? 'auto').toLowerCase()
   if (preference === 'local') return localBackend
-  if (preference === 'hermes-proxy' || preference === 'proxy') {
+  if (preference === 'nastech-proxy' || preference === 'proxy') {
     return getCapabilities().kanban ? dashboardProxyBackend : localBackend
   }
   if (preference === 'claude') {

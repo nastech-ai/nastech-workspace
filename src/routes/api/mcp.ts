@@ -140,7 +140,7 @@ export const Route = createFileRoute('/api/mcp')({
           } else {
             // Phase 1.5 fallback — read config.mcp_servers, then hydrate
             // status + discoveredToolsCount from the in-memory probe cache
-            // (populated by /api/mcp/test which shells out to the hermes
+            // (populated by /api/mcp/test which shells out to the nastech
             // CLI). Cards then show the last-known tool count + status
             // without forcing a fresh probe on every list refresh.
             const cfg = (await getConfig()) as unknown

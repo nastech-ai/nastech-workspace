@@ -55,8 +55,8 @@ export function parseEnvText(raw: string): Record<string, string> {
   return env
 }
 
-export function readHermesEnv(
-  envHome = process.env.HERMES_HOME ?? process.env.CLAUDE_HOME ?? join(homedir(), '.hermes'),
+export function readNasTechEnv(
+  envHome = process.env.NASTECH_HOME ?? process.env.CLAUDE_HOME ?? join(homedir(), '.nastech'),
 ): Record<string, string> {
   const envPath = join(envHome, '.env')
   if (!existsSync(envPath)) return {}
@@ -70,7 +70,7 @@ export function readHermesEnv(
 export function resolveTranscriptionTarget(
   config: RecordLike,
   runtimeEnv: Record<string, string | undefined> = process.env,
-  hermesEnv: Record<string, string> = readHermesEnv(),
+  nastechEnv: Record<string, string> = readNasTechEnv(),
 ): ResolvedTranscriptionTarget | ResolvedTranscriptionError {
   const stt = readRecord(config.stt)
   const provider = readString(stt.provider) || 'local'
@@ -79,7 +79,7 @@ export function resolveTranscriptionTarget(
   if (provider === 'groq') {
     const groq = readRecord(stt.groq)
     const apiKey =
-      readString(runtimeEnv.GROQ_API_KEY) || readString(hermesEnv.GROQ_API_KEY)
+      readString(runtimeEnv.GROQ_API_KEY) || readString(nastechEnv.GROQ_API_KEY)
     if (!apiKey) {
       return { ok: false, error: 'Groq STT is configured but GROQ_API_KEY is missing.' }
     }
@@ -91,7 +91,7 @@ export function resolveTranscriptionTarget(
       apiKey,
       baseUrl:
         readString(runtimeEnv.GROQ_BASE_URL) ||
-        readString(hermesEnv.GROQ_BASE_URL) ||
+        readString(nastechEnv.GROQ_BASE_URL) ||
         DEFAULT_GROQ_BASE_URL,
     }
   }
@@ -100,9 +100,9 @@ export function resolveTranscriptionTarget(
     const openai = readRecord(stt.openai)
     const apiKey =
       readString(runtimeEnv.VOICE_TOOLS_OPENAI_KEY) ||
-      readString(hermesEnv.VOICE_TOOLS_OPENAI_KEY) ||
+      readString(nastechEnv.VOICE_TOOLS_OPENAI_KEY) ||
       readString(runtimeEnv.OPENAI_API_KEY) ||
-      readString(hermesEnv.OPENAI_API_KEY)
+      readString(nastechEnv.OPENAI_API_KEY)
     if (!apiKey) {
       return {
         ok: false,
@@ -115,13 +115,13 @@ export function resolveTranscriptionTarget(
       model:
         readString(openai.model) ||
         readString(runtimeEnv.STT_OPENAI_MODEL) ||
-        readString(hermesEnv.STT_OPENAI_MODEL) ||
+        readString(nastechEnv.STT_OPENAI_MODEL) ||
         DEFAULT_OPENAI_MODEL,
       language,
       apiKey,
       baseUrl:
         readString(runtimeEnv.STT_OPENAI_BASE_URL) ||
-        readString(hermesEnv.STT_OPENAI_BASE_URL) ||
+        readString(nastechEnv.STT_OPENAI_BASE_URL) ||
         DEFAULT_OPENAI_BASE_URL,
     }
   }

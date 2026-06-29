@@ -8,7 +8,7 @@ Modes: review
 gbrain, web, session_search, file, skills, todo, clarify
 
 ## Skills
-strategist-core, gstack-for-hermes, gbrain, writing-plans, polymarket
+strategist-core, gstack-for-nastech, gbrain, writing-plans, polymarket
 
 ## MCP servers
 gbrain
@@ -16,4 +16,4 @@ gbrain
 ## Plugins
 none
 
-This file mirrors `swarm.yaml` and the profile config under `~/.hermes/profiles/strategist/`.
+This file mirrors `swarm.yaml` and the profile config under `~/.nastech/profiles/strategist/`.

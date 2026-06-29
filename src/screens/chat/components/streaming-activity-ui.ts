@@ -55,7 +55,7 @@ export function formatStreamingActivityLabel(
   return lowerName.replace(/_/g, ' ')
 }
 
-export function buildHermesActivitySummary(
+export function buildNasTechActivitySummary(
   sections: Array<StreamingActivitySection>,
 ): {
   countLabel: string
@@ -117,7 +117,7 @@ export function buildHermesActivitySummary(
   }
 }
 
-export function shouldAutoExpandHermesActivityCard({
+export function shouldAutoExpandNasTechActivityCard({
   isStreaming,
   toolCount,
 }: {
@@ -155,7 +155,7 @@ export function shouldRenderStreamingThoughtSummary({
   if (!thinking || thinking.trim().length === 0) return false
 
   // During live generation, the bottom thinking bubble owns the idle/thinking state
-  // and the grouped Hermes activity card owns live tool activity. That means the
+  // and the grouped NasTech activity card owns live tool activity. That means the
   // separate lightbulb summary row should stay gone while streaming, regardless of
   // whether tool calls have started yet.
   if (isStreaming) return false

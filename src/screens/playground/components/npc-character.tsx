@@ -1,6 +1,6 @@
 import { GroupProps } from '@react-three/fiber'
 import type { CharacterArchetypeId } from '../lib/character-config'
-import { HERMESWORLD_CHARACTER_ARCHETYPES } from '../lib/character-config'
+import { NASTECHWORLD_CHARACTER_ARCHETYPES } from '../lib/character-config'
 
 type NpcCharacterProps = GroupProps & {
   archetypeId: CharacterArchetypeId
@@ -15,8 +15,8 @@ type NpcCharacterProps = GroupProps & {
  */
 export function NpcCharacter({ archetypeId, accent, ...props }: NpcCharacterProps) {
   const archetype =
-    HERMESWORLD_CHARACTER_ARCHETYPES.find((entry) => entry.id === archetypeId) ??
-    HERMESWORLD_CHARACTER_ARCHETYPES[0]
+    NASTECHWORLD_CHARACTER_ARCHETYPES.find((entry) => entry.id === archetypeId) ??
+    NASTECHWORLD_CHARACTER_ARCHETYPES[0]
 
   const tint = accent ?? inferTint(archetypeId)
 
